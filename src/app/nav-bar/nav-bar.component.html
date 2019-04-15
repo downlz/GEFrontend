@@ -97,7 +97,8 @@
             <div ngbDropdownMenu class="dropdown-menu " aria-labelledby="dropdown01">
               <a class="dropdown-item nav-link" routerLink="/myOrders">My Orders</a>
               <a class="dropdown-item nav-link" routerLink="/allOrders" *ngIf="isAdmin">Manage Orders</a>
-              <a class="dropdown-item nav-link" routerLink="/admin/products" *ngIf="isAdmin">Manage Products</a>
+              <a class="dropdown-item nav-link" routerLink="/addProducts" *ngIf="isAdmin">Manage Products</a>
+              <a class="dropdown-item nav-link" routerLink="/groupBuying" *ngIf="isAdmin">Group Buying</a>
               <a class="dropdown-item nav-link" (click)="logout()">Log Out</a>
             </div>
           </li>

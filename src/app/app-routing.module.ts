@@ -7,6 +7,9 @@ import { LoginComponent } from './login/login.component';
 import { OrderNowComponent } from './order-now/order-now.component';
 import { MyOrdersComponent } from './my-orders/my-orders.component';
 import { AllOrdersComponent } from './all-orders/all-orders.component';
+import { GroupBuyingComponent } from './group-buying/group-buying.component';
+import { AddProductsComponent } from './add-products/add-products.component';
+import { ListGBItemComponent } from './listgb-item/listgb-item.component';
 import { RegistrationComponent } from './registration/registration.component';
 import { ErrorPageComponent } from './error-page/error-page.component';
 import { AuthGuard } from './_guards/auth.guard';
@@ -32,6 +35,22 @@ const routes: Routes = [
   {
     path: 'registration',
     component: RegistrationComponent
+  },
+  {
+    path: 'addProducts',
+    component: AddProductsComponent
+  },
+  {
+    path: 'listgbItem',
+    component: ListGBItemComponent
+  },
+  {
+    path: 'groupBuying',
+    component: GroupBuyingComponent,
+    canActivate: [AuthGuard],
+    data: {
+      roles: ['admin']
+    }
   },
   {
     path: 'product/:id',

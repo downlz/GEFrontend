@@ -1,0 +1,9 @@
+.listingOffsetTextColor {
+  padding-top: 80px;
+  color: black;
+  padding-left: 9.5%;
+}
+
+.ItemCardContainer {
+  padding: 10px;
+}

@@ -27,7 +27,8 @@ export class ProductDetailComponent implements OnInit {
     this.userService.get('me')
     .subscribe(response => {
       const res = response as any;
-      this.address = res.Addresses[0];
+      console.log(res);
+      this.address = res.Addresses[0];          // Disabled due to technical reasons
       this.userid = res._id;
     }, (error: Response) => {
       this.router.navigate(['/errorpage']);

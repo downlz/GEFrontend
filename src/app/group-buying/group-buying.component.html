@@ -1,0 +1,106 @@
+<div class="container">
+    <div class="container listingOffsetTextColor">
+      <div class="col-12 col-md-6">
+        <div class="card-footer">
+          <a href="www.google.com" class="btn btn-primary btn-block">Add a item for Group Buying</a>
+          <!-- <a [routerLink]="www.google.com" routerLinkActive="router-link-active" class="btn btn-primary btn-block">List a group buying item</a> -->
+        </div>
+      </div>
+  <!--  <form>
+      <br> Item Details <br>
+      <input type="text" name="fname" placeholder="Item Name">
+      <select name="category">
+        <option value="Rice">Rice</option>
+        <option value="Sugar">Sugar</option>
+        <option value="Dal">Dal</option>
+        <option value="Masala">Masa</option>
+      </select>
+
+        <input type="text" name="fname" placeholder="Grade">
+        <input type="text" name="lname" placeholder="Origin">
+          <br> Set Buying Window <br>
+          <input type="text" name="fname" placeholder="Start Time">
+          <input type="text" name="lname" placeholder="End Time">
+          <br> Enter Item Qty and Pricing <br>
+            <input type="text" name="fname" placeholder="Deal Price">
+            <input type="text" name="lname" placeholder="MOQ">
+            <input type="text" name="fname" placeholder="Max Cap">
+            <input type="text" name="lname" placeholder="Total Qty">
+                <input type="text" name="fname" placeholder="Sampleno">
+                <input type="text" name="lname" placeholder="Tax Rate"><br>
+                Choose Item Spec<br>
+                <input type="text" name="lname" placeholder="Moisture">
+                <input type="text" name="lname" placeholder="GrainCount">
+                <input type="text" name="lname" placeholder="ICUMSA">
+                <br><br>
+  <input type="submit" value="Add Entry" align="center">
+      </form> -->
+    </div>
+
+    <div class="container listingOffsetTextColor">
+      <p align = "center">Showing list of availabe group buying</p>
+        <table class="table table-hover table-sm">
+            <thead>
+              <tr>
+                <th scope="col">Item Name</th>
+                <th scope="col">Category</th>
+                <th scope="col">Grade</th>
+                <th scope="col">Origin</th>
+                <th scope="col">Start Time</th>
+                <th scope="col">End Time</th>
+                <th scope="col">Deal Price</th>
+                <th scope="col">MOQ</th>
+                <th scope="col">Max Cap</th>
+                <th scope="col">Spec</th>
+                <th scope="col">Sampleno</th>
+                <th scope="col">Total Qty</th>
+                <th scope="col">Tax Rate</th>
+                <th scope="col">Status</th>
+                <th scope="col">Edit</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>RICEBAS0023</td>
+                <td>Rice</td>
+                <td>A001</td>
+                <td>Gulbarga</td>
+                <td>15th Apr 19 10:00</td>
+                <td>16th Apr 19 15:00</td>
+                <td>Rs.63.98/kg</td>
+                <td>100</td>
+                <td>500</td>
+                <td>
+                  <li>42%</li>
+                  <li>24 GC</li>
+                  <li>23/89</li>
+                </td>
+                <td>SAMRICEA001</td>
+                <td>2500</td>
+                <td>0.254</td>
+                <td>UPCOMING</td>
+              </tr>
+              <!--  <ng-container *ngFor="let order of orders">
+              <tr>
+                <th scope="row">{{order._id}}</th>
+                <td>{{order.seller.name}}</td>
+                <td>{{order.buyer.name}}</td>
+                <td>{{order.item.name.name}}</td>
+                <td>{{order.quantity}} kgs</td>
+                <td>Rs. {{order.cost}}</td>
+                <td>
+                  <select id="status" [(ngModel)]="order.status">
+                    <option *ngFor="let state of states" [ngValue]="state" [selected]="state == order.status"> {{ state }}</option>
+                  </select></td>
+                <td><button (click)="updateOrder(order)">update</button></td>
+              </tr>
+            </ng-container> -->
+              </tbody>
+              </table>
+
+          <!-- <div class="ItemCardContainer">
+            <app-order-card [order]="order"> </app-order-card>
+          </div> -->
+
+    </div>
+  </div>

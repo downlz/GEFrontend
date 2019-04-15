@@ -1,6 +1,7 @@
 <div *ngIf="order._id" class="card order">
   <div class="card-body">
-    <h5 class="card-title">Order Id: {{order._id}}</h5>
+    <!-- <h5 class="card-title">Order Id: {{order._id}}</h5> -->
+    <h5 class="card-title">Order Id: {{order.orderno}}</h5>
     <h6 class="card-subtitle mb-2 text-muted">{{ order.item.name.name }} | {{
       order.item.category.name }}</h6>
     <div class="container row">

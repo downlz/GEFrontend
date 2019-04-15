@@ -1,0 +1,196 @@
+<div class="container listingOffsetTextColor">
+  <h3>Enter product information</h3>
+
+  <!-- <form [formGroup]="form" (ngSubmit)="addproduct()"> -->
+    <form [formGroup]="form">
+  <!-- <form [formGroup]="form" method ="post" action='/testcall' enctype="multipart/form-data"> -->
+  <!-- enctype="multipart/form-data"> -->
+    <div formGroupName="newitem">
+      <div class="row">
+        <div class="col-md-5 pr-1">
+          <div class="form-group">
+            <label>Itemname</label>
+            <!-- <select name="itemname" id="itemname" class="form-control">
+                  <option value="volvo">Rice</option>
+                  <option value="saab">Wheat</option>
+                  <option value="fiat">Sugar</option>
+                  <option value="audi">Dal</option>
+            </select> -->
+
+            <select class="form-control" id="itemname" formControlName="itemname">
+              <option value=''></option>
+              <option *ngFor="let item of itemnames" [ngValue]="item._id"> {{ item.name }} </option>
+            </select>
+
+          </div>
+        </div>
+        <div class="col-md-3 pl-1">
+          <div class="form-group">
+            <label>Category</label>
+            <select class="form-control" id="itemcategory" formControlName="itemcategory">
+              <option value=''></option>
+              <option *ngFor="let category of categories" [ngValue]="category._id"> {{ category.name }}</option>
+            </select>
+
+          </div>
+        </div>
+        <!-- <div class="col-md-4 pl-1">
+          <div class="form-group">
+            <label>Item</label>
+            <input name="item" id="item" type="text" class="form-control" formControlName="item" placeholder="Item">
+          </div>
+        </div> -->
+      </div>
+
+      <div class="row">
+        <div class="col-md-5 pr-1">
+          <div class="form-group">
+            <label>Sample No</label>
+            <input type="text" id="sampleno"class="form-control" formControlName="sampleno" placeholder="Enter Sample no.">
+          </div>
+        </div>
+        <div class="col-md-3 pl-1">
+          <div class="form-group">
+            <label>Grade</label>
+            <input type="text" id="grade" class="form-control" formControlName="grade" placeholder="Add Product Grade" >
+          </div>
+        </div>
+      </div>
+      <h5>Enter product specs</h5>
+      <div class="row">
+        <div class="col-md-5 pr-1">
+          <div class="form-group">
+            <!-- <label></label> -->
+            <input type="text" id="moisture" class="form-control" formControlName="moisture" placeholder="Enter moisture content in item">
+          </div>
+        </div>
+        <div class="col-md-3 pl-1">
+          <div class="form-group">
+            <!-- <label></label> -->
+            <input type="text" id="graincount" class="form-control" formControlName="graincount" placeholder="Enter Grain Count">
+          </div>
+        </div>
+        <div class="col-md-4 pl-1">
+          <div class="form-group">
+            <!-- <label>Origin</label> -->
+            <input type="text" id="icumsa" class="form-control" formControlName="icumsa" placeholder="Add icumsa">
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-3 pr-1">
+          <div class="form-group">
+            <label>Quantity</label>
+            <input type="text" id="qty" class="form-control" formControlName="qty" placeholder="Add available Quantity">
+          </div>
+        </div>
+        <div class="col-md-2 pl-1">
+          <div class="form-group">
+            <label>Unit</label>
+            <!-- <input type="text" id="unit" class="form-control" formControlName="unit" placeholder="Unit"> -->
+            <select class="form-control" id="unit" formControlName="unit">
+              <option value=''></option>
+              <option *ngFor="let unit of units" [ngValue]="unit._id"> {{ unit.mass }} </option>
+            </select>
+          </div>
+        </div>
+        <div class="col-md-2 pl-1">
+          <div class="form-group">
+            <label>Price</label>
+            <input type="text" id = "price" class="form-control" formControlName="price" placeholder="Selling Price">
+          </div>
+        </div>
+        <div class="col-md-5 pl-1">
+          <div class="form-group">
+            <label>Seller</label>
+            <select class="form-control" id="seller" formControlName="seller">
+            <option value=''></option>
+            <option *ngFor="let sell of sellers" [ngValue]="sell._id"> {{ sell.name }} </option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <h5>Product location specific information </h5>
+      <div class="row">
+        <div class="col-md-2 pr-1">
+          <label for="city">City:</label>
+          <select class="form-control" id="city" formControlName="city">
+            <option value=''></option>
+            <option *ngFor="let c of cities" [ngValue]="c._id"> {{ c.name }} </option>
+          </select>
+        </div>
+        <div class="col-md-2 pl-1">
+          <div class="form-group">
+            <label>Origin</label>
+            <input type="text" id="origin" class="form-control" formControlName="origin" placeholder="Enter Origin">
+          </div>
+        </div>
+        <div class="col-md-5 pl-1">
+          <div class="form-group">
+            <label>Address</label>
+            <!-- <input type="text" id="address" class="form-control" formControlName="address" placeholder="Enter Address"> -->
+            <select name="address" id="address" formControlName="address" class="form-control">
+              <option value=''></option>
+              <option *ngFor="let addr of addresses" [ngValue]="addr._id"> {{ addr.text }} </option>
+            </select>
+          </div>
+        </div>
+        <div class="col-md-3 pl-1">
+          <div class="form-group">
+            <label>Select Manufacturer</label>
+            <select name="Manufacturer" id="manufacturer" formControlName="manufacturer" class="form-control">
+              <option value=''></option>
+              <option *ngFor="let mnf of manufacturers" [ngValue]="mnf._id"> {{ mnf.name }} </option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+
+        <div class="col-md-3 pr-1">
+          <div class="form-group">
+            <label for="file">Upload item image</label>
+          <!-- <input type="file" id="file" (change)="onFileChange($event)" formControlName="file"> -->
+          <input type="file" name="image" id="image" ng2FileSelect [uploader]="uploader" formControlName="image" accept=".jpg,.png,.jpeg">
+          <!-- <img [src]="url" style="display: none;"> -->
+          </div>
+        </div>
+        </div>
+        <!-- <div class="row">
+          <div class="col-md-3 pr-1">
+            <div class="form-group">
+          <button class="btn btn-primary"
+          (click)="uploader.uploadAll()"
+          [disabled]="!uploader.getNotUploadedItems().length" >
+            Upload this Image
+          </button>
+          </div>
+          </div>
+          </div> -->
+        <div class="row">
+        <div class="col-md-4 pr-1">
+          <div class="form-group">
+            <label for="file">Set item status</label> <br>
+            <label class="radio">
+            <input type="radio" id="itemstatus" name="itemstatus" value='true'> Active </label>
+            <label class="radio">
+            <input type="radio" id="itemstatus" name="itemstatus" value='false'> Inactive </label>
+          </div>
+        </div>
+
+      </div>
+
+
+    </div>
+
+    <!-- <button class="btn btn-primary" type="submit" [disabled]="!form.valid">Submit</button> -->
+    <button class="btn btn-primary"
+    (click)="uploader.uploadAll()"
+    [disabled]="!uploader.getNotUploadedItems().length" >
+      Add this item
+    </button>
+  </form>
+</div>

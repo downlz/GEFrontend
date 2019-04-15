@@ -79,9 +79,12 @@ export class OrderNowComponent implements OnInit {
     });
   }
 
+  generateorderno(odrno){
 
+  }
   order(f) {
     const OrderData = {
+      orderno: (this.userid.substring(-1,5)  + this.listing.seller._id.substring(-1,5)).toUpperCase(),    // Frame a order no generator here
       quantity: f.quantity,
       cost: f.quantity * this.listing.price,
       itemId: this.listing._id,
@@ -93,7 +96,6 @@ export class OrderNowComponent implements OnInit {
 
     };
 
-    console.log(OrderData);
     this.orderService.create(OrderData)
     .subscribe(response => {
       console.log(response);

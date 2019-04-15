@@ -16,7 +16,8 @@
             <tbody>
                 <ng-container *ngFor="let order of orders">
               <tr>
-                <th scope="row">{{order._id}}</th>
+                <!-- <th scope="row">{{order._id}}</th> -->
+                <th scope="row">{{order.orderno}}</th>
                 <td>{{order.seller.name}}</td>
                 <td>{{order.buyer.name}}</td>
                 <td>{{order.item.name.name}}</td>
