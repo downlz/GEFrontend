@@ -41,6 +41,11 @@ import { GroupBuyingComponent } from './group-buying/group-buying.component';
 import { AddProductsComponent } from './add-products/add-products.component';
 import { ListGBItemComponent } from './listgb-item/listgb-item.component';
 import { OrderCardComponent } from './order-card/order-card.component';
+import { AuctionComponent } from './auction/auction.component';
+import { SidebarComponent } from './auction/sidebar/sidebar.component';
+import { CreateAuctionComponent } from './auction/create-auction/create-auction.component';
+import { AuctionListComponent } from './auction/auction-list/auction-list.component';
+import { AuctionStatusComponent } from './auction/auction-status/auction-status.component';
 
 @NgModule({
   declarations: [
@@ -62,7 +67,12 @@ import { OrderCardComponent } from './order-card/order-card.component';
     AddProductsComponent,
     // AddItemnameComponent,
     ListGBItemComponent,
-    OrderCardComponent
+    OrderCardComponent,
+    AuctionComponent,
+    SidebarComponent,
+    CreateAuctionComponent,
+    AuctionListComponent,
+    AuctionStatusComponent
   ],
   imports: [
     BrowserModule,
