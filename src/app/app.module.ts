@@ -39,7 +39,6 @@ import { MyOrdersComponent } from './my-orders/my-orders.component';
 import { AllOrdersComponent } from './all-orders/all-orders.component';
 import { GroupBuyingComponent } from './group-buying/group-buying.component';
 import { AddProductsComponent } from './add-products/add-products.component';
-// import { AddItemnameComponent } from './add-products/add-itemname/add-itemname.component';
 import { ListGBItemComponent } from './listgb-item/listgb-item.component';
 import { OrderCardComponent } from './order-card/order-card.component';
 

@@ -1,179 +1,122 @@
 <div class="container listingOffsetTextColor">
   <h3>List Group Buying Item</h3>
-
-  <form [formGroup]="form" (ngSubmit)="login()">
-    <div formGroupName="account">
-
-
+  <form [formGroup]="form" (ngSubmit)="listgbitem()">
+    <div formGroupName="listgb">
       <div class="row">
-        <div class="col-md-5 pr-1">
-          <div class="form-group">
-            <label>Itemname</label>
-            <select name="Itemname" class="form-control">
-                  <option value="volvo">Rice</option>
-                  <option value="saab">Wheat</option>
-                  <option value="fiat">Sugar</option>
-                  <option value="audi">Dal</option>
-            </select>
-          </div>
-        </div>
-        <div class="col-md-3 px-1">
-          <div class="form-group">
-            <label>Category</label>
-            <!-- <input type="text" class="form-control" placeholder="Category" value="Item"> -->
-            <select name="Category" class="form-control">
-                  <option value="volvo">Rice xx</option>
-                  <option value="saab">Wheat xx</option>
-                  <option value="fiat">Sugar xx</option>
-                  <option value="audi">Dal xx</option>
-            </select>
-          </div>
-        </div>
-        <div class="col-md-4 px-1">
-          <div class="form-group">
-            <label for="email">Item</label>
-            <input name="email" id="email" type="email" class="form-control" placeholder="Item">
-          </div>
-        </div>
-      </div>
-
-      <div class="row">
-        <div class="col-md-5 pr-1">
-          <div class="form-group">
-            <!-- <label>Sample No</label> -->
-            <input type="text" class="form-control" placeholder="Company" value="Sample no.">
-          </div>
-        </div>
-          <div class="col-md-3 px-1">
+          <div class="col-md-3 pr-1">
             <div class="form-group">
-              <!-- <label>Sample No</label> -->
-              <input type="text" class="form-control" placeholder="Company" value="Grade">
+              <label>Sample No</label>
+              <select name="sampleno" class="form-control" id="sampleno" formControlName="sampleno" (change)="onSampleNoChange(sampleno.value,listings)">
+                <option value=''></option>
+                <option *ngFor="let sample of listings" [ngValue]="sample._id"> {{ sample.sampleNo }} </option>
+              </select>
             </div>
-      </div>
-      </div>
-      <h5>Product specs</h5>
-      <div class="row">
-        <div class="col-md-5 pr-1">
-          <div class="form-group">
-            <!-- <label></label> -->
-            <input type="text" class="form-control" placeholder="Company" value="Enter moisure content in item">
           </div>
-        </div>
-        <div class="col-md-3 pl-1">
-          <div class="form-group">
-            <!-- <label></label> -->
-            <input type="text" class="form-control" placeholder="Last Name" value="Enter Grain Count">
-          </div>
-        </div>
-        <div class="col-md-4 pl-1">
-          <div class="form-group">
-            <!-- <label>Origin</label> -->
-            <input type="text" class="form-control" placeholder="Last Name" value="Add icumsa">
-          </div>
-        </div>
+          <!-- <div class="col-md-5 pr-1">
+            <div class="form-group">
+              <label>Item id</label>
+                <input type="text" class="form-control" id = "itemId" formControlName="itemId" placeholder="Item id auto fetched">
+            </div>
+          </div> -->
       </div>
-      <h5>Product location specific information </h5>
+      <h5>Select a sample no to get details</h5>
+      <!-- <div ng-show = "IsVisible"> -->
+        <p>  {{ item }} {{ category }} {{ grade }} {{ origin }} {{ seller }} {{ manufacturer }}  {{ address }}</p>
+
+      <!-- <div class="col-12 col-md-6">
+        <div class="ItemCardContainer">
+          <img class="card-img-top ItemCardImage" [src]="{{image}}" alt="{{image}}">
+        </div>
+      </div> -->
+      <h5>Buying Specification</h5>
+
       <div class="row">
         <div class="col-md-3 pr-1">
           <div class="form-group">
-            <!-- <label></label> -->
-            <input type="text" class="form-control" placeholder="Company" value="Choose city">
-          </div>
-        </div>
-        <div class="col-md-5 px-1">
-          <div class="form-group">
-            <!-- <label></label> -->
-            <input type="text" class="form-control" placeholder="Last Name" value="Enter Address">
-          </div>
-        </div>
-        <div class="col-md-4 px-1">
-          <div class="form-group">
-            <!-- <label>Origin</label> -->
-            <select name="Manufacturer" class="form-control">
-                  <option value="volvo">ABC</option>
-                  <option value="saab">XYZ</option>
-                  <option value="fiat">BNM</option>
-                  <option value="audi">MKL</option>
-            </select>
-          </div>
-        </div>
-      </div>
-      <h5>Buying Specification</h5>
-      <div class="row">
-        <div class="col-md-2 pr-1">
-          <div class="form-group">
-            <label>Start Date</label>
+            <label>Start Date</label><br>
             <!-- <ejs-datepicker id='datepicker' placeholder='Select a date' [value]='value' [min]='minDate' [max]='maxDate'></ejs-datepicker> -->
-            <input [owlDateTime]="dt1" [owlDateTimeTrigger]="dt1" placeholder="Date Time">
+            <input [owlDateTime]="dt1" [owlDateTimeTrigger]="dt1" id="starttime" formControlName="starttime" placeholder="Date Time">
             <owl-date-time #dt1></owl-date-time>
           </div>
         </div>
-        <div class="col-md-2 pr-1">
+
+        <div class="col-md-3 px-1">
           <div class="form-group">
             <label>End Date</label><br>
-            <input [owlDateTime]="dt2" [owlDateTimeTrigger]="dt2" placeholder="Date Time">
+            <input [owlDateTime]="dt2" [owlDateTimeTrigger]="dt2" id="endtime" formControlName="endtime" placeholder="Date Time">
             <owl-date-time #dt2></owl-date-time>
           </div>
         </div>
+
       </div>
 
       <div class="row">
-        <div class="col-md-2 pr-1">
+        <div class="col-md-3 pr-1">
           <div class="form-group">
             <label>Deal Price</label>
-            <input type="text" class="form-control" placeholder="Last Name" value="Deal Price">
+            <input type="text" class="form-control" id = "dealprice" formControlName="dealprice" placeholder="Deal Price">
           </div>
         </div>
         <div class="col-md-2 px-1">
           <div class="form-group">
             <label>Minimum Qty</label>
-            <input type="text" class="form-control" placeholder="Last Name" value="Minimum Qty">
+              <input type="text" class="form-control" id = "moq" formControlName="moq" placeholder="Min Qty">
           </div>
         </div>
         <div class="col-md-2 px-1">
           <div class="form-group">
             <label>Maximum Qty</label>
-            <input type="text" class="form-control" placeholder="Last Name" value="Maximum Qty">
+            <input type="text" class="form-control" id = "maxqty" formControlName="maxqty" placeholder="Max Qty">
           </div>
         </div>
         <div class="col-md-2 px-1">
           <div class="form-group">
             <label>Total Qty</label>
-            <input type="text" class="form-control" placeholder="Last Name" value="Total Qty">
+            <input type="text" class="form-control" id = "totalqty" formControlName="totalqty" placeholder="Total Qty">
           </div>
         </div>
         <div class="col-md-2 px-1">
           <div class="form-group">
             <label>Selling Unit</label>
-            <input type="text" class="form-control" placeholder="Last Name" value="Specify Units">
-          </div>
-        </div>
-        <div class="col-md-2 px-1">
-          <div class="form-group">
-            <label>Tax Rate</label>
-            <input type="text" class="form-control" placeholder="Last Name" value="Tax Rate">
+            <select class="form-control" id="unit" formControlName="unit">
+              <option value=''></option>
+              <option *ngFor="let unit of units" [ngValue]="unit._id"> {{ unit.mass }} </option>
+            </select>
           </div>
         </div>
         </div>
-      <div class="row">
 
-        <div class="col-md-4 pl-1">
+        <div class="row">
+            <div class="col-md-2 pr-1">
+              <div class="form-group">
+                <label>Tax Rate</label>
+                <input type="text" class="form-control" id = "taxrate" formControlName="taxrate" placeholder="Tax Rate in %">
+              </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-7 pr-1">
+              <div class="form-group">
+                <label>Listing Remarks</label>
+                <input type="text" class="form-control" id = "remarks" formControlName="remarks" placeholder="Enter additional notes here">
+              </div>
+            </div>
+        </div>
+
+      <div class="row">
+        <div class="col-md-4 pr-1">
           <div class="form-group">
             <label for="file">Set Group buying status</label> <br>
             <label class="radio">
-            <input type="radio" name="answer"> Active</label>
+            <input type="radio" id="isactive" formControlName="isactive" value = 'true'> Active </label>
             <label class="radio">
-            <input type="radio" name="answer"> Inactive</label>
-            <label class="radio">
-            <input type="radio" name="answer"> Auto </label>
+            <input type="radio" id="isactive" formControlName="isactive" value = 'false'> Inactive</label>
           </div>
         </div>
-
       </div>
 
-
+        <button class="btn btn-primary" type="submit" [disabled]="!form.valid">Submit</button>
     </div>
-
-    <button class="btn btn-primary" type="submit" [disabled]="!form.valid">Submit</button>
   </form>
 </div>

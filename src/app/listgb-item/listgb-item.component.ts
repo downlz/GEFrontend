@@ -3,6 +3,12 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { FormValidators} from '../login/login-form.validators';
 import {CityService} from '../services/city.service';
 import {StateService} from '../services/state.service';
+import {UnitService} from '../services/unit.service';
+import {GroupBuyingService} from '../services/groupbuying.service';
+// import {CategoryService} from '../services/category.service';
+// import {ItemnameService} from '../services/itemname.service';
+import {ListingService} from '../services/listing.service';
+// import {ManufacturerService} from '../services/manufacturer.service';
 import { forkJoin } from 'rxjs';
 import {UserService} from '../services/user.service';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -14,37 +20,78 @@ import { AppError } from '../common/app-error';
   styleUrls: ['./listgb-item.component.scss']
 })
 export class ListGBItemComponent implements OnInit {
+  // var itemarr;
   form = new FormGroup({
-    account: new FormGroup({
-      'name' : new FormControl('', [Validators.required,
-        Validators.minLength(3),
-        Validators.maxLength(50)]),
-      'email' : new FormControl('', [Validators.email]),
-      'phone' : new FormControl('', [Validators.required, Validators.minLength(10),
-        Validators.maxLength(10), Validators.pattern('^[0-9]*$'),
-        FormValidators.cannotContainSpace],
-        FormValidators.shouldBeUnique),
-      'password' : new FormControl('', [Validators.required, Validators.minLength(8)]),
-      'pan' : new FormControl(),
-      'GST' : new FormControl('', [Validators.required]),
-      'address' : new FormControl('', [Validators.required]),
-      'city' : new FormControl('', [Validators.required]),
-      'state' : new FormControl('', [Validators.required]),
-      'pin' : new FormControl('', [Validators.required])
+    listgb: new FormGroup({
+      // 'name' : new FormControl('', [Validators.required,
+      //   Validators.minLength(3),
+      //   Validators.maxLength(50)]),
+      // 'email' : new FormControl('', [Validators.email]),
+      // 'phone' : new FormControl('', [Validators.required, Validators.minLength(10),
+      //   Validators.maxLength(10), Validators.pattern('^[0-9]*$'),
+      //   FormValidators.cannotContainSpace],
+      //   FormValidators.shouldBeUnique),
+      // 'password' : new FormControl('', [Validators.required, Validators.minLength(8)]),
+      // 'pan' : new FormControl(),
+      // 'GST' : new FormControl('', [Validators.required]),
+      // 'address' : new FormControl('', [Validators.required]),
+      // 'city' : new FormControl('', [Validators.required]),
+      // 'state' : new FormControl('', [Validators.required]),
+      // 'pin' : new FormControl('', [Validators.required])
+      // itemid : FormControl(''),
+      category : new FormControl(''),
+      itemname : new FormControl(''),
+      unit : new FormControl(''),
+      sampleno : new FormControl(''),
+      starttime : new FormControl(''),
+      endtime : new FormControl(''),
+      dealprice : new FormControl(''),
+      moq : new FormControl(''),
+      maxqty : new FormControl(''),
+      totalqty : new FormControl(''),
+      taxrate : new FormControl(''),
+      remarks : new FormControl(''),
+      isactive : new FormControl(''),
     })
   });
-
+// var itemarr: any;
   cities: any;
   states: any;
+  units: any;
+  categories: any;
+  itemnames: any;
   loginData: any;
+  listings: any;
+  // itemId: any;
+  item: any;
+  itemname: any;
+  category: any;
+  grade: any;
+  origin: any;
+  city: any;
+  graincount: any;
+  icumsa: any;
+  moisture: any;
+  address: any;
+  itemarr: any;
+  image: any;
+  seller: any;
+  manufacturer: any;
+
   constructor(private stateService: StateService, private cityService: CityService,
-    private user: UserService, private router: Router) { }
+    private user: UserService, private unitService: UnitService,private listingService: ListingService,
+    private groupbuyingService: GroupBuyingService,private router: Router) { }
 
   ngOnInit() {
-    forkJoin([this.cityService.getAll(), this.stateService.getAll()])
+
+    forkJoin([this.cityService.getAll(), this.stateService.getAll(),
+      this.unitService.getAll(),this.listingService.getAll()])
     .subscribe(response => {
       this.cities = response[0];
       this.states = response[1];
+      this.units = response[2];
+      this.listings  = response[3];
+      // console.log(this.listings);
     }, (error: Response) => {
       this.router.navigate(['/errorpage']);
       if (error.status === 400) {
@@ -54,58 +101,98 @@ export class ListGBItemComponent implements OnInit {
     });
   }
 
-  get phone () {
-    return this.form.get('account.phone');
+  get sampleno () {
+    return this.form.get('listgb.sampleno');
   }
-
-  get name () {
-    return this.form.get('account.name');
+  //
+  // get itemId () {
+  //   return this.form.get('listgb.itemId');
+  // }
+  //
+  // get qty () {
+  //   return this.form.get('listgb.qty');
+  // }
+  //
+  get unit () {
+    return this.form.get('listgb.unit');
   }
+  //
+  // get seller () {
+  //   return this.form.get('listgb.seller');
+  // }
+  //
+  // get origin () {
+  //   return this.form.get('listgb.origin');
+  // }
+  //
+  // get city () {
+  //   return this.form.get('listgb.city');
+  // }
+  //
+  // get address () {
+  //   return this.form.get('listgb.address');
+  // }
+  //
+  // get icumsa () {
+  //   return this.form.get('listgb.icumsa');
+  // }
+  //
+  // get manufacturer () {
+  //   return this.form.get('listgb.manufacturer');
+  // }
 
-  get email () {
-    return this.form.get('account.email');
-  }
+  // onSampleNoChange(ac,listarr){
+  //   // console.log("Hello");
+  //   console.log(listarr[2]);
+  // };
 
-  get password () {
-    return this.form.get('account.password');
-  }
+  onSampleNoChange(sampleno,listarr) {
+    var itemarr;
+    listarr.forEach(function(value){                    // Improve coding standards
+       if (value._id == sampleno) {
+         itemarr = value;
+       }
+    })
 
-  get GST () {
-    return this.form.get('account.GST');
-  }
+    this.item = itemarr.name.name;
+    this.category = itemarr.category.name;
+    this.grade = itemarr.grade;
+    this.origin = itemarr.origin;
+    this.seller = itemarr.seller.name;
+    // this.itemId = itemarr._id;
+    // this.form('listgb.itemId').setValue(itemarr._id);
+    // console.log(itemarr._id);
+    // this.address = itemarr.seller.Addresses.text + ' ' + itemarr.seller.Addresses.city.name ;
+    // this.image = itemarr.image;
+    // this.manufacturer = itemarr.manufacturer.name;
+    // console.log(itemarr);
+  };
 
-  get address () {
-    return this.form.get('account.state');
-  }
-
-  get city () {
-    return this.form.get('account.city');
-  }
-
-  get state () {
-    return this.form.get('account.state');
-  }
-
-  login() {
+  listgbitem() {
+  // console.log(itemarr);
+// console.log(itemId)
     const formData = {
-      phone:  '+91' + this.form.value.account.phone,
-      name:   this.form.value.account.name,
-      email:  this.form.value.account.email,
-      password:   this.form.value.account.password,
-      pan:    this.form.value.account.pan,
-      GST:    this.form.value.account.GST,
-      address:    this.form.value.account.address,
-      cityId:   this.form.value.account.city,
-      stateId:  this.form.value.account.state,
-      pin:    this.form.value.account.pin,
-      isBuyer: 'true'
+      itemId:  this.form.value.listgb.sampleno,
+      // itemId:   this.form.value.listgb.itemId,
+      dealprice:  this.form.value.listgb.dealprice,
+      moq:   this.form.value.listgb.moq,
+      maxqty:    this.form.value.listgb.maxqty,
+      totalqty:    this.form.value.listgb.totalqty,
+      taxrate:    this.form.value.listgb.taxrate,
+      unitId:   this.form.value.listgb.unit,
+      remarks:  this.form.value.listgb.remarks,
+      isactive:    this.form.value.listgb.isactive,
+      gbstarttime: this.form.value.listgb.starttime,
+      gbendtime: this.form.value.listgb.endtime
     };
 
-    this.user.create(formData)
+    // console.log(formData);
+
+    this.groupbuyingService.create(formData)
     .subscribe(response => {
-      this.loginData = response;;
-      alert('Registration successful, Please login');
-      this.router.navigate(['/login'
+      // this.loginData = response;;
+      alert('GB Listing Successful');
+      this.router.navigate(['/groupBuying'
     ]);         // Link to Page product listings
     }, (error: AppError) => {
       console.log(error);
@@ -116,12 +203,7 @@ export class ListGBItemComponent implements OnInit {
       }
       console.log(error.originalError.status);
     });
-    // if (!valid) {
-    //   this.form.setErrors({
-    //     invalidLogin: true; invalid login should be of validatin error type
-    //                          used to display error on invalid login
-    //   });
-    // }
+
   }
 
 }

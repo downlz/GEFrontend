@@ -1,0 +1,11 @@
+<div *ngIf="listing.name.name" class="card ItemCard">
+  <img *ngIf="listing.image" class="card-img-top ItemCardImage" [src]="listing.image" alt="{{ listing.name }}">
+  <div class="card-body">
+    <h4 class="card-title">{{ gblisting.name.name }} | {{ gblisting.category.name }} </h4>
+    <p class="card-text"> Rs. {{ gblisting.price }} Per Kg</p>
+    <!-- <p class="card-text"> <b>Origin:</b> Bangalore <b>Manufacturer: </b> ABC Ltd </p> -->
+  </div>
+  <div class="card-footer">
+    <a class="btn btn-primary btn-block" [routerLink]="['/gbproduct', listing._id]" routerLinkActive="router-link-active" >Product Details</a>
+  </div>
+</div>

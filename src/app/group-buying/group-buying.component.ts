@@ -11,22 +11,23 @@ import { AppError } from '../common/app-error';
 })
 export class GroupBuyingComponent implements OnInit {
   orders: any;
-  states = ['new', 'confirmed', 'shipped', 'delivered'];
+  states = ['new', 'confirmed','ready', 'shipped', 'delivered'];
   constructor(private authenticationService: AuthService, private groupBuying: GroupBuyingService,
     private route: ActivatedRoute, private router: Router) { }
 
   ngOnInit() {
-    this.groupBuying.getAll()
-    .subscribe(response => {
-      this.orders = response as any;
-      console.log(this.orders);
-    }, (error: Response) => {
-      this.router.navigate(['/errorpage']);
-      if (error.status === 400) {
-        alert(' expected error, post already deleted');
-      }
-      console.log(error);
-    });
+    // console.log("Here")
+    // this.groupBuying.getAll()
+    // .subscribe(response => {
+    //   this.orders = response as any;
+    //   console.log(this.orders);
+    // }, (error: Response) => {
+    //   this.router.navigate(['/errorpage']);
+    //   if (error.status === 400) {
+    //     alert(' expected error, post already deleted');
+    //   }
+    //   console.log(error);
+    // });
   }
 
   updateOrder(order) {
@@ -36,15 +37,15 @@ export class GroupBuyingComponent implements OnInit {
       status:  order.status
     };
 
-    this.groupBuying.update(updateData)
-    .subscribe(response => {
-      console.log(response);
-      alert('Update successful');
-    }, (error: AppError) => {
-      console.log(error);
-        this.router.navigate(['/errorpage']);
-      console.log(error.originalError.status);
-    });
+    // this.groupBuying.update(updateData)
+    // .subscribe(response => {
+    //   console.log(response);
+    //   alert('Update successful');
+    // }, (error: AppError) => {
+    //   console.log(error);
+    //     this.router.navigate(['/errorpage']);
+    //   console.log(error.originalError.status);
+    // });
   }
 
 }
