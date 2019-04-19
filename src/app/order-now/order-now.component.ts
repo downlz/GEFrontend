@@ -79,9 +79,10 @@ export class OrderNowComponent implements OnInit {
     });
   }
 
-  generateorderno(odrno){
+  generateorderno(odrno){           // To generate order id
 
   }
+
   order(f) {
     const OrderData = {
       orderno: (this.userid.substring(-1,5)  + this.listing.seller._id.substring(-1,5)).toUpperCase(),    // Frame a order no generator here

@@ -1,6 +1,9 @@
 import {City} from './city';
 import {ItemName} from './item-name';
 import {Category} from './category';
+import {Unit} from './unit';
+import {Manufacturer} from './manufacturer';
+import {ItemSpecs} from './itemspecs';
 
 export interface Listing {
   _id: string;
@@ -15,4 +18,7 @@ export interface Listing {
   sampleNo: string;
   city: City;
   seller: any;
+  unit: Unit;
+  manufacturer: Manufacturer;
+  specs: ItemSpecs;
 }
