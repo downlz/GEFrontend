@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { LandingPageComponent } from './landing-page/landing-page.component';
 import { ListingsComponent } from './listings/listings.component';
+import { GBListingsComponent } from './gblistings/gblistings.component';
 import { ProductDetailComponent } from './product-detail/product-detail.component';
 import { LoginComponent } from './login/login.component';
 import { OrderNowComponent } from './order-now/order-now.component';
@@ -31,6 +32,10 @@ const routes: Routes = [
   {
     path: 'products',
     component: ListingsComponent
+  },
+  {
+    path: 'gbproducts',
+    component: GBListingsComponent
   },
   {
     path: 'registration',
