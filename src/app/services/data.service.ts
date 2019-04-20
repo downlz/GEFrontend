@@ -11,7 +11,7 @@ import { catchError } from 'rxjs/operators';
 // })
 export class DataService {
 
-  constructor(private url: string, private http: HttpClient) { }
+  constructor(protected url: string, protected http: HttpClient) { }
 
   getAll() {
     return this.http.get(this.url);

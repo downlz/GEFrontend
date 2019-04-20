@@ -39,6 +39,8 @@ export class NavBarComponent implements OnInit {
         this.activeSiteSection = 'seller';
     } else if (event.url.indexOf('#contact') !== -1) {
         this.activeSiteSection = 'contact';
+    }else if (event.url.indexOf('#auction') !== -1) {
+      this.activeSiteSection = 'auction';
     } else {
         this.activeSiteSection = '';
     }
