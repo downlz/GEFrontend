@@ -45,10 +45,8 @@ import { GroupBuyingComponent } from './group-buying/group-buying.component';
 import { AddProductsComponent } from './add-products/add-products.component';
 import { ListGBItemComponent } from './listgb-item/listgb-item.component';
 import { OrderCardComponent } from './order-card/order-card.component';
-<<<<<<< HEAD
 import { GBProductDetailComponent } from './gbproduct-detail/gbproduct-detail.component';
 import { GBOrderNowComponent } from './gborder-now/gborder-now.component';
-=======
 import { AuctionComponent } from './auction/auction.component';
 import { SidebarComponent } from './auction/sidebar/sidebar.component';
 import { CreateAuctionComponent } from './auction/create-auction/create-auction.component';
@@ -56,7 +54,6 @@ import { AuctionListComponent } from './auction/auction-list/auction-list.compon
 import { AuctionStatusComponent } from './auction/auction-status/auction-status.component';
 import { AuctionListingCardComponent } from './auction/auction-listing-card/auction-listing-card.component';
 import { BidsComponent } from './auction/bids/bids.component';
->>>>>>> 0fec2a3ccfb3be6d23961bafe6821e29dd900e0d
 
 @NgModule({
   declarations: [

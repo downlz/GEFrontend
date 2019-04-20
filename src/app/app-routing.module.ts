@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { LandingPageComponent } from './landing-page/landing-page.component';
@@ -19,7 +18,6 @@ import { ReferUserComponent } from './refer-user/refer-user.component';
 import { ErrorPageComponent } from './error-page/error-page.component';
 import { AuthGuard } from './_guards/auth.guard';
 
-=======
 import {NgModule} from '@angular/core';
 import {Routes, RouterModule} from '@angular/router';
 import {LandingPageComponent} from './landing-page/landing-page.component';
@@ -41,7 +39,6 @@ import {ErrorPageComponent} from './error-page/error-page.component';
 import {AuthGuard} from './_guards/auth.guard';
 import {GBListingsComponent} from './gblistings/gblistings.component';
 import {BidsComponent} from './auction/bids/bids.component';
->>>>>>> 0fec2a3ccfb3be6d23961bafe6821e29dd900e0d
 
 const routes: Routes = [
   {
