@@ -1,0 +1,80 @@
+<div class="farmbg"></div>
+<div class="container shdw">
+    <div class="listingOffsetTextColor">
+  <div class="row container bordermk">
+
+    <div class="col-12 col-md-6">
+      <div class="ItemCardContainer">
+        <img class="card-img-top ItemCardImage" src="assets/images/refer.png" alt="Refer a person">
+      </div>
+    </div>
+    <div class="col-12 col-md-6">
+      <div class="ItemCardContainer">
+        <div class="card ItemCardDesc">
+          <div class="card-body">
+            <table style="width:100%">
+              <tr>
+                <th>
+                  <h3 class="card-title"> User referral form </h3>
+                </th>
+              </tr>
+            </table>
+
+
+          <form [formGroup]="form" class="form-horizontal" (ngSubmit)="referNow()">
+              <div formGroupName="referral">
+            <div class="form-group">
+              <div class="row">
+                <div class="col-md-12 px-1">
+                  <div class="form-group">
+                    <label>Name</label>
+                    <input type="text" id="name"class="form-control" formControlName="name" placeholder="Enter contact name">
+                  </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12 px-1">
+                <div class="form-group">
+                  <label>Email</label>
+                  <input type="text" id="email" class="form-control" formControlName="email" placeholder="Enter email">
+                  <div class="alert alert-danger" *ngIf="email.touched && email.invalid">
+                    Email is invalid
+                  </div>
+                </div>
+              </div>
+          </div>
+          <div class="row">
+              <div class="col-md-12 px-1">
+              <div class="form-group">
+                <label>Phone</label>
+                <input type="text" id="phone"class="form-control" formControlName="phone" placeholder="Enter mobile no">
+                <div *ngIf="phone.pending">checking for errors</div>
+                <div class="alert alert-danger" *ngIf="phone.touched && phone.invalid">
+                  <div *ngIf="phone.errors.required"> Phone number is required </div>
+                  <div *ngIf="phone.errors.minlength"> minimum length should be {{ phone.errors.minlength.requiredLength}}</div>
+                  <div *ngIf="phone.errors.maxlength"> maximum length should be {{ phone.errors.maxlength.requiredLength}}</div>
+                  <div *ngIf="phone.errors.cannotContainSpace"> Phone number cannot contain space</div>
+                  <div *ngIf="phone.errors.pattern"> Should be only number</div>
+                  <div *ngIf="phone.errors.shouldBeUnique"> Phone number should be unique</div>
+                </div>
+              </div>
+            </div>
+        </div>
+            <div>
+            <button class="btn btn-primary" >Submit</button>
+          </div>
+          </div>
+        </div>
+          </form>
+
+        </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+  </div>
+</div>
+
+
+

@@ -24,6 +24,7 @@ import { DataService } from './services/data.service';
 import { CityService } from './services/city.service';
 import { StateService } from './services/state.service';
 import { UserService} from './services/user.service';
+import { ReferralService} from './services/referral.service';
 import { UsersellerService} from './services/seller.service';
 import { AuthService } from './services/auth.service';
 import { PriceService } from './services/price.service';
@@ -32,6 +33,7 @@ import { ErrorInterceptor } from './_helpers/error.interceptor';
 import { ListingCardComponent } from './listing-card/listing-card.component';
 import { GBListingCardComponent } from './gblisting-card/gblisting-card.component';
 import { RegistrationComponent } from './registration/registration.component';
+import { ReferUserComponent } from './refer-user/refer-user.component';
 import { LoginComponent } from './login/login.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ErrorPageComponent } from './error-page/error-page.component';
@@ -43,6 +45,8 @@ import { GroupBuyingComponent } from './group-buying/group-buying.component';
 import { AddProductsComponent } from './add-products/add-products.component';
 import { ListGBItemComponent } from './listgb-item/listgb-item.component';
 import { OrderCardComponent } from './order-card/order-card.component';
+import { GBProductDetailComponent } from './gbproduct-detail/gbproduct-detail.component';
+import { GBOrderNowComponent } from './gborder-now/gborder-now.component';
 
 @NgModule({
   declarations: [
@@ -56,10 +60,13 @@ import { OrderCardComponent } from './order-card/order-card.component';
     GBListingCardComponent,
     GBListingsComponent,
     RegistrationComponent,
+    ReferUserComponent,
     LoginComponent,
     ErrorPageComponent,
     ProductDetailComponent,
+    GBProductDetailComponent,
     OrderNowComponent,
+    GBOrderNowComponent,
     MyOrdersComponent,
     AllOrdersComponent,
     GroupBuyingComponent,
@@ -89,6 +96,7 @@ import { OrderCardComponent } from './order-card/order-card.component';
     StateService,
     CityService,
     UserService,
+    ReferralService,
     // UserbuyerService,
     UsersellerService,
     AuthService,
