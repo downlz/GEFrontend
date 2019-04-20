@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+import {ListingService} from '../../services/listing.service';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-auction-list',
@@ -6,10 +8,22 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./auction-list.component.scss']
 })
 export class AuctionListComponent implements OnInit {
+  listings: any;
 
-  constructor() { }
+  constructor(private service: ListingService, private router: Router) {
+  }
 
   ngOnInit() {
+    this.service.getAll()
+      .subscribe(response => {
+        this.listings = response;
+      }, (error: Response) => {
+        this.router.navigate(['/errorpage']);
+        if (error.status === 400) {
+          alert(' expected error, post already deleted');
+        }
+        console.log(error);
+      });
   }
 
 }

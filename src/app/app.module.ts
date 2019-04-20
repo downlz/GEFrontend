@@ -46,6 +46,7 @@ import { SidebarComponent } from './auction/sidebar/sidebar.component';
 import { CreateAuctionComponent } from './auction/create-auction/create-auction.component';
 import { AuctionListComponent } from './auction/auction-list/auction-list.component';
 import { AuctionStatusComponent } from './auction/auction-status/auction-status.component';
+import { AuctionListingCardComponent } from './auction/auction-listing-card/auction-listing-card.component';
 
 @NgModule({
   declarations: [
@@ -72,7 +73,8 @@ import { AuctionStatusComponent } from './auction/auction-status/auction-status.
     SidebarComponent,
     CreateAuctionComponent,
     AuctionListComponent,
-    AuctionStatusComponent
+    AuctionStatusComponent,
+    AuctionListingCardComponent
   ],
   imports: [
     BrowserModule,

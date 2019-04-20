@@ -1,3 +1,11 @@
-<p>
-  auction-list works!
-</p>
+<div class="container">
+  <div class="row container listingOffsetTextColor">
+    <ng-container *ngFor="let listing of listings">
+      <div class="col-12 col-md-6">
+        <div class="ItemCardContainer">
+          <app-auction-listing-card [listing]="listing"></app-auction-listing-card>
+        </div>
+      </div>
+    </ng-container>
+  </div>
+</div>
