@@ -17,6 +17,7 @@ import {AuctionListComponent} from './auction/auction-list/auction-list.componen
 import {AuctionStatusComponent} from './auction/auction-status/auction-status.component';
 import {ErrorPageComponent} from './error-page/error-page.component';
 import {AuthGuard} from './_guards/auth.guard';
+import { GBListingsComponent } from './gblistings/gblistings.component';
 
 
 const routes: Routes = [
@@ -35,6 +36,10 @@ const routes: Routes = [
   {
     path: 'products',
     component: ListingsComponent
+  },
+  {
+    path: 'gbproducts',
+    component: GBListingsComponent
   },
   {
     path: 'registration',

@@ -13,6 +13,7 @@ import { BasicComponent } from './basic/basic.component';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import { LandingPageComponent } from './landing-page/landing-page.component';
 import { ListingsComponent } from './listings/listings.component';
+import { GBListingsComponent } from './gblistings/gblistings.component';
 import { FragmentPolyfillModule } from './fragment-polyfill.module';
 import { AppErrorHandler } from './common/app-error-handler';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
@@ -29,6 +30,7 @@ import { PriceService } from './services/price.service';
 import { JwtInterceptor } from './_helpers/jwt.interceptor';
 import { ErrorInterceptor } from './_helpers/error.interceptor';
 import { ListingCardComponent } from './listing-card/listing-card.component';
+import { GBListingCardComponent } from './gblisting-card/gblisting-card.component';
 import { RegistrationComponent } from './registration/registration.component';
 import { LoginComponent } from './login/login.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -57,6 +59,8 @@ import { AuctionListingCardComponent } from './auction/auction-listing-card/auct
     LandingPageComponent,
     ListingsComponent,
     ListingCardComponent,
+    GBListingCardComponent,
+    GBListingsComponent,
     RegistrationComponent,
     LoginComponent,
     ErrorPageComponent,
