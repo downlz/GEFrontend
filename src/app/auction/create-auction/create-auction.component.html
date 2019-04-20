@@ -1,5 +1,5 @@
 <div class="container listingOffsetTextColor">
-  <form [formGroup]="form">
+  <form [formGroup]="form" (ngSubmit)="save($event)">
     <div formGroupName="newItem">
       <div class="row">
         <h4>Auction Details</h4>
@@ -19,7 +19,7 @@
         <div class="col-md-3 pr-1">
           <div class="form-group">
             <label>Item</label>
-            <select class="form-control" id="itemName" formControlName="itemName">
+            <select class="form-control" id="itemName" formControlName="itemName" (ngModelChange)="onItemChange($event)">
               <option value=''>Select Item</option>
               <option *ngFor="let item of itemnames" [ngValue]="item._id"> {{ item.name }} </option>
             </select>
@@ -29,7 +29,8 @@
         <div class="col-md-3 pl-1">
           <div class="form-group">
             <label>Category</label>
-            <select class="form-control" id="itemCategory" formControlName="itemCategory">
+            <select class="form-control" id="itemCategory" [attr.disabled]="!form.value.newItem.itemName?'':null"
+                    formControlName="itemCategory" (ngModelChange)="onCategoryChange($event)">
               <option value=''>Select Category</option>
               <option *ngFor="let category of categories" [ngValue]="category._id"> {{ category.name }}</option>
             </select>
@@ -38,9 +39,10 @@
         <div class="col-md-3 pl-1">
           <div class="form-group">
             <label>Sample No</label>
-            <select class="form-control" id="sampleNo" formControlName="sampleNo">
+            <select class="form-control" id="sampleNo" formControlName="sampleNo"
+                    [attr.disabled]="!form.value.newItem.itemCategory?'':null">
               <option value=''>Select Sample No</option>
-              <option *ngFor="let category of categories" [ngValue]="category._id"> {{ category.name }}</option>
+              <option *ngFor="let listing of listings" [ngValue]="listing._id"> {{ listing.sampleNo }}</option>
             </select>
           </div>
         </div>
@@ -119,7 +121,8 @@
         <div class="col-md-3 pl-1">
           <div class="form-group">
             <label>Start Date</label><br>
-            <input class="form-control" [owlDateTime]="dt1" [owlDateTimeTrigger]="dt1" id="startTime" formControlName="startTime"
+            <input class="form-control" [owlDateTime]="dt1" [owlDateTimeTrigger]="dt1" id="startTime"
+                   formControlName="startTime"
                    placeholder="Date Time">
             <owl-date-time #dt1></owl-date-time>
           </div>
@@ -128,7 +131,8 @@
         <div class="col-md-3 pl-1">
           <div class="form-group">
             <label>End Date</label><br>
-            <input class="form-control" [owlDateTime]="dt2" [owlDateTimeTrigger]="dt2" id="endTime" formControlName="endTime"
+            <input class="form-control" [owlDateTime]="dt2" [owlDateTimeTrigger]="dt2" id="endTime"
+                   formControlName="endTime"
                    placeholder="Date Time">
             <owl-date-time #dt2></owl-date-time>
           </div>
@@ -160,7 +164,7 @@
         </div>
       </div>
       <div class="row">
-        <button class="btn btn-primary">
+        <button type="submit" class="btn btn-primary">
           Save
         </button>
       </div>
