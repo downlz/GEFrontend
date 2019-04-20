@@ -72,7 +72,7 @@
           <div class="form-group">
             <label>Units</label>
             <select class="form-control" id="unit" formControlName="unit">
-              <option value=''></option>
+              <option value=''>Select Unit</option>
               <option *ngFor="let unit of units" [ngValue]="unit._id"> {{ unit.mass }} </option>
             </select>
           </div>
@@ -158,6 +158,11 @@
             </select>
           </div>
         </div>
+      </div>
+      <div class="row">
+        <button class="btn btn-primary">
+          Save
+        </button>
       </div>
     </div>
   </form>

@@ -17,8 +17,8 @@ import {AuctionListComponent} from './auction/auction-list/auction-list.componen
 import {AuctionStatusComponent} from './auction/auction-status/auction-status.component';
 import {ErrorPageComponent} from './error-page/error-page.component';
 import {AuthGuard} from './_guards/auth.guard';
-import { GBListingsComponent } from './gblistings/gblistings.component';
-
+import {GBListingsComponent} from './gblistings/gblistings.component';
+import {BidsComponent} from './auction/bids/bids.component';
 
 const routes: Routes = [
   {
@@ -62,16 +62,43 @@ const routes: Routes = [
         path: '',
         component: AuctionListComponent,
         data: {
-          roles: ['admin']
+          roles: ['admin', 'seller']
         }
       },
       {
         path: 'add',
-        component: CreateAuctionComponent
+        component: CreateAuctionComponent,
+        data: {
+          roles: ['admin']
+        }
       },
       {
         path: 'status',
-        component: AuctionStatusComponent
+        component: AuctionStatusComponent,
+        data: {
+          roles: ['admin', 'seller']
+        }
+      },
+      {
+        path: 'bids',
+        component: BidsComponent,
+        data: {
+          roles: ['buyer']
+        }
+      },
+      {
+        path: 'active',
+        component: AuctionListComponent,
+        data: {
+          roles: ['buyer']
+        }
+      },
+      {
+        path: 'inactive',
+        component: AuctionListComponent,
+        data: {
+          roles: ['buyer']
+        }
       }
     ],
     data: {
