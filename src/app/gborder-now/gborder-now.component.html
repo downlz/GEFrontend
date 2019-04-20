@@ -26,7 +26,7 @@
                 <th>Type: {{ gblisting.item.category.name }}</th>
               </tr>
               <tr>
-                <th>Price: Rs. {{ gblisting.dealprice }} Per Kg</th>
+                <th>Price: Rs. {{ gblisting.dealprice }}/{{gblisting.unit.mass}}</th>
               </tr>
             </table>
 
@@ -43,7 +43,8 @@
                 </div>
             </div>
             <div>
-              Price : Rs. {{ price }} <br> *Transportation cost extra
+              Price : Rs. {{ price }} <br>
+              Available Qty - 100
             </div>
             <div>
             <button class="btn btn-primary" [disabled]="(!f.valid) || (!priceValid)" >Submit</button>

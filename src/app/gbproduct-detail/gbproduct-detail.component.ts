@@ -27,8 +27,10 @@ export class GBProductDetailComponent implements OnInit {
     this.userService.get('me')
     .subscribe(response => {
       const res = response as any;
-      console.log(res);
-      this.address = res.Addresses[0];          
+      // console.log(res);
+      // console.log('Here1');
+      this.address = res.Addresses[0];
+      // console.log(res._id);          
       this.userid = res._id;
     }, (error: Response) => {
       this.router.navigate(['/errorpage']);
@@ -40,9 +42,11 @@ export class GBProductDetailComponent implements OnInit {
   }
 
   getProduct(id) {
+    // console.log("Helo");
   this.gblistingService.get(id)
     .subscribe(response => {
       this.gblisting = response as GBListing;
+      console.log(this.gblisting);
     }, (error: Response) => {
       this.router.navigate(['/errorpage']);
       if (error.status === 400) {
@@ -63,7 +67,6 @@ export class GBProductDetailComponent implements OnInit {
       placedTime: Date.now().toString(),
       status: 'new',
       ordertype: 'groupbuying'
-
     };
     console.log(OrderData);
     this.orderService.create(OrderData)

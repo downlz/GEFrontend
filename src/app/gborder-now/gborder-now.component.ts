@@ -46,6 +46,7 @@ export class GBOrderNowComponent implements OnInit {
   getProduct(id) {
     this.gblistingService.get(id)
     .subscribe(response => {
+      // console.log(response);
       this.gblisting = response as GBListing;
     }, (error: Response) => {
       this.router.navigate(['/errorpage']);
@@ -65,18 +66,20 @@ export class GBOrderNowComponent implements OnInit {
     };
     this.priceValid = false;
     this.priceService.getPrice(PriceData)
-    .subscribe(Response => {
-      const priceValue = Response as any;
-      this.price = priceValue.price;
-      if (this.price < 0) {
-          this.price = 0;
-      } else {
-        this.priceValid = true;
-      }
-    }, (error: AppError) => {
-      console.log(error);
-      this.router.navigate(['/errorpage']);
-    });
+    this.price = qty * this.gblisting.dealprice
+    this.priceValid = true;
+    // .subscribe(Response => {
+    //   const priceValue = Response as any;
+    //   this.price = priceValue.price;
+    //   if (this.price < 0) {
+    //       this.price = 0;
+    //   } else {
+    //     this.priceValid = true;
+    //   }
+    // }, (error: AppError) => {
+    //   console.log(error);
+    //   this.router.navigate(['/errorpage']);
+    // });
   }
 
   generateorderno(odrno){           // To generate order id

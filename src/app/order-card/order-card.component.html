@@ -17,13 +17,16 @@
               <td>Quantity: {{order.quantity}} Kgs </td>
             </tr>
             <tr *ngIf="order.quantity>0">
-              <td>Cost: Rs. {{order.cost}}<br> *Transportation cost extra </td>
+              <td>Cost: Rs. {{order.cost}}<br> <div *ngIf = "order.ordertype!=='groupbuying'" >*Transportation cost extra </div></td>
             </tr>
             <tr *ngIf="order.quantity==0">
               <td>Sample order</td>
             </tr>
             <tr>
               <td>ordered on: {{order.placedTime | date:'medium'}} </td>
+            </tr>
+            <tr>
+              <td>Order Type : {{ order.ordertype}}</td>
             </tr>
             <tr>
               <td>Address: {{order.address.text}}, {{order.address.city.name}},
