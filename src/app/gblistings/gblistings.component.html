@@ -1,0 +1,11 @@
+<div class="container">
+  <div class="row container listingOffsetTextColor">
+    <ng-container *ngFor="let gblisting of gblistings">
+      <div class="col-12 col-md-6">
+        <div class="ItemCardContainer">
+          <app-gblisting-card [gblisting]="gblisting"></app-gblisting-card>
+        </div>
+      </div>
+    </ng-container>
+  </div>
+</div>

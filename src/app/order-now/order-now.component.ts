@@ -88,11 +88,13 @@ export class OrderNowComponent implements OnInit {
       orderno: (this.userid.substring(-1,5)  + this.listing.seller._id.substring(-1,5)).toUpperCase(),    // Frame a order no generator here
       quantity: f.quantity,
       cost: f.quantity * this.listing.price,
+      price : this.listing.price,
       itemId: this.listing._id,
       addressId: this.address._id,
       buyerId: this.userid,
       sellerId: this.listing.seller._id,
       placedTime: Date.now().toString(),
+      ordertype: 'regular',
       status: 'new'
 
     };

@@ -27,6 +27,9 @@ export class OrderCardComponent implements OnInit {
     if (this.order.status === 'delivered') {
       return 4;
     }
+    if (this.order.status === 'cancelled') {
+      return 5;
+    }
   }
   // setNewClasses() {
   //   const classes = {

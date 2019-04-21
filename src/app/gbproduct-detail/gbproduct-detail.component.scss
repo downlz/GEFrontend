@@ -1,0 +1,48 @@
+.listingOffsetTextColor {
+  padding-top: 200px;
+  color: black;
+  padding-left: 20px;
+}
+
+.bordermk {
+  box-shadow: 0 8px 12px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  background-color: rgba(1, 29, 1, 0.356);
+  opacity: 30%
+}
+
+.shdw {
+
+  position:relative;
+  z-index: 1;
+}
+
+.ItemCardContainer {
+  padding: 30px;
+
+}
+
+.ItemCardImage {
+  height: 400px;
+  box-shadow: 0 8px 12px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  object-fit: cover;
+}
+
+.ItemCardDesc {
+
+  opacity: 50%;
+  box-shadow: 0 8px 12px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  font-size: 18px;
+}
+
+.farmbg {
+  background-image: url("../../assets/images/GE_Product.jpg");
+  object-fit: scale-down;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: -webkit-fill-available;
+  z-index: 0;
+
+
+}

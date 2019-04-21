@@ -9,6 +9,7 @@ export interface GBListing {
   dealprice: number;
   moq: number;
   maxqty: number;
+  totalqty: number;
   taxrate: number;
   remarks: string;
   gbstarttime: string;

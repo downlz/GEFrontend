@@ -27,8 +27,8 @@ export class ProductDetailComponent implements OnInit {
     this.userService.get('me')
     .subscribe(response => {
       const res = response as any;
-      console.log(res);
-      this.address = res.Addresses[0];          // Disabled due to technical reasons
+      // console.log(res);
+      this.address = res.Addresses[0];          
       this.userid = res._id;
     }, (error: Response) => {
       this.router.navigate(['/errorpage']);
@@ -61,6 +61,7 @@ export class ProductDetailComponent implements OnInit {
       buyerId: this.userid,
       sellerId: this.listing.seller._id,
       placedTime: Date.now().toString(),
+      ordertype: 'sampleorder',
       status: 'new'
 
     };

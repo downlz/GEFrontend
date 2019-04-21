@@ -1,11 +1,12 @@
-<div *ngIf="listing.name.name" class="card ItemCard">
-  <img *ngIf="listing.image" class="card-img-top ItemCardImage" [src]="listing.image" alt="{{ listing.name }}">
+<div *ngIf="gblisting.item.sampleNo" class="card ItemCard">
+  <img *ngIf="gblisting.item.image" class="card-img-top ItemCardImage" [src]="gblisting.item.image" alt="{{ gblisting.item.sampleNo }}">
   <div class="card-body">
-    <h4 class="card-title">{{ gblisting.name.name }} | {{ gblisting.category.name }} </h4>
-    <p class="card-text"> Rs. {{ gblisting.price }} Per Kg</p>
+    <h4 class="card-title">{{ gblisting.item.name.name }} | {{ gblisting.item.category.name }} </h4>
+    <p class="card-text"> Rs. {{ gblisting.dealprice }} Per {{ gblisting.unit.mass}} | MFG - {{ gblisting.item.manufacturer.name}}</p>
+    <p class="card-text"> Starting {{ gblisting.gbstarttime | date:'dd-MMM-yy hh:mm a'}} - {{ gblisting.gbendtime | date:'dd MMM,yy hh:mm a' }}</p>
     <!-- <p class="card-text"> <b>Origin:</b> Bangalore <b>Manufacturer: </b> ABC Ltd </p> -->
   </div>
   <div class="card-footer">
-    <a class="btn btn-primary btn-block" [routerLink]="['/gbproduct', listing._id]" routerLinkActive="router-link-active" >Product Details</a>
+    <a class="btn btn-primary btn-block" [routerLink]="['/gbproduct', gblisting._id]" routerLinkActive="router-link-active" >Product Details</a>
   </div>
 </div>
