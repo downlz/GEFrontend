@@ -93,8 +93,9 @@ export class OrderNowComponent implements OnInit {
       buyerId: this.userid,
       sellerId: this.listing.seller._id,
       placedTime: Date.now().toString(),
-      status: 'new',
-      ordertype: 'regular'
+      ordertype: 'regular',
+      status: 'new'
+
     };
 
     this.orderService.create(OrderData)

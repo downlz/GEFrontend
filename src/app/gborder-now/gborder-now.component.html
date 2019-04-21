@@ -44,7 +44,7 @@
             </div>
             <div>
               Price : Rs. {{ price }} <br>
-              Available Qty - 100
+              Available Qty - {{ gblisting.totalqty }}
             </div>
             <div>
             <button class="btn btn-primary" [disabled]="(!f.valid) || (!priceValid)" >Submit</button>
