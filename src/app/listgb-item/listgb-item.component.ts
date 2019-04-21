@@ -85,7 +85,7 @@ export class ListGBItemComponent implements OnInit {
   ngOnInit() {
 
     forkJoin([this.cityService.getAll(), this.stateService.getAll(),
-      this.unitService.getAll(),this.listingService.getAll()])
+      this.unitService.getAll(),this.listingService.getAll('')])   // Needs to pass params for filters
     .subscribe(response => {
       this.cities = response[0];
       this.states = response[1];

@@ -14,7 +14,7 @@ export class AuctionListComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.service.getAll()
+    this.service.getAll('')                // pass params for filters
       .subscribe(response => {
         this.listings = response;
       }, (error: Response) => {

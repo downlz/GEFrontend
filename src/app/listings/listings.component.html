@@ -1,11 +1,58 @@
 <div class="container">
   <div class="row container listingOffsetTextColor">
-    <ng-container *ngFor="let listing of listings">
-      <div class="col-12 col-md-6">
-        <div class="ItemCardContainer">
-          <app-listing-card [listing]="listing"></app-listing-card>
+    <div class="col-12 col-md-3">
+        <div ngbDropdown class="btn-group btn-block dropright text-left">
+            <button ngbDropdownToggle type="button" class="btn btn-secondary btn-block dropdown-toggle
+              text-left" data-toggle="dropdown" aria-haspopup="true"
+              aria-expanded="false">
+              Itemname
+            </button>
+            <div ngbDropdownMenu class="dropdown-menu" aria-labelledby="dropdownBasic1">
+              <!-- Dropdown menu links -->
+              <ng-container *ngFor="let itemname of itemNameList">
+                  <label>{{itemname.name}} <input type="checkbox" [checked] = "itemname.isSelected" (click)="setItemName(itemname)"></label><br/>
+              </ng-container>
+            </div>
+          </div>
+      <div ngbDropdown class="btn-group btn-block dropright text-left">
+          <button ngbDropdownToggle type="button" class="btn btn-secondary btn-block dropdown-toggle
+            text-left" data-toggle="dropdown" aria-haspopup="true"
+            aria-expanded="false">
+            Location
+          </button>
+          <div ngbDropdownMenu class="dropdown-menu" aria-labelledby="dropdownBasic1">
+            <!-- Dropdown menu links -->
+            <ng-container *ngFor="let city of cityList">
+                <label>{{city.name}} <input type="checkbox" [checked] = "city.isSelected" (click)="setCity(city)"></label><br/>
+            </ng-container>
+          </div>
+        </div>
+      <div ngbDropdown class="btn-group btn-block dropright text-left">
+        <button ngbDropdownToggle type="button" class="btn btn-secondary  btn-block dropdown-toggle
+          text-left" data-toggle="dropdown" aria-haspopup="true"
+          aria-expanded="false">
+          Grade
+        </button>
+        <div ngbDropdownMenu class="dropdown-menu" aria-labelledby="dropdownBasic1">
+          <!-- Dropdown menu links -->
+          <ng-container *ngFor="let grade of gradeList">
+              <label>{{grade.name}} <input type="checkbox" [checked] = "grade.isSelected" (click)="setGrade(grade)"></label><br/>
+          </ng-container>
         </div>
       </div>
-    </ng-container>
+      <button class="btn btn-secondary btn-block text-left" (click)="sortByPrice()">Price</button>
+      <button class="btn btn-secondary btn-block text-left" (click)="clearSelection()">Clear</button>
+    </div>
+    <div class="col-12 col-md-9">
+      <div class="row">
+        <ng-container *ngFor="let listing of listings">
+          <div class="col-12 col-md-6">
+            <div class="ItemCardContainer">
+              <app-listing-card [listing]="listing"></app-listing-card>
+            </div>
+          </div>
+        </ng-container>
+      </div>
+    </div>
   </div>
 </div>
