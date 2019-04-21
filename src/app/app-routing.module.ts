@@ -43,7 +43,7 @@ const routes: Routes = [
   },
   {
     path: 'gbproducts',
-    component: GBListingsComponent
+    component: GBListingsComponent,
   },
   {
     path: 'registration',
@@ -51,11 +51,19 @@ const routes: Routes = [
   },
   {
     path: 'addProducts',
-    component: AddProductsComponent
+    component: AddProductsComponent,
+    canActivate: [AuthGuard],
+    data: {
+      roles: ['admin']
+    }
   },
   {
     path: 'listgbItem',
-    component: ListGBItemComponent
+    component: ListGBItemComponent,
+    canActivate: [AuthGuard],
+    data: {
+      roles: ['admin']
+    }
   },
   {
     path: 'auction',
@@ -121,13 +129,13 @@ const routes: Routes = [
     path: 'product/:id',
     component: ProductDetailComponent,
     canActivate: [AuthGuard],
-    data: {roles: ['admin', 'buyer']}
+    data: {roles: ['admin', 'buyer','seller']}
   },
   {
     path: 'gbproduct/:id',
     component: GBProductDetailComponent,
     canActivate: [AuthGuard],
-    data: { roles: ['admin', 'buyer']}
+    data: { roles: ['admin', 'buyer','seller']}
   },
   {
     path: 'orderNow/:id',
