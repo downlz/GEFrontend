@@ -59,7 +59,7 @@ import { BidsComponent } from './auction/bids/bids.component';
   declarations: [
     AppComponent,
     NavBarComponent,
-    FileSelectDirective,
+    // FileSelectDirective,
     BasicComponent,
     LandingPageComponent,
     ListingsComponent,
