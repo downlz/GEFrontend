@@ -91,6 +91,7 @@ export class GBOrderNowComponent implements OnInit {
       orderno: (this.userid.substring(-1,5)  + this.gblisting.item.seller._id.substring(-1,5)).toUpperCase(),    // Frame a order no generator here
       quantity: f.quantity,
       cost: f.quantity * this.gblisting.dealprice,
+      price: this.gblisting.dealprice,
       itemId: this.gblisting.item._id,
       addressId: this.address._id,
       buyerId: this.userid,
