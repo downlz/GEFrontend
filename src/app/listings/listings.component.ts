@@ -43,7 +43,6 @@ export class ListingsComponent implements OnInit {
     this.cityService.getAll()
     .subscribe(response => {
       var cityListTemp = Array<any>(response);
-      console.log(response)
       for (let i =0; i < cityListTemp[0].length; ++i)  {
         var city = {};
         city['name'] = cityListTemp[0][i].name;
@@ -61,18 +60,14 @@ export class ListingsComponent implements OnInit {
 
     this.itemnameService.getAll()
     .subscribe(response => {
-      console.log(response);
       var itemsList = response as Array<any>;
-      console.log(itemsList);
       for (let i =0; i < itemsList.length; ++i)  {
         var item1 = {};
         item1['name'] = itemsList[i].name;
-        console.log(item1['name']);
         item1['_id'] = itemsList[i]._id;
         item1['isSelected'] = false;
         this.itemNameList.push(item1); 
       } 
-      console.log(this.itemNameList);
 
     }, (error: Response) => {
       this.router.navigate(['/errorpage']);
