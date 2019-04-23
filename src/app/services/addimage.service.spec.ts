@@ -1,12 +1,12 @@
 import { TestBed } from '@angular/core/testing';
 
-import { TestcallService } from './testcall.service';
+import { AddImageService } from './addimage.service';
 
-describe('TestcallService', () => {
+describe('AddImageService', () => {
   beforeEach(() => TestBed.configureTestingModule({}));
 
   it('should be created', () => {
-    const service: TestcallService = TestBed.get(TestcallService);
+    const service: AddImageService = TestBed.get(AddImageService);
     expect(service).toBeTruthy();
   });
 });
