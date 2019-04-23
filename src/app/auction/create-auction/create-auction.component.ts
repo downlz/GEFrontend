@@ -99,7 +99,7 @@ export class CreateAuctionComponent implements OnInit {
       });
   }
 
-  onItemChange() {
+  onItemChange(datain2) {
     let item = this.form.get('newItem.itemName').value;
     this.categories = [];
     this.listings = [];
@@ -111,7 +111,7 @@ export class CreateAuctionComponent implements OnInit {
 
   }
 
-  onCategoryChange() {
+  onCategoryChange(datain) {
     this.listings = [];
     let category = this.form.get('newItem.itemCategory').value;
     this.listingService.getListingsByCategory(category).subscribe((response) => {

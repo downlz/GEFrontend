@@ -3,7 +3,8 @@ import { NgModule, ErrorHandler } from '@angular/core';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
 import { DatePickerModule } from '@syncfusion/ej2-angular-calendars';
-import { FileSelectDirective } from 'ng2-file-upload';
+// import { FileSelectDirective } from 'ng2-file-upload';
+import { FileUploadModule } from "ng2-file-upload";
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -45,6 +46,7 @@ import { GroupBuyingComponent } from './group-buying/group-buying.component';
 import { AddProductsComponent } from './add-products/add-products.component';
 import { ListGBItemComponent } from './listgb-item/listgb-item.component';
 import { OrderCardComponent } from './order-card/order-card.component';
+import { GBOrderCardComponent } from './gborder-card/gborder-card.component';
 import { GBProductDetailComponent } from './gbproduct-detail/gbproduct-detail.component';
 import { GBOrderNowComponent } from './gborder-now/gborder-now.component';
 import { AuctionComponent } from './auction/auction.component';
@@ -81,6 +83,7 @@ import { BidsComponent } from './auction/bids/bids.component';
     // AddItemnameComponent,
     ListGBItemComponent,
     OrderCardComponent,
+    GBOrderCardComponent,
     AuctionComponent,
     SidebarComponent,
     CreateAuctionComponent,
@@ -93,6 +96,7 @@ import { BidsComponent } from './auction/bids/bids.component';
     BrowserModule,
     NgbModule,
     DatePickerModule,
+    FileUploadModule,
     BrowserAnimationsModule,
     OwlDateTimeModule,
     OwlNativeDateTimeModule,

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
-import {  FileUploader, FileSelectDirective } from 'ng2-file-upload/ng2-file-upload';
+import {  FileUploader,FileSelectDirective } from 'ng2-file-upload/ng2-file-upload';
 import { FormValidators} from '../login/login-form.validators';
 import {CityService} from '../services/city.service';
 import {ManufacturerService} from '../services/manufacturer.service';
@@ -132,8 +132,7 @@ export class AddProductsComponent implements OnInit {
            cityId:    this.form.value.newitem.city,
            origin:    this.form.value.newitem.origin,
            addressId:    this.form.value.newitem.address,
-           // isLive: this.form.value.newitem.itemstatus,
-           isLive: 'true',
+           isLive: this.form.value.newitem.itemstatus,
            manufacturerId:    this.form.value.newitem.manufacturer,
            image: JSON.parse(response).message
            // image: this.selectedFile
@@ -145,7 +144,7 @@ export class AddProductsComponent implements OnInit {
 
          this.itempost.create(formData)
          .subscribe(response => {
-           alert('File uploaded successfully');
+           alert('Product added successfully');
            this.router.navigate(['/products']);
          }, (error: AppError) => {
            console.log(error);
