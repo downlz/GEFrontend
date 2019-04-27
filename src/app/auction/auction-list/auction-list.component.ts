@@ -39,6 +39,7 @@ export class AuctionListComponent implements OnInit {
         this.setAuctions();
         this.loading = false;
       }, () => {
+        alert("Error while fetching data");
         this.loading = false;
       });
   }

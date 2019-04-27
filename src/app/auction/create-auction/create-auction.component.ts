@@ -168,7 +168,7 @@ export class CreateAuctionComponent implements OnInit {
       if (auction.auctionType === 'seller') {
         auction.user = this.seller._id;
       } else {
-        auction.user = auction.buyer._id;
+        auction.user = auction.buyer;
       }
       auction.nameVisible = !!auction.nameVisible;
       auction.transportCost = !!auction.transportCost;

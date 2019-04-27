@@ -15,15 +15,15 @@
 <!-- Tab panes -->
 <div class="tab-content">
   <div class="tab-pane container" [ngClass]="{'active' : activeTab==='active'}" id="active">
-    <app-auction-table [auctions]="activeAuctions" [actions]="['bids','details']"
+    <app-auction-table [auctions]="activeAuctions" [actions]="['bids','details']" [loading]="loading"
                        (onDataChange)="onDataChange($event)"></app-auction-table>
   </div>
   <div class="tab-pane container" [ngClass]="{'active' : activeTab==='pending'}">
-    <app-auction-table [auctions]="pendingAuctions" [actions]="['approve']"
+    <app-auction-table [auctions]="pendingAuctions" [actions]="['approve']" [loading]="loading"
                        (onDataChange)="onDataChange($event)"></app-auction-table>
   </div>
   <div class="tab-pane container" [ngClass]="{'active' : activeTab==='inactive'}">
-    <app-auction-table [auctions]="inActiveAuctions" [actions]="['bids','details']"
+    <app-auction-table [auctions]="inActiveAuctions" [actions]="['bids','details']" [loading]="loading"
                        (onDataChange)="onDataChange($event)"></app-auction-table>
   </div>
 </div>

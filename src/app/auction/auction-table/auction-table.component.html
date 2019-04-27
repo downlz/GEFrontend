@@ -1,7 +1,7 @@
 <div class="container">
   <div class="container listingOffsetTextColor">
-    <!--<div class="spinner-grow loader text-success"></div>-->
-    <table class="table table-hover table-sm">
+    <div class="spinner-grow loader text-success" *ngIf="loading"></div>
+    <table class="table table-hover table-sm" [ngClass]="{'loading' : loading}">
       <thead>
       <tr>
         <th scope="col">Item</th>
@@ -37,8 +37,8 @@
               </div>
             </div>
           </a></th>
-          <td>{{auction.user.name}}</td>
           <td>{{auction.auctionType}}</td>
+          <td>{{auction.user.name}}</td>
           <td>{{auction.sampleNo.category.name}}</td>
           <td>{{getDateString(auction.startTime)}}</td>
           <td>{{getDateString(auction.startTime)}}</td>
@@ -50,7 +50,8 @@
             <button class="btn btn-primary" *ngIf="actions.indexOf('bids')!=-1">
               Bids
             </button>
-            <button class="btn btn-primary" *ngIf="actions.indexOf('approve')!=-1" (click)="approveAuction(auction._id)">
+            <button class="btn btn-primary" *ngIf="actions.indexOf('approve')!=-1"
+                    (click)="approveAuction(auction._id)">
               Approve
             </button>
           </td>
