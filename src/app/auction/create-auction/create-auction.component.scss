@@ -1,0 +1,27 @@
+.error-block {
+  text-align: center;
+  padding-left: 0px;
+
+  p {
+    margin-bottom: 0px;
+
+    &:not(:first-child) {
+      display: none;
+    }
+  }
+}
+
+.loader {
+  position: absolute;
+  top: 50%;
+  left: 40%;
+  z-index: 2;
+}
+
+.loading {
+  opacity: 0.2;
+}
+
+.text-success {
+  color: #637a36 !important;
+}

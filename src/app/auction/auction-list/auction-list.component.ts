@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
-import {ListingService} from '../../services/listing.service';
 import {Router} from '@angular/router';
+import {AuctionService} from '../../services/auction.service';
+import {AuthService} from '../../services/auth.service';
 
 @Component({
   selector: 'app-auction-list',
@@ -8,22 +9,66 @@ import {Router} from '@angular/router';
   styleUrls: ['./auction-list.component.scss']
 })
 export class AuctionListComponent implements OnInit {
-  listings: any;
+  auctions: any;
+  role: string;
+  loading: boolean;
+  activeTab: string = 'active';
+  activeAuctions: any;
+  inActiveAuctions: any;
+  pendingAuctions: any;
 
-  constructor(private service: ListingService, private router: Router) {
+  constructor(private service: AuctionService, private auth: AuthService, private router: Router) {
+
   }
 
   ngOnInit() {
-    this.service.getAll()
+    this.role = this.auth.getRole();
+    let subscription = null;
+    if (this.role === 'admin') {
+      subscription = this.service.getAll();
+    } else if (this.role === 'seller') {
+      subscription = this.service.getCurrentUserAuctions();
+    } else {
+      //To be changed for buyer
+      subscription = this.service.getAll();
+    }
+    this.loading = true;
+    subscription
       .subscribe(response => {
-        this.listings = response;
-      }, (error: Response) => {
-        this.router.navigate(['/errorpage']);
-        if (error.status === 400) {
-          alert(' expected error, post already deleted');
-        }
-        console.log(error);
+        this.auctions = response;
+        this.setAuctions();
+        this.loading = false;
+      }, () => {
+        this.loading = false;
       });
   }
 
+  setAuctions() {
+    this.activeAuctions = this.auctions.filter((auction) => {
+      return auction.approved && (new Date()) > (new Date(auction.endTime));
+    });
+    this.inActiveAuctions = this.auctions.filter((auction) => {
+      return (new Date()) <= (new Date(auction.endTime));
+    });
+    this.pendingAuctions = this.auctions.filter((auction) => {
+      return !auction.approved;
+    });
+  }
+
+
+  changeTab(tab) {
+    this.activeTab = tab;
+  }
+
+  onDataChange($event) {
+    const modifiedAuctions = [].concat(this.auctions);
+    for (let i = 0; i < modifiedAuctions.length; i++) {
+      if (modifiedAuctions[i]._id === $event._id) {
+        modifiedAuctions[i] = $event;
+        break;
+      }
+    }
+    this.auctions = modifiedAuctions;
+    this.setAuctions();
+  }
 }

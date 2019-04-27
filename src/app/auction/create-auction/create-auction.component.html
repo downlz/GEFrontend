@@ -1,10 +1,25 @@
 <div class="container listingOffsetTextColor">
-  <form [formGroup]="form" (ngSubmit)="save($event)">
+  <div class="error-block alert alert-danger" *ngIf="form.invalid && submitted">
+    <p *ngIf="getErrors('auctionType').required">Please select Auction Type</p>
+    <p *ngIf="getErrors('itemName').required">Please select Item Name</p>
+    <p *ngIf="getErrors('itemCategory').required">Please select Item Category</p>
+    <p *ngIf="getErrors('sampleNo').required">Please select Sample No.</p>
+    <p *ngIf="getErrors('availableQty').required">Please enter Available Quantity</p>
+    <p *ngIf="getErrors('minQty').required">Please enter Minimum Quantity</p>
+    <p *ngIf="getErrors('maxQty').required">Please enter Maximum Quantity</p>
+    <p *ngIf="getErrors('floorPrice').required">Please enter Floor Price</p>
+    <p *ngIf="getErrors('unit').required">Please select Unit</p>
+    <p *ngIf="getErrors('ceilingPrice').required">Please enter Ceiling Price</p>
+    <p *ngIf="getErrors('startTime').required">Please enter Start Time</p>
+    <p *ngIf="getErrors('endTime').required">Please enter End Time</p>
+  </div>
+  <div class="spinner-grow loader text-success" *ngIf="loading"></div>
+  <form [formGroup]="form" (ngSubmit)="save($event)" [ngClass]="{'loading' : loading}">
     <div formGroupName="newItem">
       <div class="row">
         <h4>Auction Details</h4>
       </div>
-      <div class="row">
+      <div class="row" *ngIf="role=='admin'">
         <div class="col-md-3 pl-1">
           <div class="form-group">
             <label>Auction Type</label>
@@ -13,20 +28,20 @@
               <option value='buyer'>Buyer</option>
               <option value='seller'>Seller</option>
             </select>
-
           </div>
         </div>
-        <div class="col-md-3 pr-1">
+        <div class="col-md-3 pr-1" *ngIf="role=='admin'">
           <div class="form-group">
             <label>Item</label>
-            <select class="form-control" id="itemName" formControlName="itemName" (ngModelChange)="onItemChange($event)">
+            <select class="form-control" id="itemName" formControlName="itemName"
+                    (ngModelChange)="onItemChange($event)">
               <option value=''>Select Item</option>
               <option *ngFor="let item of itemnames" [ngValue]="item._id"> {{ item.name }} </option>
             </select>
 
           </div>
         </div>
-        <div class="col-md-3 pl-1">
+        <div class="col-md-3 pl-1" *ngIf="role=='admin'">
           <div class="form-group">
             <label>Category</label>
             <select class="form-control" id="itemCategory" [attr.disabled]="!form.value.newItem.itemName?'':null"
@@ -36,19 +51,32 @@
             </select>
           </div>
         </div>
-        <div class="col-md-3 pl-1">
+        <div class="col-md-3 pl-1" *ngIf="role=='admin'">
           <div class="form-group">
             <label>Sample No</label>
             <select class="form-control" id="sampleNo" formControlName="sampleNo"
-                    [attr.disabled]="!form.value.newItem.itemCategory?'':null">
+                    [attr.disabled]="!form.value.newItem.itemCategory?'':null"
+                    (ngModelChange)="onSampleNoChange($event)">
               <option value=''>Select Sample No</option>
-              <option *ngFor="let listing of listings" [ngValue]="listing._id"> {{ listing.sampleNo }}</option>
+              <option *ngFor="let listing of listings" [ngValue]="listing._id"
+              > {{ listing.sampleNo }}</option>
             </select>
           </div>
         </div>
       </div>
 
       <div class="row">
+        <div class="col-md-3 pl-1" *ngIf="role=='seller'">
+          <div class="form-group">
+            <label>Sample No</label>
+            <select class="form-control" id="sampleNo" formControlName="sampleNo"
+                    (ngModelChange)="onSampleNoChange($event)">
+              <option value=''>Select Sample No</option>
+              <option *ngFor="let listing of listings" [ngValue]="listing._id"
+              > {{ listing.sampleNo }}</option>
+            </select>
+          </div>
+        </div>
         <div class="col-md-3 pl-1">
           <div class="form-group">
             <label>Available Quantity</label>
@@ -79,8 +107,6 @@
             </select>
           </div>
         </div>
-      </div>
-      <div class="row">
         <div class="col-md-3 pl-1">
           <div class="form-group">
             <label>Floor Price</label>
@@ -106,7 +132,7 @@
         </div>
         <div class="col-md-3 pl-1">
           <div class="form-group">
-            <label>TransportCost</label>
+            <label>Transport Cost</label>
             <select class="form-control" id="transportCost" formControlName="transportCost">
               <option value=1>Yes</option>
               <option value=0>No</option>
@@ -114,6 +140,7 @@
           </div>
         </div>
       </div>
+
       <div class="row">
         <h4>Select the duration</h4>
       </div>
@@ -139,18 +166,19 @@
         </div>
       </div>
       <div class="row">
-        <h4 *ngIf='form.value.newItem.auctionType=="seller"'>Seller Details</h4>
+        <h4 *ngIf='form.value.newItem.auctionType=="seller" && form.value.newItem.sampleNo'>Seller Details</h4>
         <h4 *ngIf='form.value.newItem.auctionType=="buyer"'>Buyer Details</h4>
       </div>
       <div class="row">
 
-        <div class="col-md-3 pl-1" *ngIf='form.value.newItem.auctionType=="seller"'>
+        <div class="col-md-3 pl-1" *ngIf='form.value.newItem.auctionType=="seller" && form.value.newItem.sampleNo'>
           <div class="form-group">
             <label>Seller</label>
-            <select class="form-control" id="seller" formControlName="seller">
-              <option value=''>Select Seller</option>
-              <option *ngFor="let sell of sellers" [ngValue]="sell._id"> {{ sell.name }} </option>
-            </select>
+            <!--<select class="form-control" id="seller" formControlName="seller">-->
+            <!--<option value=''>Select Seller</option>-->
+            <!--<option *ngFor="let sell of sellers" [ngValue]="sell._id"> {{ sell.name }} </option>-->
+            <!--</select>-->
+            <input type="text" value="{{seller && seller.name}}" class="form-control" disabled>
           </div>
         </div>
         <div class="col-md-3 pl-1" *ngIf='form.value.newItem.auctionType=="buyer"'>

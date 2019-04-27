@@ -1,10 +1,10 @@
-import { Injectable } from '@angular/core';
-import { DataService } from './data.service';
-import { HttpClient } from '@angular/common/http';
-import { Observable, throwError, BehaviorSubject } from 'rxjs';
-import { AppError } from '../common/app-error';
-import { NotFoundError } from '../common/not-found-error';
-import { catchError } from 'rxjs/operators';
+import {Injectable} from '@angular/core';
+import {DataService} from './data.service';
+import {HttpClient} from '@angular/common/http';
+import {Observable, throwError, BehaviorSubject} from 'rxjs';
+import {AppError} from '../common/app-error';
+import {NotFoundError} from '../common/not-found-error';
+import {catchError} from 'rxjs/operators';
 import 'rxjs/add/operator/map';
 
 
@@ -15,11 +15,24 @@ export class AuthService {
   url = 'http://localhost:3000/api/auth';
   private currentUserSubject: BehaviorSubject<any>;
   public currentUser: Observable<any>;
+  role: string;
 
   constructor(private http: HttpClient) {
     this.currentUserSubject = new BehaviorSubject<any>(JSON.parse(localStorage.getItem('GEUser')));
     this.currentUser = this.currentUserSubject.asObservable();
+    this.currentUser.subscribe(currentUser => {
+      if (currentUser) {
+        if (currentUser.isAdmin) {
+          this.role = 'admin';
+        } else if (currentUser.isSeller) {
+          this.role = 'seller';
+        } else {
+          this.role = 'buyer';
+        }
+      }
+    });
   }
+
   // login() {
   //   return this.http.get(this.url);
   // }
@@ -69,6 +82,10 @@ export class AuthService {
     return this.http
       .put(this.url + '/' + resource.id, JSON.stringify(resource))
       .pipe(catchError(this.handleError));
+  }
+
+  getRole() {
+    return this.role;
   }
 
   deletePost(resource) {

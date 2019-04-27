@@ -1,0 +1,62 @@
+<div class="container">
+  <div class="container listingOffsetTextColor">
+    <!--<div class="spinner-grow loader text-success"></div>-->
+    <table class="table table-hover table-sm">
+      <thead>
+      <tr>
+        <th scope="col">Item</th>
+        <th scope="col">Auction Type</th>
+        <th scope="col">Listed By</th>
+        <th scope="col">Category</th>
+        <th scope="col">Start Time</th>
+        <th scope="col">End Time</th>
+        <th scope="col">Approved</th>
+        <th scope="col">Actions</th>
+      </tr>
+      </thead>
+      <tbody>
+      <ng-container *ngIf="!auctions || auctions.length==0">
+        <tr>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td> No Data Found</td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+        </tr>
+      </ng-container>
+      <ng-container *ngFor="let auction of auctions">
+        <tr>
+          <th scope="row"><a [routerLink]="['/product', auction.sampleNo._id]">
+            <div>
+              <p>{{auction.sampleNo.name.name}}</p>
+              <div>
+                <img [src]="auction.sampleNo.image" class="img-thumbnail" width="100" height="100"/>
+              </div>
+            </div>
+          </a></th>
+          <td>{{auction.user.name}}</td>
+          <td>{{auction.auctionType}}</td>
+          <td>{{auction.sampleNo.category.name}}</td>
+          <td>{{getDateString(auction.startTime)}}</td>
+          <td>{{getDateString(auction.startTime)}}</td>
+          <td>{{auction.approved ? "Yes" : "No"}}</td>
+          <td>
+            <button class="btn btn-primary" *ngIf="actions.indexOf('details')!=-1">
+              Details
+            </button>&nbsp;
+            <button class="btn btn-primary" *ngIf="actions.indexOf('bids')!=-1">
+              Bids
+            </button>
+            <button class="btn btn-primary" *ngIf="actions.indexOf('approve')!=-1" (click)="approveAuction(auction._id)">
+              Approve
+            </button>
+          </td>
+        </tr>
+      </ng-container>
+      </tbody>
+    </table>
+  </div>
+</div>

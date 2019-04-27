@@ -13,9 +13,4 @@ export class GBListingService extends DataService {
   constructor(http: HttpClient) {
     super('http://localhost:3000/api/gblisting', http);
   }
-<<<<<<< HEAD
 }
-
-=======
-};
->>>>>>> 28deeaf95e652c07ba59f23b9ef8dbf588b86833
