@@ -5,8 +5,13 @@
     <p *ngIf="getErrors('itemCategory').required">Please select Item Category</p>
     <p *ngIf="getErrors('sampleNo').required">Please select Sample No.</p>
     <p *ngIf="getErrors('availableQty').required">Please enter Available Quantity</p>
+    <p *ngIf="getErrors('availableQty').min">Available Quantity must be greater than 1</p>
     <p *ngIf="getErrors('minQty').required">Please enter Minimum Quantity</p>
+    <p *ngIf="getErrors('minQty').min">Minimum Quantity must be greater than 1</p>
+    <p *ngIf="getErrors('minQty').max">Minimum Quantity can not exceed  Available quantity</p>
     <p *ngIf="getErrors('maxQty').required">Please enter Maximum Quantity</p>
+    <p *ngIf="getErrors('maxQty').min">Maximum Quantity can not be lesser than minimum quantity</p>
+    <p *ngIf="getErrors('maxQty').max">Maximum Quantity can not exceed  Available quantity</p>
     <p *ngIf="getErrors('floorPrice').required">Please enter Floor Price</p>
     <p *ngIf="getErrors('unit').required">Please select Unit</p>
     <p *ngIf="getErrors('ceilingPrice').required">Please enter Ceiling Price</p>
@@ -88,14 +93,14 @@
           <div class="form-group">
             <label>Minimum Quantity</label>
             <input type="number" id="minQty" class="form-control" formControlName="minQty"
-                   placeholder="Maximum  Quantity">
+                   placeholder="Minimum  Quantity">
           </div>
         </div>
         <div class="col-md-3 pl-1">
           <div class="form-group">
             <label>Maximum Quantity</label>
             <input type="number" id="maxQty" class="form-control" formControlName="maxQty"
-                   placeholder="Minimum  Quantity">
+                   placeholder="Maximum  Quantity">
           </div>
         </div>
         <div class="col-md-3 pl-1">

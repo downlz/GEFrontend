@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {FormGroup, FormControl, Validators} from '@angular/forms';
+import {FormGroup, FormControl, Validators, ValidationErrors, ValidatorFn, AbstractControl} from '@angular/forms';
 import {CategoryService} from '../../services/category.service';
 import {ItemnameService} from '../../services/itemname.service';
 import {Router} from '@angular/router';
@@ -53,12 +53,20 @@ export class CreateAuctionComponent implements OnInit {
       ]),
       availableQty: new FormControl(0, [
         Validators.required,
+        Validators.min(1)
       ]),
       minQty: new FormControl(0, [
         Validators.required,
+        Validators.min(1),
+        (control: AbstractControl) => Validators.max(this.form ? this.form.get('newItem.availableQty').value : 0)(control)
       ]),
       maxQty: new FormControl(0, [
         Validators.required,
+        (control: AbstractControl) => {
+          console.log('Validating', this.form);
+          return Validators.min(this.form ? this.form.get('newItem.minQty').value : 0)(control);
+        },
+        (control: AbstractControl) => Validators.max(this.form ? this.form.get('newItem.availableQty').value : 0)(control)
       ]),
       unit: new FormControl('', [
         Validators.required
