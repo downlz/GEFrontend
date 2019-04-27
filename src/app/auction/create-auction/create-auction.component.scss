@@ -1,0 +1,12 @@
+.error-block {
+  text-align: center;
+  padding-left: 0px;
+
+  p {
+    margin-bottom: 0px;
+
+    &:not(:first-child) {
+      display: none;
+    }
+  }
+}

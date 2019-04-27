@@ -1,7 +1,7 @@
 <nav class="sidebar" *ngIf="role">
   <ul class="list-unstyled components">
     <!--Admin Section -->
-    <li *ngIf="role=='admin'">
+    <li *ngIf="role=='admin' || role=='seller'">
       <a
         class="nav-link scrollto p"
         routerLinkActive="active"
@@ -23,7 +23,7 @@
         routerLinkActive="active"
         [routerLinkActiveOptions]="{ exact: true }"
         routerLink="/auction/status"
-      >Auction Status</a>
+      >Auction History</a>
     </li>
     <!--Buyer Section -->
     <li *ngIf="role=='buyer'">
@@ -32,16 +32,16 @@
         routerLinkActive="active"
         [routerLinkActiveOptions]="{ exact: true }"
         routerLink="/auction/active"
-      >Active Auction</a>
+      >Auction List</a>
     </li>
-    <li *ngIf="role=='buyer'">
-      <a
-        class="nav-link scrollto p"
-        routerLinkActive="active"
-        [routerLinkActiveOptions]="{ exact: true }"
-        routerLink="/auction/inactive"
-      >Inactive Auction</a>
-    </li>
+    <!--<li *ngIf="role=='buyer'">-->
+      <!--<a-->
+        <!--class="nav-link scrollto p"-->
+        <!--routerLinkActive="active"-->
+        <!--[routerLinkActiveOptions]="{ exact: true }"-->
+        <!--routerLink="/auction/inactive"-->
+      <!--&gt;Inactive Auction</a>-->
+    <!--</li>-->
     <li *ngIf="role=='buyer'">
       <a
         class="nav-link scrollto p"

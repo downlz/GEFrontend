@@ -56,6 +56,7 @@ import { AuctionListComponent } from './auction/auction-list/auction-list.compon
 import { AuctionStatusComponent } from './auction/auction-status/auction-status.component';
 import { AuctionListingCardComponent } from './auction/auction-listing-card/auction-listing-card.component';
 import { BidsComponent } from './auction/bids/bids.component';
+import { AuctionTableComponent } from './auction/auction-table/auction-table.component';
 
 @NgModule({
   declarations: [
@@ -90,7 +91,8 @@ import { BidsComponent } from './auction/bids/bids.component';
     AuctionListComponent,
     AuctionStatusComponent,
     AuctionListingCardComponent,
-    BidsComponent
+    BidsComponent,
+    AuctionTableComponent
   ],
   imports: [
     BrowserModule,

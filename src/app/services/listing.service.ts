@@ -52,5 +52,12 @@ export class ListingService {
   getListingsByCategory(category) {
     return this.http.get(`${this.url}/byCategory/${category}`);
   }
-  
+
+
+  /**
+   * Get current Listings by User
+   */
+  getCurrentUserListings() {
+    return this.http.get(`${this.url}/current`);
+  }
 }
