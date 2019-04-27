@@ -1,12 +1,12 @@
 <div class="farmbg"></div>
-<div class="container shdw" *ngIf="listing">
+<div class="container shdw" *ngIf="gblisting">
     <div class="listingOffsetTextColor">
   <div class="row container bordermk">
 
     <div class="col-12 col-md-6">
       <div class="ItemCardContainer">
-        <img class="card-img-top ItemCardImage" [src]="listing.image" alt="{{
-          listing.name }}">
+        <img class="card-img-top ItemCardImage" [src]="gblisting.item.image" alt="{{
+          gblisting.item.name }}">
       </div>
     </div>
     <div class="col-12 col-md-6">
@@ -16,17 +16,17 @@
             <table style="width:100%">
               <tr>
                 <th>
-                  <h3 class="card-title">{{ listing.name.name }} </h3>
+                  <h3 class="card-title">{{ gblisting.item.name.name }} </h3>
                 </th>
               </tr>
               <tr>
-                <th>Sample Number: {{ listing.sampleNo}}</th>
+                <th>Sample Number: {{ gblisting.item.sampleNo}}</th>
               </tr>
               <tr>
-                <th>Type: {{ listing.category.name }}</th>
+                <th>Type: {{ gblisting.item.category.name }}</th>
               </tr>
               <tr>
-                <th>Price: Rs. {{ listing.price }} Per {{ listing.unit.mass }} </th>
+                <th>Price: Rs. {{ gblisting.dealprice }}/{{gblisting.unit.mass}}</th>
               </tr>
             </table>
 
@@ -43,7 +43,8 @@
                 </div>
             </div>
             <div>
-              Price : Rs. {{ price }} <br> *Transportation cost extra
+              Price : Rs. {{ price }} <br>
+              Available Qty - {{ gblisting.totalqty }}
             </div>
             <div>
             <button class="btn btn-primary" [disabled]="(!f.valid) || (!priceValid)" >Submit</button>

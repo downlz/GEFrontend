@@ -1,21 +1,21 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import {ListingService} from '../services/listing.service';
-import { Listing } from './../model/listing';
+import {GBListingService} from '../services/gblisting.service';
+import { GBListing } from '../model/gblisting';
 import { UserService } from '../services/user.service';
 import { OrderService } from '../services/order.service';
 import { AppError } from '../common/app-error';
 
 @Component({
-  selector: 'app-product-detail',
-  templateUrl: './product-detail.component.html',
-  styleUrls: ['./product-detail.component.scss']
+  selector: 'app-gbproduct-detail',
+  templateUrl: './gbproduct-detail.component.html',
+  styleUrls: ['./gbproduct-detail.component.scss']
 })
-export class ProductDetailComponent implements OnInit {
-  listing: Listing;
+export class GBProductDetailComponent implements OnInit {
+ gblisting: GBListing;
   address: any;
   userid: any;
-  constructor(private listingService: ListingService, private userService: UserService,
+  constructor(private gblistingService: GBListingService, private userService: UserService,
     private route: ActivatedRoute, private router: Router, private orderService: OrderService) { }
 
   ngOnInit() {
@@ -28,7 +28,9 @@ export class ProductDetailComponent implements OnInit {
     .subscribe(response => {
       const res = response as any;
       // console.log(res);
-      this.address = res.Addresses[0];          
+      // console.log('Here1');
+      this.address = res.Addresses[0];
+      // console.log(res._id);          
       this.userid = res._id;
     }, (error: Response) => {
       this.router.navigate(['/errorpage']);
@@ -40,9 +42,11 @@ export class ProductDetailComponent implements OnInit {
   }
 
   getProduct(id) {
-  this.listingService.get(id)
+    // console.log("Helo");
+  this.gblistingService.get(id)
     .subscribe(response => {
-      this.listing = response as Listing;
+      this.gblisting = response as GBListing;
+      console.log(this.gblisting);
     }, (error: Response) => {
       this.router.navigate(['/errorpage']);
       if (error.status === 400) {
@@ -56,14 +60,13 @@ export class ProductDetailComponent implements OnInit {
     const OrderData = {
       quantity: 0,
       cost: 0,
-      itemId: this.listing._id,
+      itemId: this.gblisting.item._id,
       addressId: this.address._id,
       buyerId: this.userid,
-      sellerId: this.listing.seller._id,
+      sellerId: this.gblisting.item.seller._id,
       placedTime: Date.now().toString(),
-      ordertype: 'sampleorder',
-      status: 'new'
-
+      status: 'new',
+      ordertype: 'groupbuying'
     };
     console.log(OrderData);
     this.orderService.create(OrderData)

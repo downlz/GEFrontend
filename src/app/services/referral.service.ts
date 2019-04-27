@@ -9,9 +9,8 @@ import { HttpClient } from '@angular/common/http';
 @Injectable({
   providedIn: 'root'
 })
-export class GBListingService extends DataService {
+export class ReferralService extends DataService {
   constructor(http: HttpClient) {
-    super('http://localhost:3000/api/gblisting', http);
+    super('http://localhost:3000/api/referral', http);
   }
-
 }

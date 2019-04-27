@@ -9,6 +9,7 @@
                 <th scope="col">Item</th>
                 <th scope="col">Quantity</th>
                 <th scope="col">Cost</th>
+                <th scope="col">Order Type</th>
                 <th scope="col">status</th>
                 <th scope="col">update</th>
               </tr>
@@ -23,6 +24,7 @@
                 <td>{{order.item.name.name}}</td>
                 <td>{{order.quantity}} kgs</td>
                 <td>Rs. {{order.cost}}</td>
+                <td>{{order.ordertype}}</td>
                 <td>
                   <select id="status" [(ngModel)]="order.status">
                     <option *ngFor="let state of states" [ngValue]="state" [selected]="state == order.status"> {{ state }}</option>

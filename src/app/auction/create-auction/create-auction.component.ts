@@ -130,7 +130,7 @@ export class CreateAuctionComponent implements OnInit {
     }
   }
 
-  onItemChange() {
+  onItemChange(datain2) {
     let item = this.form.get('newItem.itemName').value;
     this.categories = [];
     this.listings = [];
@@ -142,7 +142,7 @@ export class CreateAuctionComponent implements OnInit {
 
   }
 
-  onCategoryChange() {
+  onCategoryChange(datain) {
     this.listings = [];
     let category = this.form.get('newItem.itemCategory').value;
     this.listingService.getListingsByCategory(category).subscribe((response) => {
@@ -163,7 +163,7 @@ export class CreateAuctionComponent implements OnInit {
     this.submitted = true;
     event.preventDefault();
     if (this.form.valid) {
-      let auction = this.form.getRawValue().newItem;
+      const auction = this.form.getRawValue().newItem;
       auction.auctionType = auction.auctionType || 'seller';
       if (auction.auctionType === 'seller') {
         auction.user = this.seller._id;
@@ -187,10 +187,10 @@ export class CreateAuctionComponent implements OnInit {
   }
 
   getErrors(name) {
-    if (!this.form.controls.newItem.controls[name]) {
+    if (!this.form.controls.newItem['controls'][name]) {
       return {};
     } else {
-      return this.form.controls.newItem.controls[name].errors || {};
+      return this.form.controls.newItem['controls'][name].errors || {};
     }
   }
 }

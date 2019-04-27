@@ -14,19 +14,16 @@
         <table class="table">
           <tbody>
             <tr *ngIf="order.quantity>0">
-              <td>Quantity: {{order.quantity}} Kg </td>
+              <td>Quantity: {{order.quantity}} Kgs </td>
             </tr>
             <tr *ngIf="order.quantity>0">
-              <td>Cost: Rs. {{order.cost}}<br> <div *ngIf = "order.ordertype!=='groupbuying'" >*Transportation cost extra </div></td>
+              <td>Cost: Rs. {{order.cost}}<br> *Transportation cost extra </td>
             </tr>
             <tr *ngIf="order.quantity==0">
               <td>Sample order</td>
             </tr>
             <tr>
               <td>ordered on: {{order.placedTime | date:'medium'}} </td>
-            </tr>
-            <tr>
-              <td>Order Type : {{ order.ordertype}}</td>
             </tr>
             <tr>
               <td>Address: {{order.address.text}}, {{order.address.city.name}},
@@ -45,8 +42,6 @@
              [class.progtrckr-todo]="getOrderStatusNumber() < 3" [class.progtrckr-done]="getOrderStatusNumber() >= 3">Shipped</li><!--
              --><li
              [class.progtrckr-todo]="getOrderStatusNumber() < 4" [class.progtrckr-done]="getOrderStatusNumber() >= 4">Delivered</li>
-            || <li
-            [class.progtrckr-todo]="getOrderStatusNumber() < 5" [class.progtrckr-done]="getOrderStatusNumber() >= 5">Cancelled</li>
       </ol>
     </div>
   </div>

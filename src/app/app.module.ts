@@ -3,7 +3,8 @@ import { NgModule, ErrorHandler } from '@angular/core';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
 import { DatePickerModule } from '@syncfusion/ej2-angular-calendars';
-import { FileSelectDirective } from 'ng2-file-upload';
+// import { FileSelectDirective } from 'ng2-file-upload';
+import { FileUploadModule } from "ng2-file-upload";
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -24,6 +25,7 @@ import { DataService } from './services/data.service';
 import { CityService } from './services/city.service';
 import { StateService } from './services/state.service';
 import { UserService} from './services/user.service';
+import { ReferralService} from './services/referral.service';
 import { UsersellerService} from './services/seller.service';
 import { AuthService } from './services/auth.service';
 import { PriceService } from './services/price.service';
@@ -32,6 +34,7 @@ import { ErrorInterceptor } from './_helpers/error.interceptor';
 import { ListingCardComponent } from './listing-card/listing-card.component';
 import { GBListingCardComponent } from './gblisting-card/gblisting-card.component';
 import { RegistrationComponent } from './registration/registration.component';
+import { ReferUserComponent } from './refer-user/refer-user.component';
 import { LoginComponent } from './login/login.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ErrorPageComponent } from './error-page/error-page.component';
@@ -43,6 +46,9 @@ import { GroupBuyingComponent } from './group-buying/group-buying.component';
 import { AddProductsComponent } from './add-products/add-products.component';
 import { ListGBItemComponent } from './listgb-item/listgb-item.component';
 import { OrderCardComponent } from './order-card/order-card.component';
+import { GBOrderCardComponent } from './gborder-card/gborder-card.component';
+import { GBProductDetailComponent } from './gbproduct-detail/gbproduct-detail.component';
+import { GBOrderNowComponent } from './gborder-now/gborder-now.component';
 import { AuctionComponent } from './auction/auction.component';
 import { SidebarComponent } from './auction/sidebar/sidebar.component';
 import { CreateAuctionComponent } from './auction/create-auction/create-auction.component';
@@ -56,7 +62,7 @@ import { AuctionTableComponent } from './auction/auction-table/auction-table.com
   declarations: [
     AppComponent,
     NavBarComponent,
-    FileSelectDirective,
+    // FileSelectDirective,
     BasicComponent,
     LandingPageComponent,
     ListingsComponent,
@@ -64,10 +70,13 @@ import { AuctionTableComponent } from './auction/auction-table/auction-table.com
     GBListingCardComponent,
     GBListingsComponent,
     RegistrationComponent,
+    ReferUserComponent,
     LoginComponent,
     ErrorPageComponent,
     ProductDetailComponent,
+    GBProductDetailComponent,
     OrderNowComponent,
+    GBOrderNowComponent,
     MyOrdersComponent,
     AllOrdersComponent,
     GroupBuyingComponent,
@@ -75,6 +84,7 @@ import { AuctionTableComponent } from './auction/auction-table/auction-table.com
     // AddItemnameComponent,
     ListGBItemComponent,
     OrderCardComponent,
+    GBOrderCardComponent,
     AuctionComponent,
     SidebarComponent,
     CreateAuctionComponent,
@@ -88,6 +98,7 @@ import { AuctionTableComponent } from './auction/auction-table/auction-table.com
     BrowserModule,
     NgbModule,
     DatePickerModule,
+    FileUploadModule,
     BrowserAnimationsModule,
     OwlDateTimeModule,
     OwlNativeDateTimeModule,
@@ -105,6 +116,7 @@ import { AuctionTableComponent } from './auction/auction-table/auction-table.com
     StateService,
     CityService,
     UserService,
+    ReferralService,
     // UserbuyerService,
     UsersellerService,
     AuthService,

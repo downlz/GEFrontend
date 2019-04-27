@@ -1,14 +1,14 @@
 import { Component, OnInit, Input } from '@angular/core';
-import {ListingService} from '../services/listing.service';
+import {GBListingService} from '../services/gblisting.service';
 
 @Component({
-  selector: 'app-order-card',
-  templateUrl: './order-card.component.html',
-  styleUrls: ['./order-card.component.scss']
+  selector: 'app-gborder-card',
+  templateUrl: './gborder-card.component.html',
+  styleUrls: ['./gborder-card.component.scss']
 })
-export class OrderCardComponent implements OnInit {
+export class GBOrderCardComponent implements OnInit {
   @Input('order') order: any;
-  constructor(private listingService: ListingService) { }
+  constructor(private gblistingService: GBListingService) { }
 
   ngOnInit() {
     console.log(this.order);
@@ -26,9 +26,6 @@ export class OrderCardComponent implements OnInit {
     }
     if (this.order.status === 'delivered') {
       return 4;
-    }
-    if (this.order.status === 'cancelled') {
-      return 5;
     }
   }
   // setNewClasses() {

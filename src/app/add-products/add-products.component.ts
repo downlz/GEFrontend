@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
-import {  FileUploader, FileSelectDirective } from 'ng2-file-upload/ng2-file-upload';
+import {  FileUploader,FileSelectDirective } from 'ng2-file-upload/ng2-file-upload';
 import { FormValidators} from '../login/login-form.validators';
 import {CityService} from '../services/city.service';
 import {ManufacturerService} from '../services/manufacturer.service';
@@ -10,7 +10,7 @@ import {UnitService} from '../services/unit.service';
 import {CategoryService} from '../services/category.service';
 import {AddressService} from '../services/address.service';
 import {ItemnameService} from '../services/itemname.service';
-import {TestcallService} from '../services/testcall.service';
+import {AddImageService} from '../services/addimage.service';
 import {TestitemService} from '../services/testitem.service';
 import {ItemService} from '../services/item.service';
 import { forkJoin } from 'rxjs';
@@ -26,7 +26,7 @@ import { AppError } from '../common/app-error';
 })
 export class AddProductsComponent implements OnInit {
 
-  public uploader: FileUploader = new FileUploader({url: 'http://localhost:3000/api/testcall', itemAlias: 'image'});
+  public uploader: FileUploader = new FileUploader({url: 'http://localhost:3000/api/addimage', itemAlias: 'image'});
 
   form = new FormGroup({
     newitem: new FormGroup({
@@ -81,7 +81,7 @@ export class AddProductsComponent implements OnInit {
   constructor(private stateService: StateService, private cityService: CityService,private categoryService: CategoryService,
     private itemnameService: ItemnameService,private manufacturerService: ManufacturerService,private sellerService: UsersellerService,
     private unitService: UnitService,private user: UserService,private itempost: ItemService,private addressService: AddressService,
-    private testcall: TestcallService, private testitem: TestitemService,
+    private addimage: AddImageService, private testitem: TestitemService,
     private router: Router) { }
 
   ngOnInit() {
@@ -112,7 +112,7 @@ export class AddProductsComponent implements OnInit {
 
     this.uploader.onAfterAddingFile = (file) => { file.withCredentials = false; };
     this.uploader.onCompleteItem = (item: any, response: any, status: any, headers: any) => {
-         console.log('ImageUpload:uploaded:', item, status, response);
+        //  console.log('ImageUpload:uploaded:', item, status, response);
          const formData = {
            nameId:  this.form.value.newitem.itemname,
            categoryId:   this.form.value.newitem.itemcategory,
@@ -132,20 +132,14 @@ export class AddProductsComponent implements OnInit {
            cityId:    this.form.value.newitem.city,
            origin:    this.form.value.newitem.origin,
            addressId:    this.form.value.newitem.address,
-           // isLive: this.form.value.newitem.itemstatus,
-           isLive: 'true',
+           isLive: this.form.value.newitem.itemstatus,
            manufacturerId:    this.form.value.newitem.manufacturer,
            image: JSON.parse(response).message
-           // image: this.selectedFile
          };
-
-         // formData.append('file', $scope.file);
-
-         console.log(formData);
 
          this.itempost.create(formData)
          .subscribe(response => {
-           alert('File uploaded successfully');
+           alert('Product added successfully');
            this.router.navigate(['/products']);
          }, (error: AppError) => {
            console.log(error);

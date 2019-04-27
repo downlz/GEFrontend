@@ -11,7 +11,7 @@ import { AppError } from '../common/app-error';
 })
 export class AllOrdersComponent implements OnInit {
   orders: any;
-  states = ['new', 'confirmed', 'shipped', 'delivered'];
+  states = ['new', 'confirmed', 'ready','shipped', 'delivered','cancelled'];
   constructor(private authenticationService: AuthService, private orderService: OrderService,
     private route: ActivatedRoute, private router: Router) { }
 

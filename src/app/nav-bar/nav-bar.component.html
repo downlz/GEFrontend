@@ -58,6 +58,14 @@
           </li>
           <li class="nav-item">
             <a
+              class="active nav-link scrollto h4"
+              [class.active]="isSectionActive('hero')"
+              routerLink="/gbproducts"
+            >Group Buying</a
+            >
+          </li>
+          <!-- <li class="nav-item">
+            <a
               class="nav-link scrollto h4"
               [class.active]="isSectionActive('buyer')"
               routerLink="/main"
@@ -73,7 +81,7 @@
               fragment="seller"
               >Sellers</a
             >
-          </li>
+          </li> -->
           <li class="nav-item">
             <a
               class="nav-link scrollto h4"
