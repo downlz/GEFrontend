@@ -39,17 +39,17 @@ export class AuctionListComponent implements OnInit {
         this.setAuctions();
         this.loading = false;
       }, () => {
-        alert("Error while fetching data");
+        alert('Error while fetching data');
         this.loading = false;
       });
   }
 
   setAuctions() {
     this.activeAuctions = this.auctions.filter((auction) => {
-      return auction.approved && (new Date()) > (new Date(auction.endTime));
+      return auction.approved && (new Date().getTime() <= (new Date(auction.endTime)).getTime());
     });
     this.inActiveAuctions = this.auctions.filter((auction) => {
-      return (new Date()) <= (new Date(auction.endTime));
+      return (new Date()).getTime() > (new Date(auction.endTime)).getTime();
     });
     this.pendingAuctions = this.auctions.filter((auction) => {
       return !auction.approved;
