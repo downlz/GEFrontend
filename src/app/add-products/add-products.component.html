@@ -10,15 +10,9 @@
         <div class="col-md-5 pr-1">
           <div class="form-group">
             <label>Itemname</label>
-            <!-- <select name="itemname" id="itemname" class="form-control">
-                  <option value="volvo">Rice</option>
-                  <option value="saab">Wheat</option>
-                  <option value="fiat">Sugar</option>
-                  <option value="audi">Dal</option>
-            </select> -->
-
-            <select class="form-control" id="itemname" formControlName="itemname">
-              <option value=''></option>
+            <select class="form-control" id="itemname" formControlName="itemname"
+                    (ngModelChange)="onItemChange($event)">
+              <option value=''>Select Item</option>
               <option *ngFor="let item of itemnames" [ngValue]="item._id"> {{ item.name }} </option>
             </select>
 

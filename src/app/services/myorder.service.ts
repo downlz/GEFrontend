@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { AppError } from '../common/app-error';
 import { NotFoundError } from '../common/not-found-error';
+import { environment } from '../../environments/environment';
 import { catchError } from 'rxjs/operators';
 
 @Injectable({
@@ -10,7 +11,7 @@ import { catchError } from 'rxjs/operators';
 })
 export class MyorderService {
 
-  url = 'http://localhost:3000/api/order/user';
+  url= environment.baseUrl + '/order/user';
   constructor(private http: HttpClient) { }
 
   get(resourceId) {

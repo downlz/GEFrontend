@@ -18,7 +18,6 @@ export class MyOrdersComponent implements OnInit {
     this.myorderService.get(currentUser._id)
     .subscribe(response => {
       this.orders = response as any;
-      // console.log(this.orders);
     }, (error: Response) => {
       this.router.navigate(['/errorpage']);
       if (error.status === 400) {

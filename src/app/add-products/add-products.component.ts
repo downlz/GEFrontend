@@ -18,6 +18,8 @@ import {UserService} from '../services/user.service';
 import {UsersellerService} from '../services/seller.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AppError } from '../common/app-error';
+// import { environment } from 'src/environments/environment.prod';
+import { environment } from '../../environments/environment'
 
 @Component({
   selector: 'app-add-products',
@@ -26,7 +28,7 @@ import { AppError } from '../common/app-error';
 })
 export class AddProductsComponent implements OnInit {
 
-  public uploader: FileUploader = new FileUploader({url: 'http://localhost:3000/api/addimage', itemAlias: 'image'});
+  public uploader: FileUploader = new FileUploader({url: environment.baseUrl + '/addimage', itemAlias: 'image'});
 
   form = new FormGroup({
     newitem: new FormGroup({
@@ -192,6 +194,29 @@ export class AddProductsComponent implements OnInit {
   get manufacturer () {
     return this.form.get('newitem.manufacturer');
   }
+
+  onItemChange(datain2) {
+    let item = this.form.get('newitem.itemname').value;
+    this.categories = [];
+    // this.listings = [];
+    this.categoryService.getCategoriesByItem(item).subscribe((response) => {
+      this.categories = response;
+    }, (error: Response) => {
+      console.log(error);
+    });
+
+  }
+
+  // onCategoryChange(datain) {
+  //   this.listings = [];
+  //   let category = this.form.get('newItem.itemCategory').value;
+  //   this.listingService.getListingsByCategory(category).subscribe((response) => {
+  //     this.listings = response;
+  //     console.log(this.listings);
+  //   }, (error: Response) => {
+  //     console.log(error);
+  //   });
+  // }
 
   addproduct() {                                    // Currently no in use and needs to be corrected in future
     console.log("Do Nothing");

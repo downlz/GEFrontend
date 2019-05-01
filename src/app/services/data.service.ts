@@ -1,17 +1,20 @@
-import { Injectable, Inject } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { Observable, throwError } from 'rxjs';
-import { AppError } from '../common/app-error';
-import { NotFoundError } from '../common/not-found-error';
-import { catchError } from 'rxjs/operators';
+import {Injectable, Inject} from '@angular/core';
+import {HttpClient} from '@angular/common/http';
+import {Observable, throwError} from 'rxjs';
+import {AppError} from '../common/app-error';
+import {NotFoundError} from '../common/not-found-error';
+import { environment } from '../../environments/environment';
+import {catchError} from 'rxjs/operators';
 
 
 // @Injectable({
 //   providedIn: 'root'
 // })
 export class DataService {
-
-  constructor(protected url: string, protected http: HttpClient) { }
+  // value: string;
+  constructor(protected url: string, protected http: HttpClient) {
+    // this.value=url
+  }
 
   getAll() {
     return this.http.get(this.url);
@@ -19,6 +22,10 @@ export class DataService {
 
   get(resourceId) {
     return this.http.get(this.url + '/' + resourceId);
+  }
+
+  getCurrentUserAuctions() {
+    return this.http.get(this.url + '/current');
   }
 
   create(resource) {

@@ -18,7 +18,7 @@
 
 .ItemCardContainer {
   padding: 30px;
-
+  // font-size: 6px;
 }
 
 .ItemCardImage {
@@ -43,6 +43,10 @@
   width: 100%;
   height: -webkit-fill-available;
   z-index: 0;
+}
+
+.ItemTextDtl {
+  font-size: 14px;
 }
 
 .alrt {
