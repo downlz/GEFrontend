@@ -19,7 +19,7 @@ export class AllOrdersComponent implements OnInit {
     this.orderService.getAll()
     .subscribe(response => {
       this.orders = response as any;
-      console.log(this.orders);
+      // console.log(this.orders);
     }, (error: Response) => {
       this.router.navigate(['/errorpage']);
       if (error.status === 400) {

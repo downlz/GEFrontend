@@ -11,7 +11,7 @@ export class OrderCardComponent implements OnInit {
   constructor(private listingService: ListingService) { }
 
   ngOnInit() {
-    console.log(this.order);
+    // console.log(this.order);
   }
 
   getOrderStatusNumber() {

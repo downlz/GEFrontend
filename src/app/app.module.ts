@@ -3,8 +3,8 @@ import { NgModule, ErrorHandler } from '@angular/core';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
 import { DatePickerModule } from '@syncfusion/ej2-angular-calendars';
-// import { FileSelectDirective } from 'ng2-file-upload';
 import { FileUploadModule } from "ng2-file-upload";
+// import { environment } from '../environments/environment';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';

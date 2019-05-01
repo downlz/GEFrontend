@@ -3,6 +3,7 @@ import {HttpClient} from '@angular/common/http';
 import {Observable, throwError} from 'rxjs';
 import {AppError} from '../common/app-error';
 import {NotFoundError} from '../common/not-found-error';
+import { environment } from '../../environments/environment';
 import {catchError} from 'rxjs/operators';
 
 
@@ -10,8 +11,9 @@ import {catchError} from 'rxjs/operators';
 //   providedIn: 'root'
 // })
 export class DataService {
-
+  // value: string;
   constructor(protected url: string, protected http: HttpClient) {
+    // this.value=url
   }
 
   getAll() {

@@ -3,8 +3,9 @@ import { DataService } from './data.service';
 import { HttpClient } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { AppError } from '../common/app-error';
- import { NotFoundError } from '../common/not-found-error';
+import { NotFoundError } from '../common/not-found-error';
 import { catchError } from 'rxjs/operators';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -13,10 +14,11 @@ export class ListingService {
   // constructor(http: HttpClient) {
   //   super('http://localhost:3000/api/item', http);
   // }
-  url = 'http://localhost:3000/api/item';
+  baseUrl = environment.baseUrl;
+  url = this.baseUrl + '/item';
   //http: HttpClient;
   constructor(private http: HttpClient) {
-    this.url = 'http://localhost:3000/api/item';
+    this.url = this.url;
    }
    getAll(res) {
     console.log(this.url + res);

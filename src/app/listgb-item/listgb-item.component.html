@@ -4,9 +4,32 @@
     <div formGroupName="listgb">
       <div class="row">
           <div class="col-md-3 pr-1">
+              <div class="form-group">
+                <label>Item</label>
+                <select class="form-control" id="itemname" formControlName="itemname"
+                        (ngModelChange)="onItemChange($event)">
+                  <option value=''>Select Item</option>
+                  <option *ngFor="let item of itemnames" [ngValue]="item._id"> {{ item.name }} </option>
+                </select>
+    
+              </div>
+            </div>
+            <div class="col-md-3 pl-1" >
+              <div class="form-group">
+                <label>Category</label>
+                <select class="form-control" id="category" [attr.disabled]="!form.value.listgb.itemname?'':null"
+                        formControlName="category" (ngModelChange)="onCategoryChange($event)">
+                  <option value=''>Select Category</option>
+                  <option *ngFor="let category of categories" [ngValue]="category._id"> {{ category.name }}</option>
+                </select>
+              </div>
+            </div>
+
+          <div class="col-md-3 pr-1">
             <div class="form-group">
               <label>Sample No</label>
-              <select name="sampleno" class="form-control" id="sampleno" formControlName="sampleno" (change)="onSampleNoChange(sampleno.value,listings)">
+              <select name="sampleno" class="form-control" id="sampleno" [attr.disabled]="!form.value.listgb.category?'':null"
+                      formControlName="sampleno" (change)="onSampleNoChange(sampleno.value,listings)">
                 <option value=''></option>
                 <option *ngFor="let sample of listings" [ngValue]="sample._id"> {{ sample.sampleNo }} </option>
               </select>

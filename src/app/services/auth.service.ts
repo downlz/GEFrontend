@@ -4,6 +4,7 @@ import {HttpClient} from '@angular/common/http';
 import {Observable, throwError, BehaviorSubject} from 'rxjs';
 import {AppError} from '../common/app-error';
 import {NotFoundError} from '../common/not-found-error';
+import { environment } from '../../environments/environment';
 import {catchError} from 'rxjs/operators';
 import 'rxjs/add/operator/map';
 
@@ -12,7 +13,7 @@ import 'rxjs/add/operator/map';
   providedIn: 'root'
 })
 export class AuthService {
-  url = 'http://localhost:3000/api/auth';
+  url= environment.baseUrl + '/auth';
   private currentUserSubject: BehaviorSubject<any>;
   public currentUser: Observable<any>;
   role: string;

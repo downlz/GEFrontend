@@ -5,8 +5,8 @@ import {CityService} from '../services/city.service';
 import {StateService} from '../services/state.service';
 import {UnitService} from '../services/unit.service';
 import {GroupBuyingService} from '../services/groupbuying.service';
-// import {CategoryService} from '../services/category.service';
-// import {ItemnameService} from '../services/itemname.service';
+import {CategoryService} from '../services/category.service';
+import {ItemnameService} from '../services/itemname.service';
 import {ListingService} from '../services/listing.service';
 // import {ManufacturerService} from '../services/manufacturer.service';
 import { forkJoin } from 'rxjs';
@@ -80,17 +80,19 @@ export class ListGBItemComponent implements OnInit {
 
   constructor(private stateService: StateService, private cityService: CityService,
     private user: UserService, private unitService: UnitService,private listingService: ListingService,
-    private groupbuyingService: GroupBuyingService,private router: Router) { }
+    private categoryService: CategoryService,private groupbuyingService: GroupBuyingService,
+    private itemnameService: ItemnameService, private router: Router) { }
 
   ngOnInit() {
 
     forkJoin([this.cityService.getAll(), this.stateService.getAll(),
-      this.unitService.getAll(),this.listingService.getAll('')])   // Needs to pass params for filters
+      this.unitService.getAll(),this.listingService.getAll(''),this.itemnameService.getAll()])   // Needs to pass params for filters
     .subscribe(response => {
       this.cities = response[0];
       this.states = response[1];
       this.units = response[2];
       this.listings  = response[3];
+      this.itemnames = response[4];
       // console.log(this.listings);
     }, (error: Response) => {
       this.router.navigate(['/errorpage']);
@@ -105,9 +107,9 @@ export class ListGBItemComponent implements OnInit {
     return this.form.get('listgb.sampleno');
   }
   //
-  // get itemId () {
-  //   return this.form.get('listgb.itemId');
-  // }
+  get itemId () {
+    return this.form.get('listgb.item');
+  }
   //
   // get qty () {
   //   return this.form.get('listgb.qty');
@@ -145,6 +147,29 @@ export class ListGBItemComponent implements OnInit {
   //   // console.log("Hello");
   //   console.log(listarr[2]);
   // };
+  
+  onItemChange(datain2) {
+    let item = this.form.get('listgb.itemname').value;
+    this.categories = [];
+    this.listings = [];
+    this.categoryService.getCategoriesByItem(item).subscribe((response) => {
+      this.categories = response;
+    }, (error: Response) => {
+      console.log(error);
+    });
+
+  }
+
+  onCategoryChange(datain) {
+    this.listings = [];
+    let category = this.form.get('listgb.category').value;
+    this.listingService.getListingsByCategory(category).subscribe((response) => {
+      this.listings = response;
+      console.log(this.listings);
+    }, (error: Response) => {
+      console.log(error);
+    });
+  }
 
   onSampleNoChange(sampleno,listarr) {
     var itemarr;
