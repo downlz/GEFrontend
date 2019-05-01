@@ -42,8 +42,40 @@
                   <div class="alrt">  Quantity is required </div>
                 </div>
             </div>
+
+            <!-- <div class="form-group ItemTextDtl row">
+                <label for="shipaddr" class="col-sm-8 control-label" >Is shipping address same as billing</label>
+                <label class="checkbox">
+                <input type="checkbox" id="shipping" value='true'> Yes/No </label>
+            </div>
+            <div class="form-group ItemTextDtl row">
+                <label for="address" class="col-sm-3 control-label">Address</label>
+                <div class="col-sm-9">
+                  <input required ngModel name="address" id="address"
+                  type="text" class="form-control">
+                </div>
+            </div> -->
+            <!-- <div class="form-group ItemTextDtl row">
+                <label for="state" class="col-sm-2 control-label">City</label>
+                <div class="col-sm-4">
+                  <input required ngModel name="state" id="state"
+                  type="text" class="form-control">
+                </div>
+                <label for="state" class="col-sm-2 control-label">State</label>
+                <div class="col-sm-4">
+                    <option value=''>State</option>
+                    <option *ngFor="let stat of state" [ngValue]="state._id"> {{ state.name }} </option>
+                </div>
+            </div> -->
+            <!-- <div class="form-group ItemTextDtl row">
+                <label for="phone" class="col-sm-3 control-label">Phone</label>
+                <div class="col-sm-9">
+                  <input required ngModel name="phone" id="phone"
+                  type="text" class="form-control">
+                </div>
+            </div> -->
             <div>
-              Price : Rs. {{ price }} <br> *Transportation cost extra
+              Price : Rs. {{ price }} <br> <p class= "ItemTextDtl"> *Transportation cost extra</p>
             </div>
             <div>
             <button class="btn btn-primary" [disabled]="(!f.valid) || (!priceValid)" >Submit</button>

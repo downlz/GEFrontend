@@ -3,9 +3,11 @@ import { ActivatedRoute, Router } from '@angular/router';
 import {ListingService} from '../services/listing.service';
 import { Listing } from './../model/listing';
 import { UserService } from '../services/user.service';
+import { StateService } from '../services/state.service';
 import { OrderService } from '../services/order.service';
 import { PriceService } from '../services/price.service';
 import { AppError } from '../common/app-error';
+import { forkJoin } from 'rxjs';
 
 @Component({
   selector: 'app-order-now',
@@ -17,11 +19,12 @@ export class OrderNowComponent implements OnInit {
   listing: Listing;
   address: any;
   userid: any;
+  state: any;
   price = 0;
   priceValid = false;
   constructor(private listingService: ListingService, private userService: UserService,
-    private route: ActivatedRoute, private router: Router, private orderService: OrderService,
-    private priceService: PriceService) { }
+    private route: ActivatedRoute, private router: Router, private stateService: StateService,
+    private orderService: OrderService, private priceService: PriceService) { }
 
   ngOnInit() {
     this.route.paramMap
@@ -29,6 +32,11 @@ export class OrderNowComponent implements OnInit {
       const id = params.get('id');
       this.getProduct(id);
     });
+    this.stateService.getAll()
+    .subscribe(response => {
+      const res = response as any;
+      this.state = res.name;
+    }) 
     this.userService.get('me')
     .subscribe(response => {
       const res = response as any;
@@ -87,6 +95,7 @@ export class OrderNowComponent implements OnInit {
     const OrderData = {
       orderno: (this.userid.substring(-1,5)  + this.listing.seller._id.substring(-1,5)).toUpperCase(),    // Frame a order no generator here
       quantity: f.quantity,
+      unit: this.listing.unit.mass,
       cost: f.quantity * this.listing.price,
       price : this.listing.price,
       itemId: this.listing._id,
@@ -94,14 +103,12 @@ export class OrderNowComponent implements OnInit {
       buyerId: this.userid,
       sellerId: this.listing.seller._id,
       placedTime: Date.now().toString(),
-      ordertype: 'regular',
+      ordertype: 'regular',       // Try to make it dynamic
       status: 'new'
-
     };
-
     this.orderService.create(OrderData)
     .subscribe(response => {
-      console.log(response);
+      // console.log(response);
       alert('Order Placed Successfully');
       this.router.navigate(['/myOrders']);
     }, (error: AppError) => {

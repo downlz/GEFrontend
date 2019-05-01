@@ -46,7 +46,7 @@ export class GBProductDetailComponent implements OnInit {
   this.gblistingService.get(id)
     .subscribe(response => {
       this.gblisting = response as GBListing;
-      console.log(this.gblisting);
+      // console.log(this.gblisting);
     }, (error: Response) => {
       this.router.navigate(['/errorpage']);
       if (error.status === 400) {

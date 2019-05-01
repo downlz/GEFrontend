@@ -19,6 +19,7 @@ export class GBOrderNowComponent implements OnInit {
   userid: any;
   price = 0;
   priceValid = false;
+  referenceGBId: any;
   constructor(private gblistingService: GBListingService, private userService: UserService,
     private route: ActivatedRoute, private router: Router, private orderService: OrderService,
     private priceService: PriceService) { }
@@ -90,6 +91,7 @@ export class GBOrderNowComponent implements OnInit {
     const OrderData = {
       orderno: (this.userid.substring(-1,5)  + this.gblisting.item.seller._id.substring(-1,5)).toUpperCase(),    // Frame a order no generator here
       quantity: f.quantity,
+      unit: this.gblisting.unit.mass,
       cost: f.quantity * this.gblisting.dealprice,
       price: this.gblisting.dealprice,
       itemId: this.gblisting.item._id,
@@ -97,13 +99,12 @@ export class GBOrderNowComponent implements OnInit {
       buyerId: this.userid,
       sellerId: this.gblisting.item.seller._id,
       placedTime: Date.now().toString(),
+      referenceGBId: this.gblisting._id,
       status: 'new',
       ordertype: 'groupbuying'
     };
-
     this.orderService.create(OrderData)
     .subscribe(response => {
-      console.log(response);
       alert('Order Placed Successfully');
       this.router.navigate(['/myOrders']);
     }, (error: AppError) => {

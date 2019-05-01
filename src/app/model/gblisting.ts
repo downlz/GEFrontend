@@ -5,6 +5,7 @@ import {Unit} from './unit';
 import {Listing} from './listing';
 
 export interface GBListing {
+  _id: string;
   item: Listing;
   dealprice: number;
   moq: number;
