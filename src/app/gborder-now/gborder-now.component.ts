@@ -20,6 +20,7 @@ export class GBOrderNowComponent implements OnInit {
   price = 0;
   priceValid = false;
   referenceGBId: any;
+  lastorderno: number;
   constructor(private gblistingService: GBListingService, private userService: UserService,
     private route: ActivatedRoute, private router: Router, private orderService: OrderService,
     private priceService: PriceService) { }
@@ -83,13 +84,16 @@ export class GBOrderNowComponent implements OnInit {
     // });
   }
 
-  generateorderno(odrno){           // To generate order id
-
-  }
 
   order(f) {
+    this.orderService.get('orderno')        // Sending url as per API defination
+      .subscribe(response => {              // improve coding standards
+        const res = response as any;
+        this.lastorderno = parseInt(res[0].orderno) + 1;
+
     const OrderData = {
-      orderno: (this.userid.substring(-1,5)  + this.gblisting.item.seller._id.substring(-1,5)).toUpperCase(),    // Frame a order no generator here
+      // orderno: (this.userid.substring(-1,5)  + this.gblisting.item.seller._id.substring(-1,5)).toUpperCase(),    // Frame a order no generator here
+      orderno: String(this.lastorderno),
       quantity: f.quantity,
       unit: this.gblisting.unit.mass,
       cost: f.quantity * this.gblisting.dealprice,
@@ -111,5 +115,6 @@ export class GBOrderNowComponent implements OnInit {
       console.log(error);
       this.router.navigate(['/errorpage']);
     });
+  })
   }
 }
