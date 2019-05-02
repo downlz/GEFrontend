@@ -57,13 +57,13 @@ export class ProductDetailComponent implements OnInit {
       quantity: 0,
       cost: 0,
       itemId: this.listing._id,
+      unit: this.listing.unit.mass,
       addressId: this.address._id,
       buyerId: this.userid,
       sellerId: this.listing.seller._id,
       placedTime: Date.now().toString(),
       ordertype: 'sampleorder',
       status: 'new'
-
     };
     console.log(OrderData);
     this.orderService.create(OrderData)

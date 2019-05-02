@@ -21,7 +21,8 @@
         <div class="col-md-3 pl-1">
           <div class="form-group">
             <label>Category</label>
-            <select class="form-control" id="itemcategory" formControlName="itemcategory">
+            <select class="form-control" id="itemcategory" [attr.disabled]="!form.value.newitem.itemname?'':null"
+              formControlName="itemcategory">
               <option value=''></option>
               <option *ngFor="let category of categories" [ngValue]="category._id"> {{ category.name }}</option>
             </select>
@@ -109,13 +110,6 @@
       <h5>Product location specific information </h5>
       <div class="row">
         <div class="col-md-2 pr-1">
-          <label for="city">City:</label>
-          <select class="form-control" id="city" formControlName="city">
-            <option value=''></option>
-            <option *ngFor="let c of cities" [ngValue]="c._id"> {{ c.name }} </option>
-          </select>
-        </div>
-        <div class="col-md-2 pl-1">
           <div class="form-group">
             <label>Origin</label>
             <input type="text" id="origin" class="form-control" formControlName="origin" placeholder="Enter Origin">
@@ -130,6 +124,13 @@
               <option *ngFor="let addr of addresses" [ngValue]="addr._id"> {{ addr.text }} </option>
             </select>
           </div>
+        </div>
+        <div class="col-md-2 pl-1">
+          <label for="city">City:</label>
+          <select class="form-control" id="city" formControlName="city">
+            <option value=''></option>
+            <option *ngFor="let c of cities" [ngValue]="c._id"> {{ c.name }} </option>
+          </select>
         </div>
         <div class="col-md-3 pl-1">
           <div class="form-group">
@@ -153,17 +154,6 @@
           </div>
         </div>
         </div>
-        <!-- <div class="row">
-          <div class="col-md-3 pr-1">
-            <div class="form-group">
-          <button class="btn btn-primary"
-          (click)="uploader.uploadAll()"
-          [disabled]="!uploader.getNotUploadedItems().length" >
-            Upload this Image
-          </button>
-          </div>
-          </div>
-          </div> -->
         <div class="row">
         <div class="col-md-4 pr-1">
           <div class="form-group">

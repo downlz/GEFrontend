@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import {ListingService} from '../services/listing.service';
+import { ListingService } from '../services/listing.service';
 import { Listing } from './../model/listing';
 import { UserService } from '../services/user.service';
 import { StateService } from '../services/state.service';
@@ -22,6 +22,7 @@ export class OrderNowComponent implements OnInit {
   state: any;
   price = 0;
   priceValid = false;
+  lastorderno: number;
   constructor(private listingService: ListingService, private userService: UserService,
     private route: ActivatedRoute, private router: Router, private stateService: StateService,
     private orderService: OrderService, private priceService: PriceService) { }
@@ -75,7 +76,8 @@ export class OrderNowComponent implements OnInit {
     this.priceService.getPrice(PriceData)
     .subscribe(Response => {
       const priceValue = Response as any;
-      this.price = priceValue.price;
+      // this.price = priceValue.price;
+      this.price = priceValue.price.toFixed(2);
       if (this.price < 0) {
           this.price = 0;
       } else {
@@ -87,13 +89,26 @@ export class OrderNowComponent implements OnInit {
     });
   }
 
-  generateorderno(odrno){           // To generate order id
-
+  generateorderno(){           // To generate order id
+    this.orderService.get('orderno')        // Sending url as per API defination
+      .subscribe(response => {
+        const res = response as any;
+        this.lastorderno = res[0].orderno + 1;
+      })  
+      return this.lastorderno;
   }
 
   order(f) {
+
+    this.orderService.get('orderno')        // Sending url as per API defination
+      .subscribe(response => {              // improve coding standards
+        const res = response as any;
+        this.lastorderno = parseInt(res[0].orderno) + 1;
+        // console.log(this.lastorderno);
+      // })
     const OrderData = {
-      orderno: (this.userid.substring(-1,5)  + this.listing.seller._id.substring(-1,5)).toUpperCase(),    // Frame a order no generator here
+      // orderno: (this.userid.substring(-1,5)  + this.listing.seller._id.substring(-1,5)).toUpperCase(),    // Frame a order no generator here
+      orderno: String(this.lastorderno),
       quantity: f.quantity,
       unit: this.listing.unit.mass,
       cost: f.quantity * this.listing.price,
@@ -106,14 +121,15 @@ export class OrderNowComponent implements OnInit {
       ordertype: 'regular',       // Try to make it dynamic
       status: 'new'
     };
+    // console.log(OrderData);
     this.orderService.create(OrderData)
     .subscribe(response => {
-      // console.log(response);
       alert('Order Placed Successfully');
       this.router.navigate(['/myOrders']);
     }, (error: AppError) => {
       console.log(error);
       this.router.navigate(['/errorpage']);
     });
-  }
+})
+}
 }
