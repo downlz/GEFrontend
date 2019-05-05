@@ -31,11 +31,11 @@
               </tr>
               <tr>
                 <th>Price: </th>
-                <th> Rs. {{ listing.price }} Per Kg</th>
+                <th> Rs. {{ listing.price }}/{{ listing.unit.mass }}</th>
               </tr>
               <tr>
                 <th>Quantity: </th>
-                <th> {{ listing.qty }} Kg</th>
+                <th> {{ listing.qty }} {{ listing.unit.mass }}</th>
               </tr>
               <tr>
                 <th>Grade: </th>
