@@ -1,13 +1,14 @@
-import {Component, Input, OnInit, Output} from '@angular/core';
+import {AfterViewInit, Component, ElementRef, Input, OnInit, Output, ViewChild} from '@angular/core';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {AbstractControl, FormControl, FormGroup, Validators} from '@angular/forms';
+import {BidService} from '../../services/bid.service';
 
 @Component({
   selector: 'app-place-bid',
   templateUrl: './place-bid.component.html',
   styleUrls: ['./place-bid.component.scss']
 })
-export class PlaceBidComponent implements OnInit {
+export class PlaceBidComponent implements OnInit, AfterViewInit {
   form: FormGroup;
   @Input()
   modal: any;
@@ -15,8 +16,10 @@ export class PlaceBidComponent implements OnInit {
   auction: any;
   loading: boolean;
   submitted: boolean;
+  @ViewChild('quantity')
+  quantity: ElementRef;
 
-  constructor(private modalService: NgbModal) {
+  constructor(private modalService: NgbModal, private bidService: BidService) {
   }
 
   ngOnInit() {
@@ -38,6 +41,9 @@ export class PlaceBidComponent implements OnInit {
     }
   }
 
+  ngAfterViewInit() {
+    setTimeout(() => this.quantity.nativeElement.focus());
+  }
 
   save(event) {
     this.submitted = true;
@@ -45,8 +51,16 @@ export class PlaceBidComponent implements OnInit {
     if (this.form.valid) {
       this.loading = true;
       const bid = this.form.getRawValue().newItem;
-      this.modal.close();
-      console.log(bid);
+      bid.auction = this.auction._id;
+      this.bidService.create(bid).subscribe((response) => {
+        this.loading = false;
+        alert('Bid Placed successfully');
+        this.modal.close();
+      }, err => {
+        this.loading = false;
+        alert('There was a server error while bidding on this auction');
+      });
+
     }
   }
 

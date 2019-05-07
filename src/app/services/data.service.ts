@@ -24,7 +24,7 @@ export class DataService {
     return this.http.get(this.url + '/' + resourceId);
   }
 
-  getCurrentUserAuctions() {
+  getCurrentUserData() {
     return this.http.get(this.url + '/current');
   }
 

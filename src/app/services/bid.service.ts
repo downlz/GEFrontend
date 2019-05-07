@@ -6,9 +6,10 @@ import {environment} from '../../environments/environment';
 @Injectable({
   providedIn: 'root'
 })
-export class AuctionService extends DataService {
+export class BidService extends DataService  {
+
   constructor(http: HttpClient) {
-    const url = environment.baseUrl + '/auction';
+    const url = environment.baseUrl + '/bid';
     super(url, http);
   }
 }

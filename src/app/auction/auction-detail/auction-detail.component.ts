@@ -15,12 +15,14 @@ export class AuctionDetailComponent implements OnInit {
   activeTab: string = 'productDetails';
   loading: boolean = true;
   role: string;
+  userId: string;
 
   constructor(private route: ActivatedRoute, private auth: AuthService, private router: Router, private auctionService: AuctionService) {
   }
 
   ngOnInit() {
     this.role = this.auth.getRole();
+    this.userId = this.auth.getId();
     this.getAuction();
   }
 

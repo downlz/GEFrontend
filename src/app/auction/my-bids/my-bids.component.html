@@ -1,3 +1,2 @@
-<p>
-  my-bids works!
-</p>
+<div class="spinner-grow loader text-success" *ngIf="loading"></div>
+<app-bids-table [bids]="bids" *ngIf="!loading"></app-bids-table>

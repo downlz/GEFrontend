@@ -1,3 +1,64 @@
-<p>
-  bids-table works!
-</p>
+<div class="container">
+  <div class="container listingOffsetTextColor">
+    <table class="table table-hover table-sm">
+      <thead>
+      <tr>
+        <th scope="col" *ngIf="role== 'buyer'">Item</th>
+        <th scope="col" *ngIf="role!= 'buyer'">Bid By</th>
+        <th scope="col">Quantity</th>
+        <th scope="col">Price</th>
+        <th scope="col">Bid At</th>
+        <th scope="col" *ngIf="role== 'admin' || role=='seller' ">Actions</th>
+      </tr>
+      </thead>
+      <tbody>
+      <ng-container *ngIf="!data || data.length==0">
+        <tr>
+          <td *ngIf="role== 'buyer'"></td>
+          <td *ngIf="role!= 'buyer'"></td>
+          <td></td>
+          <td> No Data Found</td>
+          <td></td>
+          <td *ngIf="role== 'admin' || role=='seller' "></td>
+        </tr>
+      </ng-container>
+      <ng-container *ngFor="let bid of data">
+        <tr>
+          <td *ngIf="role== 'buyer'">
+            <a [routerLink]="['/product', bid.auction.sampleNo._id]">
+              <div>
+                <p>{{ bid.auction.sampleNo.name.name}}</p>
+                <div>
+                  <img [src]="bid.auction.sampleNo.image" class="img-thumbnail" width="100" height="100"/>
+                </div>
+              </div>
+            </a>
+          </td>
+          <td *ngIf="role!= 'buyer'">{{bid.createdBy.name}}</td>
+          <td>{{bid.quantity + " " + bid.auction.unit.mass}}</td>
+          <td>{{"INR " + bid.price}}</td>
+          <td>{{getDateString(bid.createdAt)}}</td>
+          <td *ngIf="role== 'admin' || role=='seller' ">
+            <button class="btn btn-primary">
+              Confirm Order
+            </button>
+          </td>
+        </tr>
+      </ng-container>
+      </tbody>
+    </table>
+    <nav aria-label="Page navigation example" *ngIf="totalPages.length>0">
+      <ul class="pagination">
+        <li class="page-item" [ngClass]="{ 'disabled' : currentPage <= 1}"><a class="page-link"
+                                                                              (click)="onPageChange(currentPage-1)">Previous</a>
+        </li>
+        <li class="page-item" [ngClass]="{ 'active' : currentPage== page}" *ngFor="let page of totalPages"><a
+          class="page-link"
+          (click)="onPageChange(page)">{{page}}</a></li>
+        <li class="page-item" [ngClass]="{ 'disabled' : currentPage>=totalPages.length}"><a class="page-link"
+                                                                                            (click)="onPageChange(currentPage+1)">Next</a>
+        </li>
+      </ul>
+    </nav>
+  </div>
+</div>

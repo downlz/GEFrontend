@@ -20,3 +20,15 @@
 label{
   color: #637a36;
 }
+
+.loader{
+  z-index: 2;
+  margin: auto;
+  position: absolute;
+  left: 50%;
+  top: 40%;
+}
+
+.loading{
+  opacity: 0.5;
+}

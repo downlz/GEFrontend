@@ -27,7 +27,7 @@ export class AuctionListComponent implements OnInit {
     if (this.role === 'admin') {
       subscription = this.service.getAll();
     } else if (this.role === 'seller') {
-      subscription = this.service.getCurrentUserAuctions();
+      subscription = this.service.getCurrentUserData();
     } else {
       //To be changed for buyer
       subscription = this.service.getAll();
