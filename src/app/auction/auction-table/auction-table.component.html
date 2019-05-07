@@ -44,12 +44,13 @@
           <td>{{getDateString(auction.startTime)}}</td>
           <td>{{auction.approved ? "Yes" : "No"}}</td>
           <td>
-            <button class="btn btn-primary" *ngIf="actions.indexOf('details')!=-1">
+            <a class="btn btn-primary" [routerLink]="'/auction/'+auction._id" *ngIf="actions.indexOf('details')!=-1">
               Details
-            </button>&nbsp;
-            <button class="btn btn-primary" *ngIf="actions.indexOf('bids')!=-1">
+            </a>&nbsp;
+            <a class="btn btn-primary" [routerLink]="'/auction/'+auction._id" [queryParams]="{tab : 'bids'}"
+               *ngIf="actions.indexOf('bids')!=-1">
               Bids
-            </button>
+            </a>
             <button class="btn btn-primary" *ngIf="actions.indexOf('approve')!=-1"
                     (click)="approveAuction(auction._id)">
               Approve
@@ -68,7 +69,7 @@
           class="page-link"
           (click)="onPageChange(page)">{{page}}</a></li>
         <li class="page-item" [ngClass]="{ 'disabled' : currentPage>=totalPages.length}"><a class="page-link"
-                                                                                        (click)="onPageChange(currentPage+1)">Next</a>
+                                                                                            (click)="onPageChange(currentPage+1)">Next</a>
         </li>
       </ul>
     </nav>

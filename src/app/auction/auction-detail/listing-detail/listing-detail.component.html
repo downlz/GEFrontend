@@ -1,0 +1,66 @@
+<div class="container shdw" *ngIf="listing">
+  <div >
+    <div class="row container">
+
+      <div class="col-12 col-md-6">
+        <div class="ItemCardContainer">
+          <img class="card-img-top ItemCardImage" [src]="listing.image" alt="{{
+          listing.name }}">
+
+        </div>
+      </div>
+
+      <div class="col-12 col-md-6">
+        <div class="ItemCardContainer">
+          <div class="card ItemCardDesc">
+            <div class="card-body">
+              <table style="width:100%">
+                <tr>
+                  <th>
+                    <h3 class="card-title">{{ listing.name.name }} </h3>
+                  </th>
+                </tr>
+                <tr>
+                  <th>Sample Number: </th>
+                  <th>{{ listing.sampleNo}}</th>
+                </tr>
+                <tr>
+                  <th>Type: </th>
+                  <th>{{ listing.category.name }}</th>
+                </tr>
+                <tr>
+                  <th>Price: </th>
+                  <th> Rs. {{ listing.price }}/{{ listing.unit.mass }}</th>
+                </tr>
+                <tr>
+                  <th>Quantity: </th>
+                  <th> {{ listing.qty }} {{ listing.unit.mass }}</th>
+                </tr>
+                <tr>
+                  <th>Grade: </th>
+                  <th> {{ listing.grade }}</th>
+                </tr>
+                <tr>
+                  <th>Grain Count: </th>
+                  <th> {{ listing.grainCount }} </th>
+                </tr>
+                <tr>
+                  <th>Moisture: </th>
+                  <th> {{ listing.moisture }}%</th>
+                </tr>
+                <tr>
+                  <th>Location: </th>
+                  <th> {{ listing.city.name }} | {{ listing.city.state.name }}</th>
+                </tr>
+
+
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+

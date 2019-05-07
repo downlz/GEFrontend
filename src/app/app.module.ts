@@ -57,6 +57,9 @@ import { AuctionStatusComponent } from './auction/auction-status/auction-status.
 import { AuctionListingCardComponent } from './auction/auction-listing-card/auction-listing-card.component';
 import { BidsComponent } from './auction/bids/bids.component';
 import { AuctionTableComponent } from './auction/auction-table/auction-table.component';
+import { AuctionDetailComponent } from './auction/auction-detail/auction-detail.component';
+import { ListingDetailComponent } from './auction/auction-detail/listing-detail/listing-detail.component';
+import { BidsTableComponent } from './auction/auction-detail/bids-table/bids-table.component';
 
 @NgModule({
   declarations: [
@@ -92,7 +95,10 @@ import { AuctionTableComponent } from './auction/auction-table/auction-table.com
     AuctionStatusComponent,
     AuctionListingCardComponent,
     BidsComponent,
-    AuctionTableComponent
+    AuctionTableComponent,
+    AuctionDetailComponent,
+    ListingDetailComponent,
+    BidsTableComponent
   ],
   imports: [
     BrowserModule,
