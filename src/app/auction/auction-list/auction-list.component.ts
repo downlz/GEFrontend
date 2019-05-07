@@ -72,4 +72,14 @@ export class AuctionListComponent implements OnInit {
     this.auctions = modifiedAuctions;
     this.setAuctions();
   }
+
+  getActiveAuctionActions() {
+    if (this.role === 'seller' || this.role === 'admin') {
+      return ['bids', 'details'];
+    } else {
+      return ['bid', 'details'];
+    }
+  }
+
+
 }

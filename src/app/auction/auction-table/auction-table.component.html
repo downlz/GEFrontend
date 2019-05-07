@@ -10,7 +10,7 @@
         <th scope="col">Category</th>
         <th scope="col">Start Time</th>
         <th scope="col">End Time</th>
-        <th scope="col">Approved</th>
+        <th scope="col" *ngIf="role === 'admin' || role === 'seller'">Approved</th>
         <th scope="col">Actions</th>
       </tr>
       </thead>
@@ -23,7 +23,7 @@
           <td> No Data Found</td>
           <td></td>
           <td></td>
-          <td></td>
+          <td *ngIf="role === 'admin' || role === 'seller'"></td>
           <td></td>
         </tr>
       </ng-container>
@@ -42,8 +42,12 @@
           <td>{{auction.sampleNo.category.name}}</td>
           <td>{{getDateString(auction.startTime)}}</td>
           <td>{{getDateString(auction.startTime)}}</td>
-          <td>{{auction.approved ? "Yes" : "No"}}</td>
+          <td *ngIf="role === 'admin' || role === 'seller'">{{auction.approved ? "Yes" : "No"}}</td>
           <td>
+            <button class="btn btn-primary" *ngIf="actions.indexOf('bid')!=-1" (click)="placeBid(content,auction)">
+              Place Bid
+            </button>
+            &nbsp;
             <a class="btn btn-primary" [routerLink]="'/auction/'+auction._id" *ngIf="actions.indexOf('details')!=-1">
               Details
             </a>&nbsp;
@@ -75,3 +79,7 @@
     </nav>
   </div>
 </div>
+
+<ng-template #content let-modal>
+  <app-place-bid [modal]="modal" [auction]="selectedAuction"></app-place-bid>
+</ng-template>

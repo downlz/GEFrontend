@@ -22,8 +22,8 @@ import {AuctionComponent} from './auction/auction.component';
 import {CreateAuctionComponent} from './auction/create-auction/create-auction.component';
 import {AuctionListComponent} from './auction/auction-list/auction-list.component';
 import {AuctionStatusComponent} from './auction/auction-status/auction-status.component';
-import {BidsComponent} from './auction/bids/bids.component';
 import {AuctionDetailComponent} from './auction/auction-detail/auction-detail.component';
+import {MyBidsComponent} from './auction/my-bids/my-bids.component';
 
 const routes: Routes = [
   {
@@ -94,7 +94,7 @@ const routes: Routes = [
       },
       {
         path: 'bids',
-        component: BidsComponent,
+        component: MyBidsComponent,
         data: {
           roles: ['buyer']
         }

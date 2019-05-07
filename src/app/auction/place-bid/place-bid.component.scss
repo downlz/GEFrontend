@@ -1,0 +1,18 @@
+.error-block {
+  text-align: center;
+  padding-left: 0px;
+
+  p {
+    margin-bottom: 0px;
+
+    &:not(:first-child) {
+      display: none;
+    }
+  }
+}
+
+.modal-header{
+  color : #637a36;
+  background: #ceea98;
+  font-size: 20px;
+}

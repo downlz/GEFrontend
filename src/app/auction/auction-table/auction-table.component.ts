@@ -1,5 +1,8 @@
 import {Component, EventEmitter, Input, OnChanges, OnInit, Output} from '@angular/core';
 import {AuctionService} from '../../services/auction.service';
+import {AuthService} from '../../services/auth.service';
+import * as $ from 'jquery';
+import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-auction-table',
@@ -19,8 +22,11 @@ export class AuctionTableComponent implements OnInit, OnChanges {
   currentPage = 1;
   data: Array<any>;
   totalPages: Array<Number> = [];
+  role: string;
+  selectedAuction: any;
 
-  constructor(private service: AuctionService) {
+  constructor(private service: AuctionService, private auth: AuthService, private modalService: NgbModal) {
+    this.role = auth.getRole();
 
   }
 
@@ -70,5 +76,15 @@ export class AuctionTableComponent implements OnInit, OnChanges {
     if (typeof changes.auction === 'undefined') {
       this.initializeTable();
     }
+  }
+
+  placeBid(content, auction) {
+    this.selectedAuction = auction;
+    console.log(auction);
+    this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title'}).result.then((result) => {
+      this.selectedAuction = null;
+    }, (reason) => {
+      this.selectedAuction = null;
+    });
   }
 }
