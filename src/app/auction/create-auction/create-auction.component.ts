@@ -81,10 +81,10 @@ export class CreateAuctionComponent implements OnInit {
         Validators.required,
       ]),
       startTime: new FormControl(new Date(), [
-        Validators.required,
+        Validators.required
       ]),
       endTime: new FormControl(new Date(), [
-        Validators.required,
+        Validators.required
       ]),
       // seller: new FormControl(null),
 
