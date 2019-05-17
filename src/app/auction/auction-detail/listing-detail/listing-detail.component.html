@@ -1,5 +1,5 @@
 <div class="container shdw" *ngIf="listing">
-  <div >
+  <div>
     <div class="row container">
 
       <div class="col-12 col-md-6">
@@ -21,38 +21,41 @@
                   </th>
                 </tr>
                 <tr>
-                  <th>Sample Number: </th>
+                  <th>Sample Number:</th>
                   <th>{{ listing.sampleNo}}</th>
                 </tr>
                 <tr>
-                  <th>Type: </th>
+                  <th>Type:</th>
                   <th>{{ listing.category.name }}</th>
                 </tr>
                 <tr>
-                  <th>Price: </th>
+                  <th>Price:</th>
                   <th> Rs. {{ listing.price }}/{{ listing.unit.mass }}</th>
                 </tr>
                 <tr>
-                  <th>Quantity: </th>
+                  <th>Quantity:</th>
                   <th> {{ listing.qty }} {{ listing.unit.mass }}</th>
                 </tr>
                 <tr>
-                  <th>Grade: </th>
+                  <th>Grade:</th>
                   <th> {{ listing.grade }}</th>
                 </tr>
                 <tr>
-                  <th>Grain Count: </th>
+                  <th>Grain Count:</th>
                   <th> {{ listing.grainCount }} </th>
                 </tr>
                 <tr>
-                  <th>Moisture: </th>
+                  <th>Moisture:</th>
                   <th> {{ listing.moisture }}%</th>
                 </tr>
                 <tr>
-                  <th>Location: </th>
+                  <th>Location:</th>
                   <th> {{ listing.city.name }} | {{ listing.city.state.name }}</th>
                 </tr>
-
+                <tr *ngIf="listing.manufacturer">
+                  <th>Manufacturer:</th>
+                  <th> {{ listing.manufacturer.name }} | {{ listing.manufacturer.name }}</th>
+                </tr>
 
               </table>
             </div>

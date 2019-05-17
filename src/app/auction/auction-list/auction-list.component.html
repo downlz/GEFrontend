@@ -21,11 +21,14 @@
     <app-auction-table [auctions]="activeAuctions" [actions]="getActiveAuctionActions()" [loading]="loading"
                        (onDataChange)="onDataChange($event)"></app-auction-table>
   </div>
-  <div class="tab-pane container" [ngClass]="{'active' : activeTab==='pending'}" *ngIf="role=='seller' || role=='admin'">
-    <app-auction-table [auctions]="pendingAuctions" [actions]="['bids','details',role=='admin'?['approve']:'']" [loading]="loading"
+  <div class="tab-pane container" [ngClass]="{'active' : activeTab==='pending'}"
+       *ngIf="role=='seller' || role=='admin'">
+    <app-auction-table [auctions]="pendingAuctions" [actions]="['bids','details',role=='admin'?'approve':'']"
+                       [loading]="loading"
                        (onDataChange)="onDataChange($event)"></app-auction-table>
   </div>
-  <div class="tab-pane container" [ngClass]="{'active' : activeTab==='inactive'}" *ngIf="role=='seller' || role=='admin'">
+  <div class="tab-pane container" [ngClass]="{'active' : activeTab==='inactive'}"
+       *ngIf="role=='seller' || role=='admin'">
     <app-auction-table [auctions]="inActiveAuctions" [actions]="['bids','details']" [loading]="loading"
                        (onDataChange)="onDataChange($event)"></app-auction-table>
   </div>

@@ -23,11 +23,13 @@ export class AuctionTableComponent implements OnInit, OnChanges {
   data: Array<any>;
   totalPages: Array<Number> = [];
   role: string;
+  userId: string;
   selectedAuction: any;
+  currentTimestamp = new Date().getTime();
 
   constructor(private service: AuctionService, private auth: AuthService, private modalService: NgbModal) {
     this.role = auth.getRole();
-
+    this.userId = auth.getId();
   }
 
   ngOnInit() {
@@ -42,6 +44,11 @@ export class AuctionTableComponent implements OnInit, OnChanges {
 
   getDateString(str) {
     return new Date(str).toLocaleString();
+  }
+
+  getTimeStamp(string) {
+    const date = new Date(string);
+    return date.getTime();
   }
 
   approveAuction(id) {

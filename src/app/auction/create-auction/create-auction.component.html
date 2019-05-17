@@ -8,15 +8,18 @@
     <p *ngIf="getErrors('availableQty').min">Available Quantity must be greater than 1</p>
     <p *ngIf="getErrors('minQty').required">Please enter Minimum Quantity</p>
     <p *ngIf="getErrors('minQty').min">Minimum Quantity must be greater than 1</p>
-    <p *ngIf="getErrors('minQty').max">Minimum Quantity can not exceed  Available quantity</p>
+    <p *ngIf="getErrors('minQty').max">Minimum Quantity can not exceed Available quantity</p>
     <p *ngIf="getErrors('maxQty').required">Please enter Maximum Quantity</p>
     <p *ngIf="getErrors('maxQty').min">Maximum Quantity can not be lesser than minimum quantity</p>
-    <p *ngIf="getErrors('maxQty').max">Maximum Quantity can not exceed  Available quantity</p>
+    <p *ngIf="getErrors('maxQty').max">Maximum Quantity can not exceed Available quantity</p>
     <p *ngIf="getErrors('floorPrice').required">Please enter Floor Price</p>
     <p *ngIf="getErrors('unit').required">Please select Unit</p>
     <p *ngIf="getErrors('ceilingPrice').required">Please enter Ceiling Price</p>
     <p *ngIf="getErrors('startTime').required">Please enter Start Time</p>
     <p *ngIf="getErrors('endTime').required">Please enter End Time</p>
+    <p *ngIf="getErrors('address').required">Please enter your address</p>
+    <p *ngIf="getErrors('pincode').required">Please enter your pincode</p>
+    <p *ngIf="getErrors('state').required">Please select your state</p>
   </div>
   <div class="spinner-grow loader text-success" *ngIf="loading"></div>
   <form [formGroup]="form" (ngSubmit)="save($event)" [ngClass]="{'loading' : loading}">
@@ -145,7 +148,34 @@
           </div>
         </div>
       </div>
-
+      <div class="row">
+        <h4>{{form.value.newItem.auctionType == "buyer" ? 'Destination' : 'Origin'}} Address</h4>
+      </div>
+      <div class="row">
+        <div class="col-md-3 pl-1">
+          <div class="form-group">
+            <label>Address</label>
+            <input type="text" id="address" class="form-control" formControlName="address"
+                   placeholder="Address">
+          </div>
+        </div>
+        <div class="col-md-3 pl-1">
+          <div class="form-group">
+            <label>Pincode</label>
+            <input type="text" id="pincode" class="form-control" formControlName="pincode"
+                   placeholder="Pincode">
+          </div>
+        </div>
+        <div class="col-md-3 pl-1">
+          <div class="form-group">
+            <label>State</label>
+            <select class="form-control" id="state" formControlName="state">
+              <option value=''>Select State</option>
+              <option *ngFor="let state of states" [ngValue]="state._id"> {{ state.name }} </option>
+            </select>
+          </div>
+        </div>
+      </div>
       <div class="row">
         <h4>Select the duration</h4>
       </div>
@@ -156,7 +186,7 @@
             <input class="form-control" [owlDateTime]="dt1" [owlDateTimeTrigger]="dt1" id="startTime"
                    formControlName="startTime"
                    placeholder="Date Time">
-            <owl-date-time #dt1 ></owl-date-time>
+            <owl-date-time #dt1></owl-date-time>
           </div>
         </div>
 
@@ -170,6 +200,7 @@
           </div>
         </div>
       </div>
+
       <div class="row">
         <h4 *ngIf='form.value.newItem.auctionType=="seller" && form.value.newItem.sampleNo'>Seller Details</h4>
         <h4 *ngIf='form.value.newItem.auctionType=="buyer"'>Buyer Details</h4>
