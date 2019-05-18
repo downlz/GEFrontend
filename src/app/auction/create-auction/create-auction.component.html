@@ -27,7 +27,7 @@
       <div class="row">
         <h4>Auction Details</h4>
       </div>
-      <div class="row" *ngIf="role=='admin'">
+      <div class="row" *ngIf="role=='admin' && !edit">
         <div class="col-md-3 pl-1">
           <div class="form-group">
             <label>Auction Type</label>
@@ -49,7 +49,7 @@
 
           </div>
         </div>
-        <div class="col-md-3 pl-1" *ngIf="role=='admin'">
+        <div class="col-md-3 pl-1" *ngIf="role=='admin' && !edit">
           <div class="form-group">
             <label>Category</label>
             <select class="form-control" id="itemCategory" [attr.disabled]="!form.value.newItem.itemName?'':null"
@@ -59,7 +59,7 @@
             </select>
           </div>
         </div>
-        <div class="col-md-3 pl-1" *ngIf="role=='admin'">
+        <div class="col-md-3 pl-1" *ngIf="role=='admin' && !edit">
           <div class="form-group">
             <label>Sample No</label>
             <select class="form-control" id="sampleNo" formControlName="sampleNo"
@@ -74,7 +74,7 @@
       </div>
 
       <div class="row">
-        <div class="col-md-3 pl-1" *ngIf="role=='seller'">
+        <div class="col-md-3 pl-1" *ngIf="role=='seller' && !edit">
           <div class="form-group">
             <label>Sample No</label>
             <select class="form-control" id="sampleNo" formControlName="sampleNo"
@@ -106,7 +106,7 @@
                    placeholder="Maximum  Quantity">
           </div>
         </div>
-        <div class="col-md-3 pl-1">
+        <div class="col-md-3 pl-1" *ngIf="!edit">
           <div class="form-group">
             <label>Units</label>
             <select class="form-control" id="unit" formControlName="unit">
@@ -129,7 +129,7 @@
                    placeholder="Ceiling Price">
           </div>
         </div>
-        <div class="col-md-3 pl-1">
+        <div class="col-md-3 pl-1" *ngIf="!edit">
           <div class="form-group">
             <label>Name Visible?</label>
             <select class="form-control" id="nameVisible" formControlName="nameVisible">
@@ -148,10 +148,10 @@
           </div>
         </div>
       </div>
-      <div class="row">
+      <div class="row" *ngIf="!edit">
         <h4>{{form.value.newItem.auctionType == "buyer" ? 'Destination' : 'Origin'}} Address</h4>
       </div>
-      <div class="row">
+      <div class="row" *ngIf="!edit">
         <div class="col-md-3 pl-1">
           <div class="form-group">
             <label>Address</label>
@@ -176,10 +176,10 @@
           </div>
         </div>
       </div>
-      <div class="row">
+      <div class="row" *ngIf="!edit">
         <h4>Select the duration</h4>
       </div>
-      <div class="row">
+      <div class="row" *ngIf="!edit">
         <div class="col-md-3 pl-1">
           <div class="form-group">
             <label>Start Date</label><br>
@@ -201,11 +201,11 @@
         </div>
       </div>
 
-      <div class="row">
+      <div class="row" *ngIf="!edit">
         <h4 *ngIf='form.value.newItem.auctionType=="seller" && form.value.newItem.sampleNo'>Seller Details</h4>
         <h4 *ngIf='form.value.newItem.auctionType=="buyer"'>Buyer Details</h4>
       </div>
-      <div class="row">
+      <div class="row" *ngIf="!edit">
 
         <div class="col-md-3 pl-1" *ngIf='form.value.newItem.auctionType=="seller" && form.value.newItem.sampleNo'>
           <div class="form-group">

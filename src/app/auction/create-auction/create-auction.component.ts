@@ -32,6 +32,8 @@ export class CreateAuctionComponent implements OnInit {
   submitted: boolean;
   loading: boolean;
   states: any;
+  edit: boolean;
+  id: string;
 
   constructor(private categoryService: CategoryService,
               private itemnameService: ItemnameService,
@@ -45,81 +47,126 @@ export class CreateAuctionComponent implements OnInit {
               private router: Router,
               private route: ActivatedRoute
   ) {
-    this.initializeForm();
+    this.route.paramMap
+      .subscribe(async params => {
+          const id = params.get('id');
+          if (id) {
+            this.id = id;
+            this.edit = true;
+          } else {
+            this.edit = false;
+          }
+          await this.getAuction(id);
+          this.initializeForm();
+        }
+      );
   }
 
   initializeForm() {
     const role = this.auth.getRole();
     this.role = role;
-    let controls: any = {
-      sampleNo: new FormControl('', [
-        Validators.required,
-      ]),
-      availableQty: new FormControl(0, [
-        Validators.required,
-        Validators.min(1)
-      ]),
-      minQty: new FormControl(0, [
-        Validators.required,
-        Validators.min(1),
-        (control: AbstractControl) => Validators.max(this.form ? this.form.get('newItem.availableQty').value : 0)(control)
-      ]),
-      maxQty: new FormControl(0, [
-        Validators.required,
-        (control: AbstractControl) => {
-          console.log('Validating', this.form);
-          return Validators.min(this.form ? this.form.get('newItem.minQty').value : 0)(control);
-        },
-        (control: AbstractControl) => Validators.max(this.form ? this.form.get('newItem.availableQty').value : 0)(control)
-      ]),
-      unit: new FormControl('', [
-        Validators.required
-      ]),
-      floorPrice: new FormControl('', [
-        Validators.required,
-      ]),
-      ceilingPrice: new FormControl('', [
-        Validators.required,
-      ]),
-      nameVisible: new FormControl(1, [
-        Validators.required,
-      ]),
-      startTime: new FormControl(new Date(), [
-        Validators.required
-      ]),
-      endTime: new FormControl(new Date(), [
-        Validators.required
-      ]),
-      // seller: new FormControl(null),
-
-      transportCost: new FormControl(0, [
-        Validators.required,
-      ]),
-      address: new FormControl('', [
-        Validators.required
-      ]),
-      pincode: new FormControl('', [
-        Validators.required
-      ]),
-      state: new FormControl('', [
-        Validators.required
-      ])
-    };
-    if (role === 'admin') {
+    let controls: any;
+    if (!this.edit) {
       controls = {
-        auctionType: new FormControl('seller', [
+        sampleNo: new FormControl('', [
           Validators.required,
         ]),
-        itemName: new FormControl('', [
+        availableQty: new FormControl(0, [
+          Validators.required,
+          Validators.min(1)
+        ]),
+        minQty: new FormControl(0, [
+          Validators.required,
+          Validators.min(1),
+          (control: AbstractControl) => Validators.max(this.form ? this.form.get('newItem.availableQty').value : 0)(control)
+        ]),
+        maxQty: new FormControl(0, [
+          Validators.required,
+          (control: AbstractControl) => {
+            console.log('Validating', this.form);
+            return Validators.min(this.form ? this.form.get('newItem.minQty').value : 0)(control);
+          },
+          (control: AbstractControl) => Validators.max(this.form ? this.form.get('newItem.availableQty').value : 0)(control)
+        ]),
+        unit: new FormControl('', [
+          Validators.required
+        ]),
+        floorPrice: new FormControl('', [
           Validators.required,
         ]),
-        itemCategory: new FormControl('', [
+        ceilingPrice: new FormControl('', [
           Validators.required,
         ]),
-        buyer: new FormControl(''),
-        ...controls
+        nameVisible: new FormControl(1, [
+          Validators.required,
+        ]),
+        startTime: new FormControl(new Date(), [
+          Validators.required
+        ]),
+        endTime: new FormControl(new Date(), [
+          Validators.required
+        ]),
+        // seller: new FormControl(null),
+
+        transportCost: new FormControl(0, [
+          Validators.required,
+        ]),
+        address: new FormControl('', [
+          Validators.required
+        ]),
+        pincode: new FormControl('', [
+          Validators.required
+        ]),
+        state: new FormControl('', [
+          Validators.required
+        ])
+      };
+      if (role === 'admin') {
+        controls = {
+          auctionType: new FormControl('seller', [
+            Validators.required,
+          ]),
+          itemName: new FormControl('', [
+            Validators.required,
+          ]),
+          itemCategory: new FormControl('', [
+            Validators.required,
+          ]),
+          buyer: new FormControl(''),
+          ...controls
+        };
+      }
+    } else {
+      controls = {
+        availableQty: new FormControl(0, [
+          Validators.required,
+          Validators.min(1)
+        ]),
+        minQty: new FormControl(0, [
+          Validators.required,
+          Validators.min(1),
+          (control: AbstractControl) => Validators.max(this.form ? this.form.get('newItem.availableQty').value : 0)(control)
+        ]),
+        maxQty: new FormControl(0, [
+          Validators.required,
+          (control: AbstractControl) => {
+            console.log('Validating', this.form);
+            return Validators.min(this.form ? this.form.get('newItem.minQty').value : 0)(control);
+          },
+          (control: AbstractControl) => Validators.max(this.form ? this.form.get('newItem.availableQty').value : 0)(control)
+        ]),
+        floorPrice: new FormControl('', [
+          Validators.required,
+        ]),
+        ceilingPrice: new FormControl('', [
+          Validators.required,
+        ]),
+        transportCost: new FormControl(0, [
+          Validators.required,
+        ])
       };
     }
+
     this.form = new FormGroup({
       newItem: new FormGroup(controls)
     });
@@ -136,7 +183,6 @@ export class CreateAuctionComponent implements OnInit {
           this.sellers = response[2];
           this.buyers = response[3];
           this.states = response[4];
-          this.getAuction();
         }, (error: Response) => {
           console.log(error);
         });
@@ -148,7 +194,6 @@ export class CreateAuctionComponent implements OnInit {
           this.units = response[0];
           this.listings = response[1];
           this.states = response[2];
-          this.getAuction();
         }, (error: Response) => {
           console.log(error);
         });
@@ -156,7 +201,7 @@ export class CreateAuctionComponent implements OnInit {
   }
 
   onItemChange(datain2) {
-    let item = this.form.get('newItem.itemName').value;
+    const item = this.form.get('newItem.itemName').value;
     this.categories = [];
     this.listings = [];
     this.categoryService.getCategoriesByItem(item).subscribe((response) => {
@@ -189,26 +234,40 @@ export class CreateAuctionComponent implements OnInit {
     event.preventDefault();
     if (this.form.valid) {
       const auction = this.form.getRawValue().newItem;
-      auction.auctionType = auction.auctionType || 'seller';
-      if (auction.auctionType === 'seller') {
-        auction.user = this.seller._id;
-      } else {
-        auction.user = auction.buyer;
-      }
-      auction.nameVisible = !!auction.nameVisible;
-      auction.transportCost = !!auction.transportCost;
-      delete auction.buyer;
-      delete auction.seller;
-      this.loading = true;
-      this.auctionService.create(auction).subscribe((response) => {
-        this.loading = false;
-        alert('Auction listed successfully');
-        this.router.navigate(['/auction']);
+      if (this.edit) {
+        auction.transportCost = !!auction.transportCost;
+        auction._id = this.id;
+        this.auctionService.update(auction).subscribe((response) => {
+          this.loading = false;
+          alert('Auction listed successfully');
+          this.router.navigate(['/auction']);
 
-      }, err => {
-        this.loading = false;
-        alert('There was a server error while listing this item for auction');
-      });
+        }, err => {
+          this.loading = false;
+          alert('There was a server error while listing this item for auction');
+        });
+      } else {
+        auction.auctionType = auction.auctionType || 'seller';
+        if (auction.auctionType === 'seller') {
+          auction.user = this.seller._id;
+        } else {
+          auction.user = auction.buyer;
+        }
+        auction.nameVisible = !!auction.nameVisible;
+        auction.transportCost = !!auction.transportCost;
+        delete auction.buyer;
+        delete auction.seller;
+        this.loading = true;
+        this.auctionService.create(auction).subscribe((response) => {
+          this.loading = false;
+          alert('Auction listed successfully');
+          this.router.navigate(['/auction']);
+
+        }, err => {
+          this.loading = false;
+          alert('There was a server error while listing this item for auction');
+        });
+      }
     }
   }
 
@@ -220,57 +279,31 @@ export class CreateAuctionComponent implements OnInit {
     }
   }
 
-  getAuction() {
-    this.route.paramMap
-      .subscribe(params => {
-        const id = params.get('id');
-        if (id) {
-          this.loading = true;
-          this.auctionService.get(id).subscribe((auction) => {
-            const currentTimestamp = new Date().getTime();
-            const startTime = new Date(auction['startTime']).getTime();
-            if (currentTimestamp >= startTime) {
-              alert('This auction is not editable now');
-              this.router.navigate(['/auction']);
-            }
+  getAuction(id) {
+    this.loading = true;
+    this.auctionService.get(id).subscribe((auction) => {
+      const currentTimestamp = new Date().getTime();
+      const startTime = new Date(auction['startTime']).getTime();
+      if (currentTimestamp >= startTime) {
+        alert('This auction is not editable now');
+        this.router.navigate(['/auction']);
+      }
 
-            this.form.controls.newItem['controls'].sampleNo.setValue(auction['sampleNo']);
-            this.form.controls.newItem['controls'].availableQty.setValue(auction['availableQty']);
-            this.form.controls.newItem['controls'].minQty.setValue(auction.minQty);
-            this.form.controls.newItem['controls'].maxQty.setValue(auction.maxQty);
-            this.form.controls.newItem['controls'].unit.setValue(auction.unit);
-            this.form.controls.newItem['controls'].floorPrice.setValue(auction.floorPrice);
-            this.form.controls.newItem['controls'].ceilingPrice.setValue(auction.ceilingPrice);
-            this.form.controls.newItem['controls'].nameVisible.setValue(auction.nameVisible);
-            this.form.controls.newItem['controls'].startTime.setValue(auction.startTime);
-            this.form.controls.newItem['controls'].endTime.setValue(auction.endTime);
-            this.form.controls.newItem['controls'].auctionType.setValue(auction['auctionType']);
-            this.form.controls.newItem['controls'].transportCost.setValue(auction.transportCost);
-            this.form.controls.newItem['controls'].address.setValue(auction.address);
-            this.form.controls.newItem['controls'].pincode.setValue(auction.pincode);
-            this.form.controls.newItem['controls'].state.setValue(auction.state);
-            if (this.role === 'admin') {
-              this.form.controls.newItem['controls'].auctionType.setValue(auction.auctionType);
-              this.form.controls.newItem['controls'].itemName.setValue(auction.itemName);
-              this.form.controls.newItem['controls'].itemCategory.setValue(auction.itemCategory);
-              if (auction['auctionType'] === 'seller') {
-                this.seller = auction['user'];
-              } else {
-                this.form.controls.newItem['controls'].buyer.setValue(auction.buyer);
-              }
-
-            }
-            this.loading = false;
-          }, error => {
-            this.router.navigate(['/errorpage']);
-            if (error.status === 400) {
-              alert(' expected error, post already deleted');
-            }
-            this.loading = false;
-            console.log(error);
-          });
-        }
-      });
+      this.form.controls.newItem['controls'].availableQty.setValue(auction['availableQty']);
+      this.form.controls.newItem['controls'].minQty.setValue(auction.minQty);
+      this.form.controls.newItem['controls'].maxQty.setValue(auction.maxQty);
+      this.form.controls.newItem['controls'].floorPrice.setValue(auction.floorPrice);
+      this.form.controls.newItem['controls'].ceilingPrice.setValue(auction.ceilingPrice);
+      this.form.controls.newItem['controls'].transportCost.setValue(auction.transportCost ? 1 : 0);
+      this.loading = false;
+    }, error => {
+      this.router.navigate(['/errorpage']);
+      if (error.status === 400) {
+        alert(' expected error, post already deleted');
+      }
+      this.loading = false;
+      console.log(error);
+    });
   }
 
 }
