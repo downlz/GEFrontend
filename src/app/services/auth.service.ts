@@ -31,7 +31,7 @@ export class AuthService {
           this.role = 'buyer';
         }
       }
-      this.id = currentUser._id;
+      // this.id = currentUser._id;
     });
   }
 

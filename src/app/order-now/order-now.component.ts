@@ -20,6 +20,7 @@ export class OrderNowComponent implements OnInit {
   address: any;
   userid: any;
   state: any;
+  hideblock: false;
   price = 0;
   priceValid = false;
   lastorderno: number;
@@ -37,6 +38,7 @@ export class OrderNowComponent implements OnInit {
     .subscribe(response => {
       const res = response as any;
       this.state = res.name;
+      // console.log(this.state);
     }) 
     this.userService.get('me')
     .subscribe(response => {
@@ -64,6 +66,14 @@ export class OrderNowComponent implements OnInit {
       console.log(error);
     });
   }
+
+  // isShipAddressSame(val){
+  //     if (val = 'Yes') {
+  //       this.hideblock = true;
+  //     } else {
+  //       this.hideblock = false;
+  //     }
+  // }
 
   onQuantityChange(qty) {
     const PriceData = {

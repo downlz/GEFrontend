@@ -4,6 +4,8 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {OwlDateTimeModule, OwlNativeDateTimeModule} from 'ng-pick-datetime';
 import {DatePickerModule} from '@syncfusion/ej2-angular-calendars';
 import {FileUploadModule} from 'ng2-file-upload';
+// import { Ng2SearchPipeModule } from 'ng2-search-filter';
+// import { FilterlistPipe } from './filterlist.pipe';
 // import { environment } from '../environments/environment';
 
 import {AppRoutingModule} from './app-routing.module';
@@ -62,10 +64,13 @@ import {BidsTableComponent} from './auction/bids-table/bids-table.component';
 import {PlaceBidComponent} from './auction/place-bid/place-bid.component';
 import {MyBidsComponent} from './auction/my-bids/my-bids.component';
 
+import { AppFooterComponent } from './app-footer/app-footer.component';
+
 @NgModule({
   declarations: [
     AppComponent,
     NavBarComponent,
+    // FilterlistPipe,
     // FileSelectDirective,
     BasicComponent,
     LandingPageComponent,
@@ -100,11 +105,13 @@ import {MyBidsComponent} from './auction/my-bids/my-bids.component';
     ListingDetailComponent,
     BidsTableComponent,
     PlaceBidComponent,
-    MyBidsComponent
+    MyBidsComponent,
+    AppFooterComponent
   ],
   entryComponents: [PlaceBidComponent],
   imports: [
     BrowserModule,
+    // Ng2SearchPipeModule,
     NgbModule,
     DatePickerModule,
     FileUploadModule,
