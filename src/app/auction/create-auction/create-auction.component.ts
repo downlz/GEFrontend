@@ -236,27 +236,27 @@ export class CreateAuctionComponent implements OnInit {
 
             this.form.controls.newItem['controls'].sampleNo.setValue(auction['sampleNo']);
             this.form.controls.newItem['controls'].availableQty.setValue(auction['availableQty']);
-            this.form.controls.newItem['controls'].minQty.setValue(auction.minQty);
-            this.form.controls.newItem['controls'].maxQty.setValue(auction.maxQty);
-            this.form.controls.newItem['controls'].unit.setValue(auction.unit);
-            this.form.controls.newItem['controls'].floorPrice.setValue(auction.floorPrice);
-            this.form.controls.newItem['controls'].ceilingPrice.setValue(auction.ceilingPrice);
-            this.form.controls.newItem['controls'].nameVisible.setValue(auction.nameVisible);
-            this.form.controls.newItem['controls'].startTime.setValue(auction.startTime);
-            this.form.controls.newItem['controls'].endTime.setValue(auction.endTime);
+            this.form.controls.newItem['controls'].minQty.setValue(auction['minQty']);
+            this.form.controls.newItem['controls'].maxQty.setValue(auction['maxQty']);
+            this.form.controls.newItem['controls'].unit.setValue(auction['unit']);
+            this.form.controls.newItem['controls'].floorPrice.setValue(auction['floorPrice']);
+            this.form.controls.newItem['controls'].ceilingPrice.setValue(auction['ceilingPrice']);
+            this.form.controls.newItem['controls'].nameVisible.setValue(auction['nameVisible']);
+            this.form.controls.newItem['controls'].startTime.setValue(auction['startTime']);
+            this.form.controls.newItem['controls'].endTime.setValue(auction['endTime']);
             this.form.controls.newItem['controls'].auctionType.setValue(auction['auctionType']);
-            this.form.controls.newItem['controls'].transportCost.setValue(auction.transportCost);
-            this.form.controls.newItem['controls'].address.setValue(auction.address);
-            this.form.controls.newItem['controls'].pincode.setValue(auction.pincode);
-            this.form.controls.newItem['controls'].state.setValue(auction.state);
+            this.form.controls.newItem['controls'].transportCost.setValue(auction['transportCost']);
+            this.form.controls.newItem['controls'].address.setValue(auction['address']);
+            this.form.controls.newItem['controls'].pincode.setValue(auction['pincode']);
+            this.form.controls.newItem['controls'].state.setValue(auction['state']);
             if (this.role === 'admin') {
-              this.form.controls.newItem['controls'].auctionType.setValue(auction.auctionType);
-              this.form.controls.newItem['controls'].itemName.setValue(auction.itemName);
-              this.form.controls.newItem['controls'].itemCategory.setValue(auction.itemCategory);
+              this.form.controls.newItem['controls'].auctionType.setValue(auction['auctionType']);
+              this.form.controls.newItem['controls'].itemName.setValue(auction['itemName']);
+              this.form.controls.newItem['controls'].itemCategory.setValue(auction['itemCategory']);
               if (auction['auctionType'] === 'seller') {
                 this.seller = auction['user'];
               } else {
-                this.form.controls.newItem['controls'].buyer.setValue(auction.buyer);
+                this.form.controls.newItem['controls'].buyer.setValue(auction['buyer']);
               }
 
             }

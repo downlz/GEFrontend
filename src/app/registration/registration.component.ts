@@ -25,8 +25,8 @@ export class RegistrationComponent implements OnInit {
         FormValidators.cannotContainSpace],
         FormValidators.shouldBeUnique),
       'password' : new FormControl('', [Validators.required, Validators.minLength(8)]),
-      'pan' : new FormControl(),
-      'GST' : new FormControl('', [Validators.required]),
+      'pan' : new FormControl('',[Validators.required,Validators.minLength(10),Validators.maxLength(10),FormValidators.cannotContainSpace]),
+      'GST' : new FormControl('', [Validators.required,Validators.minLength(15),Validators.maxLength(15),FormValidators.cannotContainSpace]),
       'address' : new FormControl('', [Validators.required]),
       'city' : new FormControl('', [Validators.required]),
       'state' : new FormControl('', [Validators.required]),
@@ -68,6 +68,10 @@ export class RegistrationComponent implements OnInit {
 
   get password () {
     return this.form.get('account.password');
+  }
+
+  get pan () {
+    return this.form.get('account.pan');
   }
 
   get GST () {

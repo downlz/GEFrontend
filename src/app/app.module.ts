@@ -63,6 +63,7 @@ import {ListingDetailComponent} from './auction/auction-detail/listing-detail/li
 import {BidsTableComponent} from './auction/bids-table/bids-table.component';
 import {PlaceBidComponent} from './auction/place-bid/place-bid.component';
 import {MyBidsComponent} from './auction/my-bids/my-bids.component';
+import {ForgotPasswordComponent} from './login/forgot-password/forgot-password.component';
 
 import { AppFooterComponent } from './app-footer/app-footer.component';
 
@@ -81,6 +82,7 @@ import { AppFooterComponent } from './app-footer/app-footer.component';
     RegistrationComponent,
     ReferUserComponent,
     LoginComponent,
+    ForgotPasswordComponent,
     ErrorPageComponent,
     ProductDetailComponent,
     GBProductDetailComponent,
