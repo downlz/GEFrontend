@@ -1,33 +1,39 @@
-import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
-import { LandingPageComponent } from './landing-page/landing-page.component';
-import { ListingsComponent } from './listings/listings.component';
-import { GBListingsComponent } from './gblistings/gblistings.component';
-import { ProductDetailComponent } from './product-detail/product-detail.component';
-import { GBProductDetailComponent } from './gbproduct-detail/gbproduct-detail.component';
-import { LoginComponent } from './login/login.component';
-import { OrderNowComponent } from './order-now/order-now.component';
-import { GBOrderNowComponent } from './gborder-now/gborder-now.component';
-import { MyOrdersComponent } from './my-orders/my-orders.component';
-import { AllOrdersComponent } from './all-orders/all-orders.component';
-import { GroupBuyingComponent } from './group-buying/group-buying.component';
-import { AddProductsComponent } from './add-products/add-products.component';
-import { ListGBItemComponent } from './listgb-item/listgb-item.component';
-import { RegistrationComponent } from './registration/registration.component';
-import { ReferUserComponent } from './refer-user/refer-user.component';
-import { ErrorPageComponent } from './error-page/error-page.component';
-import { AuthGuard } from './_guards/auth.guard';
+import {NgModule} from '@angular/core';
+import {Routes, RouterModule} from '@angular/router';
+import {LandingPageComponent} from './landing-page/landing-page.component';
+import {ListingsComponent} from './listings/listings.component';
+import {GBListingsComponent} from './gblistings/gblistings.component';
+import {ProductDetailComponent} from './product-detail/product-detail.component';
+import {GBProductDetailComponent} from './gbproduct-detail/gbproduct-detail.component';
+import {LoginComponent} from './login/login.component';
+import {OrderNowComponent} from './order-now/order-now.component';
+import {GBOrderNowComponent} from './gborder-now/gborder-now.component';
+import {MyOrdersComponent} from './my-orders/my-orders.component';
+import {AllOrdersComponent} from './all-orders/all-orders.component';
+import {GroupBuyingComponent} from './group-buying/group-buying.component';
+import {AddProductsComponent} from './add-products/add-products.component';
+import {ListGBItemComponent} from './listgb-item/listgb-item.component';
+import {RegistrationComponent} from './registration/registration.component';
+import {ReferUserComponent} from './refer-user/refer-user.component';
+import {ErrorPageComponent} from './error-page/error-page.component';
+import {AuthGuard} from './_guards/auth.guard';
 
 import {AuctionComponent} from './auction/auction.component';
 import {CreateAuctionComponent} from './auction/create-auction/create-auction.component';
 import {AuctionListComponent} from './auction/auction-list/auction-list.component';
 import {AuctionStatusComponent} from './auction/auction-status/auction-status.component';
-import {BidsComponent} from './auction/bids/bids.component';
+import {AuctionDetailComponent} from './auction/auction-detail/auction-detail.component';
+import {MyBidsComponent} from './auction/my-bids/my-bids.component';
+import {ForgotPasswordComponent} from './login/forgot-password/forgot-password.component';
 
 const routes: Routes = [
   {
     path: 'login',
     component: LoginComponent
+  },
+  {
+    path: 'forgotpassword',
+    component: ForgotPasswordComponent
   },
   {
     path: 'main',
@@ -74,14 +80,21 @@ const routes: Routes = [
         path: '',
         component: AuctionListComponent,
         data: {
-          roles: ['admin', 'seller']
+          roles: ['admin', 'seller', 'buyer']
         }
       },
       {
         path: 'add',
         component: CreateAuctionComponent,
         data: {
-          roles: ['admin', 'seller']
+          roles: ['admin', 'seller', 'buyer']
+        }
+      },
+      {
+        path: 'edit/:id',
+        component: CreateAuctionComponent,
+        data: {
+          roles: ['admin', 'seller', 'buyer']
         }
       },
       {
@@ -93,24 +106,28 @@ const routes: Routes = [
       },
       {
         path: 'bids',
-        component: BidsComponent,
+        component: MyBidsComponent,
         data: {
-          roles: ['buyer']
+          roles: ['buyer', 'seller']
         }
       },
       {
         path: 'active',
         component: AuctionListComponent,
         data: {
-          roles: ['buyer']
+          roles: ['buyer', 'seller']
         }
       },
       {
         path: 'inactive',
         component: AuctionListComponent,
         data: {
-          roles: ['buyer']
+          roles: ['buyer', 'seller']
         }
+      },
+      {
+        path: ':id',
+        component: AuctionDetailComponent
       }
     ],
     data: {
@@ -129,13 +146,13 @@ const routes: Routes = [
     path: 'product/:id',
     component: ProductDetailComponent,
     canActivate: [AuthGuard],
-    data: {roles: ['admin', 'buyer','seller']}
+    data: {roles: ['admin', 'buyer', 'seller']}
   },
   {
     path: 'gbproduct/:id',
     component: GBProductDetailComponent,
     canActivate: [AuthGuard],
-    data: { roles: ['admin', 'buyer','seller']}
+    data: {roles: ['admin', 'buyer', 'seller']}
   },
   {
     path: 'orderNow/:id',

@@ -17,7 +17,7 @@ export class AuthService {
   private currentUserSubject: BehaviorSubject<any>;
   public currentUser: Observable<any>;
   role: string;
-
+  id : string;
   constructor(private http: HttpClient) {
     this.currentUserSubject = new BehaviorSubject<any>(JSON.parse(localStorage.getItem('GEUser')));
     this.currentUser = this.currentUserSubject.asObservable();
@@ -31,6 +31,7 @@ export class AuthService {
           this.role = 'buyer';
         }
       }
+      // this.id = currentUser._id;
     });
   }
 
@@ -87,6 +88,9 @@ export class AuthService {
 
   getRole() {
     return this.role;
+  }
+  getId() {
+    return this.id;
   }
 
   deletePost(resource) {

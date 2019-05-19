@@ -5,6 +5,7 @@ import {CityService} from '../services/city.service';
 import {ItemnameService} from '../services/itemname.service';
 import {NgModule} from '@angular/core';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+// import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-listings',
@@ -14,6 +15,7 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 
 export class ListingsComponent implements OnInit {
   listings: any;
+  // listings: Array<any> = [];
   itemNameList: Array<any> = [];
   cityList: Array<any> = [];
   gradeList = [{ name:'A', isSelected: false }, { name:'B', isSelected: false },{ name:'C', isSelected: false }, {name:'D', isSelected: false }];  grade = 'none';
@@ -25,6 +27,12 @@ export class ListingsComponent implements OnInit {
   gradeQueryParams = ''
   itemQueryParams = ''
   firstTimeLoad:Boolean = true 
+
+  pageSize = 6;
+  currentPage = 1;
+  data: Array<any>;
+  totalPages: Array<Number> = [];
+
   constructor(private listingService: ListingService, private cityService: CityService,
     private itemnameService: ItemnameService, private router: Router) { }
 
@@ -32,6 +40,10 @@ export class ListingsComponent implements OnInit {
     this.listingService.getAll(this.queryParams)
     .subscribe(response => {
       this.listings = response;
+      this.setTotalPages();
+      this.onPageChange(this.currentPage);
+
+      // console.log(this.listings);
     }, (error: Response) => {
       this.router.navigate(['/errorpage']);
       if (error.status === 400) {
@@ -39,6 +51,7 @@ export class ListingsComponent implements OnInit {
       }
       console.log(error);
     });
+
 
     this.cityService.getAll()
     .subscribe(response => {
@@ -76,7 +89,29 @@ export class ListingsComponent implements OnInit {
       }
       console.log(error);
     });
+    
   }
+
+  
+
+  onPageChange(page) {
+    this.data = [...(this.listings || [])];
+    this.data = this.data.splice((page - 1) * this.pageSize, this.pageSize);
+    this.currentPage = page;
+  }
+
+  setTotalPages() {
+    const length = (this.listings || []).length;
+    // console.log(this.listings)
+    if (length > 0) {
+      const pages = (length % this.pageSize) === 0 ? (length / this.pageSize) : Math.floor(length / this.pageSize) + 1;
+      this.totalPages = Array(pages).fill(0).map((x, i) => i + 1);
+    }
+  }
+
+  // doFilter(filterValue) {
+  //   this.listings.category.filter = filterValue.trim().toLocaleLowerCase();
+  // }
 
   setGrade(grade) {
     for ( let currentGrade of this.gradeList) {

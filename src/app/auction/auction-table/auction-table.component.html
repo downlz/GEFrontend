@@ -10,7 +10,7 @@
         <th scope="col">Category</th>
         <th scope="col">Start Time</th>
         <th scope="col">End Time</th>
-        <th scope="col">Approved</th>
+        <th scope="col" *ngIf="role === 'admin' || role === 'seller'">Approved</th>
         <th scope="col">Actions</th>
       </tr>
       </thead>
@@ -23,11 +23,11 @@
           <td> No Data Found</td>
           <td></td>
           <td></td>
-          <td></td>
+          <td *ngIf="role === 'admin' || role === 'seller'"></td>
           <td></td>
         </tr>
       </ng-container>
-      <ng-container *ngFor="let auction of auctions">
+      <ng-container *ngFor="let auction of data">
         <tr>
           <th scope="row"><a [routerLink]="['/product', auction.sampleNo._id]">
             <div>
@@ -41,15 +41,26 @@
           <td>{{auction.user.name}}</td>
           <td>{{auction.sampleNo.category.name}}</td>
           <td>{{getDateString(auction.startTime)}}</td>
-          <td>{{getDateString(auction.startTime)}}</td>
-          <td>{{auction.approved ? "Yes" : "No"}}</td>
+          <td>{{getDateString(auction.endTime)}}</td>
+          <td *ngIf="role === 'admin' || role === 'seller'">{{auction.approved ? "Yes" : "No"}}</td>
           <td>
-            <button class="btn btn-primary" *ngIf="actions.indexOf('details')!=-1">
-              Details
-            </button>&nbsp;
-            <button class="btn btn-primary" *ngIf="actions.indexOf('bids')!=-1">
-              Bids
+            <a class="btn btn-primary" [routerLink]="'/auction/edit/'+auction._id"
+               *ngIf="(role=='admin' || auction.createdBy === userId) && getTimeStamp(auction.startTime) > currentTimestamp">
+              Edit
+            </a>&nbsp;
+            <button class="btn btn-primary" *ngIf="actions.indexOf('bid')!=-1" (click)="placeBid(content,auction)">
+              Place Bid
             </button>
+            &nbsp;
+            <a class="btn btn-primary" [routerLink]="'/auction/'+auction._id" *ngIf="actions.indexOf('details')!=-1">
+              Details
+            </a>&nbsp;
+
+            <a class="btn btn-primary" [routerLink]="'/auction/'+auction._id" [queryParams]="{tab : 'bids'}"
+               *ngIf="actions.indexOf('bids')!=-1">
+              Bids
+            </a>
+            &nbsp;
             <button class="btn btn-primary" *ngIf="actions.indexOf('approve')!=-1"
                     (click)="approveAuction(auction._id)">
               Approve
@@ -59,5 +70,22 @@
       </ng-container>
       </tbody>
     </table>
+    <nav aria-label="Page navigation example" *ngIf="totalPages.length>0">
+      <ul class="pagination">
+        <li class="page-item" [ngClass]="{ 'disabled' : currentPage <= 1}"><a class="page-link"
+                                                                              (click)="onPageChange(currentPage-1)">Previous</a>
+        </li>
+        <li class="page-item" [ngClass]="{ 'active' : currentPage== page}" *ngFor="let page of totalPages"><a
+          class="page-link"
+          (click)="onPageChange(page)">{{page}}</a></li>
+        <li class="page-item" [ngClass]="{ 'disabled' : currentPage>=totalPages.length}"><a class="page-link"
+                                                                                            (click)="onPageChange(currentPage+1)">Next</a>
+        </li>
+      </ul>
+    </nav>
   </div>
 </div>
+
+<ng-template #content let-modal>
+  <app-place-bid [modal]="modal" [auction]="selectedAuction"></app-place-bid>
+</ng-template>

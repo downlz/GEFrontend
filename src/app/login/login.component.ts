@@ -39,10 +39,13 @@ export class LoginComponent implements OnInit {
       this.router.navigate(['/products']);
     }, (error: AppError) => {
       if (error.originalError.status === 400) {
-        alert('Invalid id or password');
-      } else {
         this.router.navigate(['/errorpage']);
+        // alert('Invalid id or password');
+      } else {
+        // this.router.navigate(['/errorpage']);
+        alert('Invalid id or password');
       }
+      // console.log(error);
       console.log(error.originalError.status);
     });
     // if (!valid) {
