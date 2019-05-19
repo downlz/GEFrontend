@@ -290,17 +290,17 @@ export class CreateAuctionComponent implements OnInit {
       }
 
       this.form.controls.newItem['controls'].availableQty.setValue(auction['availableQty']);
-      this.form.controls.newItem['controls'].minQty.setValue(auction.minQty);
-      this.form.controls.newItem['controls'].maxQty.setValue(auction.maxQty);
-      this.form.controls.newItem['controls'].floorPrice.setValue(auction.floorPrice);
-      this.form.controls.newItem['controls'].ceilingPrice.setValue(auction.ceilingPrice);
-      this.form.controls.newItem['controls'].transportCost.setValue(auction.transportCost ? 1 : 0);
+      this.form.controls.newItem['controls'].minQty.setValue(auction['minQty']);
+      this.form.controls.newItem['controls'].maxQty.setValue(auction['maxQty']);
+      this.form.controls.newItem['controls'].floorPrice.setValue(auction['floorPrice']);
+      this.form.controls.newItem['controls'].ceilingPrice.setValue(auction['ceilingPrice']);
+      this.form.controls.newItem['controls'].transportCost.setValue(auction['transportCost'] ? 1 : 0);
       this.loading = false;
     }, error => {
-      this.router.navigate(['/errorpage']);
-      if (error.status === 400) {
-        alert(' expected error, post already deleted');
-      }
+      // this.router.navigate(['/errorpage']);
+      // if (error.status === 400) {
+      //   alert(' expected error, post already deleted');
+      // }
       this.loading = false;
       console.log(error);
     });

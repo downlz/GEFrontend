@@ -49,7 +49,8 @@ export class AuctionListComponent implements OnInit {
       return auction.approved && (new Date().getTime() <= (new Date(auction.endTime)).getTime());
     });
     this.inActiveAuctions = this.auctions.filter((auction) => {
-      return (new Date()).getTime() > (new Date(auction.endTime)).getTime();
+      const difference = (new Date()).getTime() - (new Date(auction.endTime)).getTime();
+      return difference > 0 && difference < (1000 * 60 * 60 * 24 * 7);
     });
     this.pendingAuctions = this.auctions.filter((auction) => {
       return !auction.approved;
