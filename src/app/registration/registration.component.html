@@ -68,6 +68,12 @@
           type="text"
           class="form-control"
           placeholder="PAN Number">
+          <div class="alert alert-danger" *ngIf="pan.touched && pan.invalid">
+            <div *ngIf="pan.errors.required"> Password is required </div>
+            <div *ngIf="pan.errors.minlength"> length should be {{ pan.errors.minlength.requiredLength}}</div>
+            <div *ngIf="pan.errors.maxlength"> length should be {{ pan.errors.maxlength.requiredLength}}</div>
+            <div *ngIf="pan.errors.cannotContainSpace"> PAN number cannot contain space</div>
+          </div>
       </div>
       <div class="form-group">
         <label for="GST">GSTIN Number</label>
@@ -79,6 +85,9 @@
           placeholder="GSTIN Number">
           <div class="alert alert-danger" *ngIf="GST.touched && GST.invalid">
             <div *ngIf="GST.errors.required"> GST is required </div>
+            <div *ngIf="GST.errors.minlength"> length should be {{ GST.errors.minlength.requiredLength}}</div>
+            <div *ngIf="GST.errors.maxlength"> length should be {{ GST.errors.maxlength.requiredLength}}</div>
+            <div *ngIf="GST.errors.cannotContainSpace"> GSTIN cannot contain space</div>
           </div>
       </div>
       <div class="form-group">
@@ -108,13 +117,13 @@
         </select>
       </div>
       <div class="form-group">
-        <label for="pin">PIN</label>
+        <label for="pin">Pincode</label>
         <input
           formControlName="pin"
           id="pin"
           type="number"
           class="form-control"
-          placeholder="Your PIN">
+          placeholder="Your PIN code">
       </div>
     </div>
 

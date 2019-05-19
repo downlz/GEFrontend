@@ -39,7 +39,7 @@
           <td>{{"INR " + bid.price}}</td>
           <td>{{getDateString(bid.createdAt)}}</td>
           <td>
-            <button class="btn btn-primary" *ngIf="confirmOrder">
+            <button class="btn btn-primary" *ngIf="confirmOrder" (click)="confirmBidOrder(bid)" >
               Confirm Order
             </button>&nbsp;
             <button class="btn btn-primary" *ngIf="bidHistory && role== 'admin'" (click)="openBidHistory(content,bid)">
@@ -66,5 +66,5 @@
   </div>
 </div>
 <ng-template #content let-modal>
-  <app-bid-history [modal]="modal" [bids]="bidHistoryData" [bid]="bid"></app-bid-history>
+  <app-bid-history [modal]="modal" [bids]="bidHistoryData" [bid]="bid" [auctionType] = "auctionType"></app-bid-history>
 </ng-template>

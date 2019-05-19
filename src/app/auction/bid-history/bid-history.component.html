@@ -10,7 +10,7 @@
       <thead>
       <tr>
         <th scope="col">Price</th>
-        <th scope="col">Quantity</th>
+        <th scope="col" *ngIf="auctionType == 'seller'">Quantity</th>
         <th scope="col">Date</th>
       </tr>
       </thead>
@@ -18,14 +18,14 @@
       <ng-container *ngIf="!bids || bids.length==0">
         <tr>
           <td></td>
-          <td></td>
+          <td *ngIf="auctionType == 'seller'"></td>
           <td></td>
         </tr>
       </ng-container>
       <ng-container *ngFor="let item of bids">
         <tr>
           <td>INR {{item.price}}</td>
-          <td>{{item.quantity + " " + bid.auction.unit.mass}}</td>
+          <td *ngIf="auctionType == 'seller'">{{item.quantity + " " + bid.auction.unit.mass}}</td>
           <td>{{getDateString(item.createdAt)}}</td>
         </tr>
       </ng-container>

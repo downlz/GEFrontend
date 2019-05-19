@@ -2,6 +2,7 @@ import {Component, Input, OnChanges, OnInit} from '@angular/core';
 import {AuthService} from '../../services/auth.service';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {AuctionService} from '../../services/auction.service';
+import {BidService} from '../../services/bid.service';
 
 @Component({
   selector: 'app-bids-table',
@@ -29,9 +30,9 @@ export class BidsTableComponent implements OnInit, OnChanges {
   userId: any;
   bid: any;
   @Input()
-  auctionType : string;
+  auctionType: string;
 
-  constructor(private auth: AuthService, private auctionService: AuctionService, private modalService: NgbModal) {
+  constructor(private auth: AuthService, private auctionService: AuctionService, private bidService: BidService, private modalService: NgbModal) {
     this.role = auth.getRole();
     this.userId = auth.getId();
   }
@@ -83,5 +84,14 @@ export class BidsTableComponent implements OnInit, OnChanges {
         this.bidHistoryData = [];
         this.bid = null;
       });
+  }
+
+  confirmBidOrder(bid) {
+    this.bidService.confirmOrder(bid._id).subscribe((data) => {
+      alert('Order Confirmed successfully');
+    }, (err) => {
+      console.log(err);
+      alert('Error while Confirming order');
+    });
   }
 }

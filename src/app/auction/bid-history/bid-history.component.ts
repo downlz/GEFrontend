@@ -12,6 +12,8 @@ export class BidHistoryComponent implements OnInit {
   bids: Array<any>;
   @Input()
   bid: any;
+  @Input()
+  auctionType : string;
 
   constructor() {
   }

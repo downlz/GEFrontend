@@ -25,8 +25,8 @@ export class RegistrationComponent implements OnInit {
         FormValidators.cannotContainSpace],
         FormValidators.shouldBeUnique),
       'password' : new FormControl('', [Validators.required, Validators.minLength(8)]),
-      'pan' : new FormControl(),
-      'GST' : new FormControl('', [Validators.required]),
+      'pan' : new FormControl('',[Validators.required,Validators.minLength(10),Validators.maxLength(10),FormValidators.cannotContainSpace]),
+      'GST' : new FormControl('', [Validators.required,Validators.minLength(15),Validators.maxLength(15),FormValidators.cannotContainSpace]),
       'address' : new FormControl('', [Validators.required]),
       'city' : new FormControl('', [Validators.required]),
       'state' : new FormControl('', [Validators.required]),
@@ -70,6 +70,10 @@ export class RegistrationComponent implements OnInit {
     return this.form.get('account.password');
   }
 
+  get pan () {
+    return this.form.get('account.pan');
+  }
+
   get GST () {
     return this.form.get('account.GST');
   }
@@ -92,8 +96,8 @@ export class RegistrationComponent implements OnInit {
       name:   this.form.value.account.name,
       email:  this.form.value.account.email,
       password:   this.form.value.account.password,
-      pan:    this.form.value.account.pan,
-      GST:    this.form.value.account.GST,
+      pan:    this.form.value.account.pan.toUpperCase(),
+      GST:    this.form.value.account.GST.toUpperCase(),
       address:    this.form.value.account.address,
       cityId:   this.form.value.account.city,
       stateId:  this.form.value.account.state,

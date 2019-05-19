@@ -1,9 +1,9 @@
 <div *ngIf="listing.name.name" class="card ItemCard">
   <img *ngIf="listing.image" class="card-img-top ItemCardImage" [src]="listing.image" alt="{{ listing.name }}">
   <div class="card-body">
-    <h5 class="card-title">{{ listing.name.name }} | {{ listing.category.name }} | {{listing.sampleNo}} </h5> 
-    <p class="card-text"> Rs. {{ listing.price }}/{{ listing.unit.mass }} | MFG - {{ listing.manufacturer?listing.manufacturer.name :""}}</p>
-    <p class="card-text"> Origin - {{ listing.origin }} (*Ex Factory cost)</p>
+    <h5 class="card-title">{{ listing.name.name }} | {{ listing.category.name }} | {{listing.sampleNo}} </h5>
+    <p class="card-text"> Rs. {{ listing.price }}/{{ listing.unit.mass }} | MFG - {{ listing.manufacturer?listing.manufacturer.name :"" }}</p>
+    <p class="card-text"> Origin - {{ listing.origin }} <span class="ItemSmallFont"> (*Ex Factory cost)</span></p>
   </div>
   <div class="card-footer">
     <a class="btn btn-primary btn-block" [routerLink]="['/product', listing._id]" routerLinkActive="router-link-active" >Product Details</a>

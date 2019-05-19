@@ -10,9 +10,22 @@ import { environment } from '../../environments/environment';
 @Injectable({
   providedIn: 'root'
 })
+
 export class UserService extends DataService {
   constructor(http: HttpClient) {
     const url= environment.baseUrl + '/user';
     super(url, http);
   }
+
+  initiatePassRqst(phone: string, pan: string, gstin: string, password: string) {
+    return this.http
+      .post<any>(this.url + '/resetpassword', {
+        phone: '+91' + phone,
+        pan: pan,
+        gstin: gstin,
+        password: password
+      })
+  }
 }
+
+

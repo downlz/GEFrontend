@@ -2,7 +2,7 @@
   <img *ngIf="listing.image" class="card-img-top ItemCardImage" [src]="listing.image" alt="{{ listing.name }}">
   <div class="card-body">
     <h4 class="card-title">{{ listing.name.name }} | {{ listing.category.name }} </h4>
-    <p class="card-text"> Rs. {{ listing.price }} Per Kg</p>
+    <p class="card-text"> Rs. {{ listing.price }} Per {{ listing.unit.mass }}</p>
   </div>
   <div class="card-footer">
     <a class="btn btn-primary btn-block" [routerLink]="['/product', listing._id]" routerLinkActive="router-link-active">Product

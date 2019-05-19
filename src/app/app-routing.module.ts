@@ -24,11 +24,16 @@ import {AuctionListComponent} from './auction/auction-list/auction-list.componen
 import {AuctionStatusComponent} from './auction/auction-status/auction-status.component';
 import {AuctionDetailComponent} from './auction/auction-detail/auction-detail.component';
 import {MyBidsComponent} from './auction/my-bids/my-bids.component';
+import {ForgotPasswordComponent} from './login/forgot-password/forgot-password.component';
 
 const routes: Routes = [
   {
     path: 'login',
     component: LoginComponent
+  },
+  {
+    path: 'forgotpassword',
+    component: ForgotPasswordComponent
   },
   {
     path: 'main',

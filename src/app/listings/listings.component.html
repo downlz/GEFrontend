@@ -43,9 +43,9 @@
       <button class="btn btn-secondary btn-block text-left" (click)="sortByPrice()">Price</button>
       <button class="btn btn-secondary btn-block text-left" (click)="clearSelection()">Clear</button>
     </div>
-    <div class="col-12 col-md-9">
+    <div class="col-10 col-md-9">
       <div class="row">
-        <ng-container *ngFor="let listing of listings">
+        <ng-container *ngFor="let listing of data">
           <div class="col-12 col-md-6">
             <div class="ItemCardContainer">
               <app-listing-card [listing]="listing"></app-listing-card>
@@ -53,6 +53,20 @@
           </div>
         </ng-container>
       </div>
+      <nav aria-label="Page navigation example" *ngIf="totalPages.length>0">
+          <ul class="pagination">
+            <li class="page-item" [ngClass]="{ 'disabled' : currentPage <= 1}"><a class="page-link"
+                                                                                  (click)="onPageChange(currentPage-1)">Previous</a>
+            </li>
+            <li class="page-item" [ngClass]="{ 'active' : currentPage== page}" *ngFor="let page of totalPages"><a
+              class="page-link"
+              (click)="onPageChange(page)">{{page}}</a></li>
+            <li class="page-item" [ngClass]="{ 'disabled' : currentPage>=totalPages.length}"><a class="page-link"
+                                                                                                (click)="onPageChange(currentPage+1)">Next</a>
+            </li>
+          </ul>
+        </nav>
     </div>
+    
   </div>
 </div>

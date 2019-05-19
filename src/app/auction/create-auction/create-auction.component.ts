@@ -392,12 +392,13 @@ export class CreateAuctionComponent implements OnInit {
         alert('This auction is not editable now');
         this.router.navigate(['/auction']);
       }
-
       this.form.controls.newItem['controls'].availableQty.setValue(auction['availableQty']);
-      this.form.controls.newItem['controls'].minQty.setValue(auction['minQty']);
-      this.form.controls.newItem['controls'].maxQty.setValue(auction['maxQty']);
+      if (auction['auctionType'] === 'seller') {
+        this.form.controls.newItem['controls'].minQty.setValue(auction['minQty']);
+        this.form.controls.newItem['controls'].maxQty.setValue(auction['maxQty']);
+        this.form.controls.newItem['controls'].ceilingPrice.setValue(auction['ceilingPrice']);
+      }
       this.form.controls.newItem['controls'].floorPrice.setValue(auction['floorPrice']);
-      this.form.controls.newItem['controls'].ceilingPrice.setValue(auction['ceilingPrice']);
       this.form.controls.newItem['controls'].transportCost.setValue(auction['transportCost'] ? 1 : 0);
       this.loading = false;
     }, error => {
