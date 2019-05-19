@@ -18,7 +18,7 @@
 
     <div formGroupName="newItem">
       <div class="row">
-        <div class="col-md-6">
+        <div class="col-md-6" *ngIf="role == 'buyer'">
           <div class="form-group">
             <label>Quantity (in {{auction.unit.mass}})</label>
             <input #quantity type="number" id="quantity" class="form-control" formControlName="quantity"

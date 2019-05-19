@@ -47,7 +47,7 @@
           <td *ngIf="role === 'admin' || role === 'seller'">{{auction.approved ? "Yes" : "No"}}</td>
           <td>
             <a class="btn btn-primary" [routerLink]="'/auction/edit/'+auction._id"
-               *ngIf="(role=='admin' || auction.createdBy === userId) && getTimeStamp(auction.startTime) > currentTimestamp">
+               *ngIf="(role=='admin' || auction.user._id === userId) && getTimeStamp(auction.startTime) > currentTimestamp">
               Edit
             </a>&nbsp;
             <button class="btn btn-primary" *ngIf="actions.indexOf('bid')!=-1" (click)="placeBid(content,auction)">

@@ -82,7 +82,7 @@ const routes: Routes = [
         path: 'add',
         component: CreateAuctionComponent,
         data: {
-          roles: ['admin', 'seller', 'buyer']
+         // roles: ['admin', 'seller', 'buyer']
         }
       },
       {

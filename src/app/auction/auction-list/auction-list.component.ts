@@ -15,6 +15,7 @@ export class AuctionListComponent implements OnInit {
   activeTab: string = 'active';
   activeAuctions: any;
   inActiveAuctions: any;
+  myAuctions: any;
   pendingAuctions: any;
 
   constructor(private service: AuctionService, private auth: AuthService, private router: Router) {
@@ -24,14 +25,7 @@ export class AuctionListComponent implements OnInit {
   ngOnInit() {
     this.role = this.auth.getRole();
     let subscription = null;
-    if (this.role === 'admin') {
-      subscription = this.service.getAll();
-    } else if (this.role === 'seller') {
-      subscription = this.service.getCurrentUserData();
-    } else {
-      //To be changed for buyer
-      subscription = this.service.getAll();
-    }
+    subscription = this.service.getAll();
     this.loading = true;
     subscription
       .subscribe(response => {
@@ -46,14 +40,23 @@ export class AuctionListComponent implements OnInit {
 
   setAuctions() {
     this.activeAuctions = this.auctions.filter((auction) => {
-      return auction.approved && (new Date().getTime() <= (new Date(auction.endTime)).getTime());
+      if (this.role === 'seller') {
+        return auction.approved && auction.auctionType === 'buyer' && (new Date().getTime() <= (new Date(auction.endTime)).getTime());
+      } else if (this.role === 'buyer') {
+        return auction.approved && auction.auctionType === 'seller' && (new Date().getTime() <= (new Date(auction.endTime)).getTime());
+      } else {
+        return auction.approved && (new Date().getTime() <= (new Date(auction.endTime)).getTime());
+      }
     });
     this.inActiveAuctions = this.auctions.filter((auction) => {
       const difference = (new Date()).getTime() - (new Date(auction.endTime)).getTime();
-      return difference > 0 && difference < (1000 * 60 * 60 * 24 * 7);
+      return (auction.user._id === this.auth.getId() || this.role === 'admin') && difference > 0 && difference < (1000 * 60 * 60 * 24 * 7);
     });
     this.pendingAuctions = this.auctions.filter((auction) => {
-      return !auction.approved;
+      return (auction.user._id === this.auth.getId() || this.role === 'admin') && !auction.approved;
+    });
+    this.myAuctions = this.auctions.filter((auction) => {
+      return (auction.user._id === this.auth.getId()) && (new Date().getTime() <= (new Date(auction.endTime)).getTime());
     });
   }
 
@@ -75,7 +78,7 @@ export class AuctionListComponent implements OnInit {
   }
 
   getActiveAuctionActions() {
-    if (this.role === 'seller' || this.role === 'admin') {
+    if (this.role === 'admin') {
       return ['bids', 'details'];
     } else {
       return ['bid', 'details'];

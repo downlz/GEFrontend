@@ -28,6 +28,8 @@ export class BidsTableComponent implements OnInit, OnChanges {
   // auction: any;
   userId: any;
   bid: any;
+  @Input()
+  auctionType : string;
 
   constructor(private auth: AuthService, private auctionService: AuctionService, private modalService: NgbModal) {
     this.role = auth.getRole();
