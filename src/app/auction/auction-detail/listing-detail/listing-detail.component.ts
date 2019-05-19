@@ -9,7 +9,10 @@ import {AuthService} from '../../../services/auth.service';
 export class ListingDetailComponent implements OnInit {
   @Input()
   listing: any;
-  role : string;
+  @Input()
+  auction: any;
+  role: string;
+
   constructor(private auth: AuthService) {
   }
 

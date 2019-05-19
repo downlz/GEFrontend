@@ -3,28 +3,28 @@
     <table class="table table-hover table-sm">
       <thead>
       <tr>
-        <th scope="col" *ngIf="role== 'buyer'">Item</th>
-        <th scope="col" *ngIf="role!= 'buyer'">Bid By</th>
-        <th scope="col">Quantity</th>
+        <th scope="col">Item</th>
+        <th scope="col">Bid By</th>
+        <th scope="col" *ngIf="auctionType == 'seller'">Quantity</th>
         <th scope="col">Price</th>
         <th scope="col">Bid At</th>
-        <th scope="col" *ngIf="role== 'admin' || role=='seller' ">Actions</th>
+        <th scope="col">Actions</th>
       </tr>
       </thead>
       <tbody>
       <ng-container *ngIf="!data || data.length==0">
         <tr>
-          <td *ngIf="role== 'buyer'"></td>
-          <td *ngIf="role!= 'buyer'"></td>
           <td></td>
+          <td></td>
+          <td *ngIf="auctionType == 'seller'"></td>
           <td> No Data Found</td>
           <td></td>
-          <td *ngIf="role== 'admin' || role=='seller' "></td>
+          <td></td>
         </tr>
       </ng-container>
       <ng-container *ngFor="let bid of data">
         <tr>
-          <td *ngIf="role== 'buyer'">
+          <td>
             <a [routerLink]="['/product', bid.auction.sampleNo._id]">
               <div>
                 <p>{{ bid.auction.sampleNo.name.name}}</p>
@@ -34,13 +34,16 @@
               </div>
             </a>
           </td>
-          <td *ngIf="role!= 'buyer'">{{bid.createdBy.name}}</td>
-          <td>{{bid.quantity + " " + bid.auction.unit.mass}}</td>
+          <td>{{bid.createdBy.name}}</td>
+          <td *ngIf="auctionType == 'seller'">{{bid.quantity + " " + bid.auction.unit.mass}}</td>
           <td>{{"INR " + bid.price}}</td>
           <td>{{getDateString(bid.createdAt)}}</td>
-          <td *ngIf="role== 'admin' || role=='seller' ">
-            <button class="btn btn-primary">
+          <td>
+            <button class="btn btn-primary" *ngIf="confirmOrder" (click)="confirmBidOrder(bid)" >
               Confirm Order
+            </button>&nbsp;
+            <button class="btn btn-primary" *ngIf="bidHistory && role== 'admin'" (click)="openBidHistory(content,bid)">
+              Bid History
             </button>
           </td>
         </tr>
@@ -62,3 +65,6 @@
     </nav>
   </div>
 </div>
+<ng-template #content let-modal>
+  <app-bid-history [modal]="modal" [bids]="bidHistoryData" [bid]="bid" [auctionType] = "auctionType"></app-bid-history>
+</ng-template>

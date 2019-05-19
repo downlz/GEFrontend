@@ -1,0 +1,35 @@
+<div class="modal-header">
+  <h4 class="modal-title" id="modal-basic-title">Bid History</h4>
+  <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div class="modal-body">
+  <div class="container">
+    <table class="table table-hover table-sm">
+      <thead>
+      <tr>
+        <th scope="col">Price</th>
+        <th scope="col" *ngIf="auctionType == 'seller'">Quantity</th>
+        <th scope="col">Date</th>
+      </tr>
+      </thead>
+      <tbody>
+      <ng-container *ngIf="!bids || bids.length==0">
+        <tr>
+          <td></td>
+          <td *ngIf="auctionType == 'seller'"></td>
+          <td></td>
+        </tr>
+      </ng-container>
+      <ng-container *ngFor="let item of bids">
+        <tr>
+          <td>INR {{item.price}}</td>
+          <td *ngIf="auctionType == 'seller'">{{item.quantity + " " + bid.auction.unit.mass}}</td>
+          <td>{{getDateString(item.createdAt)}}</td>
+        </tr>
+      </ng-container>
+      </tbody>
+    </table>
+  </div>
+</div>

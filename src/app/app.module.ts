@@ -63,9 +63,13 @@ import {ListingDetailComponent} from './auction/auction-detail/listing-detail/li
 import {BidsTableComponent} from './auction/bids-table/bids-table.component';
 import {PlaceBidComponent} from './auction/place-bid/place-bid.component';
 import {MyBidsComponent} from './auction/my-bids/my-bids.component';
+
+import { BidHistoryComponent } from './auction/bid-history/bid-history.component';
+
 import {ForgotPasswordComponent} from './login/forgot-password/forgot-password.component';
 
 import { AppFooterComponent } from './app-footer/app-footer.component';
+
 
 @NgModule({
   declarations: [
@@ -108,6 +112,7 @@ import { AppFooterComponent } from './app-footer/app-footer.component';
     BidsTableComponent,
     PlaceBidComponent,
     MyBidsComponent,
+    BidHistoryComponent,
     AppFooterComponent
   ],
   entryComponents: [PlaceBidComponent],

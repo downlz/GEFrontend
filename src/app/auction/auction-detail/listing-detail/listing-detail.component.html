@@ -48,13 +48,25 @@
                   <th>Moisture:</th>
                   <th> {{ listing.moisture }}%</th>
                 </tr>
-                <tr>
-                  <th>Location:</th>
-                  <th> {{ listing.city.name }} | {{ listing.city.state.name }}</th>
-                </tr>
+                <!--<tr>-->
+                  <!--<th>Location:</th>-->
+                  <!--<th> {{ listing.city.name }} | {{ listing.city.state.name }}</th>-->
+                <!--</tr>-->
                 <tr *ngIf="listing.manufacturer">
                   <th>Manufacturer:</th>
                   <th> {{ listing.manufacturer.name }} | {{ listing.manufacturer.name }}</th>
+                </tr>
+                <tr>
+                  <th>Address:</th>
+                  <th> {{ auction.address }}</th>
+                </tr>
+                <tr>
+                  <th>Pincode:</th>
+                  <th> {{ auction.pincode }}</th>
+                </tr>
+                <tr *ngIf=" auction.state ">
+                  <th>State:</th>
+                  <th> {{ auction.state.name }}</th>
                 </tr>
 
               </table>

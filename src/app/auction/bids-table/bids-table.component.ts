@@ -1,5 +1,8 @@
 import {Component, Input, OnChanges, OnInit} from '@angular/core';
 import {AuthService} from '../../services/auth.service';
+import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import {AuctionService} from '../../services/auction.service';
+import {BidService} from '../../services/bid.service';
 
 @Component({
   selector: 'app-bids-table',
@@ -17,9 +20,21 @@ export class BidsTableComponent implements OnInit, OnChanges {
   data: Array<any>;
   totalPages: Array<Number> = [];
   role: string;
+  @Input()
+  bidHistory: boolean;
+  @Input()
+  confirmOrder: boolean;
+  bidHistoryData: any;
+  // @Input()
+  // auction: any;
+  userId: any;
+  bid: any;
+  @Input()
+  auctionType: string;
 
-  constructor(private auth: AuthService) {
+  constructor(private auth: AuthService, private auctionService: AuctionService, private bidService: BidService, private modalService: NgbModal) {
     this.role = auth.getRole();
+    this.userId = auth.getId();
   }
 
   ngOnInit() {
@@ -53,5 +68,30 @@ export class BidsTableComponent implements OnInit, OnChanges {
     if (typeof changes.auction === 'undefined') {
       this.initializeTable();
     }
+  }
+
+  openBidHistory(content, bid) {
+    this.bid = bid;
+    this.auctionService.getBidHistory(bid.auction._id, bid.createdBy._id).subscribe((data) => {
+        this.bidHistoryData = data;
+        this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title'}).result.then((result) => {
+        }, (reason) => {
+          this.bidHistoryData = [];
+          this.bid = null;
+        });
+      }
+      , (err) => {
+        this.bidHistoryData = [];
+        this.bid = null;
+      });
+  }
+
+  confirmBidOrder(bid) {
+    this.bidService.confirmOrder(bid._id).subscribe((data) => {
+      alert('Order Confirmed successfully');
+    }, (err) => {
+      console.log(err);
+      alert('Error while Confirming order');
+    });
   }
 }

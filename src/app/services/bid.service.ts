@@ -12,4 +12,8 @@ export class BidService extends DataService  {
     const url = environment.baseUrl + '/bid';
     super(url, http);
   }
+
+  confirmOrder(bid) {
+    return this.http.post(this.url + '/confirmOrder/' + bid);
+  }
 }
