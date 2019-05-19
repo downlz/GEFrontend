@@ -60,7 +60,10 @@ export class ForgotPasswordComponent implements OnInit {
 
 resetPassword() {
     
-    this.user.initiatePassRqst(this.form.value.passwordreset.phone, this.form.value.passwordreset.pan,this.form.value.passwordreset.gstin,this.form.value.passwordreset.password)
+    this.user.initiatePassRqst(this.form.value.passwordreset.phone, 
+                              this.form.value.passwordreset.pan.toUpperCase(),
+                              this.form.value.passwordreset.gstin.toUpperCase(),
+                              this.form.value.passwordreset.password)
     .subscribe(response => {
       this.passwordData = response;
       alert('Password reset was successful');
