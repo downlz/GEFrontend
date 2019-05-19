@@ -1,0 +1,115 @@
+<div class="farmbg"></div>
+<div class="container shdw" *ngIf="listing">
+    <div class="listingOffsetTextColor">
+  <div class="row container bordermk">
+
+    <div class="col-12 col-md-6">
+      <div class="ItemCardContainer">
+        <img class="card-img-top ItemCardImage" [src]="listing.image" alt="{{
+          listing.name }}">
+      </div>
+    </div>
+    <div class="col-12 col-md-6">
+      <div class="ItemCardContainer">
+        <div class="card ItemCardDesc">
+          <div class="card-body">
+            <table style="width:100%">
+              <tr>
+                <th>
+                  <h3 class="card-title">{{ listing.name.name }} </h3>
+                </th>
+              </tr>
+              <tr>
+                <th>Sample Number: {{ listing.sampleNo}}</th>
+              </tr>
+              <tr>
+                <th>Type: {{ listing.category.name }}</th>
+              </tr>
+              <tr>
+                <th>Price: Rs. {{ listing.price }} Per {{ listing.unit.mass }} </th>
+              </tr>
+            </table>
+
+
+          <form #f="ngForm" class="form-horizontal" (ngSubmit)="order(f.value)">  
+            <div class="form-group row">
+                <label for="quantity" class="col-sm-4 control-label">Quantity</label>
+                <div class="col-sm-8">
+                  <input required ngModel name="quantity" #quantity="ngModel" id="quantity"
+                  type="number" class="form-control"  (keyup)="onQuantityChange(quantity.value)">
+                </div>
+                <div *ngIf="quantity.touched && !quantity.valid">
+                  <div class="alrt">  Quantity is required </div>
+                </div>
+            </div>
+
+            <div>
+              Price : Rs. {{ price }} <br> <p class= "ItemTextDtl"> *Transportation cost extra</p>
+            </div>
+
+            <div>
+              <div class="form-group ItemTextDtl row">
+                <label for="shipaddr" class="col-sm-8 control-label" >Is shipping address same as billing</label>
+                <label class="checkbox">
+                <input type="checkbox" id="shipping"> Yes/No </label>
+            </div>
+            <div class="form-group" ngShow="Shipping.Address">
+            <div class="form-group ItemTextDtl row">
+                <label for="partyname" class="col-sm-3 control-label">Party Name</label>
+                <div class="col-sm-8">
+                  <input required name="partyname" id="partyname"
+                  type="text" class="form-control">
+                </div>
+            </div>
+            <div class="form-group ItemTextDtl row">
+                <label for="partygstin" class="col-sm-3 control-label">GSTIN</label>
+                <div class="col-sm-8">
+                  <input required name="partygstin" id="partygstin"
+                  type="text" class="form-control">
+                </div>
+            </div>
+            <div class="form-group ItemTextDtl row">
+                <label for="address" class="col-sm-3 control-label">Address</label>
+                <div class="col-sm-8">
+                  <input required name="address" id="address"
+                  type="text" class="form-control">
+                </div>
+            </div> 
+            <div class="form-group ItemTextDtl row">
+                <!-- <label for="state" class="col-sm-2 control-label">City</label> -->
+                <div class="col-sm-4">
+                  <input required name="state" id="state" placeholder="Enter City"
+                  type="text" class="form-control">
+                </div>
+                <label for="state" class="col-sm-2 control-label">State</label>
+                <div class="col-sm-4">
+                    <option value=''>State</option>
+                    <option *ngFor="let stat of state" [ngValue]="stat._id" > {{ stat.name }} </option>
+                </div>
+            </div>
+            <div class="form-group ItemTextDtl row">
+                <label for="phone" class="col-sm-3 control-label">Phone</label>
+                <div class="col-sm-8">
+                  <input required name="phone" id="phone"
+                  type="text" class="form-control">
+                </div>
+            </div>
+          </div>
+            </div>
+
+            <div>
+            <button class="btn btn-primary" [disabled]="(!f.valid) || (!priceValid)" >Submit</button>
+          </div>
+          </form>
+
+        </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+  </div>
+</div>
+
+
+
