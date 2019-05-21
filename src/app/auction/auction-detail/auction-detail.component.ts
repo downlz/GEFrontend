@@ -54,4 +54,13 @@ export class AuctionDetailComponent implements OnInit {
   changeTab(tab) {
     this.activeTab = tab;
   }
+
+  /**
+   * Get Best Bid
+   */
+  getBestBid() {
+    return Math.max((this.auction.bids || []).map((bid) => {
+      return bid.price;
+    }));
+  }
 }

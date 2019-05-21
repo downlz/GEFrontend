@@ -6,7 +6,7 @@
       <tr>
         <th scope="col">Item</th>
         <th scope="col">Auction Type</th>
-        <th scope="col" *ngIf="showBestPrice">Best Bid Price</th>
+        <!--<th scope="col" *ngIf="showBestPrice">Best Bid Price</th>-->
         <th scope="col">Listed By</th>
         <th scope="col">Category</th>
         <th scope="col">Start Time</th>
@@ -39,7 +39,7 @@
             </div>
           </a></th>
           <td>{{auction.auctionType}}</td>
-          <td *ngIf="showBestPrice">{{auction.bestPrice}}</td>
+          <!--<td *ngIf="showBestPrice">{{auction.bestPrice}}</td>-->
           <td>{{auction.user.name}}</td>
           <td>{{auction.sampleNo.category.name}}</td>
           <td>{{getDateString(auction.startTime)}}</td>

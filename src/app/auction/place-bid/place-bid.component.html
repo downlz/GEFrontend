@@ -10,7 +10,8 @@
     <p *ngIf="getErrors('quantity').max">Quantity can not exceed {{auction.maxQty}}</p>
     <p *ngIf="getErrors('quantity').min">Quantity should be greater than {{auction.minQty}}</p>
     <p *ngIf="getErrors('price').required">Please enter Price</p>
-    <p *ngIf="getErrors('price').max">Price can not exceed {{auction.ceilingPrice}}</p>
+    <p *ngIf="getErrors('price').max && role=='buyer'">Price can not exceed {{auction.ceilingPrice}}</p>
+    <p *ngIf="getErrors('price').max && role=='seller'">Price can not exceed {{auction.floorPrice}}</p>
     <p *ngIf="getErrors('price').min">Price should be greater than {{auction.floorPrice}}</p>
   </div>
 

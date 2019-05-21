@@ -1,3 +1,6 @@
+<div class="alert alert-info" role="alert" *ngIf="auction && auction.bids && auction.bids.length>0">
+  Best Bid : INR {{getBestBid()}}
+</div>
 <!-- Nav tabs -->
 <ul class="nav nav-tabs">
   <li class="nav-item">
@@ -10,6 +13,7 @@
       <span>Bids</span>
     </a>
   </li>
+
 </ul>
 <!-- Tab panes -->
 <div class="tab-content">
@@ -21,6 +25,7 @@
        *ngIf="role=='admin' || (auction && auction.user._id == userId)">
     <div class="spinner-grow loader text-success" *ngIf="loading"></div>
     <app-bids-table [bids]="auction?auction.bids:[]" [bidHistory]=true
-                    [confirmOrder]="role=='admin' || (auction.user._id == userId)" [auctionType]="auction && auction.auctionType"></app-bids-table>
+                    [confirmOrder]="role=='admin' || (auction.user._id == userId)"
+                    [auctionType]="auction && auction.auctionType"></app-bids-table>
   </div>
 </div>
