@@ -68,6 +68,14 @@
                   <th>State:</th>
                   <th> {{ auction.state.name }}</th>
                 </tr>
+                <tr *ngIf=" auction.nameVisible ">
+                  <th>Listed by :</th>
+                  <th> {{ auction.user.name }}</th>
+                </tr>
+                <tr *ngIf=" auction.remarks ">
+                  <th>Remarks :</th>
+                  <th> {{ auction.remarks}}</th>
+                </tr>
 
               </table>
             </div>

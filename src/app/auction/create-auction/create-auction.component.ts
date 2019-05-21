@@ -34,7 +34,8 @@ export class CreateAuctionComponent implements OnInit {
   states: any;
   edit: boolean;
   id: string;
-  maxDateTime: Date;
+  maxStartDateTime: Date;
+  maxEndDateTime: Date;
   allFormControls: any;
   formControls: any;
 
@@ -118,8 +119,10 @@ export class CreateAuctionComponent implements OnInit {
         (control: AbstractControl) => this.form && this.form.get('newItem.auctionType').value === 'buyer' ? Validators.required(control) : null
       ])
     };
-    this.maxDateTime = new Date();
-    this.maxDateTime.setTime(this.maxDateTime.getTime() + 1000 * 60 * 60 * 24 * 30);
+    this.maxStartDateTime = new Date();
+    this.maxStartDateTime.setTime(this.maxStartDateTime.getTime() + 1000 * 60 * 60 * 24 * 30);
+    this.maxEndDateTime = new Date();
+    this.maxEndDateTime.setTime(this.maxEndDateTime.getTime() + 1000 * 60 * 60 * 24 * 37);
     this.route.paramMap
       .subscribe(async params => {
           const id = params.get('id');
@@ -354,8 +357,8 @@ export class CreateAuctionComponent implements OnInit {
             auction.user = auction.buyer;
           }
         }
-        if (auction.remarks && auction.remarks.trim() === '') {
-          delete auction.remarks;
+        if (auction.remarks && auction.remarks === '') {
+          auction.remarks = ' ';
         }
 
         delete auction.buyer;

@@ -17,8 +17,8 @@
       <tbody>
       <ng-container *ngIf="!bids || bids.length==0">
         <tr>
-          <td></td>
-          <td *ngIf="auctionType == 'seller'"></td>
+          <td *ngIf="auctionType != 'seller'">No Data Found</td>
+          <td *ngIf="auctionType == 'seller'">No Data Found</td>
           <td></td>
         </tr>
       </ng-container>

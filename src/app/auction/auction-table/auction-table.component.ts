@@ -95,4 +95,10 @@ export class AuctionTableComponent implements OnInit, OnChanges {
       this.selectedAuction = null;
     });
   }
+
+  isBiddingAllowed(auction) {
+    const endTime = new Date(auction.endTime).getTime();
+    const currentTime = new Date().getTime();
+    return endTime > currentTime;
+  }
 }

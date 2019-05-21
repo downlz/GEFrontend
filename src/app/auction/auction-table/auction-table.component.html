@@ -11,7 +11,7 @@
         <th scope="col">Category</th>
         <th scope="col">Start Time</th>
         <th scope="col">End Time</th>
-        <th scope="col" *ngIf="role === 'admin' || role === 'seller'">Approved</th>
+        <!--<th scope="col" *ngIf="role === 'admin' || role === 'seller'">Approved</th>-->
         <th scope="col">Actions</th>
       </tr>
       </thead>
@@ -44,13 +44,14 @@
           <td>{{auction.sampleNo.category.name}}</td>
           <td>{{getDateString(auction.startTime)}}</td>
           <td>{{getDateString(auction.endTime)}}</td>
-          <td *ngIf="role === 'admin' || role === 'seller'">{{auction.approved ? "Yes" : "No"}}</td>
+          <!--<td *ngIf="role === 'admin' || role === 'seller'">{{auction.approved ? "Yes" : "No"}}</td>-->
           <td>
             <a class="btn btn-primary" [routerLink]="'/auction/edit/'+auction._id"
                *ngIf="(role=='admin' || auction.user._id === userId) && getTimeStamp(auction.startTime) > currentTimestamp">
               Edit
             </a>&nbsp;
-            <button class="btn btn-primary" *ngIf="actions.indexOf('bid')!=-1" (click)="placeBid(content,auction)">
+            <button class="btn btn-primary" *ngIf="actions.indexOf('bid')!=-1 && isBiddingAllowed(auction)" (click)="placeBid(content,auction)">
+
               Place Bid
             </button>
             &nbsp;
