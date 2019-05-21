@@ -56,7 +56,7 @@ export class AuctionListComponent implements OnInit {
       return (auction.user._id === this.auth.getId() || this.role === 'admin') && !auction.approved;
     });
     this.myAuctions = this.auctions.filter((auction) => {
-      return (auction.user._id === this.auth.getId()) && (new Date().getTime() <= (new Date(auction.endTime)).getTime());
+      return auction.approved && (auction.user._id === this.auth.getId()) && (new Date().getTime() <= (new Date(auction.endTime)).getTime());
     });
   }
 
