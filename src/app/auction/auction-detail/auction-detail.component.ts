@@ -60,7 +60,7 @@ export class AuctionDetailComponent implements OnInit {
    */
   getBestBid() {
     return Math.max((this.auction.bids || []).map((bid) => {
-      return bid.price;
+      return isNaN(bid.price) ? 0 : bid.price;
     }));
   }
 }
