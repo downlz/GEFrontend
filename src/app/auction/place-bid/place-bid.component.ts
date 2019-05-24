@@ -84,7 +84,7 @@ export class PlaceBidComponent implements OnInit, AfterViewInit {
       const bid = this.form.getRawValue().newItem;
       bid.auction = this.auction._id;
       this.bidService.create(bid).subscribe((response) => {
-        this.loading = false;
+          this.loading = false;
         alert('Bid Placed successfully');
         this.modal.close();
       }, err => {
