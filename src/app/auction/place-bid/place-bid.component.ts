@@ -3,6 +3,7 @@ import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {AbstractControl, FormControl, FormGroup, Validators} from '@angular/forms';
 import {BidService} from '../../services/bid.service';
 import {AuthService} from '../../services/auth.service';
+import {ManufacturerService} from '../../services/manufacturer.service';
 
 @Component({
   selector: 'app-place-bid',
@@ -20,12 +21,18 @@ export class PlaceBidComponent implements OnInit, AfterViewInit {
   @ViewChild('quantity')
   quantity: ElementRef;
   role: string;
+  showMarketingExpense: Boolean = false;
+  manufacturerNotPresent: Boolean = false;
+  manufacturers: Array<any> = [];
 
-  constructor(private authService: AuthService, private modalService: NgbModal, private bidService: BidService) {
+  constructor(private authService: AuthService, private modalService: NgbModal, private bidService: BidService, private manufacturerService: ManufacturerService) {
     this.role = this.authService.getRole();
   }
 
   ngOnInit() {
+    this.manufacturerService.getAll().subscribe((data: any) => {
+      this.manufacturers = data;
+    });
     if (this.auction) {
       if (this.role === 'seller') {
         this.form = new FormGroup({
@@ -33,6 +40,14 @@ export class PlaceBidComponent implements OnInit, AfterViewInit {
             price: new FormControl('', [
               Validators.required,
               (control: AbstractControl) => Validators.max(this.auction.floorPrice)(control),
+            ]),
+            marketingExpense: new FormControl(0, [
+              // (control: AbstractControl) => this.showMarketingExpense ? Validators.required(control) : null,
+              (control: AbstractControl) => Validators.min(1)(control),
+              (control: AbstractControl) => Validators.max(100)(control)
+            ]),
+            manufacturer: new FormControl('', [
+              //Validators.required
             ])
           })
         });
@@ -48,7 +63,7 @@ export class PlaceBidComponent implements OnInit, AfterViewInit {
               Validators.required,
               (control: AbstractControl) => Validators.min(this.auction.minQty)(control),
               (control: AbstractControl) => Validators.max(this.auction.maxQty)(control)
-            ]),
+            ])
           })
         });
       }
@@ -69,7 +84,7 @@ export class PlaceBidComponent implements OnInit, AfterViewInit {
       const bid = this.form.getRawValue().newItem;
       bid.auction = this.auction._id;
       this.bidService.create(bid).subscribe((response) => {
-        this.loading = false;
+          this.loading = false;
         alert('Bid Placed successfully');
         this.modal.close();
       }, err => {

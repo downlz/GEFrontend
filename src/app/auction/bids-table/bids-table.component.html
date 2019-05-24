@@ -7,6 +7,7 @@
         <th scope="col">Bid By</th>
         <th scope="col" *ngIf="auctionType == 'seller'">Quantity</th>
         <th scope="col">Price</th>
+        <th scope="col" *ngIf="auctionType == 'buyer'">Effective Price</th>
         <th scope="col">Bid At</th>
         <th scope="col">Actions</th>
       </tr>
@@ -37,9 +38,10 @@
           <td>{{bid.createdBy.name}}</td>
           <td *ngIf="auctionType == 'seller'">{{bid.quantity + " " + bid.auction.unit.mass}}</td>
           <td>{{"INR " + bid.price}}</td>
+          <td  *ngIf="auctionType == 'buyer'">{{"INR " + (bid.price + (bid.marketingExpense * bid.price / 100)) }}</td>
           <td>{{getDateString(bid.createdAt)}}</td>
           <td>
-            <button class="btn btn-primary" *ngIf="confirmOrder" (click)="confirmBidOrder(bid)" >
+            <button class="btn btn-primary" *ngIf="confirmOrder" (click)="confirmBidOrder(bid)">
               Confirm Order
             </button>&nbsp;
             <button class="btn btn-primary" *ngIf="bidHistory && role== 'admin'" (click)="openBidHistory(content,bid)">
@@ -66,5 +68,5 @@
   </div>
 </div>
 <ng-template #content let-modal>
-  <app-bid-history [modal]="modal" [bids]="bidHistoryData" [bid]="bid" [auctionType] = "auctionType"></app-bid-history>
+  <app-bid-history [modal]="modal" [bids]="bidHistoryData" [bid]="bid" [auctionType]="auctionType"></app-bid-history>
 </ng-template>
