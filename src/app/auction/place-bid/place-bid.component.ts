@@ -43,7 +43,7 @@ export class PlaceBidComponent implements OnInit, AfterViewInit {
             ]),
             marketingExpense: new FormControl(0, [
               // (control: AbstractControl) => this.showMarketingExpense ? Validators.required(control) : null,
-              (control: AbstractControl) => Validators.min(1)(control),
+              // (control: AbstractControl) => Validators.min(1)(control),
               (control: AbstractControl) => Validators.max(100)(control)
             ]),
             manufacturer: new FormControl('', [

@@ -14,7 +14,7 @@
     <p *ngIf="getErrors('price').max && role=='seller'">Price can not exceed {{auction.floorPrice}}</p>
     <p *ngIf="getErrors('price').min">Price should be greater than {{auction.floorPrice}}</p>
     <p *ngIf="getErrors('marketingExpense').required">Please enter marketing expense</p>
-    <p *ngIf="getErrors('marketingExpense').min">Marketing expense should be greater than 1</p>
+    <!-- <p *ngIf="getErrors('marketingExpense').min">Marketing expense should be greater than 1</p> -->
     <p *ngIf="getErrors('marketingExpense').max">Marketing expense should not be greater than 100</p>
   </div>
 
