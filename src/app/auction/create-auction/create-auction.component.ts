@@ -184,6 +184,8 @@ export class CreateAuctionComponent implements OnInit {
       case  'seller':
         if (!this.edit) {
           controls = [
+            'itemName',
+            'itemCategory',
             'sampleNo',
             'availableQty',
             'maxQty',
@@ -277,13 +279,14 @@ export class CreateAuctionComponent implements OnInit {
           console.log(error);
         });
     } else {
-      forkJoin([this.unitService.getAll(), this.listingService.getCurrentUserListings(), this.stateService.getAll()
+      forkJoin([this.unitService.getAll(), this.listingService.getCurrentUserListings(), this.stateService.getAll(), this.itemnameService.getAll()
 
       ])
         .subscribe(response => {
           this.units = response[0];
           this.listings = response[1];
           this.states = response[2];
+          this.itemnames = response[3];
         }, (error: Response) => {
           console.log(error);
         });
@@ -310,8 +313,15 @@ export class CreateAuctionComponent implements OnInit {
   onCategoryChange(datain) {
     this.listings = [];
     let category = this.form.get('newItem.itemCategory').value;
-    this.listingService.getListingsByCategory(category).subscribe((response) => {
-      this.listings = response;
+    this.listingService.getListingsByCategory(category).subscribe((response: any) => {
+      if (this.role === 'seller') {
+
+        this.listings = (response || []).filter((listing) => {
+          return listing.seller._id === this.auth.getId();
+        });
+      } else {
+        this.listings = response;
+      }
       console.log(this.listings);
     }, (error: Response) => {
       console.log(error);
@@ -329,8 +339,16 @@ export class CreateAuctionComponent implements OnInit {
     event.preventDefault();
     if (this.form.valid) {
       const auction = this.form.getRawValue().newItem;
-      auction.transportCost = !!auction.transportCost;
-      auction.nameVisible = !!auction.nameVisible;
+      if (auction.nameVisible === '0') {
+        auction.nameVisible = false;
+      } else {
+        auction.nameVisible = true;
+      }
+      if (auction.transportCost === '0') {
+        auction.transportCost = false;
+      } else {
+        auction.transportCost = true;
+      }
       if (this.edit) {
         auction._id = this.id;
         this.auctionService.update(auction).subscribe((response) => {
