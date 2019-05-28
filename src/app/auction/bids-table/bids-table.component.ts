@@ -3,6 +3,7 @@ import {AuthService} from '../../services/auth.service';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {AuctionService} from '../../services/auction.service';
 import {BidService} from '../../services/bid.service';
+import {ManufacturerService} from '../../services/manufacturer.service';
 
 @Component({
   selector: 'app-bids-table',
@@ -31,10 +32,14 @@ export class BidsTableComponent implements OnInit, OnChanges {
   bid: any;
   @Input()
   auctionType: string;
+  manufacturers: any = [];
 
-  constructor(private auth: AuthService, private auctionService: AuctionService, private bidService: BidService, private modalService: NgbModal) {
+  constructor(private auth: AuthService, private manufacturerService: ManufacturerService, private auctionService: AuctionService, private bidService: BidService, private modalService: NgbModal) {
     this.role = auth.getRole();
     this.userId = auth.getId();
+    this.manufacturerService.getAll().subscribe((resp) => {
+      this.manufacturers = resp;
+    });
   }
 
   ngOnInit() {
@@ -84,6 +89,17 @@ export class BidsTableComponent implements OnInit, OnChanges {
         this.bidHistoryData = [];
         this.bid = null;
       });
+  }
+
+  getManufacturer(bid) {
+    const manufacturer = this.manufacturers.filter((item) => {
+      return item._id === bid.manufacturer;
+    })[0];
+    if (manufacturer) {
+      return manufacturer.name;
+    } else {
+      return bid.manufacturer;
+    }
   }
 
   confirmBidOrder(bid) {
