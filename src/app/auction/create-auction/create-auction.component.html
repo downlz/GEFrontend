@@ -63,7 +63,7 @@
             </select>
           </div>
         </div>
-        <div class="col-md-3 pl-1" *ngIf="formControls.sampleNo && role!='seller'">
+        <div class="col-md-3 pl-1" *ngIf="formControls.sampleNo">
           <div class="form-group">
             <label>Sample No</label>
             <select class="form-control" id="sampleNo" formControlName="sampleNo"
@@ -78,17 +78,17 @@
       </div>
 
       <div class="row">
-        <div class="col-md-3 pl-1" *ngIf="formControls.sampleNo && role=='seller'">
-          <div class="form-group">
-            <label>Sample No</label>
-            <select class="form-control" id="sampleNo" formControlName="sampleNo"
-                    (ngModelChange)="onSampleNoChange($event)">
-              <option value=''>Select Sample No</option>
-              <option *ngFor="let listing of listings" [ngValue]="listing._id"
-              > {{ listing.sampleNo }}</option>
-            </select>
-          </div>
-        </div>
+        <!--<div class="col-md-3 pl-1" *ngIf="formControls.sampleNo && role=='seller'">-->
+          <!--<div class="form-group">-->
+            <!--<label>Sample No</label>-->
+            <!--<select class="form-control" id="sampleNo" formControlName="sampleNo"-->
+                    <!--(ngModelChange)="onSampleNoChange($event)">-->
+              <!--<option value=''>Select Sample No</option>-->
+              <!--<option *ngFor="let listing of listings" [ngValue]="listing._id"-->
+              <!--&gt; {{ listing.sampleNo }}</option>-->
+            <!--</select>-->
+          <!--</div>-->
+        <!--</div>-->
         <div class="col-md-3 pl-1">
           <div class="form-group">
             <label>{{role == 'buyer' || form.value.newItem.auctionType=="buyer" ? 'Quantity' : 'Available Quantity'}}</label>

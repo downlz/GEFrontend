@@ -7,6 +7,7 @@
         <th scope="col">Bid By</th>
         <th scope="col" *ngIf="auctionType == 'seller'">Quantity</th>
         <th scope="col">Price</th>
+        <th scope="col" *ngIf="auctionType == 'buyer'">Manufacturer</th>
         <th scope="col" *ngIf="auctionType == 'buyer'">Marketing Expenses</th>
         <th scope="col" *ngIf="auctionType == 'buyer'">Effective Price</th>
         <th scope="col">Bid At</th>
@@ -39,17 +40,23 @@
           <td>{{bid.createdBy.name}}</td>
           <td *ngIf="auctionType == 'seller'">{{bid.quantity + " " + bid.auction.unit.mass}}</td>
           <td>{{"INR " + bid.price}}</td>
-          <td  *ngIf="auctionType == 'buyer' && bid.marketingExpense > 0"> Yes </td>
-          <td  *ngIf="auctionType == 'buyer' && (bid.marketingExpense == 0 ||bid.marketingExpense == null)" > No </td>
+          <td *ngIf="auctionType == 'buyer'"> {{getManufacturer(bid)}}</td>
+          <td *ngIf="auctionType == 'buyer' && bid.marketingExpense > 0"> Yes</td>
+          <td *ngIf="auctionType == 'buyer' && (!bid.marketingExpense || bid.marketingExpense === 0 ||bid.marketingExpense == null)"> No</td>
+
           <!-- <td  *ngIf="auctionType == 'buyer' && bid.marketingExpense > 0; else elseMktExpBlock"> Yes </td>
           <td #elseMktExpBlock>
             No
           </td> -->
-          <td  *ngIf="auctionType == 'buyer'">{{"INR " + (bid.price + (bid.marketingExpense * bid.price / 100)).toFixed(2) }}</td>
+          <td
+            *ngIf="auctionType == 'buyer'">{{"INR " + (bid.price + (bid.marketingExpense * bid.price / 100)).toFixed(2) }}</td>
           <td>{{getDateString(bid.createdAt)}}</td>
           <td>
-            <button class="btn btn-primary" *ngIf="confirmOrder" (click)="confirmBidOrder(bid)">
+            <button class="btn btn-primary" *ngIf="confirmOrder && !bid.orderConfirmed" (click)="confirmBidOrder(bid)">
               Confirm Order
+            </button>&nbsp;
+            <button class="btn btn-primary" *ngIf="confirmOrder && !!bid.orderConfirmed" [disabled]="true">
+              Order Confirmed
             </button>&nbsp;
             <button class="btn btn-primary" *ngIf="bidHistory && role== 'admin'" (click)="openBidHistory(content,bid)">
               Bid History

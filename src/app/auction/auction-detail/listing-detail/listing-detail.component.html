@@ -30,7 +30,12 @@
                 </tr>
                 <tr>
                   <th>Price:</th>
-                  <th> Rs. {{ listing.price }}/{{ listing.unit.mass }}</th>
+                  <th *ngIf="auction.auctionType=='seller'">
+                    Rs. {{ auction.ceilingPrice }}/{{ auction.unit.mass }}
+                  </th>
+                  <th *ngIf="auction.auctionType=='buyer'">
+                    Rs. {{ auction.floorPrice }}/{{ auction.unit.mass }}
+                  </th>
                 </tr>
                 <tr>
                   <th>Quantity:</th>
