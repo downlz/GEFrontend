@@ -3,6 +3,7 @@ import {AuthService} from '../../services/auth.service';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {AuctionService} from '../../services/auction.service';
 import {BidService} from '../../services/bid.service';
+import {OrderService} from '../../services/order.service';
 
 @Component({
   selector: 'app-bids-table',
@@ -32,7 +33,9 @@ export class BidsTableComponent implements OnInit, OnChanges {
   @Input()
   auctionType: string;
 
-  constructor(private auth: AuthService, private auctionService: AuctionService, private bidService: BidService, private modalService: NgbModal) {
+  constructor(private auth: AuthService, private auctionService: AuctionService, 
+    private bidService: BidService, private modalService: NgbModal,
+    private orderService: OrderService) {
     this.role = auth.getRole();
     this.userId = auth.getId();
   }
@@ -87,11 +90,22 @@ export class BidsTableComponent implements OnInit, OnChanges {
   }
 
   confirmBidOrder(bid) {
-    this.bidService.confirmOrder(bid._id).subscribe((data) => {
+    // console.log(data);
+    // this.orderService.get('orderno')        // Sending url as per API defination
+    //   .subscribe(response => {              // improve coding standards
+    //     const res = response as any;
+    //     bid.orderno = parseInt(res[0].orderno) + 1;
+    //     console.log(bid);
+    //   // })
+    this.bidService.confirmOrder(bid._id)
+    .subscribe((data) => {
+      console.log(this.data);
       alert('Order Confirmed successfully');
     }, (err) => {
       console.log(err);
       alert('Error while Confirming order');
     });
-  }
+  // });
 }
+}
+
