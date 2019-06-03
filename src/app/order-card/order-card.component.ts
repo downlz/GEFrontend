@@ -8,10 +8,11 @@ import {ListingService} from '../services/listing.service';
 })
 export class OrderCardComponent implements OnInit {
   @Input('order') order: any;
+
   constructor(private listingService: ListingService) { }
 
   ngOnInit() {
-    // console.log(this.order);
+    console.log(this.order);
   }
 
   getOrderStatusNumber() {
@@ -21,14 +22,17 @@ export class OrderCardComponent implements OnInit {
     if (this.order.status === 'confirmed') {
       return 2;
     }
-    if (this.order.status === 'shipped') {
+    if (this.order.status === 'ready') {
       return 3;
     }
-    if (this.order.status === 'delivered') {
+    if (this.order.status === 'shipped') {
       return 4;
     }
-    if (this.order.status === 'cancelled') {
+    if (this.order.status === 'delivered') {
       return 5;
+    }
+    if (this.order.status === 'cancelled') {
+      return 6;
     }
   }
   // setNewClasses() {
@@ -38,4 +42,5 @@ export class OrderCardComponent implements OnInit {
   //   };
   //   return classes;
   // }
+
 }

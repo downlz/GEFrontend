@@ -6,6 +6,7 @@ import { Listing } from './../model/listing';
 import { UserService } from '../services/user.service';
 import { StateService } from '../services/state.service';
 import { OrderService } from '../services/order.service';
+import { AddressService } from '../services/address.service';
 import { PriceService } from '../services/price.service';
 import { AppError } from '../common/app-error';
 import { forkJoin } from 'rxjs';
@@ -22,6 +23,7 @@ export class OrderNowComponent implements OnInit {
   address: any;
   userid: any;
   statedata: any;
+  addresses: any;
   state: any = []; //Array<any> = [];
   hideblock: false;
   price = 0;
@@ -30,7 +32,8 @@ export class OrderNowComponent implements OnInit {
   lastorderno: number;
   constructor(private listingService: ListingService, private userService: UserService,
     private route: ActivatedRoute, private router: Router, private stateService: StateService,
-    private orderService: OrderService, private modalService: NgbModal,private priceService: PriceService) { }
+    private orderService: OrderService, private modalService: NgbModal,
+    private addressService: AddressService, private priceService: PriceService) { }
 
   ngOnInit() {
     this.route.paramMap
@@ -41,12 +44,18 @@ export class OrderNowComponent implements OnInit {
     this.stateService.getAll()
     .subscribe(response => {
       this.state = response;
-    }); 
+    });
     this.userService.get('me')
     .subscribe(response => {
       const res = response as any;
       this.address = res.Addresses[0];
       this.userid = res._id;
+      // console.log(res);
+        this.addressService.getUserAddr(res._id,res.phone)
+        .subscribe(response => {
+          this.addresses = response;
+          // console.log(response);
+        });
     }, (error: Response) => {
       this.router.navigate(['/errorpage']);
       if (error.status === 400) {
@@ -145,9 +154,10 @@ export class OrderNowComponent implements OnInit {
       state: f.statedat,
       phone: f.phone,
       addresstype: 'delivery',
-      addedby: this.userid
+      addedby: this.userid,
+      addressreference: f.shipaddr
     };
-    console.log(OrderData);
+    // console.log(OrderData);
 
     this.orderService.create(OrderData)
     .subscribe(response => {

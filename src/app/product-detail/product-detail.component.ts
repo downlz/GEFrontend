@@ -54,21 +54,23 @@ export class ProductDetailComponent implements OnInit {
 
   order() {
     const OrderData = {
+      orderno: 'Not Applicable',
       quantity: 0,
       cost: 0,
       itemId: this.listing._id,
       unit: this.listing.unit.mass,
-      addressId: this.address._id,
+      // addressId: this.address._id,
       buyerId: this.userid,
       sellerId: this.listing.seller._id,
       placedTime: Date.now().toString(),
       ordertype: 'sampleorder',
-      status: 'new'
+      status: 'new',
+      isshippingbillingdiff: false
     };
     console.log(OrderData);
     this.orderService.create(OrderData)
     .subscribe(response => {
-      console.log(response);
+      // console.log(response);
       alert('Order Placed Successfully');
       this.router.navigate(['/products']);
     }, (error: AppError) => {

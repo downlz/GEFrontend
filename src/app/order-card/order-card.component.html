@@ -8,6 +8,11 @@
       <div class="col-12 col-md-6">
         <img *ngIf="order.item.image" class="card-img-top ItemCardImage"
           [src]="order.item.image" alt="{{ order.item.name }}">
+          <ol class="progtrckr" data-progtrckr-steps="6" *ngIf="order.status == 'cancelled'" layout-align="center center">
+              <li  [class.progtrckr-todo-cancel]="getOrderStatusNumber() < 6" [class.progtrckr-cancel]="getOrderStatusNumber() >= 6">Cancelled</li>
+            </ol>
+            <br>
+          <p>{{ order.remarks }}</p>
       </div>
       <div class="col-12 col-md-6">
         <p>Hello {{order.buyer.name}}, your order details are: </p>
@@ -25,30 +30,41 @@
             <tr>
               <td>ordered on: {{order.placedTime | date:'medium'}} </td>
             </tr>
-            <tr>
+            <tr> 
               <td>Order Type : {{ order.ordertype}}</td>
             </tr>
-            <tr>
+            <tr *ngIf="order.manualbill"> 
+                <td>Bill uploaded by seller : <a href=''>Get bill</a></td>
+              </tr>
+            <!-- <tr *ngIf="order.ordertype =="> -->
+              <tr>
               <!-- <td>Address: {{order.address.text}}, {{order.address.city.name}},
                 {{order.address.city.state.name}}</td> -->
-                Address: Dummy Address
+                Shipping Address:
             </tr>
           </tbody>
         </table>
       </div>
     </div>
     <div class="container">
-      <ol class="progtrckr" data-progtrckr-steps="5">
+      <ol class="progtrckr" data-progtrckr-steps="5" *ngIf="order.status != 'cancelled'">
         <li  [class.progtrckr-todo]="getOrderStatusNumber() < 1" [class.progtrckr-done]="getOrderStatusNumber() >= 1">New</li><!--
              --><li
              [class.progtrckr-todo]="getOrderStatusNumber() < 2" [class.progtrckr-done]="getOrderStatusNumber() >= 2">Confirmed</li><!--
              --><li
-             [class.progtrckr-todo]="getOrderStatusNumber() < 3" [class.progtrckr-done]="getOrderStatusNumber() >= 3">Shipped</li><!--
+             [class.progtrckr-todo]="getOrderStatusNumber() < 3" [class.progtrckr-done]="getOrderStatusNumber() >= 3">Ready</li><!--
              --><li
-             [class.progtrckr-todo]="getOrderStatusNumber() < 4" [class.progtrckr-done]="getOrderStatusNumber() >= 4">Delivered</li>
-            || <li
-            [class.progtrckr-todo]="getOrderStatusNumber() < 5" [class.progtrckr-done]="getOrderStatusNumber() >= 5">Cancelled</li>
+             [class.progtrckr-todo]="getOrderStatusNumber() < 4" [class.progtrckr-done]="getOrderStatusNumber() >= 4">Shipped</li><!--  
+             --><li
+             [class.progtrckr-todo]="getOrderStatusNumber() < 5" [class.progtrckr-done]="getOrderStatusNumber() >= 5">Delivered</li>
+            <!-- || <li
+            [class.progtrckr-todo]="getOrderStatusNumber() < 5" [class.progtrckr-done]="getOrderStatusNumber() >= 5">Cancelled</li> -->
       </ol>
+      <!-- <ol class="progtrckr" data-progtrckr-steps="6" *ngIf="order.status == 'cancelled'" layout-align="center center">
+          <li  [class.progtrckr-todo-cancel]="getOrderStatusNumber() < 6" [class.progtrckr-cancel]="getOrderStatusNumber() >= 6">Cancelled</li>
+        </ol> -->
+        
+      
     </div>
   </div>
 </div>

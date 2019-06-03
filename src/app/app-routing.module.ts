@@ -183,7 +183,7 @@ const routes: Routes = [
     component: AllOrdersComponent,
     canActivate: [AuthGuard],
     data: {
-      roles: ['admin']
+      roles: ['admin','seller']
     }
   },
   {
