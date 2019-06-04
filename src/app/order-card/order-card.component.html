@@ -28,19 +28,46 @@
               <td>Sample order</td>
             </tr>
             <tr>
-              <td>ordered on: {{order.placedTime | date:'medium'}} </td>
+              <td>Ordered on: {{order.placedTime | date:'medium'}} </td>
             </tr>
             <tr> 
               <td>Order Type : {{ order.ordertype}}</td>
             </tr>
             <tr *ngIf="order.manualbill"> 
-                <td>Bill uploaded by seller : <a href=''>Get bill</a></td>
+                <td>Bill uploaded by seller : <a href='{{apiurl}}/uploadbill/{{order._id}}'>Get bill</a></td>
               </tr>
             <!-- <tr *ngIf="order.ordertype =="> -->
               <tr>
               <!-- <td>Address: {{order.address.text}}, {{order.address.city.name}},
                 {{order.address.city.state.name}}</td> -->
-                Shipping Address:
+                <td *ngIf="order.isshippingbillingdiff == true"> 
+                  Shipping Address: 
+                  {{this.order.shippingaddress.addressbasicdtl.partyname}},
+                  {{this.order.shippingaddress.addressbasicdtl.gstin}},
+                  {{this.order.shippingaddress.text}},
+                  {{this.order.shippingaddress.state.name}},
+                  {{this.order.shippingaddress.pin}},
+                  {{this.order.shippingaddress.phone}}
+                </td>
+                <td *ngIf="order.isshippingbillingdiff == true"> 
+                    Shipping Address: 
+                    {{this.order.buyer.name}},
+                    {{this.order.buyer.GST}},
+                    {{this.order.buyer.Addresses[0].text}},
+                    {{this.order.buyer.Addresses[0].city.name}},
+                    {{this.order.buyer.Addresses[0].city.state.name}},
+                    {{this.order.buyer.Addresses[0].pin}},
+                    {{this.order.buyer.phone}}
+                  </td>
+                  <td *ngIf="!order.isshippingbillingdiff"> 
+                      Shipping Address: 
+                      {{this.order.buyer.name}},
+                      {{this.order.buyer.GST}},
+                      {{this.order.address.text}},
+                      {{this.order.address.state.name}},
+                      {{this.order.address.pin}},
+                      {{this.order.buyer.phone}}
+                    </td>
             </tr>
           </tbody>
         </table>

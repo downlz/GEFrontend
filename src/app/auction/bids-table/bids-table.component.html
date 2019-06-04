@@ -41,7 +41,7 @@
           <td *ngIf="auctionType == 'seller'">{{bid.quantity + " " + bid.auction.unit.mass}}</td>
           <td>{{"INR " + bid.price}}</td>
           <td *ngIf="auctionType == 'buyer'"> {{getManufacturer(bid)}}</td>
-          <td *ngIf="auctionType == 'buyer' && bid.marketingExpense > 0"> Yes</td>
+          <td *ngIf="auctionType == 'buyer' && bid.marketingExpense > 0"> Yes, {{bid.marketingExpense}}%</td>
           <td *ngIf="auctionType == 'buyer' && (!bid.marketingExpense || bid.marketingExpense === 0 ||bid.marketingExpense == null)"> No</td>
 
           <!-- <td  *ngIf="auctionType == 'buyer' && bid.marketingExpense > 0; else elseMktExpBlock"> Yes </td>
@@ -49,7 +49,7 @@
             No
           </td> -->
           <td
-            *ngIf="auctionType == 'buyer'">{{"INR " + (bid.price + (bid.marketingExpense * bid.price / 100)).toFixed(2) }}</td>
+            *ngIf="auctionType == 'buyer'">{{"INR " + (bid.price - (bid.marketingExpense * bid.price / 100)).toFixed(2) }}</td>
           <td>{{getDateString(bid.createdAt)}}</td>
           <td>
             <button class="btn btn-primary" *ngIf="confirmOrder && !bid.orderConfirmed" (click)="confirmBidOrder(bid)">

@@ -53,7 +53,7 @@
                 <select class="form-control col-sm-7" id="shipaddr" name="shipaddr"
                 [(ngModel)]="shipaddr">
                   <option value=''>Select Address</option>
-                  <option *ngFor="let addr of addresses" [ngValue]="addr"> {{addr.addressbasicdtl.partyname}},{{addr.text}},{{addr.pin}} </option>
+                  <option *ngFor="let addr of addresses" [ngValue]="addr"> {{ (!addr.addressbasicdtl) ? 'Registered Address': addr.addressbasicdtl.partyname}},{{addr.text}},{{addr.pin}} </option>
                 </select>
             </div> 
             <!-- Form for storing shipping details -->
