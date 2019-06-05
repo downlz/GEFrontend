@@ -344,11 +344,13 @@ export class CreateAuctionComponent implements OnInit {
       } else {
         auction.nameVisible = true;
       }
-      if (auction.transportCost === '0') {
+      if (auction.transportCost === '0' || auction.transportCost === 0) {
         auction.transportCost = false;
       } else {
         auction.transportCost = true;
       }
+      console.log(auction.transportCost);
+      return;
       if (this.edit) {
         auction._id = this.id;
         this.auctionService.update(auction).subscribe((response) => {
