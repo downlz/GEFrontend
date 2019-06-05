@@ -3,6 +3,7 @@ import {ListingService} from '../services/listing.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import {CityService} from '../services/city.service';
 import {ItemnameService} from '../services/itemname.service';
+import {ManufacturerService} from '../services/manufacturer.service';
 import {NgModule} from '@angular/core';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 // import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
@@ -18,6 +19,7 @@ export class ListingsComponent implements OnInit {
   // listings: Array<any> = [];
   itemNameList: Array<any> = [];
   cityList: Array<any> = [];
+  manufacturerList: Array<any> = [];
   gradeList = [{ name:'A', isSelected: false }, { name:'B', isSelected: false },{ name:'C', isSelected: false }, {name:'D', isSelected: false }];  grade = 'none';
   itemname: 'none';
   city: 'none';
@@ -26,6 +28,7 @@ export class ListingsComponent implements OnInit {
   cityQueryParams = ''
   gradeQueryParams = ''
   itemQueryParams = ''
+  mnfQueryParams = ''
   firstTimeLoad:Boolean = true 
 
   pageSize = 6;
@@ -34,7 +37,8 @@ export class ListingsComponent implements OnInit {
   totalPages: Array<Number> = [];
 
   constructor(private listingService: ListingService, private cityService: CityService,
-    private itemnameService: ItemnameService, private router: Router) { }
+    private itemnameService: ItemnameService, private manufacturerService: ManufacturerService,
+    private router: Router) { }
 
   ngOnInit() {
     this.listingService.getAll(this.queryParams)
@@ -62,6 +66,24 @@ export class ListingsComponent implements OnInit {
         city['_id'] = cityListTemp[0][i]._id;
         city['isSelected'] = false;
         this.cityList.push(city); 
+      }
+      }, (error: Response) => {
+      this.router.navigate(['/errorpage']);
+      if (error.status === 400) {
+        alert(' expected error, post already deleted');
+      }
+      console.log(error);
+    });
+
+    this.manufacturerService.getAll()
+    .subscribe(response => {
+      var manufacturerListTemp = Array<any>(response);
+      for (let i =0; i < manufacturerListTemp[0].length; ++i)  {
+        var manufacturer = {};
+        manufacturer['name'] = manufacturerListTemp[0][i].name;
+        manufacturer['_id'] = manufacturerListTemp[0][i]._id;
+        manufacturer['isSelected'] = false;
+        this.manufacturerList.push(manufacturer); 
       }
       }, (error: Response) => {
       this.router.navigate(['/errorpage']);
@@ -145,6 +167,16 @@ export class ListingsComponent implements OnInit {
     this.callListings()
   }
 
+  setManufacturer(manufacturer) {
+    for ( let currentMnf of this.manufacturerList) {
+      if (currentMnf._id == manufacturer._id) {
+        currentMnf.isSelected = !currentMnf.isSelected;
+      }
+    }
+    this.makeQuery()
+    this.callListings()
+  }
+
   setItemName(itemname) {
     for ( let currentItem of this.itemNameList) {
       if (currentItem.name == itemname.name) {
@@ -160,6 +192,8 @@ export class ListingsComponent implements OnInit {
     this.listingService.getAll(this.queryParams)
     .subscribe(response => {
       this.listings = response;
+      this.data = this.listings;
+      this.filterChange();
     }, (error: Response) => {
       this.router.navigate(['/errorpage']);
       if (error.status === 400) {
@@ -174,6 +208,7 @@ export class ListingsComponent implements OnInit {
     this.itemQueryParams = ''
     this.cityQueryParams = ''
     this.gradeQueryParams = ''
+    this.mnfQueryParams = ''
 
     for ( let currentItem of this.itemNameList) {
       if (currentItem.isSelected) {
@@ -195,6 +230,16 @@ export class ListingsComponent implements OnInit {
         }
       }
     }
+    for ( let currentMnf of this.manufacturerList) {
+      if (currentMnf.isSelected) {
+        if (this.queryParams == '') {
+          this.queryParams = '/?mnf=' + currentMnf._id;
+        }
+        else {
+          this.mnfQueryParams = this.mnfQueryParams + '&mnf=' + currentMnf._id;
+        }
+      }
+    }
     for ( let currentGrade of this.gradeList) {
       if (currentGrade.isSelected) {
         if (this.queryParams == '') {
@@ -205,11 +250,12 @@ export class ListingsComponent implements OnInit {
         }
       }
     }
-    this.queryParams = this.queryParams + this.cityQueryParams + this.gradeQueryParams + this.itemQueryParams;
+    this.queryParams = this.queryParams + this.cityQueryParams + this.gradeQueryParams + this.itemQueryParams +this.mnfQueryParams;
     if (this.queryParams == '') {
       this.queryParams = '/?price=' + (this.priceIsAscending == true? 'asc':'desc');
     } else {
       this.queryParams = this.queryParams +'&price=' + (this.priceIsAscending == true? 'asc':'desc');
+      // this.filterChange();
     }
   }
 
@@ -223,6 +269,15 @@ export class ListingsComponent implements OnInit {
     for ( let currentGrade of this.gradeList) {
       currentGrade.isSelected = false;
     }
+    for ( let currentMnf of this.manufacturerList) {
+      currentMnf.isSelected = false;
+    }
     this.priceIsAscending = true;
+    // this.filterChange();
+  }
+
+  filterChange(){
+    this.setTotalPages();
+    this.onPageChange(this.currentPage);
   }
 }

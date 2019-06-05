@@ -10,18 +10,9 @@ import { environment } from '../../environments/environment';
 @Injectable({
   providedIn: 'root'
 })
-export class AddressService extends DataService {
+export class UploadBillService extends DataService {
   constructor(http: HttpClient) {
-    const url= environment.baseUrl + '/address';
+    const url= environment.baseUrl + '/uploadbill';
     super(url, http);
   }
-
-  getUserAddr(id, phone) {
-    return this.http.get(this.url + '/byuser/' + id + '/phone/' + phone);
-  }
-
-  getUserRegAddr(phone) {
-    return this.http.get(this.url + '/byuser' + '/phone/' + phone);
-  }
-
 }

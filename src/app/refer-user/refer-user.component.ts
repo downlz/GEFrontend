@@ -77,7 +77,7 @@ export class ReferUserComponent implements OnInit {
     this.referral.create(formData)
     .subscribe(response => {
       this.referralData = response;;
-      alert('Invite made successfully');
+      alert('Invite made successfully from your profile');
       this.router.navigate(['/referral']);
     }, (error: AppError) => {
       console.log(error);

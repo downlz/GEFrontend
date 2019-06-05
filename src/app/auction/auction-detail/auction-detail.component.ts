@@ -65,9 +65,10 @@ export class AuctionDetailComponent implements OnInit {
     if (!this.auction) {
       return '';
     }
+    // console.log(this.auction);
     if (this.auction) {
       return this.auction.auctionType === 'buyer' ? Math.min.apply(this, (this.auction.bids || []).map((bid) => {
-        return isNaN(bid.price) ? 0 : bid.price;
+        return isNaN(bid.price) ? 0 : (bid.price*(1-((bid.marketingExpense)/100))).toFixed(2);
       })) : Math.max.apply(this, (this.auction.bids || []).map((bid) => {
         return isNaN(bid.price) ? 0 : bid.price;
       }));

@@ -1,13 +1,16 @@
 import { Component, OnInit } from '@angular/core';
+import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ListingService } from '../services/listing.service';
 import { Listing } from './../model/listing';
 import { UserService } from '../services/user.service';
 import { StateService } from '../services/state.service';
 import { OrderService } from '../services/order.service';
+import { AddressService } from '../services/address.service';
 import { PriceService } from '../services/price.service';
 import { AppError } from '../common/app-error';
 import { forkJoin } from 'rxjs';
+import { NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-order-now',
@@ -19,14 +22,18 @@ export class OrderNowComponent implements OnInit {
   listing: Listing;
   address: any;
   userid: any;
-  state: any;
+  statedata: any;
+  addresses: any;
+  state: any = []; //Array<any> = [];
   hideblock: false;
   price = 0;
   priceValid = false;
+  showShippingDetails: Boolean = false;
   lastorderno: number;
   constructor(private listingService: ListingService, private userService: UserService,
     private route: ActivatedRoute, private router: Router, private stateService: StateService,
-    private orderService: OrderService, private priceService: PriceService) { }
+    private orderService: OrderService, private modalService: NgbModal,
+    private addressService: AddressService, private priceService: PriceService) { }
 
   ngOnInit() {
     this.route.paramMap
@@ -36,15 +43,19 @@ export class OrderNowComponent implements OnInit {
     });
     this.stateService.getAll()
     .subscribe(response => {
-      const res = response as any;
-      this.state = res.name;
-      // console.log(this.state);
-    }) 
+      this.state = response;
+    });
     this.userService.get('me')
     .subscribe(response => {
       const res = response as any;
       this.address = res.Addresses[0];
       this.userid = res._id;
+      // console.log(res);
+        this.addressService.getUserAddr(res._id,res.phone)
+        .subscribe(response => {
+          this.addresses = response;
+          // console.log(response);
+        });
     }, (error: Response) => {
       this.router.navigate(['/errorpage']);
       if (error.status === 400) {
@@ -66,14 +77,6 @@ export class OrderNowComponent implements OnInit {
       console.log(error);
     });
   }
-
-  // isShipAddressSame(val){
-  //     if (val = 'Yes') {
-  //       this.hideblock = true;
-  //     } else {
-  //       this.hideblock = false;
-  //     }
-  // }
 
   onQuantityChange(qty) {
     const PriceData = {
@@ -116,6 +119,18 @@ export class OrderNowComponent implements OnInit {
         this.lastorderno = parseInt(res[0].orderno) + 1;
         // console.log(this.lastorderno);
       // })
+    const shippingAddress = {
+      partyname: f.partyname,
+      gstin: f.partygstin,
+      address : {
+        text: f.address,
+        pincode: f.pincode,
+        state: f.statedat,
+        phone: f.phone,
+        addresstype: 'delivery'
+      }
+    }    
+
     const OrderData = {
       // orderno: (this.userid.substring(-1,5)  + this.listing.seller._id.substring(-1,5)).toUpperCase(),    // Frame a order no generator here
       orderno: String(this.lastorderno),
@@ -129,16 +144,28 @@ export class OrderNowComponent implements OnInit {
       sellerId: this.listing.seller._id,
       placedTime: Date.now().toString(),
       ordertype: 'regular',       // Try to make it dynamic
-      status: 'new'
+      status: 'new',
+      // shippingdtl: shippingAddress,
+      isshippingbillingdiff: this.showShippingDetails,
+      partyname: f.partyname,
+      gstin: f.partygstin,
+      address: f.address,
+      pincode: f.pincode,
+      state: f.statedat,
+      phone: f.phone,
+      addresstype: 'delivery',
+      addedby: this.userid,
+      addressreference: f.shipaddr
     };
     // console.log(OrderData);
+
     this.orderService.create(OrderData)
     .subscribe(response => {
       alert('Order Placed Successfully');
       this.router.navigate(['/myOrders']);
     }, (error: AppError) => {
       console.log(error);
-      this.router.navigate(['/errorpage']);
+      // this.router.navigate(['/errorpage']);
     });
 })
 }

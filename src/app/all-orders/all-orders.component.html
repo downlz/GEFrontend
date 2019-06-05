@@ -4,32 +4,49 @@
             <thead>
               <tr>
                 <th scope="col">orderId</th>
-                <th scope="col">Seller</th>
-                <th scope="col">Buyer</th>
+                <th scope="col" *ngIf="role == 'admin'">Seller</th>
+                <th scope="col" *ngIf="role == 'admin'">Buyer</th>
                 <th scope="col">Item</th>
+                <th scope="col">Item Code</th>
                 <th scope="col">Quantity</th>
                 <th scope="col">Cost</th>
                 <th scope="col">Order Type</th>
-                <th scope="col">status</th>
-                <th scope="col">update</th>
+                <th scope="col">Status</th>
+                <th scope="col">Bill Added</th>
+                <th scope="col">Action</th>
               </tr>
             </thead>
             <tbody>
-                <ng-container *ngFor="let order of orders">
+                <ng-container *ngFor="let order of data">
               <tr>
                 <!-- <th scope="row">{{order._id}}</th> -->
                 <th scope="row">{{order.orderno}}</th>
-                <td>{{order.seller.name}}</td>
-                <td>{{order.buyer.name}}</td>
+                <td *ngIf="role == 'admin'">{{order.seller.name}}</td>
+                <td *ngIf="role == 'admin'">{{order.buyer.name}}</td>
                 <td>{{order.item.name.name}}</td>
+                <td>{{ order.item.sampleNo }}</td>
                 <td>{{order.quantity}} {{order.unit}}</td>
                 <td>Rs. {{order.cost}}</td>
                 <td>{{order.ordertype}}</td>
-                <td>
+                <td *ngIf="role == 'admin'">
                   <select id="status" [(ngModel)]="order.status">
-                    <option *ngFor="let state of states" [ngValue]="state" [selected]="state == order.status"> {{ state }}</option>
+                    <option *ngFor="let state of states" [ngValue]="state" [selected]="state == order.status" > {{ state }}</option>
                   </select></td>
-                <td><button (click)="updateOrder(order)">update</button></td>
+                <td *ngIf="role == 'seller'">
+                    <select id="status" [(ngModel)]="order.status">
+                      <option *ngFor="let state of states" [ngValue]="state" [selected]="state == order.status" disabled> {{ state }}</option>
+                        </select></td>  
+                <!-- <td *ngIf="order.manualbill.filename != null"> {{ order.manualbill.filename }} </td> -->
+                <!-- <td> No </td> -->
+                <!-- <td> {{ order.manualbill ? 'No' : 'Yes' }} </td> -->
+                <td *ngIf="order.manualbill"><a href = "{{apiurl}}/uploadbill/{{order._id}}">Get bill</a></td>
+                <td *ngIf="!order.manualbill">No</td>
+                <td *ngIf="role == 'admin'"><button (click)="updateOrder(order)">Update</button></td>
+                <td *ngIf="role == 'seller'">
+                <input style="display: none" type="file" (change)="uploadManualBill($event,order)" #fileInput>  
+                  <button type="button" (click)="fileInput.click()">Upload Bill</button>
+                
+                </td>
               </tr>
             </ng-container>
               </tbody>
@@ -38,6 +55,18 @@
           <!-- <div class="ItemCardContainer">
             <app-order-card [order]="order"> </app-order-card>
           </div> -->
-
+          <nav aria-label="Page navigation example" *ngIf="totalPages.length>0">
+              <ul class="pagination">
+                <li class="page-item" [ngClass]="{ 'disabled' : currentPage <= 1}"><a class="page-link"
+                                                                                      (click)="onPageChange(currentPage-1)">Previous</a>
+                </li>
+                <li class="page-item" [ngClass]="{ 'active' : currentPage== page}" *ngFor="let page of totalPages"><a
+                  class="page-link"
+                  (click)="onPageChange(page)">{{page}}</a></li>
+                <li class="page-item" [ngClass]="{ 'disabled' : currentPage>=totalPages.length}"><a class="page-link"
+                                                                                                    (click)="onPageChange(currentPage+1)">Next</a>
+                </li>
+              </ul>
+            </nav>
     </div>
   </div>

@@ -322,7 +322,7 @@ export class CreateAuctionComponent implements OnInit {
       } else {
         this.listings = response;
       }
-      console.log(this.listings);
+      // console.log(this.listings);
     }, (error: Response) => {
       console.log(error);
     });
@@ -349,8 +349,7 @@ export class CreateAuctionComponent implements OnInit {
       } else {
         auction.transportCost = true;
       }
-      console.log(auction.transportCost);
-      return;
+
       if (this.edit) {
         auction._id = this.id;
         this.auctionService.update(auction).subscribe((response) => {

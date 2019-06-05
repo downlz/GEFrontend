@@ -86,8 +86,8 @@ export class GBOrderNowComponent implements OnInit {
     };
     // this.priceValid = false;
     this.priceService.getPrice(PriceData)
-    this.price = qty * this.gblisting.dealprice
-    // this.price = this.price.toFixed(2);
+    this.price = qty * this.gblisting.dealprice;
+    // this.price = parseInt(this.price.toFixed(2));
     this.priceValid = true;
     if (qty > this.gblisting.maxqty) {
       this.exceededMaxQty = true;
@@ -126,16 +126,17 @@ export class GBOrderNowComponent implements OnInit {
       quantity: f.quantity,
       unit: this.gblisting.unit.mass,
       // unitId: this.gblisting.unit._id,
-      cost: f.quantity * this.gblisting.dealprice,
+      cost: (f.quantity * this.gblisting.dealprice).toFixed(2),
       price: this.gblisting.dealprice,
       itemId: this.gblisting.item._id,
-      addressId: this.address._id,
+      // addressId: this.address._id,
       buyerId: this.userid,
       sellerId: this.gblisting.item.seller._id,
       placedTime: Date.now().toString(),
       referenceGBId: this.gblisting._id,
       status: 'new',
-      ordertype: 'groupbuying'
+      ordertype: 'groupbuying',
+      isshippingbillingdiff : false
     };
     this.orderService.create(OrderData)
     .subscribe(response => {

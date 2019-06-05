@@ -22,7 +22,7 @@ ol.progtrckr[data-progtrckr-steps="2"] li { width: 49%; }
 ol.progtrckr[data-progtrckr-steps="3"] li { width: 33%; }
 ol.progtrckr[data-progtrckr-steps="4"] li { width: 24%; }
 ol.progtrckr[data-progtrckr-steps="5"] li { width: 19%; }
-ol.progtrckr[data-progtrckr-steps="6"] li { width: 16%; }
+ol.progtrckr[data-progtrckr-steps="6"] li { width: 100%; }
 ol.progtrckr[data-progtrckr-steps="7"] li { width: 14%; }
 ol.progtrckr[data-progtrckr-steps="8"] li { width: 12%; }
 ol.progtrckr[data-progtrckr-steps="9"] li { width: 11%; }
@@ -31,11 +31,18 @@ ol.progtrckr li.progtrckr-done {
   color: black;
   border-bottom: 4px solid yellowgreen;
 }
+ol.progtrckr li.progtrckr-cancel {
+  color: black;
+  border-bottom: 4px solid #d62919;
+}
 ol.progtrckr li.progtrckr-todo {
   color: silver;
   border-bottom: 4px solid silver;
 }
-
+ol.progtrckr li.progtrckr-todo-cancel {
+  color: silver;
+  border-bottom: 4px solid silver;
+}
 ol.progtrckr li:after {
   content: "\00a0\00a0";
 }
@@ -57,6 +64,23 @@ ol.progtrckr li.progtrckr-done:before {
   border-radius: 2.2em;
 }
 ol.progtrckr li.progtrckr-todo:before {
+  content: "\039F";
+  color: silver;
+  background-color: white;
+  font-size: 2.2em;
+  bottom: -1.2em;
+}
+ol.progtrckr li.progtrckr-cancel:before {
+  content: "\2713";
+  color: white;
+  background-color: #d62919;
+  height: 2.2em;
+  width: 2.2em;
+  line-height: 2.2em;
+  border: none;
+  border-radius: 2.2em;
+}
+ol.progtrckr li.progtrckr-todo-cancel:before {
   content: "\039F";
   color: silver;
   background-color: white;
