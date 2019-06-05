@@ -49,7 +49,7 @@
                   {{this.order.shippingaddress.pin}},
                   {{this.order.shippingaddress.phone}}
                 </td>
-                <td *ngIf="order.isshippingbillingdiff == true"> 
+                <td *ngIf="order.isshippingbillingdiff == undefined"> 
                     Shipping Address: 
                     {{this.order.buyer.name}},
                     {{this.order.buyer.GST}},
@@ -59,7 +59,7 @@
                     {{this.order.buyer.Addresses[0].pin}},
                     {{this.order.buyer.phone}}
                   </td>
-                  <td *ngIf="!order.isshippingbillingdiff"> 
+                  <td *ngIf="order.isshippingbillingdiff == false"> 
                       Shipping Address: 
                       {{this.order.buyer.name}},
                       {{this.order.buyer.GST}},

@@ -54,7 +54,7 @@ export class ProductDetailComponent implements OnInit {
 
   order() {
     const OrderData = {
-      orderno: 'Not Applicable',
+      orderno: '',
       quantity: 0,
       cost: 0,
       itemId: this.listing._id,
