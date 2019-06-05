@@ -3,7 +3,7 @@ import {HttpClient} from '@angular/common/http';
 import {Observable, throwError} from 'rxjs';
 import {AppError} from '../common/app-error';
 import {NotFoundError} from '../common/not-found-error';
-import { environment } from '../../environments/environment';
+import {environment} from '../../environments/environment';
 import {catchError} from 'rxjs/operators';
 
 
@@ -16,8 +16,10 @@ export class DataService {
     // this.value=url
   }
 
-  getAll() {
-    return this.http.get(this.url);
+  getAll(query ?: any) {
+    return this.http.get(this.url, {
+      params: query
+    });
   }
 
   get(resourceId) {

@@ -11,6 +11,11 @@ import { ActivatedRoute, Router } from '@angular/router';
 
 export class GBListingsComponent implements OnInit {
   gblistings: any;
+  pageSize = 6;
+  currentPage = 1;
+  data: Array<any>;
+  totalPages: Array<Number> = [];
+
   constructor(private service: GBListingService, private router: Router) { }
 
   ngOnInit() {
@@ -18,6 +23,8 @@ export class GBListingsComponent implements OnInit {
     // console.log(response);
     .subscribe(response => {
       this.gblistings = response;
+      this.setTotalPages();
+      this.onPageChange(this.currentPage);
     }, (error: Response) => {
       this.router.navigate(['/errorpage']);
       if (error.status === 400) {
@@ -25,6 +32,22 @@ export class GBListingsComponent implements OnInit {
       }
       console.log(error);
     });
+  }
+
+  onPageChange(page) {
+    this.data = [...(this.gblistings || [])];
+    this.data = this.data.splice((page - 1) * this.pageSize, this.pageSize);
+    this.currentPage = page;
+  }
+
+  setTotalPages() {
+    const length = (this.gblistings || []).length;
+    // console.log(length);
+    // console.log(this.gblistings)
+    if (length > 0) {
+      const pages = (length % this.pageSize) === 0 ? (length / this.pageSize) : Math.floor(length / this.pageSize) + 1;
+      this.totalPages = Array(pages).fill(0).map((x, i) => i + 1);
+    }
   }
 
 }

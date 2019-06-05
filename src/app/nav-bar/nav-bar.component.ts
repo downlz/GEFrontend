@@ -25,6 +25,14 @@ export class NavBarComponent implements OnInit {
     return this.currentUser && this.currentUser.isAdmin;
   }
 
+  get isBuyer() {
+    return this.currentUser && this.currentUser.isBuyer;
+  }
+
+  get isSeller() {
+    return this.currentUser && this.currentUser.isSeller;
+  }
+
   private SiteURLActiveCheck(event: NavigationEnd): void {
     if (event.url.indexOf('main') !== -1) {
       this.isMainPage = true;

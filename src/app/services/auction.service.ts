@@ -11,4 +11,8 @@ export class AuctionService extends DataService {
     const url = environment.baseUrl + '/auction';
     super(url, http);
   }
+
+  getBidHistory(auction, userId) {
+    return this.http.get(this.url + '/bidHistory/' + auction + '/' + userId);
+  }
 }

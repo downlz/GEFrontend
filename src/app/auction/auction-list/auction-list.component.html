@@ -1,15 +1,22 @@
 <!-- Nav tabs -->
 <ul class="nav nav-tabs">
   <li class="nav-item">
-    <a class="nav-link" [ngClass]="{'active' : activeTab==='active'}" (click)="changeTab('active')">Active
+    <a class="nav-link" [ngClass]="{'active' : activeTab==='active'}" (click)="changeTab('active')">
+      {{role == 'seller' ? 'Buyer Auctions' : ''}}
+      {{role == 'buyer' ? 'Seller Auctions' : ''}}
+      {{role == 'admin' ? 'Active Auctions' : ''}}
       <span *ngIf="activeAuctions">({{activeAuctions.length}})</span>
     </a>
   </li>
-  <li class="nav-item" *ngIf="role=='seller' || role=='admin'">
+  <li class="nav-item">
+    <a class="nav-link" [ngClass]="{'active' : activeTab==='myauctions'}" *ngIf="role !='admin'" (click)="changeTab('myauctions')">Active
+      <span *ngIf="myAuctions">({{myAuctions.length}})</span></a>
+  </li>
+  <li class="nav-item">
     <a class="nav-link" [ngClass]="{'active' : activeTab==='pending'}" (click)="changeTab('pending')">Pending for
       approval <span *ngIf="pendingAuctions">({{pendingAuctions.length}})</span></a>
   </li>
-  <li class="nav-item" *ngIf="role=='seller' || role=='admin'">
+  <li class="nav-item">
     <a class="nav-link" [ngClass]="{'active' : activeTab==='inactive'}" (click)="changeTab('inactive')">Inactive
       <span *ngIf="inActiveAuctions">({{inActiveAuctions.length}})</span></a>
   </li>
@@ -22,14 +29,19 @@
                        (onDataChange)="onDataChange($event)"></app-auction-table>
   </div>
   <div class="tab-pane container" [ngClass]="{'active' : activeTab==='pending'}"
-       *ngIf="role=='seller' || role=='admin'">
+  >
     <app-auction-table [auctions]="pendingAuctions" [actions]="['bids','details',role=='admin'?'approve':'']"
                        [loading]="loading"
                        (onDataChange)="onDataChange($event)"></app-auction-table>
   </div>
   <div class="tab-pane container" [ngClass]="{'active' : activeTab==='inactive'}"
-       *ngIf="role=='seller' || role=='admin'">
+  >
     <app-auction-table [auctions]="inActiveAuctions" [actions]="['bids','details']" [loading]="loading"
+                       (onDataChange)="onDataChange($event)"></app-auction-table>
+  </div>
+  <div class="tab-pane container" [ngClass]="{'active' : activeTab==='myauctions'}"
+  >
+    <app-auction-table [auctions]="myAuctions" [actions]="['bids','details']" [loading]="loading" *ngIf="role !='admin'"
                        (onDataChange)="onDataChange($event)"></app-auction-table>
   </div>
 </div>

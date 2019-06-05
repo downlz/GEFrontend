@@ -87,7 +87,7 @@ const routes: Routes = [
         path: 'add',
         component: CreateAuctionComponent,
         data: {
-          roles: ['admin', 'seller', 'buyer']
+         // roles: ['admin', 'seller', 'buyer']
         }
       },
       {
@@ -183,7 +183,7 @@ const routes: Routes = [
     component: AllOrdersComponent,
     canActivate: [AuthGuard],
     data: {
-      roles: ['admin']
+      roles: ['admin','seller']
     }
   },
   {

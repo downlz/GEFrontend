@@ -28,14 +28,19 @@
                   <th>Type:</th>
                   <th>{{ listing.category.name }}</th>
                 </tr>
-                <tr>
+                <!-- <tr>
                   <th>Price:</th>
-                  <th> Rs. {{ listing.price }}/{{ listing.unit.mass }}</th>
+                  <th *ngIf="auction.auctionType=='seller'">
+                    Rs. {{ auction.ceilingPrice }}/{{ auction.unit.mass }}
+                  </th>
+                  <th *ngIf="auction.auctionType=='buyer'">
+                    Rs. {{ auction.floorPrice }}/{{ auction.unit.mass }}
+                  </th>
                 </tr>
                 <tr>
                   <th>Quantity:</th>
                   <th> {{ listing.qty }} {{ listing.unit.mass }}</th>
-                </tr>
+                </tr> -->
                 <tr>
                   <th>Grade:</th>
                   <th> {{ listing.grade }}</th>
@@ -48,13 +53,40 @@
                   <th>Moisture:</th>
                   <th> {{ listing.moisture }}%</th>
                 </tr>
-                <tr>
-                  <th>Location:</th>
-                  <th> {{ listing.city.name }} | {{ listing.city.state.name }}</th>
-                </tr>
+                <!--<tr>-->
+                  <!--<th>Location:</th>-->
+                  <!--<th> {{ listing.city.name }} | {{ listing.city.state.name }}</th>-->
+                <!--</tr>-->
                 <tr *ngIf="listing.manufacturer">
                   <th>Manufacturer:</th>
-                  <th> {{ listing.manufacturer.name }} | {{ listing.manufacturer.name }}</th>
+                  <!-- <th> {{ listing.manufacturer.name }} | {{ listing.manufacturer.name }}</th> -->
+                  <th> {{ listing.manufacturer.name }}</th>
+                </tr>
+                <tr>
+                  <th *ngIf="auction.auctionType=='buyer'"> Destination address:</th>
+                  <th *ngIf="auction.auctionType=='seller'"> Origin address:</th>
+                  <th> {{ auction.address }}</th>
+                </tr>
+                <tr>
+                  <th>     Pincode:</th>
+                  <th> {{ auction.pincode }}</th>
+                </tr>
+                <tr *ngIf=" auction.state ">
+                  <th>State:</th>
+                  <th> {{ auction.state.name }}</th>
+                </tr>
+                <tr *ngIf=" auction.nameVisible ">
+                  <th>Listed by :</th>
+                  <th> {{ auction.user.name }}</th>
+                </tr>
+                <tr *ngIf=" auction.transportCost ">
+                    <th>Tranport Cost Included :</th>
+                    <th *ngIf="auction.transportCost "> Yes</th>
+                    <th *ngIf="!auction.transportCost "> No</th>
+                  </tr>
+                <tr *ngIf=" auction.remarks ">
+                  <th>Remarks :</th>
+                  <th> {{ auction.remarks}}</th>
                 </tr>
 
               </table>

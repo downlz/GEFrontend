@@ -1,3 +1,6 @@
+<div class="alert alert-info" role="alert" *ngIf="auction && auction.bids && auction.bids.length>0">
+  Best Bid : INR {{getBestBid()}}
+</div>
 <!-- Nav tabs -->
 <ul class="nav nav-tabs">
   <li class="nav-item">
@@ -5,21 +8,24 @@
       <span>Product Details</span>
     </a>
   </li>
-  <li class="nav-item" *ngIf="role=='admin' || (role=='seller' && auction.user._id == userId)">
+  <li class="nav-item" *ngIf="role=='admin' || ( auction && auction.user._id == userId)">
     <a class="nav-link" [ngClass]="{'active' : activeTab==='bids'}" (click)="changeTab('bids')">
       <span>Bids</span>
     </a>
   </li>
+
 </ul>
 <!-- Tab panes -->
 <div class="tab-content">
   <div class="tab-pane container" [ngClass]="{'active' : activeTab==='productDetails'}" id="productDetails">
     <div class="spinner-grow loader text-success" *ngIf="loading"></div>
-    <app-listing-detail [listing]="listing"></app-listing-detail>
+    <app-listing-detail [listing]="listing" [auction]="auction"></app-listing-detail>
   </div>
   <div class="tab-pane container" [ngClass]="{'active' : activeTab==='bids'}" id="bids"
-       *ngIf="role=='admin' || (role=='seller' && auction.user._id == userId)">
+       *ngIf="role=='admin' || (auction && auction.user._id == userId)">
     <div class="spinner-grow loader text-success" *ngIf="loading"></div>
-    <app-bids-table [bids]="auction?auction.bids:[]"></app-bids-table>
+    <app-bids-table [bids]="auction?auction.bids:[]" [bidHistory]=true
+                    [confirmOrder]="role=='admin' || (auction.user._id == userId)"
+                    [auctionType]="auction && auction.auctionType"></app-bids-table>
   </div>
 </div>

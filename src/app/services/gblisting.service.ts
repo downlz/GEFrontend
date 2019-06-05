@@ -16,4 +16,8 @@ export class GBListingService extends DataService {
     super(url, http);
   }
 
+  getAvlQty(resourceId) {
+    return this.http.get(this.url + '/getqty/avl/' + resourceId);
+  }
+
 }

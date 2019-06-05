@@ -1,9 +1,22 @@
 <div class="container">
   <div class="container listingOffsetTextColor">
-    <ng-container *ngFor="let order of orders">
+    <ng-container *ngFor="let order of data">
         <div class="ItemCardContainer">
           <app-order-card [order]="order"> </app-order-card>
         </div>
     </ng-container>
+    <nav aria-label="Page navigation example" *ngIf="totalPages.length>0">
+        <ul class="pagination">
+          <li class="page-item" [ngClass]="{ 'disabled' : currentPage <= 1}"><a class="page-link"
+                                                                                (click)="onPageChange(currentPage-1)">Previous</a>
+          </li>
+          <li class="page-item" [ngClass]="{ 'active' : currentPage== page}" *ngFor="let page of totalPages"><a
+            class="page-link"
+            (click)="onPageChange(page)">{{page}}</a></li>
+          <li class="page-item" [ngClass]="{ 'disabled' : currentPage>=totalPages.length}"><a class="page-link"
+                                                                                              (click)="onPageChange(currentPage+1)">Next</a>
+          </li>
+        </ul>
+      </nav>
   </div>
 </div>

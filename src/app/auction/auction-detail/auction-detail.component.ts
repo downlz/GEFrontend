@@ -3,6 +3,7 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {AuctionService} from '../../services/auction.service';
 import {forkJoin} from 'rxjs';
 import {AuthService} from '../../services/auth.service';
+import {ManufacturerService} from '../../services/manufacturer.service';
 
 @Component({
   selector: 'app-auction-detail',
@@ -17,7 +18,9 @@ export class AuctionDetailComponent implements OnInit {
   role: string;
   userId: string;
 
-  constructor(private route: ActivatedRoute, private auth: AuthService, private router: Router, private auctionService: AuctionService) {
+
+  constructor(private route: ActivatedRoute, private auth: AuthService, private manufacturerService: ManufacturerService, private router: Router, private auctionService: AuctionService) {
+
   }
 
   ngOnInit() {
@@ -53,5 +56,22 @@ export class AuctionDetailComponent implements OnInit {
 
   changeTab(tab) {
     this.activeTab = tab;
+  }
+
+  /**
+   * Get Best Bid
+   */
+  getBestBid() {
+    if (!this.auction) {
+      return '';
+    }
+    // console.log(this.auction);
+    if (this.auction) {
+      return this.auction.auctionType === 'buyer' ? Math.min.apply(this, (this.auction.bids || []).map((bid) => {
+        return isNaN(bid.price) ? 0 : (bid.price*(1-((bid.marketingExpense)/100))).toFixed(2);
+      })) : Math.max.apply(this, (this.auction.bids || []).map((bid) => {
+        return isNaN(bid.price) ? 0 : bid.price;
+      }));
+    }
   }
 }

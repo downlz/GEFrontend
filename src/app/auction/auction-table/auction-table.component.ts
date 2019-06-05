@@ -26,6 +26,8 @@ export class AuctionTableComponent implements OnInit, OnChanges {
   userId: string;
   selectedAuction: any;
   currentTimestamp = new Date().getTime();
+  @Input()
+  showBestPrice: boolean;
 
   constructor(private service: AuctionService, private auth: AuthService, private modalService: NgbModal) {
     this.role = auth.getRole();
@@ -87,11 +89,16 @@ export class AuctionTableComponent implements OnInit, OnChanges {
 
   placeBid(content, auction) {
     this.selectedAuction = auction;
-    console.log(auction);
     this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title'}).result.then((result) => {
       this.selectedAuction = null;
     }, (reason) => {
       this.selectedAuction = null;
     });
+  }
+
+  isBiddingAllowed(auction) {
+    const endTime = new Date(auction.endTime).getTime();
+    const currentTime = new Date().getTime();
+    return endTime > currentTime;
   }
 }

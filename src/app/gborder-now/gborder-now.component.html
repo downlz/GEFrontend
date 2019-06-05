@@ -38,13 +38,15 @@
                   <input required ngModel name="quantity" #quantity="ngModel" id="quantity"
                   type="number" class="form-control"  (keyup)="onQuantityChange(quantity.value)">
                 </div>
-                <div *ngIf="quantity.touched && !quantity.valid">
-                  <div class="alrt">  Quantity is required </div>
+                <div *ngIf="quantity.touched && (!quantity.valid || exceededMaxQty || exceededAvlQty)">
+                  <div class='alrt' *ngIf="!quantity.valid">  Quantity is required </div>
+                  <div class='alrt' *ngIf="exceededMaxQty"> Quantity cannot exceed {{gblisting.maxqty}}</div>
+                  <div class='alrt' *ngIf="exceededAvlQty"> Quantity cannot exceed available Qty </div>
                 </div>
             </div>
             <div>
               Price : Rs. {{ price }} <br>
-              Available Qty - {{ gblisting.totalqty }}
+              Available Qty : {{ availableqty }}
             </div>
             <div>
             <button class="btn btn-primary" [disabled]="(!f.valid) || (!priceValid)" >Submit</button>

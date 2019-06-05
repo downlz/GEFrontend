@@ -18,7 +18,7 @@
           <button ngbDropdownToggle type="button" class="btn btn-secondary btn-block dropdown-toggle
             text-left" data-toggle="dropdown" aria-haspopup="true"
             aria-expanded="false">
-            Location
+            Origin
           </button>
           <div ngbDropdownMenu class="dropdown-menu" aria-labelledby="dropdownBasic1">
             <!-- Dropdown menu links -->
@@ -27,6 +27,21 @@
             </ng-container>
           </div>
         </div>
+
+        <div ngbDropdown class="btn-group btn-block dropright text-left">
+          <button ngbDropdownToggle type="button" class="btn btn-secondary btn-block dropdown-toggle
+            text-left" data-toggle="dropdown" aria-haspopup="true"
+            aria-expanded="false">
+            Manufacturer
+          </button>
+          <div ngbDropdownMenu class="dropdown-menu" aria-labelledby="dropdownBasic1">
+            <!-- Dropdown menu links -->
+            <ng-container *ngFor="let mnf of manufacturerList">
+                <label>{{mnf.name}} <input type="checkbox" [checked] = "mnf.isSelected" (click)="setManufacturer(mnf)"></label><br/>
+            </ng-container>
+           </div>
+        </div> 
+
       <div ngbDropdown class="btn-group btn-block dropright text-left">
         <button ngbDropdownToggle type="button" class="btn btn-secondary  btn-block dropdown-toggle
           text-left" data-toggle="dropdown" aria-haspopup="true"
