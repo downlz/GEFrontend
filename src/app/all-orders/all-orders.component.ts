@@ -6,6 +6,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { AppError } from '../common/app-error';
 import { MyorderService } from '../services/myorder.service';
 import { environment } from 'src/environments/environment';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-all-orders',
@@ -23,10 +24,12 @@ export class AllOrdersComponent implements OnInit {
   currentPage = 1;
   data: Array<any>;
   totalPages: Array<Number> = [];
+  currentDateTime: any;
 
   constructor(private authenticationService: AuthService, private orderService: OrderService,
     private route: ActivatedRoute, private uploadbill : UploadBillService ,
-    private myorderService: MyorderService,private router: Router) { }
+    private myorderService: MyorderService,private toastr: ToastrService,
+    private router: Router) { }
 
   ngOnInit() {
     const role = this.authenticationService.getRole();
@@ -118,22 +121,30 @@ export class AllOrdersComponent implements OnInit {
       var remarks = prompt("Add cancellation remarks as applicable", ""); 
       order.remarks = remarks;
     }
+    this.currentDateTime = new Date().getTime();
     // console.log(order);
     const updateData = {
       _id: order._id,
       status:  order.status,
-      remarks: order.remarks
+      remarks: order.remarks,
+      lastUpdated: this.currentDateTime
     };
-
+    // console.log(updateData);
+    if (order.status == "cancelled" && order.remarks == null) {
+      this.toastr.info('A cancellation remark is mandatory','Cancellation not performed',{
+        positionClass: 'toast-bottom-center'
+      });
+    } else {
     this.orderService.update(updateData)
     .subscribe(response => {
-      console.log(response);
-      alert('Update successful');
+      // console.log(response);
+      alert('Order status updated successfully');
     }, (error: AppError) => {
       console.log(error);
         this.router.navigate(['/errorpage']);
       console.log(error.originalError.status);
     });
   }
+}
 
 }

@@ -2,40 +2,24 @@
   <div class="container listingOffsetTextColor">
     <table class="table table-hover table-sm">
       <thead>
-      <tr *ngIf="!auctionType">
+      <tr>
         <th scope="col">Item</th>
-        <th scope="col" *ngIf="auctionType">Bid By</th>
-        <th scope="col">Quantity</th>
+        <th scope="col">Bid By</th>
+        <th scope="col" *ngIf="auctionType == 'buyer'">Quantity</th>
         <th scope="col">Price</th>
-        <th scope="col" *ngIf="role =='seller'">Manufacturer</th>
-        <th scope="col" *ngIf="role =='seller'">Marketing Expenses</th>
-        <th scope="col" *ngIf="role =='seller'">Effective Price</th>
+        <th scope="col" *ngIf="auctionType == 'buyer'">Manufacturer</th>
+        <th scope="col" *ngIf="auctionType == 'buyer'">Marketing Expenses</th>
+        <th scope="col" *ngIf="auctionType == 'buyer'">Effective Price</th>
         <th scope="col">Bid At</th>
-        <th scope="col">Best Bid</th>
-        <th scope="col">Status</th>
+        <th scope="col">Actions</th>
       </tr>
-
-      <tr *ngIf="auctionType">
-          <th scope="col">Item</th>
-          <th scope="col" *ngIf="role == 'admin'" >Bid By</th>
-          <th scope="col">Quantity</th>
-          <th scope="col">Price</th>
-          <th scope="col" *ngIf="auctionType == 'buyer'">Manufacturer</th>
-          <th scope="col" *ngIf="auctionType == 'buyer'">Marketing Expenses</th>
-          <th scope="col" *ngIf="auctionType == 'buyer'">Effective Price</th>
-          <th scope="col">Bid At</th>
-          <!-- <th scope="col" *ngIf="!auctionType">Best Bid</th> -->
-          <th scope="col" *ngIf="auctionType">Actions</th>
-          <!-- <th scope="col" *ngIf="!auctionType">Status</th> -->
-        </tr>
-
       </thead>
       <tbody>
       <ng-container *ngIf="!data || data.length==0">
         <tr>
           <td></td>
           <td></td>
-          <td *ngIf="auctionType == 'seller' || role =='seller' || role =='buyer'"></td>
+          <td *ngIf="auctionType == 'seller'"></td>
           <td> No Data Found</td>
           <td></td>
           <td></td>
@@ -53,33 +37,21 @@
               </div>
             </a>
           </td>
-          <td *ngIf="auctionType && role == 'admin'">{{bid.createdBy.name}}</td>
-          <td *ngIf="(auctionType == 'buyer' || (role =='seller' && !auctionType))">{{bid.auction.availableQty + " " + bid.auction.unit.mass}}</td>
-          <td *ngIf="(auctionType == 'seller' || (role =='buyer' && !auctionType))">{{bid.quantity + " " + bid.auction.unit.mass}}</td>
+          <td>{{bid.createdBy.name}}</td>
+          <td *ngIf="auctionType == 'buyer'">{{bid.quantity + " " + bid.auction.unit.mass}}</td>
           <td>{{"INR " + bid.price}}</td>
-          <td *ngIf="auctionType == 'buyer' || (role =='seller' && !auctionType)"> {{getManufacturer(bid)}}</td>
-          <td *ngIf="((auctionType == 'buyer' || (role =='seller' && !auctionType)) && bid.marketingExpense > 0)"> Yes, {{bid.marketingExpense}}%</td>
-          <td *ngIf="((auctionType == 'buyer' || (role =='seller' && !auctionType)) && (!bid.marketingExpense || bid.marketingExpense === 0 ||bid.marketingExpense == null))"> No</td>
+          <td *ngIf="auctionType == 'buyer'"> {{getManufacturer(bid)}}</td>
+          <td *ngIf="auctionType == 'buyer' && bid.marketingExpense > 0"> Yes, {{bid.marketingExpense}}%</td>
+          <td *ngIf="auctionType == 'buyer' && (!bid.marketingExpense || bid.marketingExpense === 0 ||bid.marketingExpense == null)"> No</td>
 
           <!-- <td  *ngIf="auctionType == 'buyer' && bid.marketingExpense > 0; else elseMktExpBlock"> Yes </td>
           <td #elseMktExpBlock>
             No
           </td> -->
           <td
-            *ngIf="auctionType == 'buyer' || (role =='seller' && !auctionType)">{{"INR " + (bid.price - (bid.marketingExpense * bid.price / 100)).toFixed(2) }}</td>
+            *ngIf="auctionType == 'buyer'">{{"INR " + (bid.price - (bid.marketingExpense * bid.price / 100)).toFixed(2) }}</td>
           <td>{{getDateString(bid.createdAt)}}</td>
-          
-          <td *ngIf="!auctionType">
-              <button class="btn btn-primary" (click)="fetchbestbid(bid.auction._id,bid.auction.auctionType)">
-                Show
-                </button>
-            </td>
-
-            <!-- <td *ngIf="!auctionType">
-                {{ fetchbestbid(bid.auction._id,bid.auction.auctionType) }}
-              </td> -->
-
-          <td *ngIf="auctionType">
+          <td>
             <button class="btn btn-primary" *ngIf="confirmOrder && !bid.orderConfirmed" (click)="confirmBidOrder(bid)">
               Confirm Order
             </button>&nbsp;
@@ -90,9 +62,6 @@
               Bid History
             </button>
           </td>
-          <td *ngIf="!auctionType">
-              {{ orderConfirmed == true ? 'Accepted' : 'Posted' }}
-            </td>
         </tr>
       </ng-container>
       </tbody>

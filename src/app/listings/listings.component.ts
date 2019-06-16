@@ -44,9 +44,9 @@ export class ListingsComponent implements OnInit {
     this.listingService.getAll(this.queryParams)
     .subscribe(response => {
       this.listings = response;
+      // this.data = this.listings;
       this.setTotalPages();
       this.onPageChange(this.currentPage);
-
       // console.log(this.listings);
     }, (error: Response) => {
       this.router.navigate(['/errorpage']);

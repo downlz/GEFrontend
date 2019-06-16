@@ -7,7 +7,7 @@
         <th scope="col">Item</th>
         <th scope="col">Auction Type</th>
         <!--<th scope="col" *ngIf="showBestPrice">Best Bid Price</th>-->
-        <th scope="col">Listed By</th>
+        <th scope="col" *ngIf="role == 'admin'">Listed By</th>
         <th scope="col">Category</th>
         <th scope="col">Start Time</th>
         <th scope="col">End Time</th>
@@ -40,7 +40,7 @@
           </a></th>
           <td>{{auction.auctionType}}</td>
           <!--<td *ngIf="showBestPrice">{{auction.bestPrice}}</td>-->
-          <td>{{auction.user.name}}</td>
+          <td *ngIf="role == 'admin'">{{auction.user.name}}</td>
           <td>{{auction.sampleNo.category.name}}</td>
           <td>{{getDateString(auction.startTime)}}</td>
           <td>{{getDateString(auction.endTime)}}</td>
@@ -50,10 +50,12 @@
                *ngIf="(role=='admin' || auction.user._id === userId) && getTimeStamp(auction.startTime) > currentTimestamp">
               Edit
             </a>&nbsp;
-            <button class="btn btn-primary" *ngIf="actions.indexOf('bid')!=-1 && isBiddingAllowed(auction)" (click)="placeBid(content,auction)">
-
+            <button class="btn btn-primary" *ngIf="actions.indexOf('bid')!=-1 && isBiddingAllowed(auction) && currentTimestamp > getTimeStamp(auction.startTime)" (click)="placeBid(content,auction)">
               Place Bid
             </button>
+            <button class="btn btn-primary" *ngIf="getTimeStamp(auction.startTime) > currentTimestamp" disabled>
+                Place Bid
+              </button>
             &nbsp;
             <a class="btn btn-primary" [routerLink]="'/auction/'+auction._id" *ngIf="actions.indexOf('details')!=-1">
               Details

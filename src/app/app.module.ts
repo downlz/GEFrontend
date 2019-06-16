@@ -1,6 +1,10 @@
 import {BrowserModule} from '@angular/platform-browser';
 import {NgModule, ErrorHandler} from '@angular/core';
+// import { MDBBootstrapModule } from 'angular-bootstrap-md';
+// import {MatTooltipModule} from '@angular/material/tooltip';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import { CommonModule } from '@angular/common';
+import { ToastrModule } from 'ngx-toastr';
 import {OwlDateTimeModule, OwlNativeDateTimeModule} from 'ng-pick-datetime';
 import {DatePickerModule} from '@syncfusion/ej2-angular-calendars';
 import {FileUploadModule} from 'ng2-file-upload';
@@ -118,11 +122,14 @@ import { AppFooterComponent } from './app-footer/app-footer.component';
   entryComponents: [PlaceBidComponent],
   imports: [
     BrowserModule,
+    // MDBBootstrapModule.forRoot(),
     // Ng2SearchPipeModule,
     NgbModule,
     DatePickerModule,
     FileUploadModule,
     BrowserAnimationsModule,
+    CommonModule,
+    ToastrModule.forRoot(),
     OwlDateTimeModule,
     OwlNativeDateTimeModule,
     AppRoutingModule,

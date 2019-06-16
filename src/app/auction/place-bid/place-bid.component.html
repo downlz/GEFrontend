@@ -21,6 +21,15 @@
   <form [formGroup]="form" (ngSubmit)="save($event)" [ngClass]="{'loading' : loading}">
 
     <div formGroupName="newItem">
+        <!-- <div class="row">
+            <div class="col-md-12" *ngIf="role == 'buyer' && bids != null">
+                <label>Bid already submitted with price {{bids[0].price}} for {{bids[0].quantity}} {{auction.unit.mass}}</label>
+            </div></div> -->
+      <div class="row">
+        <div class="col-md-12" *ngIf="role != 'admin'">
+          <label>To check any previously placed bid <a href="/auction/bids"> Click here</a></label>
+      </div>
+      </div>      
       <div class="row">
         <div class="col-md-6" *ngIf="role == 'buyer'">
           <div class="form-group">
@@ -73,7 +82,7 @@
     </div>
 
   </form>
-
+  
 </div>
 <div class="modal-footer" [ngClass]="{'loading' : loading}">
   <button type="button" class="btn btn-outline-dark" [disabled]="loading" (click)="save($event)">Save</button>

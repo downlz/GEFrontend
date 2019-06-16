@@ -22,7 +22,7 @@
               <td>Quantity: {{order.quantity}} Kg </td>
             </tr>
             <tr *ngIf="order.quantity>0">
-              <td>Cost: Rs. {{order.cost}}<br> <div *ngIf = "order.ordertype!=='groupbuying'" >*Transportation cost extra </div></td>
+              <td>Cost: Rs. {{order.cost}} <span *ngIf = "order.ordertype!=='groupbuying'" class="ItemTextDtl" > {{'  '}}*Transportation cost extra </span></td>
             </tr>
             <tr *ngIf="order.quantity==0">
               <td>Sample order</td>

@@ -16,4 +16,8 @@ export class BidService extends DataService  {
   confirmOrder(bid) {
     return this.http.post(this.url + '/confirmOrder/' + bid,null);
   }
+
+  bestbid(id,type) {
+    return this.http.get(this.url + '/bestbid/' + id + '/type/' + type );
+  }
 }

@@ -2,6 +2,8 @@
 @import "~bootstrap/dist/css/bootstrap.css";
 @import "~ng-pick-datetime/assets/style/picker.min.css";
 
+@import '~ngx-toastr/toastr';
+
 @font-face {
   font-family: quicksand;
   src: url("src/assets/font/Quicksand_Bold.otf") format("opentype");

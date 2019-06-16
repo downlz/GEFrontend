@@ -24,12 +24,23 @@ export class PlaceBidComponent implements OnInit, AfterViewInit {
   showMarketingExpense: Boolean = false;
   manufacturerNotPresent: Boolean = false;
   manufacturers: Array<any> = [];
+  // bids: Array<any>;
 
-  constructor(private authService: AuthService, private modalService: NgbModal, private bidService: BidService, private manufacturerService: ManufacturerService) {
+  constructor(private authService: AuthService, private modalService: NgbModal, 
+    private bidService: BidService, private manufacturerService: ManufacturerService) {
     this.role = this.authService.getRole();
+    // bidService.getCurrentUserData().subscribe((data: Array<any>) => {
+    //   this.bids = data;
+    //   this.loading = false;
+    //   console.log(this.bids);
+    // }, (err) => {
+    //   console.error(err);
+    //   this.loading = false;
+    // });
   }
 
   ngOnInit() {
+
     this.manufacturerService.getAll().subscribe((data: any) => {
       this.manufacturers = data;
     });

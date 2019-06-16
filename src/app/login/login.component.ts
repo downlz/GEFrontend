@@ -36,7 +36,12 @@ export class LoginComponent implements OnInit {
     this.auth.login(this.form.value.account.phone, this.form.value.account.password)
     .subscribe(response => {
       this.loginData = response;
+      // console.log(response);
+      if (this.loginData.isActive == false){
+        alert("User not yet active.Contact Graineasy to activate account");
+      } else {
       this.router.navigate(['/products']);
+      }
     }, (error: AppError) => {
       if (error.originalError.status === 400) {
         this.router.navigate(['/errorpage']);
