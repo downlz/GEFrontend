@@ -15,6 +15,7 @@ export class GBProductDetailComponent implements OnInit {
  gblisting: GBListing;
   address: any;
   userid: any;
+  currentTimestamp = new Date().getTime();
   constructor(private gblistingService: GBListingService, private userService: UserService,
     private route: ActivatedRoute, private router: Router, private orderService: OrderService) { }
 
@@ -39,6 +40,11 @@ export class GBProductDetailComponent implements OnInit {
       }
       console.log(error);
     });
+  }
+
+  getTimeStamp(string) {
+    const date = new Date(string);
+    return date.getTime();
   }
 
   getProduct(id) {
@@ -68,7 +74,7 @@ export class GBProductDetailComponent implements OnInit {
       status: 'new',
       ordertype: 'groupbuying'
     };
-    console.log(OrderData);
+    // console.log(OrderData);
     this.orderService.create(OrderData)
     .subscribe(response => {
       console.log(response);

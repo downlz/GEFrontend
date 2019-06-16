@@ -17,7 +17,7 @@
         routerLink="/auction"
       >Auction List</a>
     </li>
-    <li *ngIf="role=='admin'  || role=='seller'">
+    <li *ngIf="role=='admin'">
       <a
         class="nav-link scrollto p"
         routerLinkActive="active"
@@ -25,6 +25,14 @@
         routerLink="/auction/status"
       >Auction History</a>
     </li>
+    <li *ngIf="role=='seller'">
+        <a
+          class="nav-link scrollto p"
+          routerLinkActive="active"
+          [routerLinkActiveOptions]="{ exact: true }"
+          routerLink="/auction/bids"
+        >My Bids</a>
+      </li>
     <!--Buyer Section -->
     <li *ngIf="role=='buyer'">
       <a

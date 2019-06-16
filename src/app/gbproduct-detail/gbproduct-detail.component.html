@@ -53,13 +53,25 @@
                 <th>Location: </th>
                 <th> {{ gblisting.item.city.name }} | {{ gblisting.item.city.state.name }}</th>
               </tr>
+              <tr>
+                  <th>Ordering Status: </th>
+                  <th *ngIf="currentTimestamp > getTimeStamp(gblisting.gbendtime)">Closed</th>
+                  <th *ngIf="getTimeStamp(gblisting.gbstarttime) > currentTimestamp">Opens at: {{ gblisting.gbstarttime | date:'dd-MMM-yy hh:mm a'}}</th>
+                  <th *ngIf="((currentTimestamp > getTimeStamp(gblisting.gbstarttime)) && (getTimeStamp(gblisting.gbendtime)> currentTimestamp))">Open</th>
+                </tr>
 
 
             </table>
           </div>
-          <div class="card-footer">
-            <a [routerLink]="['/gborderNow',gblisting._id]" routerLinkActive="router-link-active" class="btn btn-primary btn-block">Order Now</a>
+          <div class="card-footer" *ngIf="((currentTimestamp > getTimeStamp(gblisting.gbstarttime)) && (getTimeStamp(gblisting.gbendtime)> currentTimestamp))">
+            <a [routerLink]="['/gborderNow',gblisting._id]" routerLinkActive="router-link-active" class="btn btn-primary btn-block" >
+              <!-- {{ (currentTimestamp > getTimeStamp(gblisting.gbstarttime) && (getTimeStamp(gblisting.gbendtime)> currentTimestamp)) ? 'Order Now' : 'Order not yet open or expired' }} -->
+              Order Now
+            </a>
           </div>
+          <!-- <div class="card-footer">
+              <a [routerLink]='' class="btn btn-primary btn-block" *ngIf="currentTimestamp > getTimeStamp(gblisting.gbstarttime)">Order windows</a>
+            </div> -->
           <div class="card-footer">
             <a [routerLink]="['/referral']" routerLinkActive="router-link-active" class="btn btn-primary btn-block">Refer a person</a>
           </div>

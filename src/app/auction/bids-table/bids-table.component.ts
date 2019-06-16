@@ -5,6 +5,7 @@ import {AuctionService} from '../../services/auction.service';
 import {BidService} from '../../services/bid.service';
 import {OrderService} from '../../services/order.service';
 import {ManufacturerService} from '../../services/manufacturer.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-bids-table',
@@ -35,7 +36,9 @@ export class BidsTableComponent implements OnInit, OnChanges {
   auctionType: string;
   manufacturers: any = [];
 
-  constructor(private auth: AuthService, private manufacturerService: ManufacturerService, private auctionService: AuctionService, private bidService: BidService, private modalService: NgbModal) {
+  constructor(private auth: AuthService, private manufacturerService: ManufacturerService, 
+    private auctionService: AuctionService, private bidService: BidService, 
+    private modalService: NgbModal,private toastr: ToastrService) {
     this.role = auth.getRole();
     this.userId = auth.getId();
     this.manufacturerService.getAll().subscribe((resp) => {
@@ -57,6 +60,7 @@ export class BidsTableComponent implements OnInit, OnChanges {
   }
 
   onPageChange(page) {
+    console.log(this.bids);
     this.data = [...(this.bids || [])];
     this.data = this.data.splice((page - 1) * this.pageSize, this.pageSize);
     this.currentPage = page;
@@ -103,6 +107,20 @@ export class BidsTableComponent implements OnInit, OnChanges {
     }
   }
 
+  // getBestBid(biddata) {
+  //   if (!biddata) {
+  //     return '';
+  //   }
+  //   // console.log(this.auction);
+  //   if (biddata) {
+  //     return biddata.auctionType === 'buyer' ? Math.min.apply(this, (biddata.bids || []).map((bid) => {
+  //       return isNaN(bid.price) ? 0 : (bid.price*(1-((bid.marketingExpense)/100))).toFixed(2);
+  //     })) : Math.max.apply(this, (biddata.bids || []).map((bid) => {
+  //       return isNaN(bid.price) ? 0 : bid.price;
+  //     }));
+  //   }
+  // }
+
   confirmBidOrder(bid) {
     // console.log(data);
     // this.orderService.get('orderno')        // Sending url as per API defination
@@ -121,5 +139,19 @@ export class BidsTableComponent implements OnInit, OnChanges {
     });
   // });
 }
+    fetchbestbid(id,type){
+      this.bidService.bestbid(id,type)
+      .subscribe((data) => {
+        console.log(data);
+        // return data[0].price
+        // alert ('Best bid-' + data[0].price)
+        this.toastr.success('Rs.'+data[0].price,'Best bid' ,{
+          positionClass: 'toast-bottom-right'
+        });
+      }, (err) => {
+        console.log(err);
+      });
+      // return data[0].price
+    }
 }
 
