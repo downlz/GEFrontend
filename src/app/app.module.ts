@@ -15,6 +15,7 @@ import {FileUploadModule} from 'ng2-file-upload';
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
 import {NavBarComponent} from './nav-bar/nav-bar.component';
+import {NavBarNotificationComponent} from './nav-bar-notification/nav-bar-notification.component';
 import {BasicComponent} from './basic/basic.component';
 
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
@@ -79,6 +80,7 @@ import { AppFooterComponent } from './app-footer/app-footer.component';
   declarations: [
     AppComponent,
     NavBarComponent,
+    NavBarNotificationComponent,
     // FilterlistPipe,
     // FileSelectDirective,
     BasicComponent,
