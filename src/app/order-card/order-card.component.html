@@ -1,7 +1,7 @@
 <div *ngIf="order._id" class="card order">
   <div class="card-body">
     <!-- <h5 class="card-title">Order Id: {{order._id}}</h5> -->
-    <h5 class="card-title">Order Id: {{order.orderno}}</h5>
+    <h5 class="card-title">Order Id: {{order.orderno ? order.orderno:'Not Applicable'}}</h5>
     <h6 class="card-subtitle mb-2 text-muted">{{ order.item.name.name }} | {{
       order.item.category.name }}</h6>
     <div class="container row">
@@ -16,8 +16,8 @@
       </div>
       <div class="col-12 col-md-6">
         <p>Hello {{order.buyer.name}}, your order details are: </p>
-        <p><a *ngIf="order.status != 'new'" href='{{apiurl}}/getpo/{{order._id}}'>PO Details</a><br *ngIf="order.status != 'new'">
-          <a *ngIf="order.status == 'ready' || order.status == 'shipped' || order.status == 'delivered'" href='{{apiurl}}/getinvoice/{{order._id}}'>Get Invoice</a>
+        <p *ngIf="order.ordertype != 'sampleorder'"><a *ngIf="order.status != 'new'" href='{{apiurl}}/getpo/{{order._id}}'>PO Details</a><br *ngIf="order.status != 'new'">
+          <a *ngIf="order.status == 'ready' || order.status == 'shipped' || order.status == 'delivered' " href='{{apiurl}}/getinvoice/{{order._id}}'>Get Invoice</a>
         </p>
         <table class="table">
           <tbody>
@@ -25,7 +25,7 @@
               <td>Quantity: {{order.quantity}} Kg </td>
             </tr>
             <tr *ngIf="order.quantity>0">
-              <td>Cost: Rs. {{order.cost}} <span *ngIf = "order.ordertype!=='groupbuying'" class="ItemTextDtl" > {{'  '}}*Transportation cost extra </span></td>
+              <td>{{order.cost ? "Cost: Rs. " + order.cost.toFixed(2) : '' }}<span *ngIf = "order.ordertype!=='groupbuying'" class="ItemTextDtl" > {{'  '}}*Transportation cost extra </span></td>
             </tr>
             <tr *ngIf="order.quantity==0">
               <td>Sample order</td>
