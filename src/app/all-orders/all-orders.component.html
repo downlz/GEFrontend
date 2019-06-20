@@ -20,13 +20,13 @@
                 <ng-container *ngFor="let order of data">
               <tr>
                 <!-- <th scope="row">{{order._id}}</th> -->
-                <th scope="row">{{order.orderno}}</th>
+                <th scope="row">{{order.orderno ? order.orderno:'NA'}}</th>
                 <td *ngIf="role == 'admin'">{{order.seller.name}}</td>
                 <td *ngIf="role == 'admin'">{{order.buyer.name}}</td>
                 <td>{{order.item.name.name}}</td>
                 <td>{{ order.item.sampleNo }}</td>
                 <td>{{order.quantity}} {{order.unit}}</td>
-                <td>Rs. {{order.cost}}</td>
+                <td>{{order.cost ? "Rs. " + order.cost.toFixed(2) : 'NA' }}</td>
                 <td>{{order.ordertype}}</td>
                 <td *ngIf="role == 'admin'">
                   <select id="status" [(ngModel)]="order.status">

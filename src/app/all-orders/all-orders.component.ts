@@ -127,7 +127,7 @@ export class AllOrdersComponent implements OnInit {
       _id: order._id,
       status:  order.status,
       remarks: order.remarks,
-      lastUpdated: this.currentDateTime
+      // lastUpdated: this.currentDateTime
     };
     // console.log(updateData);
     if (order.status == "cancelled" && order.remarks == null) {
