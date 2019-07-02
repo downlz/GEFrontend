@@ -1,0 +1,139 @@
+<!-- ******HEADER****** -->
+<header id="header" class="header">
+  <div class="container">
+    <h1 class="logo">
+      <a class="scrollto" routerLink="/main">
+        <span class="logo-icon-wrapper"
+          ><img
+            class="logo-icon"
+            src="assets/images/graineasy-icon.png"
+            alt="icon"
+        /></span>
+        <!--- span class="text"><span class="highlight">APP</span>KIT</span--></a
+      >
+    </h1>
+    <!--//logo-->
+    
+    <nav
+      class="main-nav navbar-expand-md float-right navbar-inverse"
+      role="navigation"
+    >
+      <button
+        class="navbar-toggler"
+        type="button"
+        data-toggle="iscollapse"
+        data-target="#navbar-collapse"
+        (click)="toggleCollapsed()"
+        [attr.aria-expanded]="!isCollapsed"
+        aria-controls="collapseNavBarLink"
+      >
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span> <span class="icon-bar"></span>
+        <span class="icon-bar"></span></button
+      ><!--//nav-toggle-->
+
+      <div
+        id="navbar-collapse"
+        class="navbar-collapse collapse"
+        id="collapseNavBarLink"
+        [ngbCollapse]="isCollapsed"
+      >
+        <ul class="nav navbar-nav">
+          <li class="nav-item">
+            <a
+              class="active nav-link scrollto h4"
+              [class.active]="isSectionActive('hero')"
+              routerLink="/main"
+              fragment="hero"
+              >Home</a
+            >
+          </li>
+          <li class="nav-item">
+            <a
+              class="active nav-link scrollto h4"
+              [class.active]="isSectionActive('hero')"
+              routerLink="/main"
+              fragment="auction"
+            >Auction</a
+            >
+          </li>
+          <li class="nav-item">
+            <a
+              class="active nav-link scrollto h4"
+              [class.active]="isSectionActive('hero')"
+              routerLink="/gbproducts"
+            >Group Buy</a
+            >
+          </li>
+          <!-- <li class="nav-item">
+            <a
+              class="nav-link scrollto h4"
+              [class.active]="isSectionActive('buyer')"
+              routerLink="/main"
+              fragment="buyer"
+              >Buyers</a
+            >
+          </li>
+          <li class="nav-item">
+            <a
+              class="nav-link scrollto h4"
+              [class.active]="isSectionActive('seller')"
+              routerLink="/main"
+              fragment="seller"
+              >Sellers</a
+            >
+          </li> -->
+          <li class="nav-item">
+            <a
+              class="nav-link scrollto h4"
+              routerLink="/main"
+              [class.active]="isSectionActive('contact')"
+              fragment="contact"
+              >Contact Us</a
+            >
+          </li>
+          <li class="nav-item">
+            <a
+              class="nav-link scrollto h4"
+              routerLinkActive="active"
+              [routerLinkActiveOptions]="{ exact: true }"
+              routerLink="/products"
+              >Listings</a
+            >
+          </li>
+          <li class="nav-item" *ngIf="loggedOut()">
+            <a
+              class="nav-link scrollto h4"
+              routerLinkActive="active"
+              [routerLinkActiveOptions]="{ exact: true }"
+              routerLink="/login"
+              >Login</a>
+          </li> 
+          
+          
+          
+
+          <li ngbDropdown class="nav-item dropdown" *ngIf="loggedIn()">
+            <a ngbDropdownToggle class="nav-link dropdown-toggle" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">User</a>
+            <div ngbDropdownMenu class="dropdown-menu " aria-labelledby="dropdown01">
+              <a class="dropdown-item nav-link" routerLink="/myOrders" *ngIf="!isSeller">My Orders</a>
+              <a class="dropdown-item nav-link" routerLink="/auction" >Auction</a>
+              <a class="dropdown-item nav-link" routerLink="/allOrders" *ngIf="isAdmin || isSeller ">Manage Orders</a>
+              <a class="dropdown-item nav-link" routerLink="/addProducts" *ngIf="isAdmin">Manage Products</a>
+              <a class="dropdown-item nav-link" routerLink="/groupBuying" *ngIf="isAdmin">Group Buying</a>
+              <!-- <a class="dropdown-item nav-link" routerLink="/referral" >Refer User</a> -->
+              <a class="dropdown-item nav-link" routerLink="/login" (click)="logout()">Log Out</a>
+            </div>
+          </li>
+        </ul>
+        <!--//nav-->
+      </div>
+      
+      <!--//navabr-collapse-->
+      
+    </nav>
+    <!--//main-nav-->
+  </div>
+  <!--//container-->
+</header>
+<!--//header-->

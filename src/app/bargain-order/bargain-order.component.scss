@@ -1,0 +1,88 @@
+.listingOffsetTextColor {
+  padding-top: 200px;
+  color: black;
+  padding-left: 20px;
+}
+
+.bordermk {
+  box-shadow: 0 8px 12px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  background-color: rgba(1, 29, 1, 0.356);
+  opacity: 30%
+}
+
+.shdw {
+
+  position:relative;
+  z-index: 1;
+}
+
+.ItemCardContainer {
+  padding: 20px;
+  // font-size: 6px;
+}
+
+.ItemCardImage {
+  height: 325px;
+  object-fit: contain;
+  // height: 325px;
+  // width: 325px;
+  // text-align: center;
+  // box-shadow: 0 8px 20px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  // object-fit: cover;
+}
+
+.ItemCardDesc {
+
+  opacity: 50%;
+  box-shadow: 0 8px 12px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  font-size: 18px;
+}
+
+.farmbg {
+  background-image: url("../../assets/images/GE_Product.jpg");
+  object-fit: scale-down;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: -webkit-fill-available;
+  z-index: 0;
+}
+
+.ItemTextDtl {
+  font-size: 10px;
+}
+
+.alrt {
+  margin-left: 50px;
+  color: red;
+}
+
+.input-container {
+  // background: url(http://i.stack.imgur.com/0Vlc5.png) no-repeat;
+  // width:197px;
+  // height:28px;
+  background-color: #ccc;
+  border-radius: 10px;
+}
+.input-container input{
+  height:28px;
+  line-height:28px;/*results in nice text vertical alignment*/
+  border:none;
+  background:transparent;
+  padding:0 10px;/*don't start input text directly from the edge*/
+  width:148px;/*full width - grey on the side - 2*10px padding*/
+}
+
+// .label {
+//   background-color: #ccc;
+//   border-radius: 10px;
+// }
+
+// .form {
+//   overflow: hidden;
+// }
+// .input {
+//   float: right;
+//   clear: both;
+// }

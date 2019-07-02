@@ -1,0 +1,117 @@
+<div class="farmbg"></div>
+<div class="container shdw">
+    <div class="listingOffsetTextColor">
+  <div class="row container bordermk">
+
+    <div class="col-12 col-md-6">
+      <div class="ItemCardContainer">
+          <div class="card ItemCardDesc">
+              <div class="card-body">
+            <img class="card-img-top ItemCardImage" [src]="listing.image" alt="{{
+              listing.name }}">
+              <table style="width:100%">
+                  <tr>
+                    <th>
+                      <h3 class="card-title"> {{ listing.name.name }} | {{ listing.category.name }}</h3>
+                    </th>
+                  </tr>
+                  <tr>
+                    <th>Sample Number: {{ listing.sampleNo}}</th>
+                  </tr>
+                  <tr>
+                    <th>Origin: {{listing.origin}}</th>
+                  </tr>
+                  <tr>
+                    <th>Manufacturer: {{listing.manufacturer.name}}</th>
+                  </tr>
+                  <tr>
+                    <th>List Price: Rs. {{ listing.price }}/{{ listing.unit.mass }} </th>
+                  </tr>
+                  <tr>
+                    <th class="ItemTextDtl">You can place request for a maximum of 3 times post which requested will be closed if not accepted</th>
+                  </tr>
+                </table>
+
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-12 col-md-6">
+      <div class="ItemCardContainer">
+        <div class="card ItemCardDesc">
+          <div class="card-body">
+              <form>
+                  <!-- <div class="form-row">
+                      <div class="form-group col-md-9 text-right input-container">
+                        <label for="inputCity">Buyer Quote 1-</label>
+                        <label for="inputCity2">45.67 Per Quintal</label>
+                         <input type="text" class="form-control" id="inputCity">
+                      </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                          <label for="inputCity">Seller Quote 1</label>
+                          <input type="text" class="form-control" id="inputCity">
+                        </div>
+                      </div>
+                      <div class="col-18 container text-right">
+                          <div class="form-group col-md-6">
+                            <label for="inputCity">Buyer Quote 2</label>
+                            <input type="text" class="form-control" id="inputCity">
+                          </div>
+                        </div>
+                  <div class="form-row">
+                    <div class="form-group col-md-6">
+                      <label for="inputCity">Seller Quote 2</label>
+                      <input type="text" class="form-control" id="inputCity">
+                    </div>
+                  </div>
+                  <div class="form-row">
+                      <div class="form-group col-md-6">
+                        <label for="inputCity">Buyer Quote 3</label>
+                        <input type="text" class="form-control" id="inputCity">
+                      </div>
+                    </div> -->
+                    <div class="alert alert-primary" role="alert">
+                        Your 1st quote : Rs.34/Kg
+                      </div>
+                      <div class="alert alert-secondary" role="alert">
+                          Seller quote : Rs.38/Kg
+                        </div>
+                        <div class="alert alert-primary" role="alert">
+                            Your 2nd quote : Rs.34/Kg
+                          </div>
+                          <div class="alert alert-secondary" role="alert">
+                              Seller quote : Rs.38/Kg
+                            </div>
+                            <div class="alert alert-primary" role="alert">
+                                Your 3rd quote : Rs.34/Kg
+                              </div>
+                              <div class="alert alert-secondary" role="alert">
+                                  Seller quote : Rs.38/Kg
+                                </div>
+                      <div class="form-group row">
+                          <label for="price" class="col-sm-5 control-label">Send new quote</label>
+                          <div class="col-sm-4">
+                            <input required ngModel name="price" #quantity="ngModel" id="price"
+                            type="number" class="form-control" >
+                          </div>
+                      </div>
+                  <button type="submit" class="btn btn-primary">Counter</button> &nbsp; &nbsp;
+                  <button type="submit" class="btn btn-primary">Accept</button> &nbsp; &nbsp;
+                  <button type="submit" class="btn btn-primary">Reject</button> &nbsp; &nbsp;
+                  <button type="submit" class="btn btn-primary">Pause</button> &nbsp; &nbsp;
+                </form>
+        </div>
+
+        </div>
+      </div>
+    </div>
+
+
+  </div>
+</div>
+</div>
+
+
+

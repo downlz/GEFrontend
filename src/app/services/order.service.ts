@@ -8,7 +8,7 @@ import { environment } from '../../environments/environment';
 })
 export class OrderService extends DataService { 
   constructor(http: HttpClient) {
-    const url= environment.baseUrl + '/order';
+    const url = environment.baseUrl + '/order';
     super(url, http);
   }
 }

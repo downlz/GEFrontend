@@ -6,6 +6,7 @@ import { Listing } from './../model/listing';
 import { UserService } from '../services/user.service';
 import { StateService } from '../services/state.service';
 import { OrderService } from '../services/order.service';
+import { BargainService } from '../services/bargain.service';
 import { AddressService } from '../services/address.service';
 import { PriceService } from '../services/price.service';
 import { AppError } from '../common/app-error';
@@ -21,6 +22,8 @@ export class OrderNowComponent implements OnInit {
 
   listing: Listing;
   address: any;
+  user: any;
+  itemid: any;
   userid: any;
   statedata: any;
   addresses: any;
@@ -30,15 +33,19 @@ export class OrderNowComponent implements OnInit {
   priceValid = false;
   showShippingDetails: Boolean = false;
   lastorderno: number;
+  isEligibleForBargain: Boolean = false;
+  activeBargain: Boolean = false;
   constructor(private listingService: ListingService, private userService: UserService,
     private route: ActivatedRoute, private router: Router, private stateService: StateService,
     private orderService: OrderService, private modalService: NgbModal,
-    private addressService: AddressService, private priceService: PriceService) { }
+    private addressService: AddressService, private priceService: PriceService,
+    private bargainService: BargainService) { }
 
   ngOnInit() {
     this.route.paramMap
     .subscribe(params => {
       const id = params.get('id');
+      this.itemid = id;
       this.getProduct(id);
     });
     this.stateService.getAll()
@@ -48,14 +55,31 @@ export class OrderNowComponent implements OnInit {
     this.userService.get('me')
     .subscribe(response => {
       const res = response as any;
+      this.user = res;
       this.address = res.Addresses[0];
       this.userid = res._id;
-      // console.log(res);
         this.addressService.getUserAddr(res._id,res.phone)
         .subscribe(response => {
           this.addresses = response;
           // console.log(response);
+        },(error: Response) => {
+          this.router.navigate(['/errorpage']);
+          if (error.status === 400) {
+            alert(' expected error, post already deleted');
+          }
+          console.log(error);
         });
+        this.bargainService.getBuyerBargain(this.userid,this.itemid)
+        .subscribe( response => {
+          if (!response[0]) {
+            this.activeBargain = false;
+          } else {
+            this.activeBargain = true;
+          }
+          // console.log(response);
+        });
+
+
     }, (error: Response) => {
       this.router.navigate(['/errorpage']);
       if (error.status === 400) {
@@ -63,6 +87,7 @@ export class OrderNowComponent implements OnInit {
       }
       console.log(error);
     });
+    
   }
 
   getProduct(id) {
@@ -78,6 +103,14 @@ export class OrderNowComponent implements OnInit {
     });
   }
 
+  checkActiveBargain() {
+    // Check user role and apply service call
+    console.log(this.user);
+    // if (userinfo.isBuyer === true) {
+    //   console.log(userinfo);
+    // }
+    // this.bargainService.getPrice()
+  }
   onQuantityChange(qty) {
     const PriceData = {
       qty: qty,
@@ -86,6 +119,14 @@ export class OrderNowComponent implements OnInit {
       sellerId: this.listing.seller._id
     };
     this.priceValid = false;
+    // Check bargain eligibility only if no bargain in progress
+    if (this.activeBargain === false) {
+      if (qty > this.listing.bargaintrgqty) {
+        this.isEligibleForBargain = true;
+      } else {
+        this.isEligibleForBargain = false;
+      }
+    }
     this.priceService.getPrice(PriceData)
     .subscribe(Response => {
       const priceValue = Response as any;
@@ -112,7 +153,9 @@ export class OrderNowComponent implements OnInit {
   }
 
   order(f) {
-
+    if (!f.shipaddr) {
+      alert("Specify a default address");
+    } else {
     this.orderService.get('orderno')        // Sending url as per API defination
       .subscribe(response => {              // improve coding standards
         const res = response as any;
@@ -158,15 +201,30 @@ export class OrderNowComponent implements OnInit {
       addressreference: f.shipaddr
     };
     // console.log(OrderData);
-
+    // console.log(f.shipaddr);
+    if (f.shipaddr.addresstype === 'delivery') {
+      OrderData.isshippingbillingdiff = true,
+      OrderData.partyname = f.shipaddr.addressbasicdtl.partyname,
+      OrderData.gstin = f.shipaddr.addressbasicdtl.gstin,
+      OrderData.address =  f.shipaddr.text,
+      OrderData.pincode = f.shipaddr.pin,
+      OrderData.state = f.shipaddr.state,
+      OrderData.phone = f.shipaddr.phone,
+      OrderData.addresstype =  'delivery',
+      OrderData.addressreference = f.shipaddr
+    }
+    console.log(OrderData);
+    OrderData.partyname = f.shipaddr.addressbasicdtl.partyname;
+    console.log(OrderData);
     this.orderService.create(OrderData)
     .subscribe(response => {
       alert('Order Placed Successfully');
       this.router.navigate(['/myOrders']);
     }, (error: AppError) => {
       console.log(error);
-      // this.router.navigate(['/errorpage']);
+      this.router.navigate(['/errorpage']);
     });
 })
 }
+  }
 }

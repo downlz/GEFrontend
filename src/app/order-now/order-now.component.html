@@ -36,7 +36,7 @@
             <!-- <div formGroupName="saveOrder"> -->
             <div class="form-group row">
                 <label for="quantity" class="col-sm-4 control-label">Quantity</label>
-                <div class="col-sm-8">
+                <div class="col-sm-7">
                   <input required ngModel name="quantity" #quantity="ngModel" id="quantity"
                   type="number" class="form-control"  (keyup)="onQuantityChange(quantity.value)">
                 </div>
@@ -48,12 +48,15 @@
             <div>
               Price : Rs. {{ price }} <span class= "ItemTextDtl"> *Transportation cost extra</span>
             </div>
+            <div *ngIf="isEligibleForBargain">
+              <span class ="ItemTextDtl">You are eligible to negotiate price with seller.To proceed click intiate bargain</span>
+            </div>
             <div class="form-group row ItemTextDtl" *ngIf="!showShippingDetails">
                 <label for="shipaddr" class="col-sm-4 control-label">Shipping Address</label>    
                 <select class="form-control col-sm-7" id="shipaddr" name="shipaddr"
                 [(ngModel)]="shipaddr">
                   <option value=''>Select Address</option>
-                  <option *ngFor="let addr of addresses" [ngValue]="addr"> {{ (!addr.addressbasicdtl) ? 'Registered Address': addr.addressbasicdtl.partyname}},{{addr.text}},{{addr.pin}} </option>
+                  <option *ngFor="let addr of addresses" [ngValue]="addr"> {{ (addr.addresstype === 'registered') ? '[Default]': addr.addressbasicdtl.partyname}},{{addr.text}},{{addr.pin}} </option>
                 </select>
             </div> 
             <!-- Form for storing shipping details -->
@@ -91,19 +94,22 @@
                 </div>
             </div> 
 
-            <div class="form-group ItemTextDtl row">
-                <!-- <label for="state" class="col-sm-2 control-label">City</label> -->
-                <div class="col-sm-5">
-                  <input ngModel name="pincode" id="pincode" placeholder="Enter pincode" #pincode="ngModel"
-                  type="text" class="form-control">
+
+            <div class="form-row ItemTextDtl">
+                <div class="col-md-5">
+                    <label for="pincode">Pincode</label>
+                    <input ngModel name="pincode" id="pincode" placeholder="Enter pincode" #pincode="ngModel"
+                    type="text" class="form-control">
                 </div>
-                <label for="statedat" class="col-sm-2 control-label">State</label>
-            <select class="form-control col-sm-4" id="statedat" name="statedat"
-            [(ngModel)]="statedat">
-              <option value=''>Select State</option>
-              <option *ngFor="let stat of state" [ngValue]="stat._id"> {{ stat.name }} </option>
-            </select>
-            </div>
+                <div class="form-group col-md-6">
+                  <label for="statedat">State</label>
+                  <select class="form-control" id="statedat" name="statedat"
+                  [(ngModel)]="statedat">
+                  <option value=''>Select State</option>
+                  <option *ngFor="let stat of state" [ngValue]="stat._id"> {{ stat.name }} </option>
+                  </select>
+                </div>
+              </div>
 
             <div class="form-group ItemTextDtl row">
                 <label for="phone" class="col-sm-3 control-label">Phone</label>
@@ -118,10 +124,19 @@
 
             <div>
             <button class="btn btn-primary" [disabled]="(!f.valid) || (!priceValid)" >Submit</button>
+            
           </div>
         <!-- </div> -->
           </form>
-
+          <div *ngIf="isEligibleForBargain">
+          <!-- <button class="btn btn-primary" *ngIf="isEligibleForBargain">Initiate Bargain</button> -->
+          <a [routerLink]="['/bargainOrder',listing._id]" routerLinkActive="router-link-active" click="checkActiveBargain()" class="btn btn-primary">Initiate Bargain</a>
+          <!-- <a [routerLink]="" routerLinkActive="router-link-active" click="checkActiveBargain()" class="btn btn-primary">Initiate Bargain</a> -->
+        </div>
+        <div *ngIf="activeBargain">
+          <!-- <button class="btn btn-primary" *ngIf="isEligibleForBargain">Initiate Bargain</button> -->
+          <a [routerLink]="['/bargainOrder',bargain._id]" routerLinkActive="router-link-active"  class="btn btn-primary">Check Bargain Status</a>
+        </div>
         </div>
 
         </div>

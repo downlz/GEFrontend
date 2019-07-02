@@ -10,12 +10,10 @@ import {DatePickerModule} from '@syncfusion/ej2-angular-calendars';
 import {FileUploadModule} from 'ng2-file-upload';
 // import { Ng2SearchPipeModule } from 'ng2-search-filter';
 // import { FilterlistPipe } from './filterlist.pipe';
-// import { environment } from '../environments/environment';
 
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
 import {NavBarComponent} from './nav-bar/nav-bar.component';
-import {NavBarNotificationComponent} from './nav-bar-notification/nav-bar-notification.component';
 import {BasicComponent} from './basic/basic.component';
 
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
@@ -32,6 +30,7 @@ import {DataService} from './services/data.service';
 import {CityService} from './services/city.service';
 import {StateService} from './services/state.service';
 import {UserService} from './services/user.service';
+import {BargainService} from './services/bargain.service';
 import {ReferralService} from './services/referral.service';
 import {UsersellerService} from './services/seller.service';
 import {AuthService} from './services/auth.service';
@@ -47,6 +46,7 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {ErrorPageComponent} from './error-page/error-page.component';
 import {ProductDetailComponent} from './product-detail/product-detail.component';
 import {OrderNowComponent} from './order-now/order-now.component';
+import {BargainOrderComponent} from './bargain-order/bargain-order.component';
 import {MyOrdersComponent} from './my-orders/my-orders.component';
 import {AllOrdersComponent} from './all-orders/all-orders.component';
 import {GroupBuyingComponent} from './group-buying/group-buying.component';
@@ -80,7 +80,7 @@ import { AppFooterComponent } from './app-footer/app-footer.component';
   declarations: [
     AppComponent,
     NavBarComponent,
-    NavBarNotificationComponent,
+    // NavBarNotificationComponent,
     // FilterlistPipe,
     // FileSelectDirective,
     BasicComponent,
@@ -97,6 +97,7 @@ import { AppFooterComponent } from './app-footer/app-footer.component';
     ProductDetailComponent,
     GBProductDetailComponent,
     OrderNowComponent,
+    BargainOrderComponent,
     GBOrderNowComponent,
     MyOrdersComponent,
     AllOrdersComponent,
@@ -148,6 +149,7 @@ import { AppFooterComponent } from './app-footer/app-footer.component';
     StateService,
     CityService,
     UserService,
+    BargainService,
     ReferralService,
     // UserbuyerService,
     UsersellerService,

@@ -15,6 +15,7 @@ export class ProductDetailComponent implements OnInit {
   listing: Listing;
   address: any;
   userid: any;
+  lastorderno: number;
   constructor(private listingService: ListingService, private userService: UserService,
     private route: ActivatedRoute, private router: Router, private orderService: OrderService) { }
 
@@ -28,7 +29,7 @@ export class ProductDetailComponent implements OnInit {
     .subscribe(response => {
       const res = response as any;
       // console.log(res);
-      this.address = res.Addresses[0];          
+      this.address = res.Addresses[0];
       this.userid = res._id;
     }, (error: Response) => {
       this.router.navigate(['/errorpage']);
@@ -53,8 +54,14 @@ export class ProductDetailComponent implements OnInit {
   }
 
   order() {
+
+    this.orderService.get('orderno')        // Sending url as per API defination
+      .subscribe(response => {              // improve coding standards
+        const res = response as any;
+        this.lastorderno = parseInt(res[0].orderno) + 1;
+
     const OrderData = {
-      orderno: '',
+      orderno: String(this.lastorderno),
       quantity: 0,
       cost: 0,
       itemId: this.listing._id,
@@ -77,5 +84,6 @@ export class ProductDetailComponent implements OnInit {
       console.log(error);
       this.router.navigate(['/errorpage']);
     });
-  }
+  })
+}
 }

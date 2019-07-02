@@ -1,6 +1,8 @@
 /* You can add global styles to this file, and also import other style files */
 @import "~bootstrap/dist/css/bootstrap.css";
 @import "~ng-pick-datetime/assets/style/picker.min.css";
+// @import url("https://cdn.jsdelivr.net/gh/space10-community/conversational-form@0.9.90/dist/conversational-form.min.css");
+// @import url("https://cdn.jsdelivr.net/gh/space10-community/conversational-form@0.9.90/dist/conversational-form.css");
 
 @import '~ngx-toastr/toastr';
 
@@ -16,3 +18,8 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+
+// #cf-context { 
+//   width: 100vw; 
+//   height: 100vh; 
+// } 

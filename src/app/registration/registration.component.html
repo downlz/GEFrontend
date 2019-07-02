@@ -124,6 +124,11 @@
           type="number"
           class="form-control"
           placeholder="Your PIN code">
+          <!-- <div class="alert alert-danger" *ngIf="pin.touched && pin.invalid">
+            <div *ngIf="pin.errors.required"> Pincode is required </div>
+            <div *ngIf="pin.errors.minlength"> length should be {{ pin.errors.minlength.requiredLength}}</div>
+            <div *ngIf="pin.errors.maxlength"> length should be {{ pin.errors.maxlength.requiredLength}}</div>
+          </div> -->
       </div>
     </div>
 

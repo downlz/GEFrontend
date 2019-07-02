@@ -7,6 +7,7 @@ import {ProductDetailComponent} from './product-detail/product-detail.component'
 import {GBProductDetailComponent} from './gbproduct-detail/gbproduct-detail.component';
 import {LoginComponent} from './login/login.component';
 import {OrderNowComponent} from './order-now/order-now.component';
+import {BargainOrderComponent} from './bargain-order/bargain-order.component';
 import {GBOrderNowComponent} from './gborder-now/gborder-now.component';
 import {MyOrdersComponent} from './my-orders/my-orders.component';
 import {AllOrdersComponent} from './all-orders/all-orders.component';
@@ -184,6 +185,14 @@ const routes: Routes = [
     canActivate: [AuthGuard],
     data: {
       roles: ['admin','seller']
+    }
+  },
+  {
+    path: 'bargainOrder/:id',
+    component: BargainOrderComponent,
+    canActivate: [AuthGuard],
+    data: {
+      roles: ['admin','seller','buyer']
     }
   },
   {
