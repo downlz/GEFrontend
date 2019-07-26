@@ -56,6 +56,7 @@ export class BargainRequestComponent implements OnInit {
     } else if (this.role === 'seller') {
       this.bargainService.getSellerAllBargain(currentUser._id)
       .subscribe(response => {
+        this.loading = false;
         this.bargain = response as any;
         this.setTotalPages();
         this.onPageChange(this.currentPage);
@@ -70,6 +71,7 @@ export class BargainRequestComponent implements OnInit {
     } else if (this.role === 'buyer') {
       this.bargainService.getBuyerAllBargain(currentUser._id)
       .subscribe(response => {
+        this.loading = false;
         this.bargain = response as any;
         this.setTotalPages();
         this.onPageChange(this.currentPage);

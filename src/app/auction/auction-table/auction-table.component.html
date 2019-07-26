@@ -46,27 +46,30 @@
           <td>{{getDateString(auction.endTime)}}</td>
           <!--<td *ngIf="role === 'admin' || role === 'seller'">{{auction.approved ? "Yes" : "No"}}</td>-->
           <td>
-            <a class="btn btn-primary" [routerLink]="'/auction/edit/'+auction._id"
+            <a class="btn btn-primary btn-sm" [routerLink]="'/auction/edit/'+auction._id"
                *ngIf="(role=='admin' || auction.user._id === userId) && getTimeStamp(auction.startTime) > currentTimestamp">
               Edit
             </a>&nbsp;
-            <button class="btn btn-primary" *ngIf="actions.indexOf('bid')!=-1 && isBiddingAllowed(auction) && currentTimestamp > getTimeStamp(auction.startTime)" (click)="placeBid(content,auction)">
+            <button class="btn btn-primary btn-sm"
+              *ngIf="actions.indexOf('bid')!=-1 && isBiddingAllowed(auction) && currentTimestamp > getTimeStamp(auction.startTime)"
+              (click)="placeBid(content,auction)">
               Place Bid
             </button>
-            <button class="btn btn-primary" *ngIf="getTimeStamp(auction.startTime) > currentTimestamp" disabled>
+            <button class="btn btn-primary btn-sm" *ngIf="getTimeStamp(auction.startTime) > currentTimestamp" disabled>
                 Place Bid
               </button>
             &nbsp;
-            <a class="btn btn-primary" [routerLink]="'/auction/'+auction._id" *ngIf="actions.indexOf('details')!=-1">
+            <a class="btn btn-primary btn-sm" [routerLink]="'/auction/'+auction._id"
+              *ngIf="actions.indexOf('details')!=-1">
               Details
             </a>&nbsp;
 
-            <a class="btn btn-primary" [routerLink]="'/auction/'+auction._id" [queryParams]="{tab : 'bids'}"
+            <a class="btn btn-primary btn-sm" [routerLink]="'/auction/'+auction._id" [queryParams]="{tab : 'bids'}"
                *ngIf="actions.indexOf('bids')!=-1">
               Bids
             </a>
             &nbsp;
-            <button class="btn btn-primary" *ngIf="actions.indexOf('approve')!=-1"
+            <button class="btn btn-primary btn-sm" *ngIf="actions.indexOf('approve')!=-1"
                     (click)="approveAuction(auction._id)">
               Approve
             </button>
