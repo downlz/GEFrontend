@@ -25,7 +25,18 @@ import {AuctionListComponent} from './auction/auction-list/auction-list.componen
 import {AuctionStatusComponent} from './auction/auction-status/auction-status.component';
 import {AuctionDetailComponent} from './auction/auction-detail/auction-detail.component';
 import {MyBidsComponent} from './auction/my-bids/my-bids.component';
+
+import {TransportComponent} from './transport/transport.component';
+import {ListTransportRateComponent} from './transport/list-transport-rate/list-transport-rate.component';
+// import { DispatchDetailComponent } from './transport/dispatch-detail/dispatch-detail.component';
+import { DispatchDetailComponent } from './transport/dispatch-detail/dispatch-detail.component';
+import { TransportRateComponent } from './transport/transport-rate/transport-rate.component';
+import { DispatchHistoryComponent } from './transport/dispatch-history/dispatch-history.component';
+import { DispatchOrderComponent } from './transport/dispatch-order/dispatch-order.component';
+import { FindTransportComponent } from './transport/find-transport/find-transport.component';
 import {ForgotPasswordComponent} from './login/forgot-password/forgot-password.component';
+import { BargainRequestComponent } from './bargain-request/bargain-request.component';
+import { BargainQuoteComponent } from './bargain-quote/bargain-quote.component';
 
 const routes: Routes = [
   {
@@ -136,6 +147,65 @@ const routes: Routes = [
     }
   },
   {
+    path: 'transport',
+    component: TransportComponent,
+    canActivate: [AuthGuard],
+    children: [
+      {
+        path: 'add',
+        component: ListTransportRateComponent,
+        data: {
+         roles: ['admin', 'seller', 'buyer']
+        }
+      },
+      {
+        path: 'edit/:id',
+        component: ListTransportRateComponent,
+        data: {
+          roles: ['admin', 'seller', 'buyer']
+        }
+      },
+      {
+        path: 'user',
+        component: TransportRateComponent,
+        data: {
+          roles: ['admin', 'seller', 'buyer']
+        }
+      },
+      {
+        path: 'dispatch',
+        component: DispatchDetailComponent,
+        data : {
+          roles: ['admin', 'seller', 'buyer']
+        }
+      },
+      {
+        path: 'dispatchhistory',
+        component: DispatchHistoryComponent,
+        data :{
+          roles: ['admin', 'seller', 'buyer']
+        }
+      },
+      {
+        path: 'dispatchorder',
+        component: DispatchOrderComponent,
+        data: {
+          roles: ['admin', 'seller', 'buyer']
+        }
+      },
+      {
+        path: 'findtransport',
+        component: FindTransportComponent,
+        data: {
+          roles: ['admin', 'seller', 'buyer']
+        }
+      }
+    ],
+    data: {
+      roles: ['admin', 'buyer', 'seller']
+    }
+  },
+  {
     path: 'groupBuying',
     component: GroupBuyingComponent,
     canActivate: [AuthGuard],
@@ -190,6 +260,22 @@ const routes: Routes = [
   {
     path: 'bargainOrder/:id',
     component: BargainOrderComponent,
+    canActivate: [AuthGuard],
+    data: {
+      roles: ['admin','seller','buyer']
+    }
+  },
+  {
+    path: 'bargainQuote/:id',
+    component: BargainQuoteComponent,
+    canActivate: [AuthGuard],
+    data: {
+      roles: ['admin','seller','buyer']
+    }
+  },
+  {
+    path: 'bargainRequest',
+    component: BargainRequestComponent,
     canActivate: [AuthGuard],
     data: {
       roles: ['admin','seller','buyer']

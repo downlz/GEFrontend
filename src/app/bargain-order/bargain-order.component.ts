@@ -4,11 +4,11 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ListingService } from '../services/listing.service';
 import { Listing } from '../model/listing';
 import { UserService } from '../services/user.service';
-import { StateService } from '../services/state.service';
-import { OrderService } from '../services/order.service';
+// import { StateService } from '../services/state.service';
+import { AuthService } from '../services/auth.service';
 import { BargainService } from '../services/bargain.service';
 import { AddressService } from '../services/address.service';
-import { PriceService } from '../services/price.service';
+// import { PriceService } from '../services/price.service';
 import { AppError } from '../common/app-error';
 import { forkJoin } from 'rxjs';
 // import { NgForm } from '@angular/forms';
@@ -22,6 +22,8 @@ import { forkJoin } from 'rxjs';
 })
 export class BargainOrderComponent implements OnInit {
 
+  role: String;
+
   listing: Listing;
   address: any;
   userid: any;
@@ -31,30 +33,31 @@ export class BargainOrderComponent implements OnInit {
   addresses: any;
   state: any = []; //Array<any> = [];
   hideblock: false;
-  price = 0;
-  priceValid = false;
-  showShippingDetails: Boolean = false;
-  lastorderno: number;
   image: String;
+  bargain: any;
+  newrequest: Boolean = false;
   activeBargain: Boolean = false;
   
   constructor(private listingService: ListingService, private userService: UserService,
-    private route: ActivatedRoute, private router: Router, private stateService: StateService,
-    private orderService: OrderService, private modalService: NgbModal,
-    private addressService: AddressService, private priceService: PriceService,
+    private route: ActivatedRoute, private router: Router, 
+    private modalService: NgbModal, private authenticationService: AuthService,
+    private addressService: AddressService, 
     private bargainService: BargainService) { }
 
   ngOnInit() {
+    const role = this.authenticationService.getRole();
+    this.role = role;
+
     this.route.paramMap
     .subscribe(params => {
       const id = params.get('id');
       this.itemid = id;
-      this.getProduct(id);
+      this.getProduct(this.itemid);
     });
-    this.stateService.getAll()
-    .subscribe(response => {
-      this.state = response;
-    });
+    // this.stateService.getAll()
+    // .subscribe(response => {
+    //   this.state = response;
+    // });
     this.userService.get('me')
     .subscribe(response => {
       const res = response as any;
@@ -74,29 +77,29 @@ export class BargainOrderComponent implements OnInit {
         });
         this.bargainService.getBuyerBargain(this.userid,this.itemid)
         .subscribe(response => {
+          this.bargain = response as any;
           if (!response[0]) {
             this.activeBargain = false;
           } else {
             this.activeBargain = true;
+            this.bargain = response[0];
           }
-          console.log(response);
+          // console.log(response);
         });
-
-
     }, (error: Response) => {
       this.router.navigate(['/errorpage']);
       if (error.status === 400) {
         alert(' expected error, post already deleted');
       }
       console.log(error);
-    });  
+    });
+    // this.checkActiveBargain();
   }
 
   getProduct(id) {
     this.listingService.get(id)
     .subscribe(response => {
       this.listing = response as Listing;
-      console.log(this.listing);
     }, (error: Response) => {
       this.router.navigate(['/errorpage']);
       if (error.status === 400) {
@@ -106,40 +109,35 @@ export class BargainOrderComponent implements OnInit {
     });
   }
 
-  createBargain(){
-    // this.orderService.get('orderno')        // Sending url as per API defination
-    //   .subscribe(response => {              // improve coding standards
-    //     const res = response as any;
-    //     this.lastorderno = parseInt(res[0].orderno) + 1;
-    //     // console.log(this.lastorderno);
-    //   // })
-    // const shippingAddress = {
-    //   partyname: f.partyname,
-    //   gstin: f.partygstin,
-    //   address : {
-    //     text: f.address,
-    //     pincode: f.pincode,
-    //     state: f.statedat,
-    //     phone: f.phone,
-    //     addresstype: 'delivery'
-    //   }
-    // }    
+  checkActiveBargain() {
+    this.bargainService.getBuyerBargain(this.userid,this.itemid)
+    .subscribe(response => {
+      this.bargain = response as any;
+      console.log(this.bargain);
+    }, (error: Response) => {
+      this.router.navigate(['/errorpage']);
+      if (error.status === 400) {
+        alert(' expected error, post already deleted');
+      }
+      console.log(error);
+    });
+  }
 
+  createBargain(f) { 
     const BargainData = {
       itemId: this.listing._id,
       buyerId : this.userid,
-      buyerquote : '56'
-      // addressreference: f.shipaddr
+      quantity : f.quantity,
+      buyerquote : f.firstquote
     };
-    // console.log(OrderData);
-
     this.bargainService.create(BargainData)
     .subscribe(response => {
-      alert('Order Placed Successfully');
-      this.router.navigate(['/myOrders']);
+      alert('Bargain request raised to seller');
+      this.router.navigate(['/products']);
     }, (error: AppError) => {
       console.log(error);
       this.router.navigate(['/errorpage']);
     });
   }
+
 }

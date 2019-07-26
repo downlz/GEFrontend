@@ -1,0 +1,158 @@
+<!-- <div class="container"> -->
+<div class="container listingOffsetTextColor" *ngIf="!searchresult">
+  <!-- <div class="error-block alert alert-danger" *ngIf=="submitted"> -->
+  <!-- <div class="spinner-grow loader text-success"></div> -->
+  <form [formGroup]="form" (ngSubmit)="search($event)">
+    <div formGroupName="getTransportRate">
+      <div class="row">
+        <h4>Search for transport</h4>
+      </div>
+      <div class="row">
+        <div class="col-md-3 pl-1" *ngIf="formControls.source">
+          <div class="form-group">
+            <label>Source</label>
+            <select class="form-control" id="source" formControlName="source">
+              <option value=''>Select Source</option>
+              <option *ngFor="let fromcity of cities" [ngValue]="fromcity._id"> {{ fromcity.name }} </option>
+            </select>
+          </div>
+        </div>
+        <div class="col-md-3 pl-1" *ngIf="formControls.destination">
+          <div class="form-group">
+            <label>Destination</label>
+            <select class="form-control" id="destination" formControlName="destination">
+              <option value=''>Select Destination</option>
+              <option *ngFor="let tocity of cities" [ngValue]="tocity._id"> {{ tocity.name }} </option>
+            </select>
+          </div>
+        </div>
+      </div>
+      
+      <div class="row">
+        <button type="submit" class="btn btn-primary">
+          Search
+        </button>
+      </div>
+    </div>
+  </form>
+</div>
+<div class="container">
+  <div class="container listingOffsetTextColor" *ngIf="searchresult">
+    <div class="spinner-grow loader text-success" *ngIf="loading"></div>
+    <h4>Search Results
+      <!-- <a href="findtransport" class="btn btn-primary btn-sm active ButtonAlignRight" role="button" aria-pressed="true">
+        Back to search
+      </a> -->
+      <button type="button" class="btn btn-primary btn-sm ButtonAlignRight" (click)="initializeForm()">Back to
+        search</button>
+    </h4>
+    <table class="table table-hover table-sm" [ngClass]="{'loading' : loading}">
+      <thead>
+        <tr>
+          <th scope="col">Source</th>
+          <th scope="col">Destination</th>
+          <th scope="col">Capacity</th>
+          <th scope="col">Price Quote (in Rs.)</th>
+          <th scope="col">Duration (Hrs)</th>
+          <!-- <th scope="col">Status</th> -->
+          <th scope="col">Details</th>
+          <th scope="col">Contact No</th>
+        </tr>
+
+      </thead>
+      <tbody>
+        <ng-container *ngIf="!data || data.length==0">
+        <tr>
+          <td></td>
+          <td></td>
+          <td></td>
+          <!-- <td *ngIf="auctionType == 'seller' || role =='seller' || role =='buyer'"></td> -->
+          <td>
+            <h6>No active transporter found in this route</h6>
+          </td>
+          <td></td>
+          <td></td>
+        </tr>
+      </ng-container>
+
+        <ng-container *ngFor="let gettransport of data">
+        <!-- ; let i = index" [attr.data-index]="i"> -->
+          <tr>
+            <td>
+              {{ gettransport.from.name}}
+            </td>
+            <td>
+              {{ gettransport.to.name}}
+            </td>
+            <td> {{ gettransport.Capacity}} {{ gettransport.tonnagein }}</td>
+            <td> {{ gettransport.pricequote }}</td>
+            <td> {{ gettransport.duration }}</td>
+            <!-- <td> {{ gettransport.isactive === true ? 'Active' : 'Inactive'  }}</td> -->
+            <td> {{ gettransport.vehicledtl }}</td>
+            <!-- <td>
+
+              <div [@detailExpand]="element == expandedElement ? 'expanded' : 'collapsed'">
+                <p>Test message</p>
+              </div>
+            </td> -->
+            <td><p>
+              <button type="button" class="btn btn-secondary btn-sm"
+                (click)="gettransport.isCollapsed = !gettransport.isCollapsed">
+                <!-- [attr.aria-expanded]="!gettransport.isCollapsed" aria-controls="collapseExample"> -->
+                Details
+              </button>
+            <p>
+            <!-- <div id="collapseExample" [ngbCollapse]="gettransport.isCollapsed"> -->
+              <div [ngbCollapse]="!gettransport.isCollapsed">
+              <div class="card">
+                <div class="card-body">
+                  <p>
+                    Transporter : {{ gettransport.addedby.name}} <br>
+                    Phone : {{ gettransport.addedby.phone}}<br>
+                    Email : {{ gettransport.addedby.email}}
+                  </p>
+                </div>
+              </div>
+            </div>
+            </td>
+            <!-- <td><a class="btn btn-primary" data-toggle="collapse" href="#collapseExample" role="button"
+              aria-expanded="false" aria-controls="collapseExample">
+              See Details
+            </a>
+            <div class="collapse" id="collapseExample">
+              <div class="card card-body">
+                Anim pariatur cliche reprehenderit
+              </div>
+            </div>
+            </td> -->
+            <!-- <td> Phone No </td> -->
+            <!-- <td>
+              <a class="btn btn-primary" [routerLink]="'/transport/edit/'+gettransport._id">
+                Edit
+              </a>
+            </td> -->
+
+            <!-- <td *ngIf="!auctionType">
+                {{ fetchbestbid(bid.auction._id,bid.auction.auctionType) }}
+              </td> -->
+
+          </tr>
+        </ng-container>
+      </tbody>
+    </table>
+    <nav aria-label="Page navigation example" *ngIf="totalPages.length>0">
+      <ul class="pagination">
+        <li class="page-item" [ngClass]="{ 'disabled' : currentPage <= 1}"><a class="page-link"
+            (click)="onPageChange(currentPage-1)">Previous</a>
+        </li>
+        <li class="page-item" [ngClass]="{ 'active' : currentPage== page}" *ngFor="let page of totalPages"><a
+            class="page-link" (click)="onPageChange(page)">{{page}}</a></li>
+        <li class="page-item" [ngClass]="{ 'disabled' : currentPage>=totalPages.length}"><a class="page-link"
+            (click)="onPageChange(currentPage+1)">Next</a>
+        </li>
+      </ul>
+    </nav>
+    <!-- </div> -->
+  </div>
+</div>
+<!-- </div> -->

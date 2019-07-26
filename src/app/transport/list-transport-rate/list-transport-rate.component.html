@@ -1,0 +1,142 @@
+<div class="container listingOffsetTextColor">
+  <!-- <div class="error-block alert alert-danger" *ngIf=="submitted"> -->
+  <!-- <div class="spinner-grow loader text-success"></div> -->
+  <form [formGroup]="form" (ngSubmit)="save($event)">
+    <div formGroupName="newTransportRate">
+      <div class="row">
+        <h4>My Vehicle Rates</h4>
+      </div>
+      <div class="row" *ngIf=edit>
+        <h5><span class="badge badge-secondary">Edit details for {{transportEdit.capacity}} {{transportEdit.tonnagein}}
+            load
+         for {{transportEdit.from.name}} to {{transportEdit.to.name}} </span></h5>
+        <!-- <label>Edit details for {{transportEdit.capacity}} {{transportEdit.tonnagein}} load<br>
+        From - {{transportEdit.from.name}} <br>
+        To - {{transportEdit.to.name}} </label> -->
+      </div>
+      <div class="row">
+        <div class="col-md-3 pl-1" *ngIf="formControls.source">
+          <div class="form-group">
+            <label>Source</label>
+            <select class="form-control" id="source" formControlName="source">
+              <option value=''>Select Source</option>
+              <option *ngFor="let fromcity of cities" [ngValue]="fromcity._id"> {{ fromcity.name }} </option>
+            </select>
+          </div>
+        </div>
+        <div class="col-md-3 pl-1" *ngIf="formControls.destination">
+          <div class="form-group">
+            <label>Destination</label>
+            <select class="form-control" id="destination" formControlName="destination">
+              <option value=''>Select Destination</option>
+              <option *ngFor="let tocity of cities" [ngValue]="tocity._id"> {{ tocity.name }} </option>
+            </select>
+          </div>
+        </div>
+        
+      </div>
+
+      <div class="row">
+        
+        <div class="col-md-3 pl-1" *ngIf="formControls.capacity">
+          <div class="form-group">
+            <label>Capacity</label>
+            <select class="form-control" id="capacity" formControlName="capacity" (ngModelChange)="onCapacityChange($event)">
+              <option value=''>Choose from list</option>
+              <option value=1>1 Tonne</option>
+              <option value=2>2 Tonne</option>
+              <option value=5>5 Tonne</option>
+              <option value=10>10 Tonne</option>
+              <option value=20>20 Tonne</option>
+              <option value=50>50 Tonne</option>
+              <option value="custom">Custom</option></select>
+          </div>
+        </div>
+        <div class="col-md-3 pl-1" *ngIf="formControls.carryingCap">
+          <div class="form-group">
+            <label>Add Capacity</label>
+            <input type="number" id="carryingCap" class="form-control" formControlName="carryingCap"
+              placeholder="Carrying Capacity">
+          </div>
+        </div>
+        <div class="col-md-3 pl-1" *ngIf="formControls.tonnagein">
+          <div class="form-group">
+            <label>Choose Tonnage</label>
+            <select class="form-control" id="tonnagein" formControlName="tonnagein">
+              <option value='Tonne'>Tonne</option>
+              <option value='Quintal'>Quintal</option></select>
+          </div>
+        </div>
+      </div>
+        <div class="row">
+        <div class="col-md-3 pl-1" *ngIf="formControls.duration">
+          <div class="form-group">
+            <label>Expected Delivery Duration (in hrs)</label>
+            <input type="number" id="duration" class="form-control" formControlName="duration"
+                   placeholder="Enter duration in hrs">
+          </div>
+        </div>
+        </div>
+      
+      <div class="row">
+        <div class="col-md-3 pl-1" *ngIf="formControls.pricequote">
+          <div class="form-group">
+            <label>Price Quote</label>
+            <input type="number" id="pricequote" class="form-control" formControlName="pricequote"
+                   placeholder="Price Quote">
+          </div>
+        </div>
+      </div>
+      <div class="row" >
+        <h5>Vehicle Type</h5>
+      </div>
+      <div class="row" >
+        <div class="col-md-6 pl-1" *ngIf="formControls.vehicledtl">
+          <div class="form-group">
+            <input type="text" maxlength="60" id="vehicledtl" class="form-control" formControlName="vehicledtl"
+                   placeholder="Eg. LP 1109 Turbo Truck,Carrier Truck,Container (Optional)">
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-3" *ngIf="formControls.isactive">
+        <div class="form-group">
+          <label>Service Status: </label> <br>
+          <label class="radio">
+            <input type="radio" id="isactive" class="form-control" formControlName="isactive" value='true'
+              checked >
+            Active
+            </label> &nbsp;
+          <label class="radio">
+            <input type="radio" id="isactive" class="form-control" formControlName="isactive" value='false'>
+            Inactive
+            </label>
+          <!-- <input type="radio" id="isactive" class="form-control" formControlName="isactive" value='true'> <label>ABC</label> 
+          <input type="radio" id="isactive" class="form-control" formControlName="isactive" value='false'> Inactive -->
+       </div>
+       </div>
+      </div>
+
+      <!-- <div class="row">
+        <div class="col-sm-3" *ngIf="formControls.isactive">
+          <div class="form-group">
+            <label>Service Active: </label>
+            <label>
+              <input type="radio" id="isactive" class="form-control" formControlName="isactive" value='true'> Active
+              </label> &nbsp;
+            <label class="radio">
+              <input type="radio" id="isactive" class="form-control" formControlName="isactive" value='false'>
+              Inactive</label>
+          </div>
+        </div>
+      </div> -->
+
+      <div class="row">
+        <button type="submit" class="btn btn-primary">
+          Save
+        </button>
+      </div>
+    </div>
+  </form>
+</div>
+<!-- </div> -->

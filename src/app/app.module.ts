@@ -47,8 +47,10 @@ import {ErrorPageComponent} from './error-page/error-page.component';
 import {ProductDetailComponent} from './product-detail/product-detail.component';
 import {OrderNowComponent} from './order-now/order-now.component';
 import {BargainOrderComponent} from './bargain-order/bargain-order.component';
+import {BargainQuoteComponent} from './bargain-quote/bargain-quote.component';
 import {MyOrdersComponent} from './my-orders/my-orders.component';
 import {AllOrdersComponent} from './all-orders/all-orders.component';
+import {BargainRequestComponent} from './bargain-request/bargain-request.component';
 import {GroupBuyingComponent} from './group-buying/group-buying.component';
 import {AddProductsComponent} from './add-products/add-products.component';
 import {ListGBItemComponent} from './listgb-item/listgb-item.component';
@@ -56,6 +58,9 @@ import {OrderCardComponent} from './order-card/order-card.component';
 import {GBOrderCardComponent} from './gborder-card/gborder-card.component';
 import {GBProductDetailComponent} from './gbproduct-detail/gbproduct-detail.component';
 import {GBOrderNowComponent} from './gborder-now/gborder-now.component';
+
+import { FindTransportComponent } from './transport/find-transport/find-transport.component';
+
 import {AuctionComponent} from './auction/auction.component';
 import {SidebarComponent} from './auction/sidebar/sidebar.component';
 import {CreateAuctionComponent} from './auction/create-auction/create-auction.component';
@@ -71,6 +76,13 @@ import {MyBidsComponent} from './auction/my-bids/my-bids.component';
 
 import { BidHistoryComponent } from './auction/bid-history/bid-history.component';
 
+import { TransportComponent } from './transport/transport.component';
+import { TransportSidebarComponent } from './transport/sidebar/sidebar.component';
+import { ListTransportRateComponent } from './transport/list-transport-rate/list-transport-rate.component';
+import { TransportRateComponent } from './transport/transport-rate/transport-rate.component';
+import { DispatchDetailComponent } from './transport/dispatch-detail/dispatch-detail.component';
+import { DispatchHistoryComponent } from './transport/dispatch-history/dispatch-history.component';
+import { DispatchOrderComponent } from './transport/dispatch-order/dispatch-order.component';
 import {ForgotPasswordComponent} from './login/forgot-password/forgot-password.component';
 
 import { AppFooterComponent } from './app-footer/app-footer.component';
@@ -98,9 +110,11 @@ import { AppFooterComponent } from './app-footer/app-footer.component';
     GBProductDetailComponent,
     OrderNowComponent,
     BargainOrderComponent,
+    BargainQuoteComponent,
     GBOrderNowComponent,
     MyOrdersComponent,
     AllOrdersComponent,
+    BargainRequestComponent,
     GroupBuyingComponent,
     AddProductsComponent,
     // AddItemnameComponent,
@@ -120,6 +134,14 @@ import { AppFooterComponent } from './app-footer/app-footer.component';
     PlaceBidComponent,
     MyBidsComponent,
     BidHistoryComponent,
+    TransportComponent,
+    TransportSidebarComponent,
+    ListTransportRateComponent,
+    TransportRateComponent,
+    DispatchDetailComponent,
+    DispatchHistoryComponent,
+    DispatchOrderComponent,
+    FindTransportComponent,
     AppFooterComponent
   ],
   entryComponents: [PlaceBidComponent],

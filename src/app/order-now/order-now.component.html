@@ -19,6 +19,9 @@
                   <h3 class="card-title">{{ listing.name.name }} </h3>
                 </th>
               </tr>
+              <tr *ngIf="activeBargain">
+                <span class="badge badge-secondary">Active bargain in place with seller</span>
+              </tr>
               <tr>
                 <th>Sample Number: {{ listing.sampleNo}}</th>
               </tr>
@@ -128,14 +131,11 @@
           </div>
         <!-- </div> -->
           </form>
-          <div *ngIf="isEligibleForBargain">
-          <!-- <button class="btn btn-primary" *ngIf="isEligibleForBargain">Initiate Bargain</button> -->
-          <a [routerLink]="['/bargainOrder',listing._id]" routerLinkActive="router-link-active" click="checkActiveBargain()" class="btn btn-primary">Initiate Bargain</a>
-          <!-- <a [routerLink]="" routerLinkActive="router-link-active" click="checkActiveBargain()" class="btn btn-primary">Initiate Bargain</a> -->
-        </div>
+          <div *ngIf="isEligibleForBargain"><a [routerLink]="['/bargainOrder',listing._id]" routerLinkActive="router-link-active" click="checkActiveBargain()" class="btn btn-primary">Initiate Bargain</a>
+          </div>
         <div *ngIf="activeBargain">
           <!-- <button class="btn btn-primary" *ngIf="isEligibleForBargain">Initiate Bargain</button> -->
-          <a [routerLink]="['/bargainOrder',bargain._id]" routerLinkActive="router-link-active"  class="btn btn-primary">Check Bargain Status</a>
+          <a [routerLink]="['/bargainQuote',bargain._id]" routerLinkActive="router-link-active"  class="btn btn-primary">Check Bargain Status</a>
         </div>
         </div>
 

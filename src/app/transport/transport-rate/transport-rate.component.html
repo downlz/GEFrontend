@@ -1,0 +1,78 @@
+<div class="container">
+  <div class="container listingOffsetTextColor">
+    <div class="spinner-grow loader text-success" *ngIf="loading"></div>
+    <table class="table table-hover table-sm" [ngClass]="{'loading' : loading}">
+      <thead>
+      <tr>
+        <th scope="col">Source</th>
+        <th scope="col">Destination</th>
+        <th scope="col">Capacity</th>
+        <th scope="col">Price Quotes</th>
+        <th scope="col">Duration</th>
+        <th scope="col">Status</th>
+        <th scope="col">Details</th>
+        <th scope="col">Action</th>
+      </tr>
+
+      </thead>
+      <tbody>
+      <ng-container *ngIf="!data || data.length==0">
+        <tr>
+          <td></td>
+          <td></td>
+          <td *ngIf="auctionType == 'seller' || role =='seller' || role =='buyer'"></td>
+          <td> No Data Found</td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+        </tr>
+      </ng-container>
+      <ng-container *ngFor="let transportrate of data">
+        <tr>
+          <td>
+            {{ transportrate.from.name}}
+          </td>
+          <td>
+            {{ transportrate.to.name}}
+          </td>
+          <td> {{ transportrate.Capacity}} {{ transportrate.tonnagein }}</td>
+          <td> {{ transportrate.pricequote }}</td>
+          <td> {{ transportrate.duration }}</td>
+          <td> {{ transportrate.isactive === true ? 'Active' : 'Inactive'  }}</td>
+          <td> {{ transportrate.vehicledtl }}</td>
+          <td>
+              <!-- <button class="btn btn-primary" (click)='abc()'>
+                Edit
+                </button> -->
+                <a class="btn btn-primary btn-sm" [routerLink]="'/transport/edit/'+transportrate._id">
+                  Edit
+                </a>
+            </td>
+
+            <!-- <td *ngIf="!auctionType">
+                {{ fetchbestbid(bid.auction._id,bid.auction.auctionType) }}
+              </td> -->
+          
+        </tr>
+      </ng-container>
+      </tbody>
+    </table>
+    <nav aria-label="Page navigation example" *ngIf="totalPages.length>0">
+      <ul class="pagination">
+        <li class="page-item" [ngClass]="{ 'disabled' : currentPage <= 1}"><a class="page-link"
+                                                                              (click)="onPageChange(currentPage-1)">Previous</a>
+        </li>
+        <li class="page-item" [ngClass]="{ 'active' : currentPage== page}" *ngFor="let page of totalPages"><a
+          class="page-link"
+          (click)="onPageChange(page)">{{page}}</a></li>
+        <li class="page-item" [ngClass]="{ 'disabled' : currentPage>=totalPages.length}"><a class="page-link"
+                                                                                            (click)="onPageChange(currentPage+1)">Next</a>
+        </li>
+      </ul>
+    </nav>
+  </div>
+</div>
+<!-- <ng-template #content let-modal>
+  <app-bid-history [modal]="modal" [bids]="bidHistoryData" [bid]="bid" [auctionType]="auctionType"></app-bid-history>
+</ng-template> -->

@@ -33,6 +33,8 @@ export class OrderNowComponent implements OnInit {
   priceValid = false;
   showShippingDetails: Boolean = false;
   lastorderno: number;
+  bargainqty: number;
+  bargain: any;
   isEligibleForBargain: Boolean = false;
   activeBargain: Boolean = false;
   constructor(private listingService: ListingService, private userService: UserService,
@@ -69,14 +71,16 @@ export class OrderNowComponent implements OnInit {
           }
           console.log(error);
         });
-        this.bargainService.getBuyerBargain(this.userid,this.itemid)
-        .subscribe( response => {
+        this.bargainService.getBuyerBargain(this.userid, this.itemid)
+        .subscribe(response => {
           if (!response[0]) {
             this.activeBargain = false;
           } else {
             this.activeBargain = true;
+            this.bargain = response[0];
+            // console.log(this.bargain);
           }
-          // console.log(response);
+          
         });
 
 
@@ -121,8 +125,9 @@ export class OrderNowComponent implements OnInit {
     this.priceValid = false;
     // Check bargain eligibility only if no bargain in progress
     if (this.activeBargain === false) {
-      if (qty > this.listing.bargaintrgqty) {
+      if ((qty > this.listing.bargaintrgqty) && (this.listing.bargainenabled === true)) {
         this.isEligibleForBargain = true;
+        this.bargainqty = qty;
       } else {
         this.isEligibleForBargain = false;
       }
@@ -198,10 +203,11 @@ export class OrderNowComponent implements OnInit {
       phone: f.phone,
       addresstype: 'delivery',
       addedby: this.userid,
-      addressreference: f.shipaddr
+      addressreference: f.shipaddr,
+      isExistingAddr: false
     };
     // console.log(OrderData);
-    // console.log(f.shipaddr);
+    console.log(f.shipaddr);
     if (f.shipaddr.addresstype === 'delivery') {
       OrderData.isshippingbillingdiff = true,
       OrderData.partyname = f.shipaddr.addressbasicdtl.partyname,
@@ -212,10 +218,9 @@ export class OrderNowComponent implements OnInit {
       OrderData.phone = f.shipaddr.phone,
       OrderData.addresstype =  'delivery',
       OrderData.addressreference = f.shipaddr
+      OrderData.isExistingAddr = true;
     }
-    console.log(OrderData);
-    OrderData.partyname = f.shipaddr.addressbasicdtl.partyname;
-    console.log(OrderData);
+    // console.log(OrderData);
     this.orderService.create(OrderData)
     .subscribe(response => {
       alert('Order Placed Successfully');

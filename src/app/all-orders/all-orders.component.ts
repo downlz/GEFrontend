@@ -40,7 +40,7 @@ export class AllOrdersComponent implements OnInit {
     // this.myorderService.get(currentUser._id)
 
     // For Admin
-    if (this.role == 'admin'){
+    if (this.role === 'admin') {
     this.orderService.getAll()
     .subscribe(response => {
       this.orders = response as any;
@@ -54,7 +54,7 @@ export class AllOrdersComponent implements OnInit {
       }
       console.log(error);
     });
-    } else if (this.role == 'seller') {
+    } else if (this.role === 'seller') {
       this.myorderService.get(currentUser._id)
       .subscribe(response => {
         this.orders = response as any;
@@ -67,7 +67,7 @@ export class AllOrdersComponent implements OnInit {
           alert(' expected error, post already deleted');
         }
         console.log(error);
-      })
+      });
     }
   }
 
@@ -117,7 +117,7 @@ export class AllOrdersComponent implements OnInit {
   }
 
   updateOrder(order) {
-    if (order.status == "cancelled"){
+    if (order.status === "cancelled"){
       var remarks = prompt("Add cancellation remarks as applicable", ""); 
       order.remarks = remarks;
     }

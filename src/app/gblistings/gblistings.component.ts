@@ -15,14 +15,17 @@ export class GBListingsComponent implements OnInit {
   currentPage = 1;
   data: Array<any>;
   totalPages: Array<Number> = [];
+  loading : boolean;
 
   constructor(private service: GBListingService, private router: Router) { }
 
   ngOnInit() {
+    this.loading = true;
     this.service.getAll()
     // console.log(response);
     .subscribe(response => {
       this.gblistings = response;
+      this.loading = false;
       this.setTotalPages();
       this.onPageChange(this.currentPage);
     }, (error: Response) => {

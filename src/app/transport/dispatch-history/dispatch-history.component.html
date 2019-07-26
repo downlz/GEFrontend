@@ -1,0 +1,53 @@
+<div class="container">
+  <div class="container listingOffsetTextColor">
+    <div class="spinner-grow loader text-success" *ngIf="loading"></div>
+    <table class="table table-hover table-sm" [ngClass]="{'loading' : loading}">
+      <thead>
+        <tr>
+          <th scope="col">Order No.</th>
+          <th scope="col">Vehicle No.</th>
+          <th scope="col">Cost</th>
+          <th scope="col">Dispatch Time</th>
+          <th scope="col">Vehicle Details</th>
+        </tr>
+
+      </thead>
+      <tbody>
+        <ng-container *ngIf="!data || data.length==0">
+        <tr>
+          <td></td>
+          <td></td>
+          <td> No Data Found</td>
+          <td></td>
+          <td></td>
+        </tr>
+      </ng-container>
+        <ng-container *ngFor="let dispatchdtl of data">
+          <tr>
+            <td>
+              {{ dispatchdtl.orderno}}
+            </td>
+            <td>
+              {{ dispatchdtl.vehicleno}}
+            </td>
+            <td> {{ dispatchdtl.transportcost}} </td>
+            <td> {{ dispatchdtl.dispatchtime | date:'dd-MMM-yy hh:mm a' }}</td>
+            <td> {{ dispatchdtl.vehicledtl }}</td>
+          </tr>
+        </ng-container>
+      </tbody>
+    </table>
+    <nav aria-label="Page navigation example" *ngIf="totalPages.length>0">
+      <ul class="pagination">
+        <li class="page-item" [ngClass]="{ 'disabled' : currentPage <= 1}"><a class="page-link"
+            (click)="onPageChange(currentPage-1)">Previous</a>
+        </li>
+        <li class="page-item" [ngClass]="{ 'active' : currentPage== page}" *ngFor="let page of totalPages"><a
+            class="page-link" (click)="onPageChange(page)">{{page}}</a></li>
+        <li class="page-item" [ngClass]="{ 'disabled' : currentPage>=totalPages.length}"><a class="page-link"
+            (click)="onPageChange(currentPage+1)">Next</a>
+        </li>
+      </ul>
+    </nav>
+  </div>
+</div>

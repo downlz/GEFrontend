@@ -16,6 +16,7 @@ export interface Listing {
   grainCount: number;
   grade: string;
   bargaintrgqty: number;
+  bargainenabled: boolean;
   sampleNo: string;
   city: City;
   seller: any;
