@@ -28,6 +28,7 @@ export class DispatchOrderComponent implements OnInit {
   allFormControls: any;
   formControls: any;
   userid: string;
+  role:string;
 
   constructor(private auth: AuthService, 
     private dispatchService: DispatchService, private userService: UserService,
@@ -62,11 +63,10 @@ export class DispatchOrderComponent implements OnInit {
         }
         this.initializeForm();
       });
-
+    this.role = this.auth.getRole();
     this.userService.get('me')
       .subscribe(response => {
         const res = response as any;
-        // this.user = res;
         this.userid = res._id;
       }, (error: Response) => {
         this.router.navigate(['/errorpage']);
@@ -120,41 +120,6 @@ export class DispatchOrderComponent implements OnInit {
       );
   }
 
-  // onCapacityChange() {
-  //   const capacity = this.form.get('dispatchForm.capacity').value;
-  //   this.initializeForm(capacity);
-  // }
-
-  // getTransport(id) {
-  //   // this.loading = true;
-  //   // console.log('ia m here');
-  //   this.transportRate.get(id).subscribe((transport) => {
-  //     // console.log(transport);
-  //     // const currentTimestamp = new Date().getTime();
-  //     // const startTime = new Date(auction['startTime']).getTime();
-  //     // if (currentTimestamp >= startTime) {
-  //     //   alert('This auction is not editable now');
-  //     //   this.router.navigate(['/auction']);
-  //     // }
-  //     this.form.controls.dispatchForm['controls'].duration.setValue(transport['duration']);
-  //     // if (auction['auctionType'] === 'seller') {
-  //     this.form.controls.dispatchForm['controls'].pricequote.setValue(transport['pricequote']);
-  //     this.form.controls.dispatchForm['controls'].vehicledtl.setValue(transport['vehicledtl']);
-  //     this.form.controls.dispatchForm['controls'].isactive.setValue(transport['isactive']);
-  //     // }
-  //     // this.form.controls.dispatchForm['controls'].floorPrice.setValue(auction['floorPrice']);
-  //     // this.form.controls.dispatchForm['controls'].transportCost.setValue(auction['transportCost'] ? 1 : 0);
-  //     // this.loading = false;
-  //   }, error => {
-  //     this.router.navigate(['/errorpage']);
-  //     if (error.status === 400) {
-  //       alert(' expected error, post already deleted');
-  //     }
-  //     // this.loading = false;
-  //     console.log(error);
-  //   });
-  // }
-
   save(event) {
     this.submitted = true;
     event.preventDefault();
@@ -163,15 +128,7 @@ export class DispatchOrderComponent implements OnInit {
       // console.log(dispatchdata);
       if (this.edit) {
         // dispatchdata._id = this.id;
-        // this.transportRate.update(dispatchdata).subscribe((response) => {
-        //   // this.loading = false;
-        //   alert('Transport rate updated successfully');
-        //   this.router.navigate(['/transport/user']);
-
-        // }, err => {
-        //   // this.loading = false;
-        //   alert('There was a server error while updating this transport rate');
-        // });
+        
       } else {
         dispatchdata.addedby = this.userid;
         // delete transportrate.source;
@@ -188,8 +145,6 @@ export class DispatchOrderComponent implements OnInit {
           // this.loading = false;
           alert('There was a server error while listing this transport rate');
         });
-
-
       }
     }
   }

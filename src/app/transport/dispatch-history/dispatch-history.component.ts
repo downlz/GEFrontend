@@ -64,6 +64,21 @@ export class DispatchHistoryComponent implements OnInit {
           }
           console.log(error);
         });
+    } else if (currentUser.isBuyer === true) {
+      this.dispatchService.getuserdispatch(currentUser._id)
+        .subscribe(response => {                            // Repeatitive code block
+          this.loading = false;
+          this.dispatchServices = response as any;
+          this.setTotalPages();
+          this.onPageChange(this.currentPage);
+          this.loading = false;
+        }, (error: Response) => {
+          this.router.navigate(['/errorpage']);
+          if (error.status === 400) {
+            alert(' expected error, post already deleted');
+          }
+          console.log(error);
+        });
     } else {
       this.dispatchService.getuser(currentUser._id)
         .subscribe(response => {                            // Repeatitive code block

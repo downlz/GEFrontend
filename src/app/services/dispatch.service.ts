@@ -19,5 +19,9 @@ export class DispatchService extends DataService {
   getuser(resourceId) {
     return this.http.get(this.url + '/user/' + resourceId);
   }
+
+  getuserdispatch(resourceId) {
+    return this.http.get(this.url + '/userdispatch/' + resourceId);
+  }
   
 }

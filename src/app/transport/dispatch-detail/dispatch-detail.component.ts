@@ -13,7 +13,7 @@ import {ManufacturerService} from '../../services/manufacturer.service';
 export class DispatchDetailComponent implements OnInit {
   auction: any;
   listing: any;
-  activeTab: string = 'dispatchDetails';
+  activeTab: string = 'dispatchHistory';
   loading: boolean = true;
   role: string;
   userId: string;
@@ -26,10 +26,10 @@ export class DispatchDetailComponent implements OnInit {
   ngOnInit() {
     this.role = this.auth.getRole();
     this.userId = this.auth.getId();
-    this.getAuction();
+    this.createTransportDispatch();
   }
 
-  getAuction() {
+  createTransportDispatch() {
     this.route.queryParamMap.subscribe((data) => {
       const tab = data.get('tab');
       if (tab) {
@@ -58,20 +58,5 @@ export class DispatchDetailComponent implements OnInit {
   changeTab(tab) {
     this.activeTab = tab;
   }
-  /**
-   * Get Best Bid
-   */
-  // getBestBid() {
-  //   if (!this.auction) {
-  //     return '';
-  //   }
-  //   // console.log(this.auction);
-  //   if (this.auction) {
-  //     return this.auction.auctionType === 'buyer' ? Math.min.apply(this, (this.auction.bids || []).map((bid) => {
-  //       return isNaN(bid.price) ? 0 : (bid.price*(1-((bid.marketingExpense)/100))).toFixed(2);
-  //     })) : Math.max.apply(this, (this.auction.bids || []).map((bid) => {
-  //       return isNaN(bid.price) ? 0 : bid.price;
-  //     }));
-  //   }
-  // }
+  
 }
