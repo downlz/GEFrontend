@@ -1,7 +1,4 @@
-<!-- <div class="container"> -->
 <div class="container listingOffsetTextColor" *ngIf="!searchresult">
-  <!-- <div class="error-block alert alert-danger" *ngIf=="submitted"> -->
-  <!-- <div class="spinner-grow loader text-success"></div> -->
   <form [formGroup]="form" (ngSubmit)="search($event)">
     <div formGroupName="getTransportRate">
       <div class="row">
@@ -40,9 +37,6 @@
   <div class="container listingOffsetTextColor" *ngIf="searchresult">
     <div class="spinner-grow loader text-success" *ngIf="loading"></div>
     <h4>Search Results
-      <!-- <a href="findtransport" class="btn btn-primary btn-sm active ButtonAlignRight" role="button" aria-pressed="true">
-        Back to search
-      </a> -->
       <button type="button" class="btn btn-primary btn-sm ButtonAlignRight" (click)="initializeForm()">Back to
         search</button>
     </h4>
@@ -84,7 +78,7 @@
             <td>
               {{ gettransport.to.name}}
             </td>
-            <td> {{ gettransport.Capacity}} {{ gettransport.tonnagein }}</td>
+            <td> {{ gettransport.capacity}} {{ gettransport.tonnagein }}</td>
             <td> {{ gettransport.pricequote }}</td>
             <td> {{ gettransport.duration }}</td>
             <!-- <td> {{ gettransport.isactive === true ? 'Active' : 'Inactive'  }}</td> -->
@@ -115,27 +109,6 @@
               </div>
             </div>
             </td>
-            <!-- <td><a class="btn btn-primary" data-toggle="collapse" href="#collapseExample" role="button"
-              aria-expanded="false" aria-controls="collapseExample">
-              See Details
-            </a>
-            <div class="collapse" id="collapseExample">
-              <div class="card card-body">
-                Anim pariatur cliche reprehenderit
-              </div>
-            </div>
-            </td> -->
-            <!-- <td> Phone No </td> -->
-            <!-- <td>
-              <a class="btn btn-primary" [routerLink]="'/transport/edit/'+gettransport._id">
-                Edit
-              </a>
-            </td> -->
-
-            <!-- <td *ngIf="!auctionType">
-                {{ fetchbestbid(bid.auction._id,bid.auction.auctionType) }}
-              </td> -->
-
           </tr>
         </ng-container>
       </tbody>
@@ -152,7 +125,5 @@
         </li>
       </ul>
     </nav>
-    <!-- </div> -->
   </div>
 </div>
-<!-- </div> -->

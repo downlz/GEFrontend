@@ -54,7 +54,7 @@ export class ListTransportRateComponent implements OnInit {
         Validators.required,
       ]),
       vehicledtl: new FormControl('', [
-        Validators.required,
+        Validators.maxLength(50)
       ]),
       isactive: new FormControl('true', [
         Validators.required,
@@ -90,7 +90,6 @@ export class ListTransportRateComponent implements OnInit {
 
   initializeForm(capacity?: string) {
     let controls: any;
-    // let capacity: any;
     if (!this.edit) {
     if (capacity === 'custom') {
       controls = [
@@ -104,20 +103,16 @@ export class ListTransportRateComponent implements OnInit {
         'vehicledtl'
       ];
     } else {
-      // console.log("Hello")
       controls = [
         'source',
         'destination',
         'capacity',
-        // 'carryingCap',
-        // 'tonnagein',
         'duration',
         'pricequote',
         'vehicledtl'
       ];
     }
   } else {
-    // console.log("In edit model");
       controls = [
         'duration',
         'pricequote',
@@ -167,7 +162,7 @@ export class ListTransportRateComponent implements OnInit {
     // console.log('ia m here');
     this.transportRate.get(id).subscribe((transport) => {
       this.transportEdit = transport;
-      console.log(this.transportEdit);
+      // console.log(this.transportEdit);
       // const currentTimestamp = new Date().getTime();
       // const startTime = new Date(auction['startTime']).getTime();
       // if (currentTimestamp >= startTime) {
@@ -219,18 +214,17 @@ export class ListTransportRateComponent implements OnInit {
         delete transportrate.destination;
 
         // this.loading = true;
-        console.log(transportrate);
+        // console.log(transportrate);
         this.transportRate.create(transportrate).subscribe((response) => {
           // this.loading = false;
           alert('Transport rate added successfully');
-          this.router.navigate(['/transport/add']);
+          this.router.navigate(['/transport/user']);
 
         }, err => {
           console.log(err);
           // this.loading = false;
           alert('There was a server error while listing this transport rate');
         });
-
 
       }
     }

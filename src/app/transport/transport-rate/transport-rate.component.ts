@@ -2,10 +2,7 @@ import {Component, Input, OnChanges, OnInit} from '@angular/core';
 import {AuthService} from '../../services/auth.service';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {TransportRateService} from '../../services/transportrate.service';
-// import {BidService} from '../../services/bid.service';
 import { ActivatedRoute, Router } from '@angular/router';
-// import {OrderService} from '../../services/order.service';
-// import {ManufacturerService} from '../../services/manufacturer.service';
 import { ToastrService } from 'ngx-toastr';
 
 @Component({
@@ -39,8 +36,9 @@ export class TransportRateComponent implements OnInit, OnChanges {
   loading: boolean;
 
   constructor(private auth: AuthService, 
-    private transportRate: TransportRateService, 
-    private modalService: NgbModal, private toastr: ToastrService,
+    private transportRate: TransportRateService,
+    // private modalService: NgbModal, 
+    private toastr: ToastrService,
     private router: Router ) {
     this.role = auth.getRole();
     this.userId = auth.getId();

@@ -35,20 +35,24 @@ export class ListingsComponent implements OnInit {
   currentPage = 1;
   data: Array<any>;
   totalPages: Array<Number> = [];
+  loading: boolean;
 
   constructor(private listingService: ListingService, private cityService: CityService,
     private itemnameService: ItemnameService, private manufacturerService: ManufacturerService,
     private router: Router) { }
 
   ngOnInit() {
+    this.loading = true;
     this.listingService.getAll(this.queryParams)
     .subscribe(response => {
       this.listings = response;
       // this.data = this.listings;
       this.setTotalPages();
       this.onPageChange(this.currentPage);
+      this.loading = false;
       // console.log(this.listings);
     }, (error: Response) => {
+        this.loading = false;
       this.router.navigate(['/errorpage']);
       if (error.status === 400) {
         alert(' expected error, post already deleted');

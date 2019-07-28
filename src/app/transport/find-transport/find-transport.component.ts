@@ -46,15 +46,7 @@ export class FindTransportComponent implements OnInit {
     private auth: AuthService, private transportRate: TransportRateService,
     private router: Router) {
     
-    //   animations: [
-    //   trigger('detailExpand', [
-    //     state('collapsed', style({ height: '0px', minHeight: '0', display: 'none' })),
-    //     state('expanded', style({ height: '*' })),
-    //     transition('expanded <=> collapsed', animate('225ms cubic-bezier(0.4, 0.0, 0.2, 1)')),
-    //   ]),
-    // ];
-
-    this.allFormControls = {
+      this.allFormControls = {
       source: new FormControl('', [
         Validators.required,
       ]),
@@ -92,29 +84,10 @@ export class FindTransportComponent implements OnInit {
 
     this.role = this.auth.getRole();
     this.userId = this.auth.getId();
-    // this.getAuction();
     this.initializeForm();
     // this.searchresult = false;
   }
 
-  // getAuction() {
-  //   this.route.queryParamMap.subscribe((data) => {
-  //     const tab = data.get('tab');
-  //     if (tab) {
-  //       this.activeTab = tab;  
-  //     }
-  //     this.loading = false;
-  //   });
-  // }
-
-  // changeTab(tab) {
-  //   this.activeTab = tab;
-  // }
-
-//   NgbdCollapseBasic() {
-//   this.isCollapsed = false;
-// }
-  
   search(event) {
     // this.submitted = true;
     event.preventDefault();

@@ -7,8 +7,6 @@ import {NotFoundError} from '../common/not-found-error';
 import { environment } from '../../environments/environment';
 import {catchError} from 'rxjs/operators';
 import 'rxjs/add/operator/map';
-
-
 @Injectable({
   providedIn: 'root'
 })
@@ -27,6 +25,14 @@ export class AuthService {
           this.role = 'admin';
         } else if (currentUser.isSeller) {
           this.role = 'seller';
+        } else if (currentUser.isTransporter) {
+          this.role = 'transporter';
+        } else if (currentUser.isAgent) {
+          this.role = 'agent';
+        } else if (currentUser.isNbfc) {
+          this.role = 'nbfc';
+        } else if (currentUser.isBank) {
+          this.role = 'bank';
         } else {
           this.role = 'buyer';
         }
