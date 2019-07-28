@@ -22,10 +22,10 @@
         <table class="table">
           <tbody>
             <tr *ngIf="order.quantity>0">
-              <td>Quantity: {{order.quantity}} Kg </td>
+              <td>Quantity: {{order.quantity}} {{order.unit}} </td>
             </tr>
             <tr *ngIf="order.quantity>0">
-              <td>{{order.cost ? "Cost: Rs. " + order.cost.toFixed(2) : '' }}<span *ngIf = "order.ordertype!=='groupbuying'" class="ItemTextDtl" > {{'  '}}*Transportation cost extra </span></td>
+              <td>{{order.cost ? "Cost: Rs. " + order.cost.toFixed(2) : '' }}<span *ngIf = "order.ordertype!=='groupbuying'" class="ItemTextDtl" > {{'  '}}*Excluding Taxes. **Transportation cost extra.</span></td>
             </tr>
             <tr *ngIf="order.quantity==0">
               <td>Sample order</td>

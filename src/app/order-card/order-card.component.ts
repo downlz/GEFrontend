@@ -58,7 +58,7 @@ export class OrderCardComponent implements OnInit {
       console.log(shippingAddr);
       // return shippingAddr;
     } else if (this.order.isshippingbillingdiff == false) {
-      console.log("I am here");
+      // console.log("I am here");
       const shippingAddr = {
         party : this.order.buyer.name,
         gstin : this.order.buyer.GST,
@@ -69,9 +69,9 @@ export class OrderCardComponent implements OnInit {
         phone : this.order.buyer.phone
     }
       console.log(shippingAddr);
-      console.log(this.order);
+      // console.log(this.order);
     } else {
-      console.log("I am here");
+      // console.log("I am here");
       const shippingAddr = {
         party : this.order.buyer.name,
         gstin : this.order.buyer.GST,

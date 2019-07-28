@@ -1,0 +1,70 @@
+<div class="container listingOffsetTextColor">
+  <!-- <div class="error-block alert alert-danger" *ngIf=="submitted"> -->
+  <!-- <div class="spinner-grow loader text-success"></div> -->
+  <form [formGroup]="form" (ngSubmit)="save($event)">
+    <div formGroupName="dispatchForm">
+      <div class="row">
+        <h4>Add Dispatch details</h4>
+      </div>
+
+      <div class="row">
+        <div class="col-md-3 pl-1" *ngIf="formControls.orderno">
+          <div class="form-group">
+            <label>Order No</label>
+            <input type="text" id="orderno" class="form-control" formControlName="orderno"
+              placeholder="Enter order no.">
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+         <div class="col-md-3 pl-1" *ngIf="formControls.vehicleno">
+           <div class="form-group">
+             <label>Vehicle No.</label>
+             <input type="text" id="vehicleno" class="form-control" formControlName="vehicleno"
+               placeholder="Vehicle No.">
+           </div>
+         </div>
+      </div>
+
+      <div class="row">
+     <div class="col-md-3 pl-1" *ngIf="formControls.dispatchtime">
+       <div class="form-group">
+         <label>Planned Departure</label><br>
+         <input class="form-control" [owlDateTime]="dt2" [owlDateTimeTrigger]="dt2" id="dispatchtime"
+           formControlName="dispatchtime" placeholder="Date Time" [max]="maxEndDateTime">
+         <owl-date-time #dt2></owl-date-time>
+       </div>
+     </div>
+     </div>
+
+      <div class="row">
+        <div class="col-md-3 pl-1" *ngIf="formControls.transportcost">
+          <div class="form-group">
+            <label>Transport Charge</label>
+            <input type="number" id="transportcost" class="form-control" formControlName="transportcost"
+              placeholder="Transport Cost">
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <h4>Vehicle Type</h4>
+      </div>
+      <div class="row">
+        <div class="col-md-6 pl-1" *ngIf="formControls.vehicledtl">
+          <div class="form-group">
+            <!-- <label>Remarks</label> -->
+            <input type="text" maxlength="60" id="vehicledtl" class="form-control" formControlName="vehicledtl"
+              placeholder="Eg. LP 1109 Turbo Truck,Carrier Truck,Container (Optional)">
+          </div>
+        </div>
+      </div>
+      
+      <div class="row">
+        <button type="submit" class="btn btn-primary" [disabled]="!form.valid">
+          Save
+        </button>
+      </div>
+    </div>
+  </form>
+</div>

@@ -116,8 +116,10 @@
           <li ngbDropdown class="nav-item dropdown" *ngIf="loggedIn()">
             <a ngbDropdownToggle class="nav-link dropdown-toggle" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">User</a>
             <div ngbDropdownMenu class="dropdown-menu " aria-labelledby="dropdown01">
-              <a class="dropdown-item nav-link" routerLink="/myOrders" *ngIf="!isSeller">My Orders</a>
-              <a class="dropdown-item nav-link" routerLink="/auction" >Auction</a>
+              <a class="dropdown-item nav-link" routerLink="/myOrders" *ngIf="!isSeller || !isTransporter">My Orders</a>
+              <a class="dropdown-item nav-link" routerLink="/auction" *ngIf="!isTransporter">Auction</a>
+              <a class="dropdown-item nav-link" routerLink="/bargainRequest" *ngIf="!isTransporter">Bargain Request</a>
+              <a class="dropdown-item nav-link" routerLink="/transport/findtransport">Transport</a>
               <a class="dropdown-item nav-link" routerLink="/allOrders" *ngIf="isAdmin || isSeller ">Manage Orders</a>
               <a class="dropdown-item nav-link" routerLink="/addProducts" *ngIf="isAdmin">Manage Products</a>
               <a class="dropdown-item nav-link" routerLink="/groupBuying" *ngIf="isAdmin">Group Buying</a>

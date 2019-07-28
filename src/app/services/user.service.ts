@@ -24,7 +24,7 @@ export class UserService extends DataService {
         pan: pan,
         gstin: gstin,
         password: password
-      })
+      });
   }
 }
 

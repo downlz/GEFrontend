@@ -31,6 +31,8 @@ export class RegistrationComponent implements OnInit {
       'city' : new FormControl('', [Validators.required]),
       'state' : new FormControl('', [Validators.required]),
       'pin' : new FormControl('', [Validators.required])
+        // Validators.minLength(6),
+        // Validators.maxLength(6)])
     })
   });
 
@@ -89,6 +91,10 @@ export class RegistrationComponent implements OnInit {
   get state () {
     return this.form.get('account.state');
   }
+
+  // get pin () {
+  //   return this.form.get('account.pin');
+  // }
 
   login() {
     const formData = {

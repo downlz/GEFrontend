@@ -15,6 +15,8 @@ export interface Listing {
   moisture: number;
   grainCount: number;
   grade: string;
+  bargaintrgqty: number;
+  bargainenabled: boolean;
   sampleNo: string;
   city: City;
   seller: any;

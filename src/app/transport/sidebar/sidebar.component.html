@@ -1,0 +1,21 @@
+<nav class="sidebar" *ngIf="role">
+  <ul class="list-unstyled components">
+    <li>
+      <a class="nav-link scrollto p" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }"
+        routerLink="/transport/findtransport">Find Transporter</a>
+    </li>
+    <li *ngIf="role=='admin' || role=='transporter'">
+      <a class="nav-link scrollto p" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }"
+        routerLink="/transport/add">List Transport Rate</a>
+    </li>
+    <li *ngIf="role=='admin' || role=='transporter'">
+      <a class="nav-link scrollto p" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }"
+        routerLink="/transport/user">My Listings</a>
+    </li>
+    <li *ngIf="role=='admin' || role=='transporter' || role=='buyer'">
+      <a class="nav-link scrollto p" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }"
+        routerLink="/transport/dispatch">Order Dispatch</a>
+    </li>
+    
+  </ul>
+</nav>

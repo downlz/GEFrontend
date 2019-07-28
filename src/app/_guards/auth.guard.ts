@@ -36,6 +36,18 @@ export class AuthGuard implements CanActivate {
           if ((roles[i] === 'emp1') && (currentUser.isEmp1)) {
             allowed = true;
           }
+          if ((roles[i] === 'transporter') && (currentUser.isTransporter)) {
+            allowed = true;
+          }
+          if ((roles[i] === 'agent') && (currentUser.isAgent)) {
+            allowed = true;
+          }
+          if ((roles[i] === 'nbfc') && (currentUser.isNbfc)) {
+            allowed = true;
+          }
+          if ((roles[i] === 'bank') && (currentUser.isBank)) {
+            allowed = true;
+          }
         }
 
         if (!allowed) {
