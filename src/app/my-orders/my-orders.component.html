@@ -2,7 +2,7 @@
   <div class="container listingOffsetTextColor">
     <div class="spinner-grow loader text-success" *ngIf="loading"></div>
     <div class="row">
-      <h4>Showing your orders</h4>
+      <h5 *ngIf="!loading">Showing your orders</h5>
     </div>
     <!-- <div [ngClass]="{'loading' : loading}" *ngIf="!loading"> -->
     <ng-container *ngFor="let order of data">

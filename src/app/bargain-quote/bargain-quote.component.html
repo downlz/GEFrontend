@@ -104,7 +104,7 @@
                           <button class="btn btn-primary" *ngIf="(role==userTurn || role == 'admin') && (bargain.bargainstatus !== 'lastbestprice')" (click)="counterBargain()" >Counter</button> &nbsp; &nbsp;
                           <button class="btn btn-success" (click)="acceptBargain()">Accept</button> &nbsp; &nbsp;
                           <button class="btn btn-danger"  (click)="rejectBargain()" >Reject</button> &nbsp; &nbsp;
-                          <button class="btn btn-warning" *ngIf="role=='seller' || role == 'admin'" (click)="pauseBargain()">Pause</button>
+                          <!-- <button class="btn btn-warning" *ngIf="role=='seller' || role == 'admin'" (click)="pauseBargain()">Pause</button> -->
                         </div>
         </div>
         </div>

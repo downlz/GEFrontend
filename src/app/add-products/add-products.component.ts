@@ -66,10 +66,13 @@ export class AddProductsComponent implements OnInit {
       city:    new FormControl,
       origin:    new FormControl,
       address:    new FormControl,
-      itemstatus: new FormControl,
+      itemstatus: new FormControl( 'true', [
+        Validators.required]),
       icumsa: new FormControl,
       manufacturer: new FormControl,
-      image: new FormControl
+      image: new FormControl,
+      istaxable: new FormControl('true', [
+        Validators.required])
     })
   });
   cities: any;
@@ -136,7 +139,8 @@ export class AddProductsComponent implements OnInit {
            addressId:    this.form.value.newitem.address,
            isLive: this.form.value.newitem.itemstatus,
            manufacturerId:    this.form.value.newitem.manufacturer,
-           image: JSON.parse(response).message
+           image: JSON.parse(response).message,
+           isTaxable: this.form.value.newitem.istaxable
          };
 
          this.itempost.create(formData)
@@ -193,6 +197,10 @@ export class AddProductsComponent implements OnInit {
 
   get manufacturer () {
     return this.form.get('newitem.manufacturer');
+  }
+
+  get istaxable() {
+    return this.form.get('newitem.istaxable');
   }
 
   onItemChange(datain2) {

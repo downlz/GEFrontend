@@ -38,10 +38,11 @@
                   <input required ngModel name="quantity" #quantity="ngModel" id="quantity"
                   type="number" class="form-control"  (keyup)="onQuantityChange(quantity.value)">
                 </div>
-                <div *ngIf="quantity.touched && (!quantity.valid || exceededMaxQty || exceededAvlQty)">
+                <div *ngIf="quantity.touched && (!quantity.valid || exceededMaxQty || exceededAvlQty || belowMinQty)">
                   <div class='alrt' *ngIf="!quantity.valid">  Quantity is required </div>
                   <div class='alrt' *ngIf="exceededMaxQty"> Quantity cannot exceed {{gblisting.maxqty}}</div>
                   <div class='alrt' *ngIf="exceededAvlQty"> Quantity cannot exceed available Qty </div>
+                  <div class='alrt' *ngIf="belowMinQty"> Quantity is below minimum order quantity of {{gblisting.moq}} </div>
                 </div>
             </div>
             <div>
