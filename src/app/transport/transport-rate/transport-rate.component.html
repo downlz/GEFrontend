@@ -1,7 +1,8 @@
 <div class="container">
   <div class="container listingOffsetTextColor">
     <div class="spinner-grow loader text-success" *ngIf="loading"></div>
-    <table class="table table-hover table-sm" [ngClass]="{'loading' : loading}">
+    <h5 *ngIf="!loading">Routes and Price Quotes</h5>
+    <table class="table table-hover table-sm" [ngClass]="{'loading' : loading}" *ngIf="!loading">
       <thead>
       <tr>
         <th scope="col">Source</th>

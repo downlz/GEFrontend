@@ -3,9 +3,8 @@ import { FormGroup, FormControl, Validators, ValidationErrors, ValidatorFn, Abst
 // import { animate, state, style, transition, trigger } from '@angular/animations';
 import {ActivatedRoute, Router} from '@angular/router';
 // import {AuctionService} from '../services/auction.service';
-import {forkJoin} from 'rxjs';
+// import {forkJoin} from 'rxjs';
 import {AuthService} from '../../services/auth.service';
-// import {ManufacturerService} from '../services/manufacturer.service';
 import { CityService } from '../../services/city.service';
 import { TransportRateService } from '../../services/transportrate.service';
 

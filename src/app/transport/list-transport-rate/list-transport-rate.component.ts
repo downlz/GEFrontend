@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {FormGroup, FormControl, Validators, ValidationErrors, ValidatorFn, AbstractControl} from '@angular/forms';
 import {ActivatedRoute, Router} from '@angular/router';
-import {forkJoin} from 'rxjs';
+// import {forkJoin} from 'rxjs';
 import {AuthService} from '../../services/auth.service';
 import { CityService } from '../../services/city.service';
 import { UserService } from '../../services/user.service';

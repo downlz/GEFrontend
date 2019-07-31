@@ -4,7 +4,7 @@
       <div class="row">
         <h4>Showing All bargain details</h4>
       </div>
-        <table class="table table-hover table-sm" [ngClass]="{'loading' : loading}">
+        <table class="table table-hover table-sm" [ngClass]="{'loading' : loading}" *ngIf="!loading">
             <thead>
               <tr>
                 <th scope="col">Item</th>
@@ -39,8 +39,8 @@
                 <td></td>
                 <td></td>
                 <td> No Data Found </td>
-                <td></td>
-                <td></td>
+                <td *ngIf="role == 'admin'"></td>
+                <td *ngIf="role == 'admin'"></td>
                 <td></td>
                 <td></td>
               </tr>

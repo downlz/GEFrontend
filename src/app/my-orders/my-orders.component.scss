@@ -3,3 +3,11 @@
   color: black;
   padding-left: 20px;
 }
+
+.loader {
+  z-index: 2;
+  margin: auto;
+  position: absolute;
+  left: 50%;
+  top: 40%;
+}

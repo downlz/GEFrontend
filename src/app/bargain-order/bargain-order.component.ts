@@ -10,10 +10,7 @@ import { BargainService } from '../services/bargain.service';
 import { AddressService } from '../services/address.service';
 // import { PriceService } from '../services/price.service';
 import { AppError } from '../common/app-error';
-import { forkJoin } from 'rxjs';
-// import { NgForm } from '@angular/forms';
-
-// declare var conversationalForm: any;
+// import { forkJoin } from 'rxjs';
 
 @Component({
   selector: 'app-bargain-order',
@@ -40,7 +37,7 @@ export class BargainOrderComponent implements OnInit {
   
   constructor(private listingService: ListingService, private userService: UserService,
     private route: ActivatedRoute, private router: Router, 
-    private modalService: NgbModal, private authenticationService: AuthService,
+    private authenticationService: AuthService,
     private addressService: AddressService, 
     private bargainService: BargainService) { }
 
@@ -130,14 +127,18 @@ export class BargainOrderComponent implements OnInit {
       quantity : f.quantity,
       buyerquote : f.firstquote
     };
-    this.bargainService.create(BargainData)
-    .subscribe(response => {
-      alert('Bargain request raised to seller');
-      this.router.navigate(['/products']);
-    }, (error: AppError) => {
-      console.log(error);
-      this.router.navigate(['/errorpage']);
-    });
+    if (f.quantity < this.listing.bargaintrgqty) {
+        alert('Order quantity is less than minimum allowed quantity')
+  } else {
+      this.bargainService.create(BargainData)
+        .subscribe(response => {
+          alert('Bargain request raised to seller');
+          this.router.navigate(['/products']);
+        }, (error: AppError) => {
+          console.log(error);
+          this.router.navigate(['/errorpage']);
+        });
   }
+}
 
 }

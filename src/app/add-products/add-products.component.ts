@@ -96,7 +96,7 @@ export class AddProductsComponent implements OnInit {
       this.manufacturers = response[4];
       this.sellers = response[5];
       this.units = response[6];
-      this.addresses = response[7];
+      // this.addresses = response[7];
     }, (error: Response) => {
       this.router.navigate(['/errorpage']);
       if (error.status === 400) {
@@ -123,7 +123,7 @@ export class AddProductsComponent implements OnInit {
            grade:    this.form.value.newitem.grade,
            grainCount:    this.form.value.newitem.graincount,
            price:   this.form.value.newitem.price,
-           sellerId:    this.form.value.newitem.seller,
+           sellerId:    this.form.value.newitem.seller._id,
            unitId:    this.form.value.newitem.unit,
            qty:    this.form.value.newitem.qty,
            specs: {
@@ -198,7 +198,6 @@ export class AddProductsComponent implements OnInit {
   onItemChange(datain2) {
     let item = this.form.get('newitem.itemname').value;
     this.categories = [];
-    // this.listings = [];
     this.categoryService.getCategoriesByItem(item).subscribe((response) => {
       this.categories = response;
     }, (error: Response) => {
@@ -207,16 +206,17 @@ export class AddProductsComponent implements OnInit {
 
   }
 
-  // onCategoryChange(datain) {
-  //   this.listings = [];
-  //   let category = this.form.get('newItem.itemCategory').value;
-  //   this.listingService.getListingsByCategory(category).subscribe((response) => {
-  //     this.listings = response;
-  //     console.log(this.listings);
-  //   }, (error: Response) => {
-  //     console.log(error);
-  //   });
-  // }
+  onSellerChange(selectedseller){
+    // console.log(selectedseller);
+    // console.log(phone);
+    // let selectedseller = this.form.get('newitem.seller').value;
+    this.addresses = [];
+    this.addressService.getUserAddr(selectedseller._id, selectedseller.phone).subscribe((response) => {
+      this.addresses = response as any;
+    }, (error: Response) => {
+      console.log(error);
+    });
+  }
 
   addproduct() {                                    // Currently no in use and needs to be corrected in future
     console.log("Do Nothing");

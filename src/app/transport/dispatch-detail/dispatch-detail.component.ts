@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {AuctionService} from '../../services/auction.service';
-import {forkJoin} from 'rxjs';
+// import {forkJoin} from 'rxjs';
 import {AuthService} from '../../services/auth.service';
 import {ManufacturerService} from '../../services/manufacturer.service';
 
