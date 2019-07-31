@@ -1,4 +1,5 @@
 <div class="container listingOffsetTextColor" *ngIf="!searchresult">
+  <div class="spinner-grow loader text-success" *ngIf="loading"></div>
   <form [formGroup]="form" (ngSubmit)="search($event)">
     <div formGroupName="getTransportRate">
       <div class="row">

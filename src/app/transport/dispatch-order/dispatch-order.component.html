@@ -1,6 +1,6 @@
 <div class="container listingOffsetTextColor">
   <!-- <div class="error-block alert alert-danger" *ngIf=="submitted"> -->
-  <!-- <div class="spinner-grow loader text-success"></div> -->
+  <!-- <div class="spinner-grow loader text-success" *ngIf="loading"></div> -->
   <form [formGroup]="form" (ngSubmit)="save($event)">
     <div formGroupName="dispatchForm">
       <div class="row">

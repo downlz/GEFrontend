@@ -22,7 +22,7 @@ export class DispatchOrderComponent implements OnInit {
   cities: any;
   states: any;
   edit: boolean;
-  loading: boolean = true;
+  loading: boolean;
   submitted: boolean;
   id: string;
   allFormControls: any;
@@ -98,6 +98,7 @@ export class DispatchOrderComponent implements OnInit {
     this.form = new FormGroup({
       dispatchForm: new FormGroup(formControls)
     });
+    // this.loading = false;
   }
 
   ngOnInit() {
@@ -105,6 +106,7 @@ export class DispatchOrderComponent implements OnInit {
     //   .subscribe(response => {
     //     this.cities = response;
     //   });
+    // this.loading = true;
     this.route.paramMap
       .subscribe(async params => {
         const id = params.get('id');
@@ -112,6 +114,7 @@ export class DispatchOrderComponent implements OnInit {
           this.id = id;
           this.edit = true;
           await this.dispatchService.get(id);
+          this.loading = false;
         } else {
           this.edit = false;
         }

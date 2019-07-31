@@ -19,7 +19,7 @@ export class FindTransportComponent implements OnInit {
   auction: any;
   listing: any;
   // activeTab: string = 'dispatchDetails';
-  loading: boolean;
+  loading: boolean = true;
   role: string;
   userId: string;
   cities: any;
@@ -59,7 +59,6 @@ export class FindTransportComponent implements OnInit {
   initializeForm() {
     let controls: any;
     this.searchresult = false;
-    this.loading = true;
       controls = [
         'source',
         'destination'
@@ -74,9 +73,11 @@ export class FindTransportComponent implements OnInit {
     this.form = new FormGroup({
       getTransportRate: new FormGroup(formControls)
     });
+    this.loading = false;
   }
   
   ngOnInit() {
+    // this.loading = true;
     this.cityService.getAll()
       .subscribe(response => {
         this.cities = response;
@@ -109,7 +110,6 @@ export class FindTransportComponent implements OnInit {
         }, err => {
           console.log(err);
           this.loading = false;
-          // this.loading = false;
           alert('There was a server error while listing this transport rate');
         });
       }

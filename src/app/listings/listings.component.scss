@@ -4,6 +4,14 @@
   padding-left: 9.5%;
 }
 
-// .ItemCardContainer {
-//   padding: 10px;
-// }
+.ItemCardContainer {
+  padding: 10px;
+}
+
+.loader {
+  z-index: 2;
+  margin: auto;
+  position: absolute;
+  left: 50%;
+  top: 40%;
+}
