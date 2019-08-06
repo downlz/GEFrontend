@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import { FormGroup, FormControl, Validators, ValidationErrors, ValidatorFn, AbstractControl } from '@angular/forms';
-// import { animate, state, style, transition, trigger } from '@angular/animations';
+import { animate, state, style, transition, trigger } from '@angular/animations';
 import {ActivatedRoute, Router} from '@angular/router';
 // import {AuctionService} from '../services/auction.service';
 // import {forkJoin} from 'rxjs';

@@ -136,7 +136,6 @@
               routerLinkActive="router-link-active" click="checkActiveBargain()" class="btn btn-secondary">Initiate
               Bargain</a>
           </div>
-          <br>
         <div *ngIf="activeBargain">
           <!-- <button class="btn btn-primary" *ngIf="isEligibleForBargain">Initiate Bargain</button> -->
           <a [routerLink]="['/bargainQuote',bargain._id]" routerLinkActive="router-link-active"
