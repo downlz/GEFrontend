@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, NavigationEnd } from '@angular/router';
 import {AuthService} from '../services/auth.service';
+import { trigger, style, animate, transition } from '@angular/animations';
 // import { BrowserModule } from '@angular/platform-browser';
 // import { NgModule } from '@angular/core';
 
@@ -9,7 +10,21 @@ import {AuthService} from '../services/auth.service';
 @Component({
   selector: 'app-nav-bar',
   templateUrl: './nav-bar.component.html',
-  styleUrls: ['./nav-bar.component.scss']
+  styleUrls: ['./nav-bar.component.scss'],
+  animations: [
+    trigger(
+      'enterAnimation', [
+        transition(':enter', [
+          style({ transform: 'translateX(100%)', opacity: 0 }),
+          animate('500ms', style({ transform: 'translateX(0)', opacity: 1 }))
+        ]),
+        transition(':leave', [
+          style({ transform: 'translateX(0)', opacity: 1 }),
+          animate('500ms', style({ transform: 'translateX(100%)', opacity: 0 }))
+        ])
+      ]
+    )
+  ]
 })
 export class NavBarComponent implements OnInit {
   public isCollapsed = true;

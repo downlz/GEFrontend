@@ -1,11 +1,10 @@
 import {Component, OnInit} from '@angular/core';
 import { FormGroup, FormControl, Validators, ValidationErrors, ValidatorFn, AbstractControl } from '@angular/forms';
-// import { animate, state, style, transition, trigger } from '@angular/animations';
+import { animate, state, style, transition, trigger } from '@angular/animations';
 import {ActivatedRoute, Router} from '@angular/router';
 // import {AuctionService} from '../services/auction.service';
-import {forkJoin} from 'rxjs';
+// import {forkJoin} from 'rxjs';
 import {AuthService} from '../../services/auth.service';
-// import {ManufacturerService} from '../services/manufacturer.service';
 import { CityService } from '../../services/city.service';
 import { TransportRateService } from '../../services/transportrate.service';
 
@@ -19,7 +18,7 @@ export class FindTransportComponent implements OnInit {
   auction: any;
   listing: any;
   // activeTab: string = 'dispatchDetails';
-  loading: boolean;
+  loading: boolean = true;
   role: string;
   userId: string;
   cities: any;
@@ -59,7 +58,6 @@ export class FindTransportComponent implements OnInit {
   initializeForm() {
     let controls: any;
     this.searchresult = false;
-    this.loading = true;
       controls = [
         'source',
         'destination'
@@ -74,9 +72,11 @@ export class FindTransportComponent implements OnInit {
     this.form = new FormGroup({
       getTransportRate: new FormGroup(formControls)
     });
+    this.loading = false;
   }
   
   ngOnInit() {
+    // this.loading = true;
     this.cityService.getAll()
       .subscribe(response => {
         this.cities = response;
@@ -109,7 +109,6 @@ export class FindTransportComponent implements OnInit {
         }, err => {
           console.log(err);
           this.loading = false;
-          // this.loading = false;
           alert('There was a server error while listing this transport rate');
         });
       }

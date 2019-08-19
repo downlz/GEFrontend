@@ -1,7 +1,7 @@
 <div class="container">
   <div class="row container listingOffsetTextColor">
     <div class="spinner-grow loader text-success" *ngIf="loading"></div>
-    <div class="col-12 col-md-3">
+    <div class="col-12 col-md-3" *ngIf="!loading">
         <div ngbDropdown class="btn-group btn-block dropright text-left">
             <button ngbDropdownToggle type="button" class="btn btn-secondary btn-block dropdown-toggle
               text-left" data-toggle="dropdown" aria-haspopup="true"

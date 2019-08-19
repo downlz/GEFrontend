@@ -1,10 +1,11 @@
 // import {Component, Input, OnInit} from '@angular/core';
 import { Component, Input, OnChanges, OnInit } from '@angular/core';
 import { AuthService } from '../../services/auth.service';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+// import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { DispatchService } from '../../services/dispatch.service';
 // import {BidService} from '../../services/bid.service';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
+// import { ActivatedRoute, Router } from '@angular/router';
 // import {OrderService} from '../../services/order.service';
 // import {ManufacturerService} from '../../services/manufacturer.service';
 @Component({
@@ -38,7 +39,7 @@ export class DispatchHistoryComponent implements OnInit {
 
   constructor(private auth: AuthService,
     private dispatchService: DispatchService,
-    private modalService: NgbModal, //private toastr: ToastrService,
+    // private modalService: NgbModal, private toastr: ToastrService,
     private router: Router) {
     this.role = auth.getRole();
     this.userId = auth.getId();

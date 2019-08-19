@@ -25,6 +25,7 @@ export class AllOrdersComponent implements OnInit {
   data: Array<any>;
   totalPages: Array<Number> = [];
   currentDateTime: any;
+  loading: Boolean = true;
 
   constructor(private authenticationService: AuthService, private orderService: OrderService,
     private route: ActivatedRoute, private uploadbill : UploadBillService ,
@@ -46,6 +47,7 @@ export class AllOrdersComponent implements OnInit {
       this.orders = response as any;
       this.setTotalPages();
       this.onPageChange(this.currentPage);
+      this.loading = false;
       // console.log(this.orders);
     }, (error: Response) => {
       this.router.navigate(['/errorpage']);
@@ -60,6 +62,7 @@ export class AllOrdersComponent implements OnInit {
         this.orders = response as any;
         this.setTotalPages();
         this.onPageChange(this.currentPage);
+        this.loading = false;
         // console.log(this.orders);
       }, (error: Response) => {
         this.router.navigate(['/errorpage']);
@@ -69,6 +72,7 @@ export class AllOrdersComponent implements OnInit {
         console.log(error);
       });
     }
+    
   }
 
 

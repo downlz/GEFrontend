@@ -24,6 +24,7 @@ export class GBOrderNowComponent implements OnInit {
   priceValid = false;
   exceededMaxQty : Boolean = false;
   exceededAvlQty : Boolean = false;
+  belowMinQty: Boolean = false;
   referenceGBId: any;
   lastorderno: number;
   id: any;
@@ -78,6 +79,7 @@ export class GBOrderNowComponent implements OnInit {
   onQuantityChange(qty) {
     this.exceededMaxQty = false;          // reset post every change
     this.exceededAvlQty = false;          // reset post every change
+    this.belowMinQty = false;
     const PriceData = {
       qty: qty,
       itemId: this.gblisting.item._id,
@@ -92,8 +94,11 @@ export class GBOrderNowComponent implements OnInit {
     if (qty > this.gblisting.maxqty) {
       this.exceededMaxQty = true;
       this.priceValid = false;
-    } else if (qty > this.availableqty){
+    } else if (qty > this.availableqty) {
       this.exceededAvlQty = true;
+      this.priceValid = false;
+    } else if (qty < this.gblisting.moq) {
+      this.belowMinQty = true;
       this.priceValid = false;
     } else if (qty == 0) {
       this.priceValid = false;

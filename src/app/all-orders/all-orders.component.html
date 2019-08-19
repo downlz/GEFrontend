@@ -1,6 +1,10 @@
 <div class="container">
     <div class="container listingOffsetTextColor">
-        <table class="table table-hover table-sm">
+      <div class="spinner-grow loader text-success" *ngIf="loading"></div>
+      <div class="row">
+        <h5 *ngIf="!loading">Manage your orders</h5>
+      </div>
+        <table class="table table-hover table-sm" [ngClass]="{'loading' : loading}" *ngIf="!loading">
             <thead>
               <tr>
                 <th scope="col">orderId</th>
@@ -17,6 +21,21 @@
               </tr>
             </thead>
             <tbody>
+              <ng-container *ngIf="!data || data.length==0">
+                <tr>
+                  <td></td>
+                  <td *ngIf="role == 'admin'"></td>
+                  <td *ngIf="role == 'admin'"></td>
+                  <td></td>
+                  <td></td>
+                  <td> No Data Found </td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                </tr>
+              </ng-container>
                 <ng-container *ngFor="let order of data">
               <tr>
                 <!-- <th scope="row">{{order._id}}</th> -->

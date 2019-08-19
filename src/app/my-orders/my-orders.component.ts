@@ -15,6 +15,7 @@ export class MyOrdersComponent implements OnInit {
   currentPage = 1;
   data: Array<any>;
   totalPages: Array<Number> = [];
+  loading: Boolean = true;
 
   constructor(private authenticationService: AuthService, private myorderService: MyorderService,
     private route: ActivatedRoute, private router: Router) { }
@@ -33,6 +34,7 @@ export class MyOrdersComponent implements OnInit {
       }
       console.log(error);
     });  
+    this.loading = false;
   }
 
   onPageChange(page) {

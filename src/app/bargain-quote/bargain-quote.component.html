@@ -38,7 +38,8 @@
       </div>
     </div>
     <div class="col-12 col-md-6">
-      <div class="ItemCardContainer">
+      <div class="spinner-grow loader text-success" *ngIf="loading"></div>
+      <div class="ItemCardContainer" *ngIf="!loading">
         <div class="card ItemCardDesc">
           <div class="card-body">
               <table style="width:100%">
@@ -52,16 +53,16 @@
                         <th> Requested on {{bargain.firstquote.requestedon | date:'dd-MMM-yy hh:mm a' }}</th>
                       </tr>
                       <tr>
-                          <th> Lapse on {{ expirydate | date:'dd-MMM-yy hh:mm a' }}</th>
+                          <th> Lapse on {{ expirydate | date:'dd-MMM-yy hh:mm a' }} </th>
                         </tr>
-                      <tr *ngIf="userTurn != role && (bargain.bargainstatus !== 'lastbestprice') && activeBargain">
+                      <tr *ngIf="userTurn != role && (bargain.bargainstatus != 'lastbestprice') && activeBargain">
                           <th> Status : Awaiting {{ userTurn}} response</th>
                         </tr>
                         <tr *ngIf="bargain.bargainstatus == 'lastbestprice'">
                           <th> Waiting for final confirmation by {{role=='buyer' ? 'you' : 'buyer'}}</th>
                         </tr>
                         <tr *ngIf="!activeBargain"><th> <!-- only admin see this -->
-                          Status : Closed  
+                          Status : {{role == 'admin' ? 'Closed' : bargain.bargainstatus }}
                         </th></tr>
               </table>
                <!-- Block for bargain form -->
@@ -92,7 +93,8 @@
                             </div>
                           </div>
                           <div *ngIf="activeBargain">
-                          <div class="form-group col-md-6" *ngIf="(role==userTurn || role == 'admin') && (bargain.bargainstatus !== 'lastbestprice')">
+                          <div class="form-group col-md-6"
+                            *ngIf="(role==userTurn || role == 'admin') && (bargain.bargainstatus !== 'lastbestprice')">
                               <!-- <div class="form-group col-md-6" *ngIf="role==userTurn || role == 'admin'"> -->
                             <label for="price">Enter your price</label>
                             <input (input)="userquote=$event.target.value" type="number" class="form-control">
@@ -102,7 +104,7 @@
                           <button class="btn btn-primary" *ngIf="(role==userTurn || role == 'admin') && (bargain.bargainstatus !== 'lastbestprice')" (click)="counterBargain()" >Counter</button> &nbsp; &nbsp;
                           <button class="btn btn-success" (click)="acceptBargain()">Accept</button> &nbsp; &nbsp;
                           <button class="btn btn-danger"  (click)="rejectBargain()" >Reject</button> &nbsp; &nbsp;
-                          <button class="btn btn-warning" *ngIf="role=='seller' || role == 'admin'" (click)="pauseBargain()">Pause</button>
+                          <!-- <button class="btn btn-warning" *ngIf="role=='seller' || role == 'admin'" (click)="pauseBargain()">Pause</button> -->
                         </div>
         </div>
         </div>

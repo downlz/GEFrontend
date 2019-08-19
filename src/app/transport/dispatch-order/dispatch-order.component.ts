@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators, ValidationErrors, ValidatorFn, AbstractControl } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { forkJoin } from 'rxjs';
+// import { forkJoin } from 'rxjs';
 import { AuthService } from '../../services/auth.service';
-import { CityService } from '../../services/city.service';
+// import { CityService } from '../../services/city.service';
 import { UserService } from '../../services/user.service';
 // import { TransportRateService } from '../../services/transportrate.service';
 import { DispatchService } from '../../services/dispatch.service';
@@ -22,7 +22,7 @@ export class DispatchOrderComponent implements OnInit {
   cities: any;
   states: any;
   edit: boolean;
-  loading: boolean = true;
+  loading: boolean;
   submitted: boolean;
   id: string;
   allFormControls: any;
@@ -98,6 +98,7 @@ export class DispatchOrderComponent implements OnInit {
     this.form = new FormGroup({
       dispatchForm: new FormGroup(formControls)
     });
+    // this.loading = false;
   }
 
   ngOnInit() {
@@ -105,6 +106,7 @@ export class DispatchOrderComponent implements OnInit {
     //   .subscribe(response => {
     //     this.cities = response;
     //   });
+    // this.loading = true;
     this.route.paramMap
       .subscribe(async params => {
         const id = params.get('id');
@@ -112,6 +114,7 @@ export class DispatchOrderComponent implements OnInit {
           this.id = id;
           this.edit = true;
           await this.dispatchService.get(id);
+          this.loading = false;
         } else {
           this.edit = false;
         }

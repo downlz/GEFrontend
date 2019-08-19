@@ -43,6 +43,7 @@ export class BargainQuoteComponent implements OnInit {
   userquote: String;
   quoteObj: any;
   expirydate: any;
+  loading : Boolean = true;
   
   constructor(private userService: UserService,
     private route: ActivatedRoute, private router: Router,
@@ -69,26 +70,7 @@ export class BargainQuoteComponent implements OnInit {
       const id = params.get('id');
       this.itemid = id;
       this.getBargainDtl(id);
-    });
-
-    this.userService.get('me')
-    .subscribe(response => {
-      const res = response as any;
-      this.user = res;
-      this.address = res.Addresses[0];
-      this.userid = res._id;
-        this.addressService.getUserAddr(res._id,res.phone)
-        .subscribe(response => {
-          this.addresses = response;
-          // console.log(response);
-        },(error: Response) => {
-          this.router.navigate(['/errorpage']);
-          if (error.status === 400) {
-            alert(' expected error, post already deleted');
-          }
-          console.log(error);
-        });
-        this.checkActiveBargain();
+      
     }, (error: Response) => {
       this.router.navigate(['/errorpage']);
       if (error.status === 400) {
@@ -96,21 +78,45 @@ export class BargainQuoteComponent implements OnInit {
       }
       console.log(error);
     });
+};
+
+  getUserDtl() {
+    this.userService.get('me')
+      .subscribe(response => {
+        const res = response as any;
+        this.user = res;
+        this.address = res.Addresses[0];
+        this.userid = res._id;
+        this.addressService.getUserAddr(res._id, res.phone)
+          .subscribe(response => {
+            this.addresses = response;
+            this.checkActiveBargain();
+          }, (error: Response) => {
+            this.router.navigate(['/errorpage']);
+            if (error.status === 400) {
+              alert(' expected error, post already deleted');
+            }
+            console.log(error);
+          });
+      });
+      
   }
 
   getBargainDtl(id) {
     this.bargainService.get(id)
     .subscribe(response => {
       this.bargain = response as any;
-      // console.log(this.bargain);
       this.expirydate = new Date(new Date(this.bargain.firstquote.requestedon).getTime() + (1000 * 60 * 60 * 24));
       this.getNextUserTurn(this.bargain);
+      // this.checkActiveBargain();
+      // return('done');
     }, (error: Response) => {
       this.router.navigate(['/errorpage']);
       if (error.status === 400) {
         alert(' expected error, post already deleted');
       }
       console.log(error);
+      // return('broke');
     });
   }
 
@@ -135,10 +141,10 @@ export class BargainQuoteComponent implements OnInit {
     }, (error: AppError) => {
       console.log(error);
       this.router.navigate(['/errorpage']);
-    });  
+    });
   } else {
-    alert ("Please enter a valid price to proceed")
-  }
+    alert("Please enter a valid price to proceed or this action cannot be completed");
+    }
   };
 
   pauseBargain(quotes){
@@ -158,7 +164,7 @@ export class BargainQuoteComponent implements OnInit {
        action : 'accepted'
      }
    };
-   if (this.userTurn == this.role){
+   if (this.userTurn === this.role) {
     this.bargainService.updateQuote(this.itemid, this.quoteObj)
     .subscribe(Response => {
       const quoteComplete  = Response as any;
@@ -219,9 +225,13 @@ export class BargainQuoteComponent implements OnInit {
     } else {
       this.userTurn = 'buyer';
     }
+    // this.checkActiveBargain();
+    this.getUserDtl();
   }
 
   checkActiveBargain() {
+    // console.log(this.role);
+    // console.log(this.userid);
     if (this.role === 'buyer') {
       this.bargainService.getBuyerBargain(this.userid, this.bargain.item._id)
       .subscribe(response => {
@@ -230,7 +240,8 @@ export class BargainQuoteComponent implements OnInit {
         } else {
           this.activeBargain = true;
         }
-      })
+      });
+      // console.log(this.acceptBargain);
     } else {
       this.bargainService.getSellerBargain(this.userid, this.bargain.item._id)
       .subscribe(response => {
@@ -241,7 +252,7 @@ export class BargainQuoteComponent implements OnInit {
         }
       })
     }
-    
+    this.loading = false;
     // , (error: Response) => {
     //   this.router.navigate(['/errorpage']);
     //   if (error.status === 400) {

@@ -126,16 +126,20 @@
         <!-- End of shipping details -->
 
             <div>
-            <button class="btn btn-primary" [disabled]="(!f.valid) || (!priceValid)" >Submit</button>
+            <button class="btn btn-primary" [disabled]="(!f.valid) || (!priceValid)">Submit</button>
             
           </div>
         <!-- </div> -->
           </form>
-          <div *ngIf="isEligibleForBargain"><a [routerLink]="['/bargainOrder',listing._id]" routerLinkActive="router-link-active" click="checkActiveBargain()" class="btn btn-primary">Initiate Bargain</a>
+          <br>
+          <div *ngIf="isEligibleForBargain"><a [routerLink]="['/bargainOrder',listing._id]"
+              routerLinkActive="router-link-active" click="checkActiveBargain()" class="btn btn-secondary">Initiate
+              Bargain</a>
           </div>
         <div *ngIf="activeBargain">
           <!-- <button class="btn btn-primary" *ngIf="isEligibleForBargain">Initiate Bargain</button> -->
-          <a [routerLink]="['/bargainQuote',bargain._id]" routerLinkActive="router-link-active"  class="btn btn-primary">Check Bargain Status</a>
+          <a [routerLink]="['/bargainQuote',bargain._id]" routerLinkActive="router-link-active"
+            class="btn btn-secondary">Check Bargain Status</a>
         </div>
         </div>
 

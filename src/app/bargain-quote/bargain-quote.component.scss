@@ -74,6 +74,14 @@
   width:148px;/*full width - grey on the side - 2*10px padding*/
 }
 
+.loader {
+  z-index: 2;
+  margin: auto;
+  position: absolute;
+  left: 50%;
+  top: 40%;
+}
+
 // .label {
 //   background-color: #ccc;
 //   border-radius: 10px;
