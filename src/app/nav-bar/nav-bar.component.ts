@@ -56,6 +56,18 @@ export class NavBarComponent implements OnInit {
     return this.currentUser && this.currentUser.isTransporter;
   }
 
+  get isAgent() {
+    return this.currentUser && this.currentUser.isAgent;
+  }
+
+  get isBank() {
+    return this.currentUser && this.currentUser.isBank;
+  }
+
+  get isNbfc() {
+    return this.currentUser && this.currentUser.isNbfc;
+  }
+
   private SiteURLActiveCheck(event: NavigationEnd): void {
     if (event.url.indexOf('main') !== -1) {
       this.isMainPage = true;

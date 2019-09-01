@@ -16,17 +16,20 @@ export class MyOrdersComponent implements OnInit {
   data: Array<any>;
   totalPages: Array<Number> = [];
   loading: Boolean = true;
+  username: String;
 
   constructor(private authenticationService: AuthService, private myorderService: MyorderService,
     private route: ActivatedRoute, private router: Router) { }
 
   ngOnInit() {
     const currentUser = this.authenticationService.currentUserValue;
+    this.username = currentUser.name;
     this.myorderService.get(currentUser._id)
     .subscribe(response => {
       this.orders = response as any;
       this.setTotalPages();
       this.onPageChange(this.currentPage);
+      this.loading = false;
     }, (error: Response) => {
       this.router.navigate(['/errorpage']);
       if (error.status === 400) {
@@ -34,7 +37,6 @@ export class MyOrdersComponent implements OnInit {
       }
       console.log(error);
     });  
-    this.loading = false;
   }
 
   onPageChange(page) {
