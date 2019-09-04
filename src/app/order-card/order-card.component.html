@@ -15,10 +15,8 @@
           <p>{{ order.remarks }}</p>
       </div>
       <div class="col-12 col-md-6">
-        <p>Hello {{order.buyer.name}}, your order details are: </p>
-        <p *ngIf="order.ordertype != 'sampleorder'"><a *ngIf="order.status != 'new'" href='{{apiurl}}/getpo/{{order._id}}'>PO Details</a><br *ngIf="order.status != 'new'">
-          <a *ngIf="order.status == 'ready' || order.status == 'shipped' || order.status == 'delivered' " href='{{apiurl}}/getinvoice/{{order._id}}'>Get Invoice</a>
-        </p>
+        <!-- <p>Hello {{order.buyer.name}}, your order details are: </p> -->
+        
         <table class="table">
           <tbody>
             <tr *ngIf="order.quantity>0">
@@ -35,6 +33,12 @@
             </tr>
             <tr> 
               <td>Order Type : {{ order.ordertype}}</td>
+            </tr>
+            <tr>
+              <td *ngIf="order.status != 'new'">
+                <a *ngIf="order.status != 'new'" href='{{apiurl}}/getpo/{{order._id}}'>PO Details</a> &nbsp; &nbsp; &nbsp;
+                <a *ngIf="order.status == 'ready' || order.status == 'shipped' || order.status == 'delivered' " href='{{apiurl}}/getinvoice/{{order._id}}'>Get Invoice</a>
+              </td>
             </tr>
             <tr *ngIf="order.manualbill"> 
                 <td>Bill uploaded by seller : <a href='{{apiurl}}/uploadbill/{{order._id}}'>Get bill</a></td>

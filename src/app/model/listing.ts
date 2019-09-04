@@ -12,8 +12,8 @@ export interface Listing {
   category: Category;
   qty: number;
   price: number;
-  moisture: number;
-  grainCount: number;
+  moisture: string;
+  grainCount: string;
   grade: string;
   bargaintrgqty: number;
   bargainenabled: boolean;

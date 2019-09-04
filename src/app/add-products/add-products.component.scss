@@ -1,9 +1,21 @@
-.listingOffsetTextColor {
-  padding-top: 80px;
-  color: black;
-  padding-left: 9.5%;
+// .listingOffsetTextColor {
+//   padding-top: 80px;
+//   color: black;
+//   padding-left: 9.5%;
+// }
+
+// .ItemCardContainer {
+//   padding: 10px;
+// }
+
+.loader {
+  z-index: 2;
+  margin: auto;
+  position: absolute;
+  left: 50%;
+  top: 40%;
 }
 
-.ItemCardContainer {
-  padding: 10px;
+.ButtonAlignRight {
+  float: right;
 }

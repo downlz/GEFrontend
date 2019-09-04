@@ -28,7 +28,7 @@ export class GroupBuyingComponent implements OnInit {
       this.setTotalPages();
       this.onPageChange(this.currentPage);
       this.loading = false;
-      console.log(this.orders);
+      // console.log(this.orders);
     }, (error: Response) => {
       this.router.navigate(['/errorpage']);
       if (error.status === 400) {

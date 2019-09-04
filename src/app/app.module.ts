@@ -44,7 +44,11 @@ import {ReferUserComponent} from './refer-user/refer-user.component';
 import {LoginComponent} from './login/login.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {ErrorPageComponent} from './error-page/error-page.component';
+import {TermsUseComponent} from './terms-use/terms-use.component';
 import {ProductDetailComponent} from './product-detail/product-detail.component';
+import {ProductListComponent} from './add-products/product-list/product-list.component';
+import {ProductDataComponent} from './add-products/products-data.component';
+import {ProductTabComponent} from './add-products/product-tabs/product-tabs.component';
 import {OrderNowComponent} from './order-now/order-now.component';
 import {BargainOrderComponent} from './bargain-order/bargain-order.component';
 import {BargainQuoteComponent} from './bargain-quote/bargain-quote.component';
@@ -53,6 +57,7 @@ import {AllOrdersComponent} from './all-orders/all-orders.component';
 import {BargainRequestComponent} from './bargain-request/bargain-request.component';
 import {GroupBuyingComponent} from './group-buying/group-buying.component';
 import {AddProductsComponent} from './add-products/add-products.component';
+import {ProductSidebarComponent} from './add-products/sidebar/sidebar.component';
 import {ListGBItemComponent} from './listgb-item/listgb-item.component';
 import {OrderCardComponent} from './order-card/order-card.component';
 import {GBOrderCardComponent} from './gborder-card/gborder-card.component';
@@ -85,6 +90,8 @@ import { DispatchHistoryComponent } from './transport/dispatch-history/dispatch-
 import { DispatchOrderComponent } from './transport/dispatch-order/dispatch-order.component';
 import {ForgotPasswordComponent} from './login/forgot-password/forgot-password.component';
 
+import { CreateOrderComponent } from './agent-mgmt/create-order/create-order.component';
+
 import { AppFooterComponent } from './app-footer/app-footer.component';
 
 
@@ -106,6 +113,9 @@ import { AppFooterComponent } from './app-footer/app-footer.component';
     LoginComponent,
     ForgotPasswordComponent,
     ErrorPageComponent,
+    TermsUseComponent,
+    ProductSidebarComponent,
+    ProductDataComponent,
     ProductDetailComponent,
     GBProductDetailComponent,
     OrderNowComponent,
@@ -142,6 +152,9 @@ import { AppFooterComponent } from './app-footer/app-footer.component';
     DispatchHistoryComponent,
     DispatchOrderComponent,
     FindTransportComponent,
+    CreateOrderComponent,
+    ProductTabComponent,
+    ProductListComponent,
     AppFooterComponent
   ],
   entryComponents: [PlaceBidComponent],

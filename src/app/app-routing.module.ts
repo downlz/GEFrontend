@@ -12,11 +12,15 @@ import {GBOrderNowComponent} from './gborder-now/gborder-now.component';
 import {MyOrdersComponent} from './my-orders/my-orders.component';
 import {AllOrdersComponent} from './all-orders/all-orders.component';
 import {GroupBuyingComponent} from './group-buying/group-buying.component';
+
 import {AddProductsComponent} from './add-products/add-products.component';
+import {ProductSidebarComponent} from './add-products/sidebar/sidebar.component';
+import {ProductDataComponent} from './add-products/products-data.component';
 import {ListGBItemComponent} from './listgb-item/listgb-item.component';
 import {RegistrationComponent} from './registration/registration.component';
 import {ReferUserComponent} from './refer-user/refer-user.component';
 import {ErrorPageComponent} from './error-page/error-page.component';
+import {TermsUseComponent} from './terms-use/terms-use.component';
 import {AuthGuard} from './_guards/auth.guard';
 
 import {AuctionComponent} from './auction/auction.component';
@@ -37,6 +41,9 @@ import { ForgotPasswordComponent } from './login/forgot-password/forgot-password
 import { BargainRequestComponent } from './bargain-request/bargain-request.component';
 import { BargainQuoteComponent } from './bargain-quote/bargain-quote.component';
 
+import { CreateOrderComponent } from './agent-mgmt/create-order/create-order.component';
+import { ProductTabComponent } from './add-products/product-tabs/product-tabs.component';
+
 const routes: Routes = [
   {
     path: 'login',
@@ -55,6 +62,10 @@ const routes: Routes = [
     component: ErrorPageComponent
   },
   {
+    path:'termsofuse',
+    component: TermsUseComponent
+  },
+  {
     path: 'products',
     component: ListingsComponent
   },
@@ -67,19 +78,58 @@ const routes: Routes = [
     component: RegistrationComponent
   },
   {
-    path: 'addProducts',
-    component: AddProductsComponent,
-    canActivate: [AuthGuard],
-    data: {
-      roles: ['admin']
+  path: 'product',
+  component: ProductDataComponent,
+  canActivate: [AuthGuard],
+  children: [
+    {
+      path: 'allproducts',
+      component: ProductTabComponent,
+      data: {
+        roles: ['admin','agent']
+      }
+    },
+    {
+      path: 'addProducts',
+      component: AddProductsComponent ,
+      data: {
+       roles: ['admin', 'agent']
+      }
+    },
+    {
+      path: 'edit/:id',
+      component: AddProductsComponent,
+      data: {
+        roles: ['admin', 'seller', 'buyer']
+      }
     }
-  },
+  ],
+  data: {
+    roles: ['admin', 'agent']
+  }
+},
+  // {
+  //   path: 'addProducts',
+  //   component: AddProductsComponent,
+  //   canActivate: [AuthGuard],
+  //   data: {
+  //     roles: ['admin']
+  //   }
+  // },
   {
     path: 'listgbItem',
     component: ListGBItemComponent,
     canActivate: [AuthGuard],
     data: {
       roles: ['admin']
+    }
+  },
+  {
+    path: 'createorder',
+    component: CreateOrderComponent,
+    canActivate: [AuthGuard],
+    data: {
+      roles: ['admin','agent']
     }
   },
   {

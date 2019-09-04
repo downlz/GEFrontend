@@ -32,26 +32,6 @@ export class AddProductsComponent implements OnInit {
 
   form = new FormGroup({
     newitem: new FormGroup({
-      // 'name' : new FormControl('', [Validators.required,
-      //   Validators.minLength(3),
-      //   Validators.maxLength(50)]),
-      // 'email' : new FormControl('', [Validators.email]),
-      // 'phone' : new FormControl('', [Validators.required, Validators.minLength(10),
-      //   Validators.maxLength(10), Validators.pattern('^[0-9]*$'),
-      //   FormValidators.cannotContainSpace],
-      //   FormValidators.shouldBeUnique),
-      // 'password' : new FormControl('', [Validators.required, Validators.minLength(8)]),
-      // 'pan' : new FormControl(),
-      // 'sampleno' : new FormControl('', [Validators.required]),
-      // 'grade' : new FormControl('', [Validators.required])
-      // 'qty' : new FormControl('', [Validators.required]),
-      // 'unit' : new FormControl('', [Validators.required]),
-      // 'seller' : new FormControl('', [Validators.required]),
-      // 'origin' : new FormControl('', [Validators.required]),
-      // 'city' : new FormControl('', [Validators.required]),
-      // 'address' : new FormControl('', [Validators.required]),
-      // 'imagefile' : new FormControl('', [Validators.required])
-
       itemname:  new FormControl,
       itemcategory:   new FormControl,
       item:  new FormControl,
@@ -66,7 +46,7 @@ export class AddProductsComponent implements OnInit {
       city:    new FormControl,
       origin:    new FormControl,
       address:    new FormControl,
-      itemstatus: new FormControl( 'true', [
+      itemstatus: new FormControl( 'false', [
         Validators.required]),
       icumsa: new FormControl,
       manufacturer: new FormControl,
@@ -215,9 +195,6 @@ export class AddProductsComponent implements OnInit {
   }
 
   onSellerChange(selectedseller){
-    // console.log(selectedseller);
-    // console.log(phone);
-    // let selectedseller = this.form.get('newitem.seller').value;
     this.addresses = [];
     this.addressService.getUserAddr(selectedseller._id, selectedseller.phone).subscribe((response) => {
       this.addresses = response as any;

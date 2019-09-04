@@ -2,7 +2,7 @@
   <ul class="list-unstyled components">
     <li *ngIf="role=='admin' || role=='seller'">
       <a class="nav-link scrollto p" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }"
-        routerLink="/product/addproduct">Product</a>
+        routerLink="/product/allproducts">Product</a>
     </li>
     <li *ngIf="role=='admin'">
       <a class="nav-link scrollto p" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }"
@@ -11,6 +11,10 @@
     <li *ngIf="role=='admin'">
       <a class="nav-link scrollto p" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }"
         routerLink="/product/addcategory">Category</a>
+    </li>
+    <li *ngIf="role=='admin' || role=='agent'">
+      <a class="nav-link scrollto p" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }"
+        routerLink="/createorder">Place Order</a>
     </li>
   </ul>
 </nav>
