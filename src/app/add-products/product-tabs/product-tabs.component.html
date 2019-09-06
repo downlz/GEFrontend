@@ -5,12 +5,12 @@
 <ul class="nav nav-tabs">
   
   <li class="nav-item">
-    <a class="nav-link" [ngClass]="{'active' : activeTab==='dispatchHistory'}" (click)="changeTab('dispatchHistory')">
+    <a class="nav-link" [ngClass]="{'active' : activeTab==='addProduct'}" (click)="changeTab('addProduct')">
       <span>Add new product</span>
     </a>
   </li>
-  <li class="nav-item" *ngIf="role=='admin' || role=='transporter'">
-    <a class="nav-link" [ngClass]="{'active' : activeTab==='dispatchDetails'}" (click)="changeTab('dispatchDetails')">
+  <li class="nav-item" *ngIf="role=='admin' || role=='agent' || role=='seller'">
+    <a class="nav-link" [ngClass]="{'active' : activeTab==='productList'}" (click)="changeTab('productList')">
       <span>View all products</span>
     </a>
   </li>
@@ -18,13 +18,13 @@
 <!-- Tab panes -->
 <div class="tab-content">
   
-  <div class="tab-pane container" [ngClass]="{'active' : activeTab==='dispatchHistory'}" id="dispatchHistory">
+  <div class="tab-pane container" [ngClass]="{'active' : activeTab==='addProduct'}" id="addProduct">
     <div class="spinner-grow loader text-success" *ngIf="loading"></div>
     <app-add-products></app-add-products>
   </div>
 
-  <div class="tab-pane container" [ngClass]="{'active' : activeTab==='dispatchDetails'}" id="dispatchDetails"
-    *ngIf="role=='admin' || role=='transporter'">
+  <div class="tab-pane container" [ngClass]="{'active' : activeTab==='productList'}" id="productList"
+    *ngIf="role=='admin' || role=='agent' || role=='seller'">
     <div class="spinner-grow loader text-success" *ngIf="loading"></div>
     <app-product-list></app-product-list>
   </div>

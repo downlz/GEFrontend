@@ -34,7 +34,7 @@
             <tr> 
               <td>Order Type : {{ order.ordertype}}</td>
             </tr>
-            <tr>
+            <tr *ngIf="order.ordertype != 'agentorder'">
               <td *ngIf="order.status != 'new'">
                 <a *ngIf="order.status != 'new'" href='{{apiurl}}/getpo/{{order._id}}'>PO Details</a> &nbsp; &nbsp; &nbsp;
                 <a *ngIf="order.status == 'ready' || order.status == 'shipped' || order.status == 'delivered' " href='{{apiurl}}/getinvoice/{{order._id}}'>Get Invoice</a>
@@ -42,6 +42,10 @@
             </tr>
             <tr *ngIf="order.manualbill"> 
                 <td>Bill uploaded by seller : <a href='{{apiurl}}/uploadbill/{{order._id}}'>Get bill</a></td>
+              </tr>
+
+              <tr *ngIf="order.paymentterms"> 
+                <td>Payment Terms : {{ order.paymentterms }}</td>
               </tr>
               
               <!-- <tr><td *ngIf="order.status != 'ready' || order.status != 'shipped' || order.status != 'delivered'">

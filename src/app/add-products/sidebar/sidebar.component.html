@@ -1,6 +1,6 @@
 <nav class="sidebar" *ngIf="role">
   <ul class="list-unstyled components">
-    <li *ngIf="role=='admin' || role=='seller'">
+    <li *ngIf="role=='admin' || role=='seller' || role=='agent'">
       <a class="nav-link scrollto p" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }"
         routerLink="/product/allproducts">Product</a>
     </li>

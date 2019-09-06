@@ -118,13 +118,13 @@
               aria-haspopup="true" aria-expanded="false">User</a>
             <div ngbDropdownMenu class="dropdown-menu " aria-labelledby="dropdown01">
               <a class="dropdown-item nav-link" routerLink="/myOrders" *ngIf="!isSeller || !isTransporter">My Orders</a>
-              <a class="dropdown-item nav-link" routerLink="/auction" *ngIf="!isTransporter">Auction</a>
-              <a class="dropdown-item nav-link" routerLink="/bargainRequest" *ngIf="!isTransporter">Bargain Request</a>
+              <a class="dropdown-item nav-link" routerLink="/auction" *ngIf="isAdmin || isSeller || isBuyer">Auction</a>
+              <a class="dropdown-item nav-link" routerLink="/bargainRequest" *ngIf="isAdmin || isSeller || isBuyer">Bargain Request</a>
               <a class="dropdown-item nav-link" routerLink="/transport/findtransport">Transport</a>
-              <a class="dropdown-item nav-link" routerLink="/allOrders" *ngIf="isAdmin || isSeller ">Manage Orders</a>
+              <a class="dropdown-item nav-link" routerLink="/allOrders" *ngIf="isAdmin || isSeller">Manage Orders</a>
               <a class="dropdown-item nav-link" routerLink="/product/allproducts" *ngIf="isAdmin || isAgent">Manage Products</a>
               <a class="dropdown-item nav-link" routerLink="/groupBuying" *ngIf="isAdmin">Group Buying</a>
-              <!-- <a class="dropdown-item nav-link" routerLink="/referral" >Refer User</a> -->
+              <a class="dropdown-item nav-link" routerLink="/createorder" *ngIf="isAdmin || isAgent">Place an order</a>
               <a class="dropdown-item nav-link" routerLink="/login" (click)="logout()">Log Out</a>
             </div>
           </li>

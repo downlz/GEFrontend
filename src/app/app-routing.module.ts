@@ -86,7 +86,7 @@ const routes: Routes = [
       path: 'allproducts',
       component: ProductTabComponent,
       data: {
-        roles: ['admin','agent']
+        roles: ['admin','agent','seller']
       }
     },
     {
@@ -100,22 +100,14 @@ const routes: Routes = [
       path: 'edit/:id',
       component: AddProductsComponent,
       data: {
-        roles: ['admin', 'seller', 'buyer']
+        roles: ['admin', 'seller', 'agent']
       }
     }
   ],
   data: {
-    roles: ['admin', 'agent']
+    roles: ['admin', 'agent','seller']
   }
-},
-  // {
-  //   path: 'addProducts',
-  //   component: AddProductsComponent,
-  //   canActivate: [AuthGuard],
-  //   data: {
-  //     roles: ['admin']
-  //   }
-  // },
+  },
   {
     path: 'listgbItem',
     component: ListGBItemComponent,
@@ -204,54 +196,54 @@ const routes: Routes = [
         path: 'add',
         component: ListTransportRateComponent,
         data: {
-         roles: ['admin', 'seller', 'buyer' , 'transporter']
+         roles: ['admin', 'seller', 'buyer' , 'transporter','agent']
         }
       },
       {
         path: 'edit/:id',
         component: ListTransportRateComponent,
         data: {
-          roles: ['admin', 'seller', 'buyer', 'transporter']
+          roles: ['admin', 'seller', 'buyer', 'transporter','agent']
         }
       },
       {
         path: 'user',
         component: TransportRateComponent,
         data: {
-          roles: ['admin', 'seller', 'buyer', 'transporter']
+          roles: ['admin', 'seller', 'buyer', 'transporter','agent']
         }
       },
       {
         path: 'dispatch',
         component: DispatchDetailComponent,
         data : {
-          roles: ['admin', 'seller', 'buyer', 'transporter']
+          roles: ['admin', 'seller', 'buyer', 'transporter','agent']
         }
       },
       {
         path: 'dispatchhistory',
         component: DispatchHistoryComponent,
         data :{
-          roles: ['admin', 'seller', 'buyer', 'transporter']
+          roles: ['admin', 'seller', 'buyer', 'transporter','agent']
         }
       },
       {
         path: 'dispatchorder',
         component: DispatchOrderComponent,
         data: {
-          roles: ['admin', 'seller', 'buyer', 'transporter']
+          roles: ['admin', 'seller', 'buyer', 'transporter','agent']
         }
       },
       {
         path: 'findtransport',
         component: FindTransportComponent,
         data: {
-          roles: ['admin', 'seller', 'buyer', 'transporter']
+          roles: ['admin', 'seller', 'buyer', 'transporter','agent']
         }
       }
     ],
     data: {
-      roles: ['admin', 'buyer', 'seller', 'transporter']
+      roles: ['admin', 'buyer', 'seller', 'transporter','agent']
     }
   },
   {
@@ -266,7 +258,7 @@ const routes: Routes = [
     path: 'product/:id',
     component: ProductDetailComponent,
     canActivate: [AuthGuard],
-    data: {roles: ['admin', 'buyer', 'seller']}
+    data: {roles: ['admin', 'buyer', 'seller','agent']}
   },
   {
     path: 'gbproduct/:id',
@@ -295,7 +287,7 @@ const routes: Routes = [
     component: MyOrdersComponent,
     canActivate: [AuthGuard],
     data: {
-      roles: ['admin', 'buyer']
+      roles: ['admin', 'buyer','agent']
     }
   },
   {

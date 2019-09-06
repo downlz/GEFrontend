@@ -141,21 +141,20 @@ export class CreateOrderComponent implements OnInit {
           } else {
             this.edit = false;
           }
-
-          this.initializeForm();
+          await this.initializeForm();
         }
       );
 
   }
 
-  initializeForm(auctionType?: string) {
+  initializeForm() {
     const role = this.auth.getRole();
     this.role = role;
     let controls: any;
 
-    switch (this.role) {
-      case  ('admin' || 'agent'):
-        auctionType = auctionType || 'seller';
+    // switch (this.role) {
+    //   case  ('agent'):
+        // auctionType = auctionType || 'seller';
         if (!this.edit) {
           controls = [
             // 'auctionType',
@@ -189,39 +188,39 @@ export class CreateOrderComponent implements OnInit {
             'remarks'
           ];
         }
-        break;
-      case  'buyer':
-        if (!this.edit) {
-          controls = [
-            'itemName',
-            'itemCategory',
-            'sampleNo',
-            'odrQty',
-            'itemSeller',
-            // 'itemPrice',
-            // 'availableQty',
-            // auctionType === 'seller' ? 'maxQty' : null,
-            // auctionType === 'seller' ? 'minQty' : null,
-            // 'unit',
-            // 'floorPrice',
-            // auctionType === 'seller' ? 'ceilingPrice' : null,
-            'buyername',
-            'buyergstin',
-            'buyerphone',
-            'buyeraddress',
-            'buyerpin',
-          ];
-        } else {
-          controls = [
-            'buyername',
-            'buyergstin',
-            'buyerphone',
-            'buyeraddress',
-            'buyerpin',
-          ];
-        }
-        break;
-    }
+      //   break;
+      // case  'buyer':
+      //   if (!this.edit) {
+      //     controls = [
+      //       'itemName',
+      //       'itemCategory',
+      //       'sampleNo',
+      //       'odrQty',
+      //       'itemSeller',
+      //       // 'itemPrice',
+      //       // 'availableQty',
+      //       // auctionType === 'seller' ? 'maxQty' : null,
+      //       // auctionType === 'seller' ? 'minQty' : null,
+      //       // 'unit',
+      //       // 'floorPrice',
+      //       // auctionType === 'seller' ? 'ceilingPrice' : null,
+      //       'buyername',
+      //       'buyergstin',
+      //       'buyerphone',
+      //       'buyeraddress',
+      //       'buyerpin',
+      //     ];
+      //   } else {
+      //     controls = [
+      //       'buyername',
+      //       'buyergstin',
+      //       'buyerphone',
+      //       'buyeraddress',
+      //       'buyerpin',
+      //     ];
+      //   }
+      //   break;
+    // }
     const formControls = {};
     controls.map(control => {
       if (control) {
@@ -240,19 +239,7 @@ export class CreateOrderComponent implements OnInit {
     .subscribe(response => {
       const res = response as any;
       this.user = res;
-      // this.address = res.Addresses[0];
       this.userid = res._id;
-        // this.addressService.getUserAddr(res._id,res.phone)
-        // .subscribe(response => {
-        //   this.addresses = response;
-        //   // console.log(response);
-        // },(error: Response) => {
-        //   this.router.navigate(['/errorpage']);
-        //   if (error.status === 400) {
-        //     alert(' expected error, post already deleted');
-        //   }
-        //   console.log(error);
-        // });
 
     }, (error: Response) => {
       this.router.navigate(['/errorpage']);
@@ -263,17 +250,18 @@ export class CreateOrderComponent implements OnInit {
     })
 
     if (this.role === 'admin' || this.role === 'agent') {
-      forkJoin([this.itemnameService.getAll(), this.unitService.getAll(), this.sellerService.getAll(),
-        this.stateService.getAll(),this.cityService.getAll()
+      forkJoin([this.itemnameService.getAll(), this.unitService.getAll()
+        // , this.sellerService.getAll()
+        ,this.stateService.getAll(),this.cityService.getAll()
       ])
         .subscribe(response => {
           this.itemnames = response[0];
           this.units = response[1];
-          this.sellers = response[2];
-          // this.buyers = response[3];
-          this.states = response[3];
-          this.cities = response[4];
+          // this.sellers = response[2];
+          this.states = response[2];
+          this.cities = response[3];
         }, (error: Response) => {
+          console.log('Here');
           console.log(error);
         });
     // }  else {

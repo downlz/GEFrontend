@@ -11,7 +11,7 @@ import {AuthService} from '../../services/auth.service';
 export class AuctionListComponent implements OnInit {
   auctions: any;
   role: string;
-  loading: boolean;
+  loading: boolean = true;
   activeTab: string = 'active';
   activeAuctions: any;
   inActiveAuctions: any;
@@ -25,9 +25,7 @@ export class AuctionListComponent implements OnInit {
   ngOnInit() {
     this.role = this.auth.getRole();
     let subscription = null;
-    subscription = this.service.getAll();
-    this.loading = true;
-    subscription
+    subscription = this.service.getAll()
       .subscribe(response => {
         this.auctions = response;
         this.setAuctions();

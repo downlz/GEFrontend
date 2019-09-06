@@ -1,9 +1,9 @@
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
-import {AuctionService} from '../../services/auction.service';
+// import {AuctionService} from '../../services/auction.service';
 // import {forkJoin} from 'rxjs';
 import {AuthService} from '../../services/auth.service';
-import {ManufacturerService} from '../../services/manufacturer.service';
+// import {ManufacturerService} from '../../services/manufacturer.service';
 
 @Component({
   selector: 'app-product-tabs',
@@ -13,23 +13,24 @@ import {ManufacturerService} from '../../services/manufacturer.service';
 export class ProductTabComponent implements OnInit {
   auction: any;
   listing: any;
-  activeTab: string = 'dispatchHistory';
+  activeTab: string = 'addProduct';
   loading: boolean = true;
   role: string;
   userId: string;
 
   constructor(private route: ActivatedRoute, 
-    private auth: AuthService, private manufacturerService: ManufacturerService, 
-    private router: Router, private auctionService: AuctionService) {
+    private auth: AuthService, 
+    // private manufacturerService: ManufacturerService, 
+    private router: Router,) {
   }
 
   ngOnInit() {
     this.role = this.auth.getRole();
     this.userId = this.auth.getId();
-    this.createTransportDispatch();
+    this.createProductDtl();
   }
 
-  createTransportDispatch() {
+  createProductDtl() {
     this.route.queryParamMap.subscribe((data) => {
       const tab = data.get('tab');
       if (tab) {

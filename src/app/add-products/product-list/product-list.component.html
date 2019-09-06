@@ -10,6 +10,7 @@
           <th scope="col">Status</th>
           <th scope="col">List Price (Rs.)</th>
           <th scope="col">Unit</th>
+          <th scope="col">Manufacturer</th>
           <th scope="col">Action</th>
         </tr>
       </thead>
@@ -35,8 +36,9 @@
             <td> {{ productdtl.isLive == true ? 'Active' : 'Inactive'  }}</td>
             <td> {{ productdtl.price }}</td>
             <td> {{ productdtl.unit.mass }}</td>
-            <td><a class="btn btn-primary btn-sm">Edit</a> &nbsp;
-            <a class="btn btn-primary btn-sm">Approve</a></td>
+            <td> {{ productdtl.manufacturer.name }}</td>
+            <td><a class="btn btn-primary btn-sm" [routerLink]="'/product/allproducts/edit/'+productdtl._id">Edit</a> &nbsp;
+            <a *ngIf="role=='admin'" class="btn btn-primary btn-sm">Approve</a></td>
             <!-- <td><a class="btn btn-primary btn-sm" [routerLink]="'/auction/'+auction._id">
              Edit
            </a> &nbsp;
