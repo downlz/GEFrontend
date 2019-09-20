@@ -91,6 +91,7 @@ import { DispatchOrderComponent } from './transport/dispatch-order/dispatch-orde
 import {ForgotPasswordComponent} from './login/forgot-password/forgot-password.component';
 
 import { CreateOrderComponent } from './agent-mgmt/create-order/create-order.component';
+// import { AddUsersComponent } from './add-products/add-users/add-users.component';
 
 import { AppFooterComponent } from './app-footer/app-footer.component';
 
@@ -155,6 +156,7 @@ import { AppFooterComponent } from './app-footer/app-footer.component';
     CreateOrderComponent,
     ProductTabComponent,
     ProductListComponent,
+    // AddUsersComponent,
     AppFooterComponent
   ],
   entryComponents: [PlaceBidComponent],

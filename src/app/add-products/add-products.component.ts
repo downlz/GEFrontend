@@ -12,6 +12,7 @@ import {AddressService} from '../services/address.service';
 import {ItemnameService} from '../services/itemname.service';
 import {AddImageService} from '../services/addimage.service';
 import {TestitemService} from '../services/testitem.service';
+import {AuthService} from '../services/auth.service';
 import {ItemService} from '../services/item.service';
 import { forkJoin } from 'rxjs';
 import {UserService} from '../services/user.service';
@@ -63,13 +64,18 @@ export class AddProductsComponent implements OnInit {
   units: any;
   categories: any;
   loginData: any;
+  role: string;
   constructor(private stateService: StateService, private cityService: CityService,private categoryService: CategoryService,
     private itemnameService: ItemnameService,private manufacturerService: ManufacturerService,private sellerService: UsersellerService,
     private unitService: UnitService,private user: UserService,private itempost: ItemService,private addressService: AddressService,
-    private addimage: AddImageService, private testitem: TestitemService,
+    private addimage: AddImageService, private testitem: TestitemService,private auth: AuthService,
     private router: Router) { }
 
   ngOnInit() {
+
+    const role = this.auth.getRole();
+    this.role = role;
+
     forkJoin([this.cityService.getAll(), this.stateService.getAll(),this.categoryService.getAll(),this.itemnameService.getAll(),this.manufacturerService.getAll(),
       this.sellerService.getAll(),
       this.unitService.getAll()])
@@ -81,6 +87,13 @@ export class AddProductsComponent implements OnInit {
       this.manufacturers = response[4];
       this.sellers = response[5];
       this.units = response[5];
+
+      if (this.role == 'agent') {
+        var filteredSellers =  this.sellers.filter(function(sellerlist) {
+          return sellerlist.defaultseller === true;
+        });
+        this.sellers = filteredSellers
+      }
       // this.addresses = response[7];
     }, (error: Response) => {
       this.router.navigate(['/errorpage']);

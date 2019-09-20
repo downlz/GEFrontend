@@ -1,10 +1,14 @@
 <div class="container listingOffsetTextColor">
-  <h3>Enter your Information</h3>
+    <div class="col-12 col-md-12">
+    <div class="ItemCardContainer">
+      <div class="card ItemCardDesc">
+              <div class="card-body">
+  <h3>Enter your details</h3>
 
   <form [formGroup]="form" (ngSubmit)="login()">
     <div formGroupName="account">
       <div class="form-group">
-        <label for="name">name</label>
+        <label for="name">Name</label>
         <input
           formControlName="name"
           id="name"
@@ -18,7 +22,7 @@
       </div>
       
       <div class="form-group">
-        <label for="email">email</label>
+        <label for="email">Email</label>
         <input
           formControlName="email"
           id="email"
@@ -60,7 +64,7 @@
             <div *ngIf="password.errors.minlength"> minimum length should be {{ password.errors.minlength.requiredLength}}</div>
           </div>
       </div>
-      <div class="form-group">
+      <!-- <div class="form-group">
         <label for="pan">PAN</label>
         <input
           formControlName="pan"
@@ -74,8 +78,8 @@
             <div *ngIf="pan.errors.maxlength"> length should be {{ pan.errors.maxlength.requiredLength}}</div>
             <div *ngIf="pan.errors.cannotContainSpace"> PAN number cannot contain space</div>
           </div>
-      </div>
-      <div class="form-group">
+      </div> -->
+      <!-- <div class="form-group">
         <label for="GST">GSTIN Number</label>
         <input
           formControlName="GST"
@@ -89,7 +93,7 @@
             <div *ngIf="GST.errors.maxlength"> length should be {{ GST.errors.maxlength.requiredLength}}</div>
             <div *ngIf="GST.errors.cannotContainSpace"> GSTIN cannot contain space</div>
           </div>
-      </div>
+      </div> -->
       <div class="form-group">
         <label for="address">Address</label>
         <input
@@ -134,4 +138,8 @@
 
     <button class="btn btn-primary" type="submit" [disabled]="!form.valid">SignUp</button>
   </form>
+  </div>
+  </div>
+  </div>
+    </div>
 </div>

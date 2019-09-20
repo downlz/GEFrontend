@@ -1,0 +1,44 @@
+// .error-block {
+//   text-align: center;
+//   padding-left: 0px;
+
+//   p {
+//     margin-bottom: 0px;
+
+//     &:not(:first-child) {
+//       display: none;
+//     }
+//   }
+// }
+
+// .col-md-3{
+//   padding-left: 0px;
+// }
+
+// .listingOffsetTextColor {
+//   padding-top: 80px;
+//   color: black;
+//   padding-left: 9.5%;
+// }
+
+// .ItemCardContainer {
+//   padding: 10px;
+// }
+
+// .ItemTextDtl {
+//   font-size: 12px;
+// }
+
+.loader {
+  z-index: 2;
+  margin: auto;
+  position: absolute;
+  left: 50%;
+  top: 40%;
+}
+
+.ButtonAlignRight {
+  float: right;
+}
+
+

@@ -43,6 +43,7 @@ import { BargainQuoteComponent } from './bargain-quote/bargain-quote.component';
 
 import { CreateOrderComponent } from './agent-mgmt/create-order/create-order.component';
 import { ProductTabComponent } from './add-products/product-tabs/product-tabs.component';
+// import { AddUsersComponent } from './add-products/add-users/add-users.component';
 
 const routes: Routes = [
   {
@@ -103,6 +104,14 @@ const routes: Routes = [
         roles: ['admin', 'seller', 'agent']
       }
     }
+    // ,
+    // {
+    //   path: 'addusers',
+    //   component: AddUsersComponent,
+    //   data: {
+    //     roles: ['admin', 'agent']
+    //   }
+    // }
   ],
   data: {
     roles: ['admin', 'agent','seller']
