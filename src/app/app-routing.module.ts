@@ -30,14 +30,15 @@ import {AuctionStatusComponent} from './auction/auction-status/auction-status.co
 import {AuctionDetailComponent} from './auction/auction-detail/auction-detail.component';
 import {MyBidsComponent} from './auction/my-bids/my-bids.component';
 
-import {TransportComponent} from './transport/transport.component';
-import {ListTransportRateComponent} from './transport/list-transport-rate/list-transport-rate.component';
-import { DispatchDetailComponent } from './transport/dispatch-detail/dispatch-detail.component';
-import { TransportRateComponent } from './transport/transport-rate/transport-rate.component';
-import { DispatchHistoryComponent } from './transport/dispatch-history/dispatch-history.component';
-import { DispatchOrderComponent } from './transport/dispatch-order/dispatch-order.component';
-import { FindTransportComponent } from './transport/find-transport/find-transport.component';
-import { ForgotPasswordComponent } from './login/forgot-password/forgot-password.component';
+// import {TransportComponent} from './transport/transport.component';
+// import {ListTransportRateComponent} from './transport/list-transport-rate/list-transport-rate.component';
+// import { DispatchDetailComponent } from './transport/dispatch-detail/dispatch-detail.component';
+// import { TransportRateComponent } from './transport/transport-rate/transport-rate.component';
+// import { DispatchHistoryComponent } from './transport/dispatch-history/dispatch-history.component';
+// import { DispatchOrderComponent } from './transport/dispatch-order/dispatch-order.component';
+// import { FindTransportComponent } from './transport/find-transport/find-transport.component';
+
+// import { ForgotPasswordComponent } from './login/forgot-password/forgot-password.component';
 import { BargainRequestComponent } from './bargain-request/bargain-request.component';
 import { BargainQuoteComponent } from './bargain-quote/bargain-quote.component';
 
@@ -50,9 +51,15 @@ const routes: Routes = [
     path: 'login',
     component: LoginComponent
   },
+  // ...ForgotPasswordRoutes,
   {
     path: 'forgotpassword',
-    component: ForgotPasswordComponent
+    loadChildren: '../app/login/forgot-password/forgot-password.module#ForgotPasswordModule'
+    // loadChildren: () => import('./login/forgot-password/forgot-password.module').then(mod => mod.ForgotPasswordModule)
+    // component: ForgotPasswordComponent,
+    // children: [
+    //   { path: 'forgotpassword',loadChildren:'./login/forgot-password/forgot-password.module#ForgotPasswordModule'}
+    // ]
   },
   {
     path: 'main',
@@ -198,62 +205,63 @@ const routes: Routes = [
   },
   {
     path: 'transport',
-    component: TransportComponent,
-    canActivate: [AuthGuard],
-    children: [
-      {
-        path: 'add',
-        component: ListTransportRateComponent,
-        data: {
-         roles: ['admin', 'seller', 'buyer' , 'transporter','agent']
-        }
-      },
-      {
-        path: 'edit/:id',
-        component: ListTransportRateComponent,
-        data: {
-          roles: ['admin', 'seller', 'buyer', 'transporter','agent']
-        }
-      },
-      {
-        path: 'user',
-        component: TransportRateComponent,
-        data: {
-          roles: ['admin', 'seller', 'buyer', 'transporter','agent']
-        }
-      },
-      {
-        path: 'dispatch',
-        component: DispatchDetailComponent,
-        data : {
-          roles: ['admin', 'seller', 'buyer', 'transporter','agent']
-        }
-      },
-      {
-        path: 'dispatchhistory',
-        component: DispatchHistoryComponent,
-        data :{
-          roles: ['admin', 'seller', 'buyer', 'transporter','agent']
-        }
-      },
-      {
-        path: 'dispatchorder',
-        component: DispatchOrderComponent,
-        data: {
-          roles: ['admin', 'seller', 'buyer', 'transporter','agent']
-        }
-      },
-      {
-        path: 'findtransport',
-        component: FindTransportComponent,
-        data: {
-          roles: ['admin', 'seller', 'buyer', 'transporter','agent']
-        }
-      }
-    ],
-    data: {
-      roles: ['admin', 'buyer', 'seller', 'transporter','agent']
-    }
+    loadChildren: '../app/transport/transport.module#TransportModule',
+    // component: TransportComponent,
+    // canActivate: [AuthGuard],
+    // children: [
+    //   {
+    //     path: 'add',
+    //     component: ListTransportRateComponent,
+    //     data: {
+    //      roles: ['admin', 'seller', 'buyer' , 'transporter','agent']
+    //     }
+    //   },
+    //   {
+    //     path: 'edit/:id',
+    //     component: ListTransportRateComponent,
+    //     data: {
+    //       roles: ['admin', 'seller', 'buyer', 'transporter','agent']
+    //     }
+    //   },
+    //   {
+    //     path: 'user',
+    //     component: TransportRateComponent,
+    //     data: {
+    //       roles: ['admin', 'seller', 'buyer', 'transporter','agent']
+    //     }
+    //   },
+    //   {
+    //     path: 'dispatch',
+    //     component: DispatchDetailComponent,
+    //     data : {
+    //       roles: ['admin', 'seller', 'buyer', 'transporter','agent']
+    //     }
+    //   },
+    //   {
+    //     path: 'dispatchhistory',
+    //     component: DispatchHistoryComponent,
+    //     data :{
+    //       roles: ['admin', 'seller', 'buyer', 'transporter','agent']
+    //     }
+    //   },
+    //   {
+    //     path: 'dispatchorder',
+    //     component: DispatchOrderComponent,
+    //     data: {
+    //       roles: ['admin', 'seller', 'buyer', 'transporter','agent']
+    //     }
+    //   },
+    //   {
+    //     path: 'findtransport',
+    //     component: FindTransportComponent,
+    //     data: {
+    //       roles: ['admin', 'seller', 'buyer', 'transporter','agent']
+    //     }
+    //   }
+    // ],
+    // data: {
+    //   roles: ['admin', 'buyer', 'seller', 'transporter','agent']
+    // }
   },
   {
     path: 'groupBuying',

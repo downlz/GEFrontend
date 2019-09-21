@@ -1,3 +1,4 @@
+// import { TransportModule } from './transport/transport.module';
 import {BrowserModule} from '@angular/platform-browser';
 import {NgModule, ErrorHandler} from '@angular/core';
 // import { MDBBootstrapModule } from 'angular-bootstrap-md';
@@ -64,8 +65,6 @@ import {GBOrderCardComponent} from './gborder-card/gborder-card.component';
 import {GBProductDetailComponent} from './gbproduct-detail/gbproduct-detail.component';
 import {GBOrderNowComponent} from './gborder-now/gborder-now.component';
 
-import { FindTransportComponent } from './transport/find-transport/find-transport.component';
-
 import {AuctionComponent} from './auction/auction.component';
 import {SidebarComponent} from './auction/sidebar/sidebar.component';
 import {CreateAuctionComponent} from './auction/create-auction/create-auction.component';
@@ -81,20 +80,22 @@ import {MyBidsComponent} from './auction/my-bids/my-bids.component';
 
 import { BidHistoryComponent } from './auction/bid-history/bid-history.component';
 
-import { TransportComponent } from './transport/transport.component';
-import { TransportSidebarComponent } from './transport/sidebar/sidebar.component';
-import { ListTransportRateComponent } from './transport/list-transport-rate/list-transport-rate.component';
-import { TransportRateComponent } from './transport/transport-rate/transport-rate.component';
-import { DispatchDetailComponent } from './transport/dispatch-detail/dispatch-detail.component';
-import { DispatchHistoryComponent } from './transport/dispatch-history/dispatch-history.component';
-import { DispatchOrderComponent } from './transport/dispatch-order/dispatch-order.component';
-import {ForgotPasswordComponent} from './login/forgot-password/forgot-password.component';
+// import { TransportComponent } from './transport/transport.component';
+// import { FindTransportComponent } from './transport/find-transport/find-transport.component';
+// import { TransportSidebarComponent } from './transport/sidebar/sidebar.component';
+// import { ListTransportRateComponent } from './transport/list-transport-rate/list-transport-rate.component';
+// import { TransportRateComponent } from './transport/transport-rate/transport-rate.component';
+// import { DispatchDetailComponent } from './transport/dispatch-detail/dispatch-detail.component';
+// import { DispatchHistoryComponent } from './transport/dispatch-history/dispatch-history.component';
+// import { DispatchOrderComponent } from './transport/dispatch-order/dispatch-order.component';
+
+// import {ForgotPasswordComponent} from './login/forgot-password/forgot-password.component';
 
 import { CreateOrderComponent } from './agent-mgmt/create-order/create-order.component';
 // import { AddUsersComponent } from './add-products/add-users/add-users.component';
 
 import { AppFooterComponent } from './app-footer/app-footer.component';
-
+// import { ForgotPasswordModule } from './login/forgot-password/forgot-password.module';
 
 @NgModule({
   declarations: [
@@ -112,7 +113,7 @@ import { AppFooterComponent } from './app-footer/app-footer.component';
     RegistrationComponent,
     ReferUserComponent,
     LoginComponent,
-    ForgotPasswordComponent,
+    // ForgotPasswordComponent,
     ErrorPageComponent,
     TermsUseComponent,
     ProductSidebarComponent,
@@ -145,14 +146,14 @@ import { AppFooterComponent } from './app-footer/app-footer.component';
     PlaceBidComponent,
     MyBidsComponent,
     BidHistoryComponent,
-    TransportComponent,
-    TransportSidebarComponent,
-    ListTransportRateComponent,
-    TransportRateComponent,
-    DispatchDetailComponent,
-    DispatchHistoryComponent,
-    DispatchOrderComponent,
-    FindTransportComponent,
+    // TransportComponent,
+    // TransportSidebarComponent,
+    // ListTransportRateComponent,
+    // TransportRateComponent,
+    // DispatchDetailComponent,
+    // DispatchHistoryComponent,
+    // DispatchOrderComponent,
+    // FindTransportComponent,
     CreateOrderComponent,
     ProductTabComponent,
     ProductListComponent,
