@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { FormValidators} from '../login/login-form.validators';
-import {CityService} from '../services/city.service';
-import {StateService} from '../services/state.service';
+import { FormValidators} from '../../login/login-form.validators';
+import {CityService} from '../../services/city.service';
+import {StateService} from '../../services/state.service';
 import { forkJoin } from 'rxjs';
-import {UserService} from '../services/user.service';
+import {UserService} from '../../services/user.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { AppError } from '../common/app-error';
+import { AppError } from '../../common/app-error';
 
 @Component({
   selector: 'app-registration',

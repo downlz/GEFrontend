@@ -1,3 +1,4 @@
+import { UserService } from './../services/user.service';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
@@ -15,7 +16,6 @@ import {TestitemService} from '../services/testitem.service';
 import {AuthService} from '../services/auth.service';
 import {ItemService} from '../services/item.service';
 import { forkJoin } from 'rxjs';
-import {UserService} from '../services/user.service';
 import {UsersellerService} from '../services/seller.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AppError } from '../common/app-error';
@@ -65,10 +65,12 @@ export class AddProductsComponent implements OnInit {
   categories: any;
   loginData: any;
   role: string;
+  userres: any;
+  userid: any;
   constructor(private stateService: StateService, private cityService: CityService,private categoryService: CategoryService,
     private itemnameService: ItemnameService,private manufacturerService: ManufacturerService,private sellerService: UsersellerService,
-    private unitService: UnitService,private user: UserService,private itempost: ItemService,private addressService: AddressService,
-    private addimage: AddImageService, private testitem: TestitemService,private auth: AuthService,
+    private unitService: UnitService,private itempost: ItemService,private addressService: AddressService,
+    private addimage: AddImageService, private testitem: TestitemService,private auth: AuthService,private userService: UserService,
     private router: Router) { }
 
   ngOnInit() {
@@ -76,9 +78,9 @@ export class AddProductsComponent implements OnInit {
     const role = this.auth.getRole();
     this.role = role;
 
-    forkJoin([this.cityService.getAll(), this.stateService.getAll(),this.categoryService.getAll(),this.itemnameService.getAll(),this.manufacturerService.getAll(),
-      this.sellerService.getAll(),
-      this.unitService.getAll()])
+    forkJoin([this.cityService.getAll(), this.stateService.getAll(),this.categoryService.getAll(),
+      this.itemnameService.getAll(),this.manufacturerService.getAll(),
+      this.sellerService.getAll(),this.unitService.getAll(),this.userService.get('me')])
       // ,this.addressService.getAll()
     .subscribe(response => {
       this.cities = response[0];
@@ -86,7 +88,9 @@ export class AddProductsComponent implements OnInit {
       this.itemnames = response[3];
       this.manufacturers = response[4];
       this.sellers = response[5];
-      this.units = response[5];
+      this.units = response[6];
+      this.userres = response[7];
+      this.userid = this.userres._id;
 
       if (this.role == 'agent') {
         var filteredSellers =  this.sellers.filter(function(sellerlist) {
@@ -94,6 +98,20 @@ export class AddProductsComponent implements OnInit {
         });
         this.sellers = filteredSellers
       }
+
+      // this.userService.get('me')
+      // .subscribe(response => {
+      //   const res = response as any;
+      //   // this.user = res;
+      //   this.userid = res._id;
+      // }, (error: Response) => {
+      //   this.router.navigate(['/errorpage']);
+      //   if (error.status === 400) {
+      //     alert(' expected error, post already deleted');
+      //   }
+      //   console.log(error);
+      // });
+
       // this.addresses = response[7];
     }, (error: Response) => {
       this.router.navigate(['/errorpage']);

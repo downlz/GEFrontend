@@ -23,7 +23,7 @@
               <td>Quantity: {{order.quantity}} {{order.unit}} </td>
             </tr>
             <tr *ngIf="order.quantity>0">
-              <td>{{order.cost ? "Cost: Rs. " + order.cost.toFixed(2) : '' }}<span *ngIf = "order.ordertype!=='groupbuying'" class="ItemTextDtl" > {{'  '}}*Excluding Taxes. **Transportation cost extra.</span></td>
+              <td>{{order.cost ? "Cost: &#8377;" + order.cost.toFixed(2) : '' }}<span *ngIf = "order.ordertype!=='groupbuying'" class="ItemTextDtl" > {{'  '}}*Excluding Taxes. **Transportation cost extra.</span></td>
             </tr>
             <tr *ngIf="order.quantity==0">
               <td>Sample order</td>

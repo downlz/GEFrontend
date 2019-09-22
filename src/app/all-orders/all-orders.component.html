@@ -13,7 +13,7 @@
                 <th scope="col">Item</th>
                 <th scope="col">Item Code</th>
                 <th scope="col">Quantity</th>
-                <th scope="col">Cost</th>
+                <th scope="col">Cost (<span style="font-weight:bold;">{{"&#8377;"}}</span>)</th>
                 <th scope="col">Order Type</th>
                 <th scope="col">Status</th>
                 <th scope="col">Bill Added</th>
@@ -45,7 +45,7 @@
                 <td>{{order.item.name.name}}</td>
                 <td>{{ order.item.sampleNo }}</td>
                 <td>{{order.quantity}} {{order.unit}}</td>
-                <td>{{order.cost ? "Rs. " + order.cost.toFixed(2) : 'NA' }}</td>
+                <td>{{order.cost ? order.cost.toFixed(2) : 'NA' }}</td>
                 <td>{{order.ordertype}}</td>
                 <td *ngIf="role == 'admin'">
                   <select id="status" [(ngModel)]="order.status">

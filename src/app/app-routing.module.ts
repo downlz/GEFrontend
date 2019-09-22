@@ -17,8 +17,10 @@ import {AddProductsComponent} from './add-products/add-products.component';
 import {ProductSidebarComponent} from './add-products/sidebar/sidebar.component';
 import {ProductDataComponent} from './add-products/products-data.component';
 import {ListGBItemComponent} from './listgb-item/listgb-item.component';
-import {RegistrationComponent} from './registration/registration.component';
-import {ReferUserComponent} from './refer-user/refer-user.component';
+
+
+import {RegistrationComponent} from './users/registration/registration.component';
+import {ReferUserComponent} from './users/refer-user/refer-user.component';
 import {ErrorPageComponent} from './error-page/error-page.component';
 import {TermsUseComponent} from './terms-use/terms-use.component';
 import {AuthGuard} from './_guards/auth.guard';
@@ -55,11 +57,6 @@ const routes: Routes = [
   {
     path: 'forgotpassword',
     loadChildren: '../app/login/forgot-password/forgot-password.module#ForgotPasswordModule'
-    // loadChildren: () => import('./login/forgot-password/forgot-password.module').then(mod => mod.ForgotPasswordModule)
-    // component: ForgotPasswordComponent,
-    // children: [
-    //   { path: 'forgotpassword',loadChildren:'./login/forgot-password/forgot-password.module#ForgotPasswordModule'}
-    // ]
   },
   {
     path: 'main',
@@ -206,62 +203,6 @@ const routes: Routes = [
   {
     path: 'transport',
     loadChildren: '../app/transport/transport.module#TransportModule',
-    // component: TransportComponent,
-    // canActivate: [AuthGuard],
-    // children: [
-    //   {
-    //     path: 'add',
-    //     component: ListTransportRateComponent,
-    //     data: {
-    //      roles: ['admin', 'seller', 'buyer' , 'transporter','agent']
-    //     }
-    //   },
-    //   {
-    //     path: 'edit/:id',
-    //     component: ListTransportRateComponent,
-    //     data: {
-    //       roles: ['admin', 'seller', 'buyer', 'transporter','agent']
-    //     }
-    //   },
-    //   {
-    //     path: 'user',
-    //     component: TransportRateComponent,
-    //     data: {
-    //       roles: ['admin', 'seller', 'buyer', 'transporter','agent']
-    //     }
-    //   },
-    //   {
-    //     path: 'dispatch',
-    //     component: DispatchDetailComponent,
-    //     data : {
-    //       roles: ['admin', 'seller', 'buyer', 'transporter','agent']
-    //     }
-    //   },
-    //   {
-    //     path: 'dispatchhistory',
-    //     component: DispatchHistoryComponent,
-    //     data :{
-    //       roles: ['admin', 'seller', 'buyer', 'transporter','agent']
-    //     }
-    //   },
-    //   {
-    //     path: 'dispatchorder',
-    //     component: DispatchOrderComponent,
-    //     data: {
-    //       roles: ['admin', 'seller', 'buyer', 'transporter','agent']
-    //     }
-    //   },
-    //   {
-    //     path: 'findtransport',
-    //     component: FindTransportComponent,
-    //     data: {
-    //       roles: ['admin', 'seller', 'buyer', 'transporter','agent']
-    //     }
-    //   }
-    // ],
-    // data: {
-    //   roles: ['admin', 'buyer', 'seller', 'transporter','agent']
-    // }
   },
   {
     path: 'groupBuying',

@@ -159,7 +159,7 @@ export class OrderNowComponent implements OnInit {
 
   order(f) {
     if (!f.shipaddr) {
-      alert("Specify a default address");
+      alert("Specify a address from shipping address dropdown");
     } else {
     this.orderService.get('orderno')        // Sending url as per API defination
       .subscribe(response => {              // improve coding standards
