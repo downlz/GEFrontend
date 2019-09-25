@@ -25,12 +25,12 @@ export class RegistrationComponent implements OnInit {
         FormValidators.cannotContainSpace],
         FormValidators.shouldBeUnique),
       'password' : new FormControl('', [Validators.required, Validators.minLength(8)]),
-      'pan' : new FormControl('',[Validators.minLength(10),Validators.maxLength(10),FormValidators.cannotContainSpace]),
+      // 'pan' : new FormControl('',[Validators.minLength(10),Validators.maxLength(10),FormValidators.cannotContainSpace]),
       'GST' : new FormControl('', [Validators.minLength(15),Validators.maxLength(15),FormValidators.cannotContainSpace]),
       'address' : new FormControl('', [Validators.required]),
       'city' : new FormControl('', [Validators.required]),
       'state' : new FormControl('', [Validators.required]),
-      'pin' : new FormControl('', [Validators.required])
+      'pin' : new FormControl('', [Validators.required,Validators.maxLength(6)])
         // Validators.minLength(6),
         // Validators.maxLength(6)])
     })
@@ -39,6 +39,7 @@ export class RegistrationComponent implements OnInit {
   cities: any;
   states: any;
   loginData: any;
+  clicked: boolean = false;
   constructor(private stateService: StateService, private cityService: CityService,
     private user: UserService, private router: Router) { }
 
@@ -72,9 +73,9 @@ export class RegistrationComponent implements OnInit {
     return this.form.get('account.password');
   }
 
-  get pan () {
-    return this.form.get('account.pan');
-  }
+  // get pan () {
+  //   return this.form.get('account.pan');
+  // }
 
   get GST () {
     return this.form.get('account.GST');
@@ -92,17 +93,18 @@ export class RegistrationComponent implements OnInit {
     return this.form.get('account.state');
   }
 
-  // get pin () {
-  //   return this.form.get('account.pin');
-  // }
+  get pin () {
+    return this.form.get('account.pin');
+  }
 
   login() {
+    this.clicked = true
     const formData = {
       phone:  '+91' + this.form.value.account.phone,
       name:   this.form.value.account.name,
       email:  this.form.value.account.email,
       password:   this.form.value.account.password,
-      pan:    this.form.value.account.pan.toUpperCase(),
+      // pan:    this.form.value.account.pan.toUpperCase(),
       GST:    this.form.value.account.GST.toUpperCase(),
       address:    this.form.value.account.address,
       cityId:   this.form.value.account.city,

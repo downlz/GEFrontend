@@ -37,7 +37,7 @@
             <tr *ngIf="order.ordertype != 'agentorder'">
               <td *ngIf="order.status != 'new'">
                 <a *ngIf="order.status != 'new'" href='{{apiurl}}/getpo/{{order._id}}'>PO Details</a> &nbsp; &nbsp; &nbsp;
-                <a *ngIf="order.status == 'ready' || order.status == 'shipped' || order.status == 'delivered' " href='{{apiurl}}/getinvoice/{{order._id}}'>Get Invoice</a>
+                <!-- <a *ngIf="order.status == 'ready' || order.status == 'shipped' || order.status == 'delivered' " href='{{apiurl}}/getinvoice/{{order._id}}'>Get Invoice</a> -->
               </td>
             </tr>
             <tr *ngIf="order.manualbill"> 

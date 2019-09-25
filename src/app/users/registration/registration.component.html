@@ -79,21 +79,21 @@
             <div *ngIf="pan.errors.cannotContainSpace"> PAN number cannot contain space</div>
           </div>
       </div> -->
-      <!-- <div class="form-group">
+      <div class="form-group">
         <label for="GST">GSTIN Number</label>
         <input
           formControlName="GST"
           id="GST"
           type="text"
           class="form-control"
-          placeholder="GSTIN Number">
-          <div class="alert alert-danger" *ngIf="GST.touched && GST.invalid">
+          placeholder="GSTIN Number - Optional">
+          <div class="alert alert-danger" *ngIf="GST.invalid">
             <div *ngIf="GST.errors.required"> GST is required </div>
             <div *ngIf="GST.errors.minlength"> length should be {{ GST.errors.minlength.requiredLength}}</div>
             <div *ngIf="GST.errors.maxlength"> length should be {{ GST.errors.maxlength.requiredLength}}</div>
             <div *ngIf="GST.errors.cannotContainSpace"> GSTIN cannot contain space</div>
           </div>
-      </div> -->
+      </div>
       <div class="form-group">
         <label for="address">Address</label>
         <input
@@ -128,15 +128,10 @@
           type="number"
           class="form-control"
           placeholder="Your PIN code">
-          <!-- <div class="alert alert-danger" *ngIf="pin.touched && pin.invalid">
-            <div *ngIf="pin.errors.required"> Pincode is required </div>
-            <div *ngIf="pin.errors.minlength"> length should be {{ pin.errors.minlength.requiredLength}}</div>
-            <div *ngIf="pin.errors.maxlength"> length should be {{ pin.errors.maxlength.requiredLength}}</div>
-          </div> -->
       </div>
     </div>
 
-    <button class="btn btn-primary" type="submit" [disabled]="!form.valid">SignUp</button>
+    <button class="btn btn-primary" type="submit" [disabled]="!form.valid || clicked">SignUp</button>
   </form>
   </div>
   </div>

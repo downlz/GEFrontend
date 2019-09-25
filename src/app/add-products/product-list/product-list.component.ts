@@ -1,3 +1,4 @@
+import { ItemService } from './../../services/item.service';
 
 import { Component, Input, OnChanges, OnInit } from '@angular/core';
 import { AuthService } from '../../services/auth.service';
@@ -22,6 +23,7 @@ export class ProductListComponent implements OnInit {
 
   constructor(private auth: AuthService,
     private listingService: ListingService,
+    private itemService: ItemService,
     // private modalService: NgbModal, private toastr: ToastrService,
     private router: Router) {
     this.role = auth.getRole();
@@ -33,7 +35,8 @@ export class ProductListComponent implements OnInit {
 
   ngOnInit() {
     const currentUser = this.auth.currentUserValue;
-    this.listingService.getAll(this.queryParams)
+    if (this.role == 'admin') {
+      this.itemService.getallitem()
     .subscribe(response => {
       this.listings = response;
       // this.data = this.listings;
@@ -49,6 +52,25 @@ export class ProductListComponent implements OnInit {
       }
       console.log(error);
     });
+    } else {
+      this.listingService.getCurrentUserListings()
+    .subscribe(response => {
+      this.listings = response;
+      // this.data = this.listings;
+      this.setTotalPages();
+      this.onPageChange(this.currentPage);
+      this.loading = false;
+      // console.log(this.listings);
+    }, (error: Response) => {
+        this.loading = false;
+      this.router.navigate(['/errorpage']);
+      if (error.status === 400) {
+        alert(' expected error, post already deleted');
+      }
+      console.log(error);
+    });
+    }
+    
   }
 
   initializeTable() {
@@ -79,6 +101,20 @@ export class ProductListComponent implements OnInit {
     if (typeof changes.auction === 'undefined') {
       this.initializeTable();
     }
+  }
+
+  approveItem(id){
+    // this.loading = true;
+    // this.itemService.update({
+    //   _id: id,
+    //   approved: true
+    // }).subscribe((data) => {
+    //   this.loading = false;
+    //   this.onDataChange.emit(data);
+    // }, () => {
+    //   alert('Error while approving this auction');
+    //   this.loading = false;
+    // });
   }
 
 }

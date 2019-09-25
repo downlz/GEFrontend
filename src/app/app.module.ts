@@ -65,20 +65,20 @@ import {GBOrderCardComponent} from './gborder-card/gborder-card.component';
 import {GBProductDetailComponent} from './gbproduct-detail/gbproduct-detail.component';
 import {GBOrderNowComponent} from './gborder-now/gborder-now.component';
 
-import {AuctionComponent} from './auction/auction.component';
-import {SidebarComponent} from './auction/sidebar/sidebar.component';
-import {CreateAuctionComponent} from './auction/create-auction/create-auction.component';
-import {AuctionListComponent} from './auction/auction-list/auction-list.component';
-import {AuctionStatusComponent} from './auction/auction-status/auction-status.component';
-import {AuctionListingCardComponent} from './auction/auction-listing-card/auction-listing-card.component';
-import {AuctionTableComponent} from './auction/auction-table/auction-table.component';
-import {AuctionDetailComponent} from './auction/auction-detail/auction-detail.component';
-import {ListingDetailComponent} from './auction/auction-detail/listing-detail/listing-detail.component';
-import {BidsTableComponent} from './auction/bids-table/bids-table.component';
-import {PlaceBidComponent} from './auction/place-bid/place-bid.component';
-import {MyBidsComponent} from './auction/my-bids/my-bids.component';
+// import {AuctionComponent} from './auction/auction.component';
+// import {SidebarComponent} from './auction/sidebar/sidebar.component';
+// import {CreateAuctionComponent} from './auction/create-auction/create-auction.component';
+// import {AuctionListComponent} from './auction/auction-list/auction-list.component';
+// import {AuctionStatusComponent} from './auction/auction-status/auction-status.component';
+// import {AuctionListingCardComponent} from './auction/auction-listing-card/auction-listing-card.component';
+// import {AuctionTableComponent} from './auction/auction-table/auction-table.component';
+// import {AuctionDetailComponent} from './auction/auction-detail/auction-detail.component';
+// import {ListingDetailComponent} from './auction/auction-detail/listing-detail/listing-detail.component';
+// import {BidsTableComponent} from './auction/bids-table/bids-table.component';
+// import {PlaceBidComponent} from './auction/place-bid/place-bid.component';
+// import {MyBidsComponent} from './auction/my-bids/my-bids.component';
 
-import { BidHistoryComponent } from './auction/bid-history/bid-history.component';
+// import { BidHistoryComponent } from './auction/bid-history/bid-history.component';
 
 // import { TransportComponent } from './transport/transport.component';
 // import { FindTransportComponent } from './transport/find-transport/find-transport.component';
@@ -133,19 +133,20 @@ import { AppFooterComponent } from './app-footer/app-footer.component';
     ListGBItemComponent,
     OrderCardComponent,
     GBOrderCardComponent,
-    AuctionComponent,
-    SidebarComponent,
-    CreateAuctionComponent,
-    AuctionListComponent,
-    AuctionStatusComponent,
-    AuctionListingCardComponent,
-    AuctionTableComponent,
-    AuctionDetailComponent,
-    ListingDetailComponent,
-    BidsTableComponent,
-    PlaceBidComponent,
-    MyBidsComponent,
-    BidHistoryComponent,
+    // AuctionComponent,
+    // SidebarComponent,
+    // CreateAuctionComponent,
+    // AuctionListComponent,
+    // AuctionStatusComponent,
+    // AuctionListingCardComponent,
+    // AuctionTableComponent,
+    // AuctionDetailComponent,
+    // ListingDetailComponent,
+    // BidsTableComponent,
+    // PlaceBidComponent,
+    // MyBidsComponent,
+    // BidHistoryComponent,
+
     // TransportComponent,
     // TransportSidebarComponent,
     // ListTransportRateComponent,
@@ -160,7 +161,7 @@ import { AppFooterComponent } from './app-footer/app-footer.component';
     // AddUsersComponent,
     AppFooterComponent
   ],
-  entryComponents: [PlaceBidComponent],
+  // entryComponents: [PlaceBidComponent],
   imports: [
     BrowserModule,
     // MDBBootstrapModule.forRoot(),

@@ -25,12 +25,12 @@ import {ErrorPageComponent} from './error-page/error-page.component';
 import {TermsUseComponent} from './terms-use/terms-use.component';
 import {AuthGuard} from './_guards/auth.guard';
 
-import {AuctionComponent} from './auction/auction.component';
-import {CreateAuctionComponent} from './auction/create-auction/create-auction.component';
-import {AuctionListComponent} from './auction/auction-list/auction-list.component';
-import {AuctionStatusComponent} from './auction/auction-status/auction-status.component';
-import {AuctionDetailComponent} from './auction/auction-detail/auction-detail.component';
-import {MyBidsComponent} from './auction/my-bids/my-bids.component';
+// import {AuctionComponent} from './auction/auction.component';
+// import {CreateAuctionComponent} from './auction/create-auction/create-auction.component';
+// import {AuctionListComponent} from './auction/auction-list/auction-list.component';
+// import {AuctionStatusComponent} from './auction/auction-status/auction-status.component';
+// import {AuctionDetailComponent} from './auction/auction-detail/auction-detail.component';
+// import {MyBidsComponent} from './auction/my-bids/my-bids.component';
 
 // import {TransportComponent} from './transport/transport.component';
 // import {ListTransportRateComponent} from './transport/list-transport-rate/list-transport-rate.component';
@@ -139,70 +139,71 @@ const routes: Routes = [
   },
   {
     path: 'auction',
-    component: AuctionComponent,
-    canActivate: [AuthGuard],
-    children: [
-      {
-        path: '',
-        component: AuctionListComponent,
-        data: {
-          roles: ['admin', 'seller', 'buyer']
-        }
-      },
-      {
-        path: 'add',
-        component: CreateAuctionComponent,
-        data: {
-         // roles: ['admin', 'seller', 'buyer']
-        }
-      },
-      {
-        path: 'edit/:id',
-        component: CreateAuctionComponent,
-        data: {
-          roles: ['admin', 'seller', 'buyer']
-        }
-      },
-      {
-        path: 'status',
-        component: AuctionStatusComponent,
-        data: {
-          roles: ['admin', 'seller']
-        }
-      },
-      {
-        path: 'bids',
-        component: MyBidsComponent,
-        data: {
-          roles: ['buyer', 'seller']
-        }
-      },
-      {
-        path: 'active',
-        component: AuctionListComponent,
-        data: {
-          roles: ['buyer', 'seller']
-        }
-      },
-      {
-        path: 'inactive',
-        component: AuctionListComponent,
-        data: {
-          roles: ['buyer', 'seller']
-        }
-      },
-      {
-        path: ':id',
-        component: AuctionDetailComponent
-      }
-    ],
-    data: {
-      roles: ['admin', 'buyer', 'seller']
-    }
+    loadChildren: '../app/auction/auction.module#AuctionModule',
+    // component: AuctionComponent,
+    // canActivate: [AuthGuard],
+    // children: [
+    //   {
+    //     path: '',
+    //     component: AuctionListComponent,
+    //     data: {
+    //       roles: ['admin', 'seller', 'buyer']
+    //     }
+    //   },
+    //   {
+    //     path: 'add',
+    //     component: CreateAuctionComponent,
+    //     data: {
+    //      // roles: ['admin', 'seller', 'buyer']
+    //     }
+    //   },
+    //   {
+    //     path: 'edit/:id',
+    //     component: CreateAuctionComponent,
+    //     data: {
+    //       roles: ['admin', 'seller', 'buyer']
+    //     }
+    //   },
+    //   {
+    //     path: 'status',
+    //     component: AuctionStatusComponent,
+    //     data: {
+    //       roles: ['admin', 'seller']
+    //     }
+    //   },
+    //   {
+    //     path: 'bids',
+    //     component: MyBidsComponent,
+    //     data: {
+    //       roles: ['buyer', 'seller']
+    //     }
+    //   },
+    //   {
+    //     path: 'active',
+    //     component: AuctionListComponent,
+    //     data: {
+    //       roles: ['buyer', 'seller']
+    //     }
+    //   },
+    //   {
+    //     path: 'inactive',
+    //     component: AuctionListComponent,
+    //     data: {
+    //       roles: ['buyer', 'seller']
+    //     }
+    //   },
+    //   {
+    //     path: ':id',
+    //     component: AuctionDetailComponent
+    //   }
+    // ],
+    // data: {
+    //   roles: ['admin', 'buyer', 'seller']
+    // }
   },
   {
     path: 'transport',
-    loadChildren: '../app/transport/transport.module#TransportModule',
+    loadChildren: '../app/transport/transport.module#TransportModule'
   },
   {
     path: 'groupBuying',

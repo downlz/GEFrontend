@@ -207,7 +207,7 @@ export class OrderNowComponent implements OnInit {
       isExistingAddr: false
     };
     // console.log(OrderData);
-    console.log(f.shipaddr);
+    // console.log(f.shipaddr);
     if (f.shipaddr.addresstype === 'delivery') {
       OrderData.isshippingbillingdiff = true,
       OrderData.partyname = f.shipaddr.addressbasicdtl.partyname,

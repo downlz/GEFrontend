@@ -18,6 +18,7 @@
                 <th scope="col">Status</th>
                 <th scope="col">Bill Added</th>
                 <th scope="col">Action</th>
+                <th scope="col" *ngIf="role == 'admin'">Add Bill</th>
               </tr>
             </thead>
             <tbody>
@@ -62,7 +63,7 @@
                 <td *ngIf="!order.manualbill">No</td>
                 <td *ngIf="role == 'admin' && order.status !='cancelled'"><button (click)="updateOrder(order)">Update</button></td>
                 <td *ngIf="role == 'admin' && order.status =='cancelled'"><button disabled>Closed</button></td>
-                <td *ngIf="role == 'seller'">
+                <td *ngIf="role == 'seller' || 'admin'">
                 <input style="display: none" type="file" (change)="uploadManualBill($event,order)" #fileInput>  
                   <button type="button" (click)="fileInput.click()">Upload Bill</button>
                 

@@ -1,14 +1,13 @@
 <div class="container listingOffsetTextColor">
-    <div class="spinner-grow loader text-success" *ngIf="loading"></div>
-  <h3>{{edit ? 'Update Product Details' : 'Enter product information'}}</h3>
-  <!-- <h5 *ngIf="edit">Sample No - {{item['sampleNo']}} | Grade - {{item['grade']}}| MFG - {{mfgname}}</h5> -->
+  <h3>Enter product information</h3>
+
   <!-- <form [formGroup]="form" (ngSubmit)="addproduct()"> -->
     <form [formGroup]="form">
   <!-- <form [formGroup]="form" method ="post" action='/testcall' enctype="multipart/form-data"> -->
   <!-- enctype="multipart/form-data"> -->
     <div formGroupName="newitem">
       <div class="row">
-        <div class="col-md-5 pr-1" *ngIf="formControls.itemname">
+        <div class="col-md-5 pr-1">
           <div class="form-group">
             <label>Item name</label>
             <select class="form-control" id="itemname" formControlName="itemname"
@@ -19,7 +18,7 @@
 
           </div>
         </div>
-        <div class="col-md-3 pl-1" *ngIf="formControls.itemcategory">
+        <div class="col-md-3 pl-1">
           <div class="form-group">
             <label>Category</label>
             <select class="form-control" id="itemcategory" [attr.disabled]="!form.value.newitem.itemname?'':null"
@@ -30,16 +29,22 @@
 
           </div>
         </div>
+        <!-- <div class="col-md-4 pl-1">
+          <div class="form-group">
+            <label>Item</label>
+            <input name="item" id="item" type="text" class="form-control" formControlName="item" placeholder="Item">
+          </div>
+        </div> -->
       </div>
 
       <div class="row">
-        <div class="col-md-5 pr-1" *ngIf="formControls.sampleno">
+        <div class="col-md-5 pr-1">
           <div class="form-group">
             <label>Sample No</label>
             <input type="text" id="sampleno"class="form-control" formControlName="sampleno" placeholder="Enter Sample no.">
           </div>
         </div>
-        <div class="col-md-3 pl-1" *ngIf="formControls.grade">
+        <div class="col-md-3 pl-1">
           <div class="form-group">
             <label>Grade</label>
             <input type="text" id="grade" class="form-control" formControlName="grade" placeholder="Add Product Grade" >
@@ -48,34 +53,34 @@
       </div>
       <h5>Enter product specs</h5>
       <div class="row">
-        <div class="col-md-5 pr-1" *ngIf="formControls.moisture">
+        <div class="col-md-5 pr-1">
           <div class="form-group">
-            <label>Moisture</label>
+            <!-- <label></label> -->
             <input type="text" id="moisture" class="form-control" formControlName="moisture" placeholder="Enter moisture content in item">
           </div>
         </div>
-        <div class="col-md-3 pl-1" *ngIf="formControls.graincount">
+        <div class="col-md-3 pl-1">
           <div class="form-group">
-            <label>Grain Count</label>
+            <!-- <label></label> -->
             <input type="text" id="graincount" class="form-control" formControlName="graincount" placeholder="Enter Grain Count">
           </div>
         </div>
-        <div class="col-md-4 pl-1" *ngIf="formControls.icumsa">
+        <div class="col-md-4 pl-1">
           <div class="form-group">
-            <label>ICUMSA</label>
+            <!-- <label>Origin</label> -->
             <input type="text" id="icumsa" class="form-control" formControlName="icumsa" placeholder="Add icumsa">
           </div>
         </div>
       </div>
 
       <div class="row">
-        <div class="col-md-3 pr-1" *ngIf="formControls.qty">
+        <div class="col-md-3 pr-1">
           <div class="form-group">
             <label>Quantity</label>
             <input type="text" id="qty" class="form-control" formControlName="qty" placeholder="Add available Quantity">
           </div>
         </div>
-        <div class="col-md-2 pl-1" *ngIf="formControls.unit">
+        <div class="col-md-2 pl-1">
           <div class="form-group">
             <label>Unit</label>
             <!-- <input type="text" id="unit" class="form-control" formControlName="unit" placeholder="Unit"> -->
@@ -85,13 +90,13 @@
             </select>
           </div>
         </div>
-        <div class="col-md-2 pl-1" *ngIf="formControls.price">
+        <div class="col-md-2 pl-1">
           <div class="form-group">
             <label>Price</label>
             <input type="text" id = "price" class="form-control" formControlName="price" placeholder="Selling Price">
           </div>
         </div>
-        <div class="col-md-5 pl-1" *ngIf="formControls.seller">
+        <div class="col-md-5 pl-1">
           <div class="form-group">
             <label>Seller</label>
             <select class="form-control" id="seller" formControlName="seller"
@@ -105,13 +110,13 @@
 
       <h5>Product location specific information </h5>
       <div class="row">
-        <div class="col-md-2 pr-1" *ngIf="formControls.origin">
+        <div class="col-md-2 pr-1">
           <div class="form-group">
             <label>Origin</label>
             <input type="text" id="origin" class="form-control" formControlName="origin" placeholder="Enter Origin">
           </div>
         </div>
-        <div class="col-md-5 pl-1" *ngIf="formControls.address">
+        <div class="col-md-5 pl-1">
           <div class="form-group">
             <label>Address</label>
             <!-- <input type="text" id="address" class="form-control" formControlName="address" placeholder="Enter Address"> -->
@@ -124,14 +129,14 @@
             </select>
           </div>
         </div>
-        <div class="col-md-2 pl-1" *ngIf="formControls.city">
+        <div class="col-md-2 pl-1">
           <label for="city">City:</label>
           <select class="form-control" id="city" formControlName="city">
             <option value=''></option>
             <option *ngFor="let c of cities" [ngValue]="c._id"> {{ c.name }} </option>
           </select>
         </div>
-        <div class="col-md-3 pl-1" *ngIf="formControls.manufacturer">
+        <div class="col-md-3 pl-1">
           <div class="form-group">
             <label>Select Manufacturer</label>
             <select name="Manufacturer" id="manufacturer" formControlName="manufacturer" class="form-control">
@@ -144,7 +149,7 @@
 
       <div class="row">
 
-        <div class="col-md-3 pr-1" *ngIf="formControls.image">
+        <div class="col-md-3 pr-1">
           <div class="form-group">
             <label for="file">Upload item image</label>
           <!-- <input type="file" id="file" (change)="onFileChange($event)" formControlName="file"> -->
@@ -154,7 +159,7 @@
         </div>
         </div>
         <div class="row">
-        <div class="col-md-4 pr-1" *ngIf="formControls.itemstatus && role == 'admin'">
+        <div class="col-md-4 pr-1">
           <div class="form-group">
             <label for="file">Set item status</label> <br>
             <label class="radio">
@@ -165,7 +170,7 @@
         </div>
       </div>
         <div class="row">
-          <div class="col-md-3 pr-1" *ngIf="formControls.istaxable">
+          <div class="col-md-3 pr-1">
             <div class="form-group">
               <label>Is Product taxable</label> <br>
                 <select name="istaxable" id="istaxable" formControlName="istaxable" class="form-control">
@@ -181,13 +186,8 @@
     <!-- <button class="btn btn-primary" type="submit" [disabled]="!form.valid">Submit</button> -->
     <button class="btn btn-primary"
     (click)="uploader.uploadAll()"
-    [disabled]="!uploader.getNotUploadedItems().length && !edit" *ngIf='!edit'>
-      Add this Product
-    </button>
-    <button class="btn btn-primary"
-    (click)="updateproduct()"
-    [disabled]="clicked" *ngIf='edit'>
-      Update Product
+    [disabled]="!uploader.getNotUploadedItems().length" >
+      Add this item
     </button>
   </form>
 </div>
