@@ -77,7 +77,7 @@ export class AllOrdersComponent implements OnInit {
 
 
   onFileSelected(event){
-    console.log(event)
+    // console.log(event)
     this.selectedFile = event.target.files[0];
   }
   uploadManualBill(event,order){

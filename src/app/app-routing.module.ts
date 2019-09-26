@@ -286,6 +286,10 @@ const routes: Routes = [
     component: ReferUserComponent
   },
   {
+    path: 'users/usersmgmt',
+    loadChildren: '../app/users/user-mgmt/user-mgmt.module#UserMgmtModule'
+  },
+  {
     path: '**',
     component: LandingPageComponent
   }

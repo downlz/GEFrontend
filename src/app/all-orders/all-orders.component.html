@@ -61,11 +61,11 @@
                 <!-- <td> {{ order.manualbill ? 'No' : 'Yes' }} </td> -->
                 <td *ngIf="order.manualbill"><a href = "{{apiurl}}/uploadbill/{{order._id}}">Get bill</a></td>
                 <td *ngIf="!order.manualbill">No</td>
-                <td *ngIf="role == 'admin' && order.status !='cancelled'"><button (click)="updateOrder(order)">Update</button></td>
-                <td *ngIf="role == 'admin' && order.status =='cancelled'"><button disabled>Closed</button></td>
+                <td *ngIf="role == 'admin' && order.status !='cancelled'"><button class="btn btn-secondary btn-sm" (click)="updateOrder(order)">Update</button></td>
+                <td *ngIf="role == 'admin' && order.status =='cancelled'"><button class="btn btn-secondary btn-sm" disabled>Closed</button></td>
                 <td *ngIf="role == 'seller' || 'admin'">
                 <input style="display: none" type="file" (change)="uploadManualBill($event,order)" #fileInput>  
-                  <button type="button" (click)="fileInput.click()">Upload Bill</button>
+                  <button class="btn btn-secondary btn-sm" type="button" (click)="fileInput.click()">Add Bill</button>
                 
                 </td>
               </tr>

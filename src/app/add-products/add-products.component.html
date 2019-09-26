@@ -3,7 +3,7 @@
   <h3>{{edit ? 'Update Product Details' : 'Enter product information'}}</h3>
   <!-- <h5 *ngIf="edit">Sample No - {{item['sampleNo']}} | Grade - {{item['grade']}}| MFG - {{mfgname}}</h5> -->
   <!-- <form [formGroup]="form" (ngSubmit)="addproduct()"> -->
-    <form [formGroup]="form">
+    <form [formGroup]="form" *ngIf="!loading">
   <!-- <form [formGroup]="form" method ="post" action='/testcall' enctype="multipart/form-data"> -->
   <!-- enctype="multipart/form-data"> -->
     <div formGroupName="newitem">

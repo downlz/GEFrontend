@@ -125,6 +125,7 @@
               <a class="dropdown-item nav-link" routerLink="/product/allproducts" *ngIf="isAdmin || isAgent">Manage Products</a>
               <a class="dropdown-item nav-link" routerLink="/groupBuying" *ngIf="isAdmin">Group Buying</a>
               <a class="dropdown-item nav-link" routerLink="/createorder" *ngIf="isAdmin || isAgent">Place an order</a>
+              <a class="dropdown-item nav-link" routerLink="/users/usersmgmt" *ngIf="isAdmin">User Management</a>
               <a class="dropdown-item nav-link" routerLink="/login" (click)="logout()">Log Out</a>
             </div>
           </li>

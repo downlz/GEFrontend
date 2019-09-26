@@ -12,6 +12,7 @@ import { PriceService } from '../services/price.service';
 import { AppError } from '../common/app-error';
 import { forkJoin } from 'rxjs';
 import { NgForm } from '@angular/forms';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-order-now',
