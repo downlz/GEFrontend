@@ -2,9 +2,7 @@ import { UserService } from './../../../services/user.service';
 import {AfterViewInit, Component, ElementRef, Input, OnInit, Output, ViewChild} from '@angular/core';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {AbstractControl, FormControl, FormGroup, Validators} from '@angular/forms';
-// import {BidService} from '../../../services/bid.service';
-// import {AuthService} from '../../services/auth.service';
-// import {ManufacturerService} from '../../services/manufacturer.service';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-verify-user',
@@ -19,54 +17,25 @@ export class VerifyUserComponent implements OnInit, AfterViewInit {
   users: any;
   loading: boolean;
   submitted: boolean;
-  @ViewChild('quantity')
-  quantity: ElementRef;
   role: string;
   type: any;
-  showMarketingExpense: Boolean = false;
-  manufacturerNotPresent: Boolean = false;
-  manufacturers: Array<any> = [];
   usertypes = ['seller', 'buyer', 'agent','transporter','admin','NA'];
-  userstatus = ['true','false'];
-  // bids: Array<any>;
 
-  constructor(private modalService: NgbModal, 
-    private userService: UserService) {
-    // this.role = this.authService.getRole();
-    // bidService.getCurrentUserData().subscribe((data: Array<any>) => {
-    //   this.bids = data;
-    //   this.loading = false;
-    //   console.log(this.bids);
-    // }, (err) => {
-    //   console.error(err);
-      // this.loading = false;
-    // });
-  }
+  constructor(private modalService: NgbModal, private router: Router,
+    private userService: UserService) { }
 
   ngOnInit() {
-
-    // this.manufacturerService.getAll().subscribe((data: any) => {
-    //   this.manufacturers = data;
-    // });
-    // if (this.users) {
-      // if (this.role === 'seller') {
         this.form = new FormGroup({
           newItem: new FormGroup({
-            usertype: new FormControl('', [
+            userType: new FormControl('', [
               Validators.required]),
-            vcode: new FormControl('', [Validators.required]),
-            status: new FormControl('', [])
+            vendorCode: new FormControl('', []),
+            isactive: new FormControl('', [Validators.required])
           })
         });
-      // }
-  // }
-  // this.loading = false;
 }
 
   ngAfterViewInit() {
-    // if (this.quantity) {
-    //   setTimeout(() => this.quantity.nativeElement.focus());
-    // }
   }
 
   getUserType(res) {
@@ -83,8 +52,6 @@ export class VerifyUserComponent implements OnInit, AfterViewInit {
     } else {
       this.type = 'NA'
     }
-    // this.users.status = this.usertype;
-    // console.log(this.type);
     return this.type;
     
   }
@@ -92,31 +59,64 @@ export class VerifyUserComponent implements OnInit, AfterViewInit {
   save(event) {
     this.submitted = true;
     event.preventDefault();
-    console.log(this.form.getRawValue().newItem);
     if (this.form.valid) {
-
-    console.log("here");
       this.loading = true;
       const userdtl = this.form.getRawValue().newItem;
-      userdtl.id = this.users._id;
-      console.log(userdtl);
-      // this.bidService.create(bid).subscribe((response) => {
-      //     this.loading = false;
-      //   alert('Bid Placed successfully');
-      //   this.modal.close();
-      // }, err => {
-      //   this.loading = false;
-      //   alert('There was a server error while bidding on this auction');
-      // });
+      userdtl._id = this.users._id;
+      switch (userdtl.userType) {
+        case  'admin':
+            userdtl.isAdmin = 'true'
+          break;
+        case  'buyer':
+            userdtl.isBuyer = 'true'
+            userdtl.isSeller = 'false'
+            userdtl.isTransporter = 'false'    
+            userdtl.isAgent = 'false'
+          break;
+        case  'seller':
+            userdtl.isSeller = 'true'
+            userdtl.isBuyer = 'false'
+            userdtl.isTransporter = 'false'
+            userdtl.isAgent = 'false'
+          break;
+        case  'transporter':
+            userdtl.isTransporter = 'true'
+            userdtl.isSeller = 'false'
+            userdtl.isBuyer = 'false'
+            userdtl.isAgent = 'false'
+          break;
+        case  'agent':
+            userdtl.isAgent = 'true'
+            userdtl.isBuyer = 'false'      
+            userdtl.isTransporter = 'false'        
+            userdtl.isSeller = 'false'           
+        break;
+      }    
+      if (!userdtl.vendorCode) {
+        userdtl.vendorCode = this.users.vendorCode
+      }
+      this.userService.update(userdtl).subscribe((response) => {
+        // this.loading = false;
+        this.modal.close();
+        this.redirectTo('/users/usersmgmt');
+      }, err => {
+        this.loading = false;
+        alert('There was a server error while updating user profile');
+      });
 
     }
   }
 
+  redirectTo(uri) {
+    this.router.navigateByUrl('/', {skipLocationChange: true}).then(() =>
+    this.router.navigate([uri]));
+  }
+
   getErrors(name) {
-    // if (!this.form.controls.newItem['controls'][name]) {
-    //   return {};
-    // } else {
-    //   return this.form.controls.newItem['controls'][name].errors || {};
-    // }
+    if (!this.form.controls.newItem['controls'][name]) {
+      return {};
+    } else {
+      return this.form.controls.newItem['controls'][name].errors || {};
+    }
   }
 }

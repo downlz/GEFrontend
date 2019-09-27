@@ -110,7 +110,7 @@ export class RegistrationComponent implements OnInit {
       cityId:   this.form.value.account.city,
       stateId:  this.form.value.account.state,
       pin:    this.form.value.account.pin,
-      isBuyer: 'true'
+      // isBuyer: 'true'
     };
 
     this.user.create(formData)

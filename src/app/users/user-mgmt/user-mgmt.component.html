@@ -7,7 +7,7 @@
         <table class="table table-hover table-sm" [ngClass]="{'loading' : loading}" *ngIf="!loading">
             <thead>
               <tr>
-                <th scope="col">User Nmae</th>
+                <th scope="col">User Name</th>
                 <th scope="col">Phone</th>
                 <th scope="col">Email</th>
                 <th scope="col">City</th>
@@ -45,7 +45,7 @@
                 <!-- <td *ngIf='!users.vendorCode'><input type="text" id="origin" placeholder="Vendor Code"></td> -->
                 <td>{{users.isactive ? 'Yes' : 'No'}}</td>
                 <!-- <td *ngIf="role == 'admin'">
-                  <select id="usertype" >
+                  <select id="usertype">
                     <option *ngFor="let user of usertypes" [ngValue]="user" [selected]="user == getUserType(users)" > {{ user }}</option>
                   </select></td> -->
                   <!-- <select name="usertype" id="usertype">

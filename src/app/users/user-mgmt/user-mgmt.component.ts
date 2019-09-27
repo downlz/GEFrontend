@@ -41,9 +41,15 @@ export class UserMgmtComponent implements OnInit {
 
 
   ngOnInit() {
+    
     const role = this.authenticationService.getRole();
     this.role = role;
     this.apiurl = environment.baseUrl;
+    // this.router.events.pipe(
+    //   filter((event: RouterEvent) => event instanceof NavigationEnd)
+    // ).subscribe(() => {
+    //   this.fetchData();
+    // });
     // const currentUser = this.authenticationService.currentUserValue;
     if (this.role === 'admin') {
       this.userService.getAll()
@@ -78,25 +84,10 @@ export class UserMgmtComponent implements OnInit {
     this.selectedFile = <File>event.target.files[0];
     const uploadData = {
       orderId : order._id,
-      // addedOn : Date.now(),          // For Future enhancements
-      // myFile : this.selectedFile
     }
-    // console.log(uploadData);
     const fd = new FormData()
     fd.append('myFile',this.selectedFile,this.selectedFile.name)
     fd.append('orderId',uploadData.orderId)
-    // fd.append('addedOn', uploadData.addedOn)
-    // fd.orderId = order._id
-
-    // this.uploadbill.create(fd)
-    // .subscribe(response => {
-    //   // reportProgress: true,
-    //   alert('Bill added successfully');
-    //   this.router.navigate(['/allOrders']);
-    // }, (error: AppError) => {
-    //   console.log(error);
-    //   // this.router.navigate(['/errorpage']);
-    // });
   }
 
   getUserType(res) {
@@ -111,9 +102,8 @@ export class UserMgmtComponent implements OnInit {
     } else if (res.isTransporter == true){
       this.usertype = 'transporter'
     } else {
-      this.usertype = 'NA'
+      this.usertype = 'Not Setup'
     }
-    // this.users.status = this.usertype;
     return this.usertype;
   }
   onPageChange(page) {
@@ -143,7 +133,8 @@ export class UserMgmtComponent implements OnInit {
   formatphone(tel) {
     if (!tel) { return ''; }
 
-    var value = tel.toString().trim().replace(/^\+/, '');
+    // var value = tel.toString().trim().replace(/^\+/, '');
+    var value = tel.toString().trim().replace('+91', '');
 
     if (value.match(/[^0-9]/)) {
         return tel;
@@ -154,8 +145,8 @@ export class UserMgmtComponent implements OnInit {
     switch (value.length) {
         case 10: // +1PPP####### -> C (PPP) ###-####
             country = 1;
-            city = value.slice(0, 3);
-            number = value.slice(3);
+            city = value.slice(0, 5);
+            number = value.slice(2);
             break;
 
         case 11: // +CPPP####### -> CCC (PP) ###-####
@@ -178,9 +169,11 @@ export class UserMgmtComponent implements OnInit {
         country = "";
     }
 
-    number = number.slice(0, 3) + '-' + number.slice(3);
+    number = value.slice(0, 4) + '-' + value.slice(4,7) + '-' + value.slice(7,10);
+    // number = '+91-' + value
 
-    return (country + " (" + city + ") " + number).trim();
+    // return (country + " (" + city + ") " + number).trim();
+    return (number).trim();
 };
 
   updateOrder(order) {
