@@ -2,22 +2,22 @@ import {NgModule} from '@angular/core';
 import {Routes, RouterModule} from '@angular/router';
 import {LandingPageComponent} from './landing-page/landing-page.component';
 import {ListingsComponent} from './listings/listings.component';
-import {GBListingsComponent} from './gblistings/gblistings.component';
+
 import {ProductDetailComponent} from './product-detail/product-detail.component';
-import {GBProductDetailComponent} from './gbproduct-detail/gbproduct-detail.component';
 import {LoginComponent} from './login/login.component';
 import {OrderNowComponent} from './order-now/order-now.component';
 import {BargainOrderComponent} from './bargain-order/bargain-order.component';
-import {GBOrderNowComponent} from './gborder-now/gborder-now.component';
 import {MyOrdersComponent} from './my-orders/my-orders.component';
 import {AllOrdersComponent} from './all-orders/all-orders.component';
-import {GroupBuyingComponent} from './group-buying/group-buying.component';
 
 import {AddProductsComponent} from './add-products/add-products.component';
 import {ProductSidebarComponent} from './add-products/sidebar/sidebar.component';
 import {ProductDataComponent} from './add-products/products-data.component';
-import {ListGBItemComponent} from './listgb-item/listgb-item.component';
-
+// import {GBListingsComponent} from './gblistings/gblistings.component';
+// import {ListGBItemComponent} from './listgb-item/listgb-item.component';
+// import {GBProductDetailComponent} from './gbproduct-detail/gbproduct-detail.component';
+// import {GBOrderNowComponent} from './gborder-now/gborder-now.component';
+// import {GroupBuyingComponent} from './group-buying/group-buying.component';
 
 import {RegistrationComponent} from './users/registration/registration.component';
 import {ReferUserComponent} from './users/refer-user/refer-user.component';
@@ -74,10 +74,10 @@ const routes: Routes = [
     path: 'products',
     component: ListingsComponent
   },
-  {
-    path: 'gbproducts',
-    component: GBListingsComponent,
-  },
+  // {
+  //   path: 'gbproducts',
+  //   component: GBListingsComponent,
+  // },
   {
     path: 'registration',
     component: RegistrationComponent
@@ -121,14 +121,14 @@ const routes: Routes = [
     roles: ['admin', 'agent','seller']
   }
   },
-  {
-    path: 'listgbItem',
-    component: ListGBItemComponent,
-    canActivate: [AuthGuard],
-    data: {
-      roles: ['admin']
-    }
-  },
+  // {
+  //   path: 'listgbItem',
+  //   component: ListGBItemComponent,
+  //   canActivate: [AuthGuard],
+  //   data: {
+  //     roles: ['admin']
+  //   }
+  // },
   {
     path: 'createorder',
     component: CreateOrderComponent,
@@ -205,26 +205,30 @@ const routes: Routes = [
     path: 'transport',
     loadChildren: '../app/transport/transport.module#TransportModule'
   },
-  {
-    path: 'groupBuying',
-    component: GroupBuyingComponent,
-    canActivate: [AuthGuard],
-    data: {
-      roles: ['admin']
-    }
+  { 
+    path: '',
+    loadChildren: '../app/group-buy/group-buy.module#GroupBuyModule'
   },
+  // {
+  //   path: 'groupBuying',
+  //   component: GroupBuyingComponent,
+  //   canActivate: [AuthGuard],
+  //   data: {
+  //     roles: ['admin']
+  //   }
+  // },
   {
     path: 'product/:id',
     component: ProductDetailComponent,
     canActivate: [AuthGuard],
     data: {roles: ['admin', 'buyer', 'seller','agent']}
   },
-  {
-    path: 'gbproduct/:id',
-    component: GBProductDetailComponent,
-    canActivate: [AuthGuard],
-    data: {roles: ['admin', 'buyer', 'seller']}
-  },
+  // {
+  //   path: 'gbproduct/:id',
+  //   component: GBProductDetailComponent,
+  //   canActivate: [AuthGuard],
+  //   data: {roles: ['admin', 'buyer', 'seller']}
+  // },
   {
     path: 'orderNow/:id',
     component: OrderNowComponent,
@@ -233,14 +237,14 @@ const routes: Routes = [
       roles: ['admin', 'buyer']
     }
   },
-  {
-    path: 'gborderNow/:id',
-    component: GBOrderNowComponent,
-    canActivate: [AuthGuard],
-    data: {
-      roles: ['admin', 'buyer']
-    }
-  },
+  // {
+  //   path: 'gborderNow/:id',
+  //   component: GBOrderNowComponent,
+  //   canActivate: [AuthGuard],
+  //   data: {
+  //     roles: ['admin', 'buyer']
+  //   }
+  // },
   {
     path: 'myOrders',
     component: MyOrdersComponent,

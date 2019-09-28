@@ -1,10 +1,10 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import {GBListingService} from '../services/gblisting.service';
-import { GBListing } from '../model/gblisting';
-import { UserService } from '../services/user.service';
-import { OrderService } from '../services/order.service';
-import { AppError } from '../common/app-error';
+import {GBListingService} from '../../services/gblisting.service';
+import { GBListing } from '../../model/gblisting';
+import { UserService } from '../../services/user.service';
+import { OrderService } from '../../services/order.service';
+import { AppError } from '../../common/app-error';
 
 @Component({
   selector: 'app-gbproduct-detail',

@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthService } from '../services/auth.service';
-import { GroupBuyingService } from '../services/groupbuying.service';
+import { AuthService } from '../../services/auth.service';
+import { GroupBuyingService } from '../../services/groupbuying.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { AppError } from '../common/app-error';
+import { AppError } from '../../common/app-error';
 
 @Component({
   selector: 'app-group-buying',

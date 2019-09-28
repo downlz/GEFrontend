@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {GBListingService} from '../services/gblisting.service';
+import {GBListingService} from './../../services/gblisting.service';
 import { ActivatedRoute, Router } from '@angular/router';
 
 

@@ -7,7 +7,7 @@
     <p *ngIf="getErrors('buyeraddress').required">Please enter your address</p>
     <p *ngIf="getErrors('buyerpin').required">Please enter your pincode</p>
     <p *ngIf="getErrors('buyerstate').required">Please select your state</p>
-    <p *ngIf="getErrors('buyer').required">Please select buyer</p> -->
+    <p *ngIf="getErrors('buyer').required">Please select buyer</p>
   </div>
   <div class="spinner-grow loader text-success" *ngIf="loading"></div>
   <form [formGroup]="form" (ngSubmit)="order($event)" [ngClass]="{'loading' : loading}">

@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import {GBListingService} from '../services/gblisting.service';
-import { GBListing } from '../model/gblisting';
-import { UserService } from '../services/user.service';
+import {GBListingService} from '../../services/gblisting.service';
+import { GBListing } from '../../model/gblisting';
+import { UserService } from '../../services/user.service';
 // import { UnitService } from '../services/unit.service';
-import { OrderService } from '../services/order.service';
-import { PriceService } from '../services/price.service';
-import { AppError } from '../common/app-error';
+import { OrderService } from '../../services/order.service';
+import { PriceService } from '../../services/price.service';
+import { AppError } from '../../common/app-error';
 import { Response } from 'selenium-webdriver/http';
 
 @Component({

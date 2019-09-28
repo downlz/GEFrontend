@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { GBListing } from './../model/gblisting';
+import { GBListing } from './../../model/gblisting';
 
 @Component({
   selector: 'app-gblisting-card',

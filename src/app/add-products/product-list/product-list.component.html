@@ -7,10 +7,11 @@
           <th scope="col">Sample No</th>
           <th scope="col">Item</th>
           <th scope="col">Category</th>
-          <th scope="col">Status</th>
           <th scope="col">List Price ({{"&#8377;"}})</th>
           <th scope="col">Unit</th>
+          <th scope="col" *ngIf="role =='admin'">Added By</th>
           <th scope="col">Manufacturer</th>
+          <th scope="col">Status</th>
           <th scope="col">Action</th>
         </tr>
       </thead>
@@ -33,10 +34,11 @@
               {{ productdtl.category.itemname.name}}
             </td>
             <td> {{ productdtl.category.name}} </td>
-            <td> {{ productdtl.isLive == true ? 'Active' : 'Inactive'  }}</td>
             <td> {{ productdtl.price }}</td>
             <td> {{ productdtl.unit.mass }}</td>
+            <td *ngIf="role =='admin'"> {{ productdtl.addedby?.name }}</td>
             <td> {{ productdtl.manufacturer.name }}</td>
+            <td> {{ productdtl.isLive == true ? 'Active' : 'Inactive'  }}</td>
             <td><a class="btn btn-primary btn-sm" [routerLink]="'/product/edit/'+productdtl._id">Edit</a> &nbsp;
             <!-- <button class="btn btn-primary btn-sm" *ngIf="role=='admin' && !productdtl.isLive"
                     (click)="approveItem(productdtl._id)">

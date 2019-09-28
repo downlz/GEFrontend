@@ -105,7 +105,7 @@ export class CreateOrderComponent implements OnInit {
           FormValidators.cannotContainSpace
       ]),
       buyeraddress: new FormControl('', [
-        Validators.required,
+        Validators.required,Validators.minLength(5)
       ]),
       buyerpin: new FormControl('',[
         Validators.required,Validators.minLength(6),Validators.maxLength(6),FormValidators.cannotContainSpace
@@ -127,10 +127,6 @@ export class CreateOrderComponent implements OnInit {
         Validators.required,
       ])
     };
-    // this.maxStartDateTime = new Date();
-    // this.maxStartDateTime.setTime(this.maxStartDateTime.getTime() + 1000 * 60 * 60 * 24 * 30);
-    // this.maxEndDateTime = new Date();
-    // this.maxEndDateTime.setTime(this.maxEndDateTime.getTime() + 1000 * 60 * 60 * 24 * 37);
     this.route.paramMap
       .subscribe(async params => {
           const id = params.get('id');
@@ -433,8 +429,6 @@ export class CreateOrderComponent implements OnInit {
       .subscribe(response => {              // improve coding standards
         const res = response as any;
         this.lastorderno = parseInt(res[0].orderno) + 1;
-        // console.log(this.lastorderno);
-      // })
     const createOrder = this.form.getRawValue().agentCreateOrder;  
     const shippingAddress = {
       partyname: createOrder.partyname,
@@ -476,21 +470,6 @@ export class CreateOrderComponent implements OnInit {
       // addressreference: shippingAddress.shipaddr,
       isExistingAddr: false,
     };
-    // console.log(OrderData);
-    // console.log(f.shipaddr);
-    // if (f.shipaddr.addresstype === 'delivery') {
-    //   OrderData.isshippingbillingdiff = true,
-    //   OrderData.partyname = f.shipaddr.addressbasicdtl.partyname,
-    //   OrderData.gstin = f.shipaddr.addressbasicdtl.gstin,
-    //   OrderData.address =  f.shipaddr.text,
-    //   OrderData.pincode = f.shipaddr.pin,
-    //   OrderData.state = f.shipaddr.state,
-    //   OrderData.phone = f.shipaddr.phone,
-    //   OrderData.addresstype =  'delivery',
-    //   OrderData.addressreference = f.shipaddr
-    //   OrderData.isExistingAddr = true;
-    // }
-    console.log(OrderData);
     this.orderService.create(OrderData)
     .subscribe(response => {
       alert('Order Placed Successfully');
@@ -501,7 +480,6 @@ export class CreateOrderComponent implements OnInit {
     });
 })
 }
-
 
   getAuction(id) {
     this.loading = true;

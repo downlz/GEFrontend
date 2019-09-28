@@ -88,7 +88,7 @@ export class AddProductsComponent implements OnInit {
             icumsa: new FormControl(''),
             manufacturer: new FormControl(''),
             image: new FormControl(''),
-            istaxable: new FormControl('', [
+            istaxable: new FormControl('false', [
               Validators.required])
           }
 
@@ -184,7 +184,7 @@ export class AddProductsComponent implements OnInit {
           };
          this.itempost.create(formData)
          .subscribe(response => {
-           alert('Product added successfully');
+           alert('Product added successfully.Listing will be available after product is reviewed');
            this.router.navigate(['/products']);
          }, (error: AppError) => {
            console.log(error);
@@ -345,15 +345,6 @@ export class AddProductsComponent implements OnInit {
 
   updateproduct() {                                    
     this.clicked = true;
-      // const upditem = this.form.getRawValue().newitem;
-      // upditem._id = this.id;
-      // const itemspecs = {
-      //   moisture: this.form.value.newitem.moisture,
-      //   graincount: this.form.value.newitem.graincount,
-      //   icumsa: this.form.value.newitem.icumsa
-      // };
-      // upditem.grainCount = this.form.value.newitem.graincount;
-      // upditem.specs = itemspecs;
       const upditem = {
         _id: this.id,
         grainCount:    this.form.value.newitem.graincount,
@@ -373,7 +364,11 @@ export class AddProductsComponent implements OnInit {
       // upditem._id = this.id;
       this.itempost.update(upditem).subscribe((response) => {
         this.loading = false;
-        alert('Product updated successfully.Listing will be available once change is approved');
+        if (this.role != 'admin'){
+          alert('Product updated successfully.Listing will be available once change is approved');
+        } else {
+          alert('Product updated successfully');
+        }
         this.router.navigate(['/products']);
       }, err => {
         this.loading = false;

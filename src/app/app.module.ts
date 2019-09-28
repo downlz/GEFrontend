@@ -20,7 +20,7 @@ import {BasicComponent} from './basic/basic.component';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {LandingPageComponent} from './landing-page/landing-page.component';
 import {ListingsComponent} from './listings/listings.component';
-import {GBListingsComponent} from './gblistings/gblistings.component';
+
 import {FragmentPolyfillModule} from './fragment-polyfill.module';
 import {AppErrorHandler} from './common/app-error-handler';
 import {HttpClientModule, HTTP_INTERCEPTORS} from '@angular/common/http';
@@ -39,7 +39,6 @@ import {PriceService} from './services/price.service';
 import {JwtInterceptor} from './_helpers/jwt.interceptor';
 import {ErrorInterceptor} from './_helpers/error.interceptor';
 import {ListingCardComponent} from './listing-card/listing-card.component';
-import {GBListingCardComponent} from './gblisting-card/gblisting-card.component';
 import {RegistrationComponent} from './users/registration/registration.component';
 import {ReferUserComponent} from './users/refer-user/refer-user.component';
 import {LoginComponent} from './login/login.component';
@@ -56,14 +55,18 @@ import {BargainQuoteComponent} from './bargain-quote/bargain-quote.component';
 import {MyOrdersComponent} from './my-orders/my-orders.component';
 import {AllOrdersComponent} from './all-orders/all-orders.component';
 import {BargainRequestComponent} from './bargain-request/bargain-request.component';
-import {GroupBuyingComponent} from './group-buying/group-buying.component';
+
 import {AddProductsComponent} from './add-products/add-products.component';
 import {ProductSidebarComponent} from './add-products/sidebar/sidebar.component';
-import {ListGBItemComponent} from './listgb-item/listgb-item.component';
+
 import {OrderCardComponent} from './order-card/order-card.component';
-import {GBOrderCardComponent} from './gborder-card/gborder-card.component';
-import {GBProductDetailComponent} from './gbproduct-detail/gbproduct-detail.component';
-import {GBOrderNowComponent} from './gborder-now/gborder-now.component';
+// import {GBOrderCardComponent} from './gborder-card/gborder-card.component';
+// import {GBProductDetailComponent} from './gbproduct-detail/gbproduct-detail.component';
+// import {GBOrderNowComponent} from './gborder-now/gborder-now.component';
+// import {ListGBItemComponent} from './listgb-item/listgb-item.component';
+// import {GroupBuyingComponent} from './group-buying/group-buying.component';
+// import {GBListingCardComponent} from './gblisting-card/gblisting-card.component';
+// import {GBListingsComponent} from './gblistings/gblistings.component';
 
 // import {AuctionComponent} from './auction/auction.component';
 // import {SidebarComponent} from './auction/sidebar/sidebar.component';
@@ -108,8 +111,8 @@ import { AppFooterComponent } from './app-footer/app-footer.component';
     LandingPageComponent,
     ListingsComponent,
     ListingCardComponent,
-    GBListingCardComponent,
-    GBListingsComponent,
+    // GBListingCardComponent,
+    // GBListingsComponent,
     RegistrationComponent,
     ReferUserComponent,
     LoginComponent,
@@ -119,20 +122,20 @@ import { AppFooterComponent } from './app-footer/app-footer.component';
     ProductSidebarComponent,
     ProductDataComponent,
     ProductDetailComponent,
-    GBProductDetailComponent,
+    // GBProductDetailComponent,
     OrderNowComponent,
     BargainOrderComponent,
     BargainQuoteComponent,
-    GBOrderNowComponent,
+    // GBOrderNowComponent,
     MyOrdersComponent,
     AllOrdersComponent,
     BargainRequestComponent,
-    GroupBuyingComponent,
+    // GroupBuyingComponent,
     AddProductsComponent,
     // AddItemnameComponent,
-    ListGBItemComponent,
+    // ListGBItemComponent,
     OrderCardComponent,
-    GBOrderCardComponent,
+    // GBOrderCardComponent,
     // AuctionComponent,
     // SidebarComponent,
     // CreateAuctionComponent,

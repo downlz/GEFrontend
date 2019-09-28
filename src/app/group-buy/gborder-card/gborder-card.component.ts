@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import {GBListingService} from '../services/gblisting.service';
+import {GBListingService} from './../../services/gblisting.service';
 
 @Component({
   selector: 'app-gborder-card',
