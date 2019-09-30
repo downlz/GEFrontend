@@ -17,7 +17,7 @@ export class ListingService {
     this.url = this.url;
    }
    getAll(res) {
-    console.log(this.url + res);
+    // console.log(this.url + res);
     if (res) {
       return this.http.get(this.url + res);
     }

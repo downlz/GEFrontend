@@ -30,7 +30,8 @@ export class RegistrationComponent implements OnInit {
       'address' : new FormControl('', [Validators.required]),
       'city' : new FormControl('', [Validators.required]),
       'state' : new FormControl('', [Validators.required]),
-      'pin' : new FormControl('', [Validators.required,Validators.maxLength(6)])
+      'pin' : new FormControl('', [Validators.required,Validators.maxLength(6)]),
+      'termscheck' : new FormControl('',[Validators.required])
         // Validators.minLength(6),
         // Validators.maxLength(6)])
     })

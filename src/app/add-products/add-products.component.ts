@@ -58,15 +58,6 @@ export class AddProductsComponent implements OnInit {
     private addimage: AddImageService, private testitem: TestitemService,private auth: AuthService,private userService: UserService,
     private router: Router,private route: ActivatedRoute) {
 
-      // this.allFormControls = {
-
-      //   sampleNo: new FormControl('', [
-      //     Validators.required,
-      //   ]),
-      //   availableQty: new FormControl(0, [
-      //     Validators.required,
-      //     Validators.min(1)
-      //   ]),
       this.allFormControls = {
         // form = new FormGroup({
           // newitem: new FormGroup({
@@ -138,12 +129,12 @@ export class AddProductsComponent implements OnInit {
       // this.userres = response[7];
       // this.userid = this.userres._id;
 
-      // if (this.role == 'agent') {
-      //   var filteredSellers =  this.sellers.filter(function(sellerlist) {
-      //     return sellerlist.defaultseller === true;
-      //   });
-      //   this.sellers = filteredSellers
-      // }
+      if (this.role == 'seller') {
+        var filteredSellers =  this.sellers.filter(function(sellerlist) {
+          return sellerlist.defaultseller === true;
+        });
+        this.sellers = filteredSellers
+      }
     }, (error: Response) => {
       this.router.navigate(['/errorpage']);
       if (error.status === 400) {
@@ -269,7 +260,7 @@ export class AddProductsComponent implements OnInit {
       this.form.controls.newitem['controls'].origin.setValue(item['origin']);
       // this.form.controls.newitem['controls'].manufacturer.setValue(item['manufacturer']._id);
       this.form.controls.newitem['controls'].price.setValue(item['price']);
-      // this.form.controls.newitem['controls'].itemstatus.setValue(item['itemstatus'] ? true : false);
+      // this.form.controls.newitem['controls'].itemstatus.setValue(item['itemstatus']);
       this.form.controls.newitem['controls'].istaxable.setValue(item['isTaxable'] ? true : false);
       this.mfgname = item['manufacturer'].name;
       this.loading = false;

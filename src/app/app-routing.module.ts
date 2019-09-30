@@ -206,7 +206,7 @@ const routes: Routes = [
     loadChildren: '../app/transport/transport.module#TransportModule'
   },
   { 
-    path: '',
+    path: 'groupbuy',
     loadChildren: '../app/group-buy/group-buy.module#GroupBuyModule'
   },
   // {

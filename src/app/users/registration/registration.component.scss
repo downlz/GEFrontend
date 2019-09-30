@@ -22,7 +22,7 @@
 }
 
 .ItemCardImage {
-  height: 400px;
+  height: 200px;
   box-shadow: 0 8px 12px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
   object-fit: cover;
 }
@@ -52,4 +52,9 @@
 .alrt {
   margin-left: 50px;
   color: red;
+}
+
+[type="checkbox"]
+{
+    vertical-align:middle;
 }

@@ -14,6 +14,7 @@ export class AuthService {
   url= environment.baseUrl + '/auth';
   private currentUserSubject: BehaviorSubject<any>;
   public currentUser: Observable<any>;
+  public redirectUrl: string;
   role: string;
   id : string;
   constructor(private http: HttpClient) {
@@ -40,10 +41,6 @@ export class AuthService {
       }
     });
   }
-
-  // login() {
-  //   return this.http.get(this.url);
-  // }
 
   login(phone: string, password: string) {
     return this.http

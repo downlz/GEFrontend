@@ -74,18 +74,3 @@ const routes: Routes = [
 })
 
 export class TransportRouteModule { }
-
-// export const HomeRoutes: Route[] = [
-//   {
-//     path: '',
-//     component: HomeComponent,
-//     canActivate: [AuthGuard],
-//     children: [
-//       { path: '', component: DashboardComponent },
-//       { path: 'settings', component: SettingsComponent },
-//       { path: 'products', component: ProductsComponent },
-//       { path: 'user/:username', component: UserComponent },
-//       { path: 'user/:username/:id', component: UserComponent }
-//     ]
-//   }
-// ];
