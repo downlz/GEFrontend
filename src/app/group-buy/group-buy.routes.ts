@@ -13,8 +13,9 @@ import { GBListingsComponent } from './gblistings/gblistings.component';
 const routes: Routes = [
   {
     path: '',
-    component: GBListingsComponent,
-    canActivate: [AuthGuard]
+    component: GBListingsComponent
+    // canActivate: [AuthGuard],
+    // data: {roles: ['admin', 'buyer', 'seller','agent']}
   },
   {
     path: 'gborderNow/:id',

@@ -25,21 +25,21 @@ export class GBProductDetailComponent implements OnInit {
       const id = params.get('id');
       this.getProduct(id);
     });
-    this.userService.get('me')
-    .subscribe(response => {
-      const res = response as any;
-      // console.log(res);
-      // console.log('Here1');
-      this.address = res.Addresses[0];
-      // console.log(res._id);          
-      this.userid = res._id;
-    }, (error: Response) => {
-      this.router.navigate(['/errorpage']);
-      if (error.status === 400) {
-        alert(' expected error, post already deleted');
-      }
-      console.log(error);
-    });
+    // this.userService.get('me')
+    // .subscribe(response => {
+    //   const res = response as any;
+    //   // console.log(res);
+    //   // console.log('Here1');
+    //   this.address = res.Addresses[0];
+    //   // console.log(res._id);          
+    //   this.userid = res._id;
+    // }, (error: Response) => {
+    //   this.router.navigate(['/errorpage']);
+    //   if (error.status === 400) {
+    //     alert(' expected error, post already deleted');
+    //   }
+    //   console.log(error);
+    // });
   }
 
   getTimeStamp(string) {
@@ -54,7 +54,8 @@ export class GBProductDetailComponent implements OnInit {
       this.gblisting = response as GBListing;
       // console.log(this.gblisting);
     }, (error: Response) => {
-      this.router.navigate(['/errorpage']);
+      // this.router.navigate(['/errorpage']);        // If not logged in redirect to login page
+      this.router.navigate(['/login']);
       if (error.status === 400) {
         alert(' expected error, post already deleted');
       }
