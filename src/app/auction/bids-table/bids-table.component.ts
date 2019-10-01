@@ -60,7 +60,7 @@ export class BidsTableComponent implements OnInit, OnChanges {
   }
 
   onPageChange(page) {
-    console.log(this.bids);
+    // console.log(this.bids);
     this.data = [...(this.bids || [])];
     this.data = this.data.splice((page - 1) * this.pageSize, this.pageSize);
     this.currentPage = page;

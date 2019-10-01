@@ -1,0 +1,147 @@
+<div class="container listingOffsetTextColor">
+    <div class="col-9 col-md-12">
+    <div class="ItemCardContainer">
+      <div class="card ItemCardDesc">
+              <div class="card-body">
+  <h3>Enter your details</h3>
+
+  <form [formGroup]="form" (ngSubmit)="login()">
+    <div formGroupName="account">
+      <div class="form-group">
+        <label for="name">Name</label>
+        <input
+          formControlName="name"
+          id="name"
+          type="text"
+          class="form-control"
+          placeholder="Your Name">
+          <div class="alert alert-danger" *ngIf="name.touched && name.invalid">
+            <div *ngIf="name.errors.required"> Name is required </div>
+            <div *ngIf="name.errors.minlength"> minimum length should be {{ name.errors.minlength.requiredLength}}</div>
+          </div>
+      </div>
+      
+      <div class="form-group">
+        <label for="email">Email</label>
+        <input
+          formControlName="email"
+          id="email"
+          type="email"
+          class="form-control"
+          placeholder="youremail@domain.com">
+          <div class="alert alert-danger" *ngIf="email.touched && email.invalid">
+            Email is invalid
+          </div>
+      </div>
+      <div class="form-group">
+          <label for="phone">Phone Number (Enter 10 digits) </label>
+          <input
+            formControlName="phone"
+            id="phone"
+            type="text"
+            class="form-control"
+            placeholder="Your 10 digit phone number">
+            <div *ngIf="phone.pending">checking for errors</div>
+            <div class="alert alert-danger" *ngIf="phone.touched && phone.invalid">
+              <div *ngIf="phone.errors.required"> Phone number is required </div>
+              <div *ngIf="phone.errors.minlength"> minimum length should be {{ phone.errors.minlength.requiredLength}}</div>
+              <div *ngIf="phone.errors.maxlength"> maximum length should be {{ phone.errors.maxlength.requiredLength}}</div>
+              <div *ngIf="phone.errors.cannotContainSpace"> Phone number cannot contain space</div>
+              <div *ngIf="phone.errors.pattern"> Should be only number</div>
+              <div *ngIf="phone.errors.shouldBeUnique"> Phone number should be unique</div>
+            </div>
+      </div>
+      <div class="form-group">
+        <label for="password">Password</label>
+        <input
+          formControlName="password"
+          id="password"
+          type="password"
+          class="form-control"
+          placeholder="password">
+          <div class="alert alert-danger" *ngIf="password.touched && password.invalid">
+            <div *ngIf="password.errors.required"> Password is required </div>
+            <div *ngIf="password.errors.minlength"> minimum length should be {{ password.errors.minlength.requiredLength}}</div>
+          </div>
+      </div>
+      <!-- <div class="form-group">
+        <label for="pan">PAN</label>
+        <input
+          formControlName="pan"
+          id="pan"
+          type="text"
+          class="form-control"
+          placeholder="PAN Number">
+          <div class="alert alert-danger" *ngIf="pan.touched && pan.invalid">
+            <div *ngIf="pan.errors.required"> Password is required </div>
+            <div *ngIf="pan.errors.minlength"> length should be {{ pan.errors.minlength.requiredLength}}</div>
+            <div *ngIf="pan.errors.maxlength"> length should be {{ pan.errors.maxlength.requiredLength}}</div>
+            <div *ngIf="pan.errors.cannotContainSpace"> PAN number cannot contain space</div>
+          </div>
+      </div> -->
+      <div class="form-group">
+        <label for="GST">GSTIN Number</label>
+        <input
+          formControlName="GST"
+          id="GST"
+          type="text"
+          class="form-control"
+          placeholder="GSTIN Number - Optional">
+          <div class="alert alert-danger" *ngIf="GST.invalid">
+            <div *ngIf="GST.errors.required"> GST is required </div>
+            <div *ngIf="GST.errors.minlength"> length should be {{ GST.errors.minlength.requiredLength}}</div>
+            <div *ngIf="GST.errors.maxlength"> length should be {{ GST.errors.maxlength.requiredLength}}</div>
+            <div *ngIf="GST.errors.cannotContainSpace"> GSTIN cannot contain space</div>
+          </div>
+      </div>
+      <div class="form-group">
+        <label for="address">Address</label>
+        <input
+          formControlName="address"
+          id="address"
+          type="text"
+          class="form-control"
+          placeholder="Your Address">
+          <div class="alert alert-danger" *ngIf="address.touched && address.invalid">
+            <div *ngIf="address.errors.required"> Address is required </div>
+          </div>
+      </div>
+      <div class="form-group">
+        <label for="city">City:</label>
+        <select class="form-control" id="city" formControlName="city">
+          <option value=''></option>
+          <option *ngFor="let c of cities" [ngValue]="c._id"> {{ c.name }} </option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="state">State:</label>
+        <select class="form-control" id="state" formControlName="state">
+          <option value=''></option>
+          <option *ngFor="let state of states" [ngValue]="state._id"> {{ state.name }}</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="pin">Pincode</label>
+        <input
+          formControlName="pin"
+          id="pin"
+          type="number"
+          class="form-control"
+          placeholder="Your PIN code">
+      </div>
+      <div class="form-group">
+          <label for="termscheck"  style="word-wrap:break-word">
+            <input id="termscheck"  type="checkbox" formControlName="termscheck" required/> I agree to the 
+            <!-- <a [routerLink]="['/termsofuse']" routerLinkActive="router-link-active">Terms and Conditions</a> -->
+            <a target="_blank" routerLink='/termsofuse' routerLinkActive="router-link-active">Terms and Conditions</a>
+         </label>
+      </div>
+    </div>
+
+    <button class="btn btn-primary" type="submit" [disabled]="!form.valid || clicked">SignUp</button>
+  </form>
+  </div>
+  </div>
+  </div>
+    </div>
+</div>

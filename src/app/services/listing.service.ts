@@ -11,17 +11,13 @@ import { environment } from '../../environments/environment';
   providedIn: 'root'
 })
 export class ListingService {
-  // constructor(http: HttpClient) {
-  //   super('http://localhost:3000/api/item', http);
-  // }
   baseUrl = environment.baseUrl;
   url = this.baseUrl + '/item';
-  //http: HttpClient;
   constructor(private http: HttpClient) {
     this.url = this.url;
    }
    getAll(res) {
-    console.log(this.url + res);
+    // console.log(this.url + res);
     if (res) {
       return this.http.get(this.url + res);
     }

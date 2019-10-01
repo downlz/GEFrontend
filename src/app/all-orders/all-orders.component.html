@@ -7,17 +7,18 @@
         <table class="table table-hover table-sm" [ngClass]="{'loading' : loading}" *ngIf="!loading">
             <thead>
               <tr>
-                <th scope="col">orderId</th>
+                <th scope="col">Order No.</th>
                 <th scope="col" *ngIf="role == 'admin'">Seller</th>
                 <th scope="col" *ngIf="role == 'admin'">Buyer</th>
                 <th scope="col">Item</th>
                 <th scope="col">Item Code</th>
                 <th scope="col">Quantity</th>
-                <th scope="col">Cost</th>
+                <th scope="col">Cost (<span style="font-weight:bold;">{{"&#8377;"}}</span>)</th>
                 <th scope="col">Order Type</th>
                 <th scope="col">Status</th>
                 <th scope="col">Bill Added</th>
                 <th scope="col">Action</th>
+                <th scope="col" *ngIf="role == 'admin'">Add Bill</th>
               </tr>
             </thead>
             <tbody>
@@ -45,7 +46,7 @@
                 <td>{{order.item.name.name}}</td>
                 <td>{{ order.item.sampleNo }}</td>
                 <td>{{order.quantity}} {{order.unit}}</td>
-                <td>{{order.cost ? "Rs. " + order.cost.toFixed(2) : 'NA' }}</td>
+                <td>{{order.cost ? order.cost.toFixed(2) : 'NA' }}</td>
                 <td>{{order.ordertype}}</td>
                 <td *ngIf="role == 'admin'">
                   <select id="status" [(ngModel)]="order.status">
@@ -60,11 +61,11 @@
                 <!-- <td> {{ order.manualbill ? 'No' : 'Yes' }} </td> -->
                 <td *ngIf="order.manualbill"><a href = "{{apiurl}}/uploadbill/{{order._id}}">Get bill</a></td>
                 <td *ngIf="!order.manualbill">No</td>
-                <td *ngIf="role == 'admin' && order.status !='cancelled'"><button (click)="updateOrder(order)">Update</button></td>
-                <td *ngIf="role == 'admin' && order.status =='cancelled'"><button disabled>Closed</button></td>
-                <td *ngIf="role == 'seller'">
+                <td *ngIf="role == 'admin' && order.status !='cancelled'"><button class="btn btn-secondary btn-sm" (click)="updateOrder(order)">Update</button></td>
+                <td *ngIf="role == 'admin' && order.status =='cancelled'"><button class="btn btn-secondary btn-sm" disabled>Closed</button></td>
+                <td *ngIf="role == 'seller' || 'admin'">
                 <input style="display: none" type="file" (change)="uploadManualBill($event,order)" #fileInput>  
-                  <button type="button" (click)="fileInput.click()">Upload Bill</button>
+                  <button class="btn btn-secondary btn-sm" type="button" (click)="fileInput.click()">Add Bill</button>
                 
                 </td>
               </tr>

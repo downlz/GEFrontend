@@ -12,6 +12,7 @@ import { PriceService } from '../services/price.service';
 import { AppError } from '../common/app-error';
 import { forkJoin } from 'rxjs';
 import { NgForm } from '@angular/forms';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-order-now',
@@ -159,7 +160,7 @@ export class OrderNowComponent implements OnInit {
 
   order(f) {
     if (!f.shipaddr) {
-      alert("Specify a default address");
+      alert("Specify a address from shipping address dropdown");
     } else {
     this.orderService.get('orderno')        // Sending url as per API defination
       .subscribe(response => {              // improve coding standards
@@ -207,7 +208,7 @@ export class OrderNowComponent implements OnInit {
       isExistingAddr: false
     };
     // console.log(OrderData);
-    console.log(f.shipaddr);
+    // console.log(f.shipaddr);
     if (f.shipaddr.addresstype === 'delivery') {
       OrderData.isshippingbillingdiff = true,
       OrderData.partyname = f.shipaddr.addressbasicdtl.partyname,

@@ -12,7 +12,6 @@ import { AppError } from '../common/app-error';
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
-
   loginData: any;
   form = new FormGroup({
     account: new FormGroup({
@@ -23,7 +22,8 @@ export class LoginComponent implements OnInit {
     })
   });
 
-  constructor(private auth: AuthService, private router: Router) { }
+  constructor(private auth: AuthService, private router: Router) { 
+  }
 
   ngOnInit() {
   }
@@ -36,11 +36,12 @@ export class LoginComponent implements OnInit {
     this.auth.login(this.form.value.account.phone, this.form.value.account.password)
     .subscribe(response => {
       this.loginData = response;
-      // console.log(response);
       if (this.loginData.isActive == false){
         alert("User not yet active.Contact Graineasy to activate account");
       } else {
-      this.router.navigate(['/products']);
+      // this.router.navigate(['/products']);
+      let redirect = this.auth.redirectUrl ? this.router.parseUrl(this.auth.redirectUrl) : '/products';
+      this.router.navigateByUrl(redirect);
       }
     }, (error: AppError) => {
       if (error.originalError.status === 400) {

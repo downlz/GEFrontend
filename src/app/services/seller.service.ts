@@ -21,8 +21,3 @@ export class UsersellerService extends DataService {
 //     super('http://localhost:3000/api/user/buyer', http);
 //   }
 // }
-// export class UsersellerService extends DataService {
-//   constructor(http: HttpClient) {
-//     super('http://localhost:3000/api/user/seller', http);
-//   }
-// }

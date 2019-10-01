@@ -43,11 +43,11 @@
               </tr>
               <tr>
                 <th>Grain Count: </th>
-                <th> {{ listing.grainCount }} </th>
+                <th> {{ listing.specs.graincount }} </th>
               </tr>
               <tr>
                 <th>Moisture: </th>
-                <th> {{ listing.moisture }}%</th>
+                <th> {{ listing.specs.moisture == 'NA' ? 'NA' : listing.specs.moisture + '%' }}</th>
               </tr>
               <tr>
                 <th>Location: </th>

@@ -9,7 +9,7 @@
       <span>Dispatch Details</span>
     </a>
   </li>
-  <li class="nav-item" *ngIf="role=='admin' || role=='transporter'">
+  <li class="nav-item" *ngIf="role=='admin' || role=='transporter' || role=='agent'">
     <a class="nav-link" [ngClass]="{'active' : activeTab==='dispatchDetails'}" (click)="changeTab('dispatchDetails')">
       <span>Dispatch Order</span>
     </a>
@@ -24,7 +24,7 @@
   </div>
 
   <div class="tab-pane container" [ngClass]="{'active' : activeTab==='dispatchDetails'}" id="dispatchDetails"
-    *ngIf="role=='admin' || role=='transporter'">
+    *ngIf="role=='admin' || role=='transporter' || role=='agent'">
     <div class="spinner-grow loader text-success" *ngIf="loading"></div>
     <app-dispatch-order></app-dispatch-order>
   </div>

@@ -1,0 +1,242 @@
+<div class="container listingOffsetTextColor" *ngIf="form">
+  <div class="error-block alert alert-danger" *ngIf="form.invalid && submitted">
+    <p *ngIf="getErrors('itemName').required">Please select Item Name</p>
+    <p *ngIf="getErrors('itemCategory').required">Please select Item Category</p>
+    <p *ngIf="getErrors('sampleNo').required">Please select Sample No.</p>
+    <p *ngIf="getErrors('odrQty').min">Minimum Quantity must be greater than 1</p>
+    <p *ngIf="getErrors('buyeraddress').required">Please enter your address</p>
+    <p *ngIf="getErrors('buyerpin').required">Please enter your pincode</p>
+    <p *ngIf="getErrors('buyerstate').required">Please select your state</p>
+    <p *ngIf="getErrors('buyer').required">Please select buyer</p>
+  </div>
+  <div class="spinner-grow loader text-success" *ngIf="loading"></div>
+  <form [formGroup]="form" (ngSubmit)="order($event)" [ngClass]="{'loading' : loading}">
+    <div formGroupName="agentCreateOrder">
+      <div class="row">
+        <h4>Create a Order</h4>
+      </div>
+      <div class="row">
+      <h6>Select an existing item.If item doesn't exists add the item first at 
+          <a [routerLink]="['/product/allproducts']" routerLinkActive="router-link-active">Add Products</a>
+      </h6>
+      </div>
+      <div class="row">
+        <!-- <div class="col-md-3 pl-1" *ngIf="formControls.auctionType">
+          <div class="form-group">
+            <label>Auction Type</label>
+            <select class="form-control" id="auctionType" formControlName="auctionType" (ngModelChange)="onAuctionTypeChange($event)" >
+              <option value=''>Select Auction Type</option>
+              <option value='buyer'>Buyer</option>
+              <option value='seller'>Seller</option>
+            </select>
+          </div>
+        </div> -->
+        
+        <div class="col-md-3 pr-1" *ngIf="formControls.itemName">
+          <div class="form-group">
+            <label>Item</label>
+            <select class="form-control" id="itemName" formControlName="itemName"
+                    (ngModelChange)="onItemChange($event)">
+              <option value=''>Select Item</option>
+              <option *ngFor="let item of itemnames" [ngValue]="item._id"> {{ item.name }} </option>
+            </select>
+
+          </div>
+        </div>
+        <div class="col-md-3 pl-1" *ngIf="formControls.itemCategory">
+          <div class="form-group">
+            <label>Category</label>
+            <select class="form-control" id="itemCategory" [attr.disabled]="!form.value.agentCreateOrder.itemName?'':null"
+                    formControlName="itemCategory" (ngModelChange)="onCategoryChange($event)">
+              <option value=''>Select Category</option>
+              <option *ngFor="let category of categories" [ngValue]="category._id"> {{ category.name }}</option>
+            </select>
+          </div>
+        </div>
+        <div class="col-md-3 pl-1" *ngIf="formControls.sampleNo">
+          <div class="form-group">
+            <label>Sample No</label>
+            <select class="form-control" id="sampleNo" formControlName="sampleNo"
+                    [attr.disabled]="!form.value.agentCreateOrder.itemCategory?'':null"
+                    (ngModelChange)="onSampleNoChange($event)">
+              <option value=''>Select Sample No</option>
+              <option *ngFor="let listing of listings" [ngValue]="listing._id"> {{ listing.sampleNo }}</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+          <div class="col-md-3 pl-1" *ngIf='form.value.agentCreateOrder.sampleNo'>
+              <div class="form-group">
+                <label>Price</label>
+                <input type="text" id='itemPrice' value="{{'Rs.' + selecteditem.price + '/' + selecteditem.unit.mass}}" class="form-control" disabled>
+              </div>
+            </div>
+
+        <div class="col-md-3 pl-1" *ngIf='form.value.agentCreateOrder.sampleNo' >
+          <div class="form-group">
+            <label>Order Quantity</label>
+            <input type="number" id="odrQty" class="form-control"  formControlName="odrQty" 
+                   placeholder="Add Quantity"
+                   (ngModelChange)="onQuantityChange($event)">
+
+                   <!-- <input required ngModel name="quantity" #quantity="ngModel" id="quantity"
+                  type="number" class="form-control"  (keyup)="onQuantityChange(quantity.value)"> -->
+          </div>
+        </div>
+
+        <div class="col-md-3 pl-1" *ngIf='form.value.agentCreateOrder.sampleNo'>
+            <div class="form-group">
+              <label>Order Unit</label>
+              <input type="text" id='itemUnit' value="{{selecteditem.unit.mass}}" class="form-control" disabled>
+            </div>
+          </div>
+        
+      </div>
+
+      <div class="row">
+          <div class="col-md-12 pl-1" *ngIf='form.value.agentCreateOrder.odrQty > 0'>
+              <div class="form-group">
+                <label>Order Value : {{ 'Rs.' + ordercost.toFixed(2) }}</label> <span class= "ItemTextDtl"> *Order Value will be confirmed once order is reviewed</span>
+                <!-- <input type="number" id="minQty" class="form-control" formControlName="minQty"
+                       placeholder="Minimum  Quantity"> -->
+              </div>
+            </div>
+          </div>
+
+      <div class="row" *ngIf="!edit">
+        <h4 *ngIf='form.value.agentCreateOrder.sampleNo'>Seller Details</h4>
+      </div>
+      <div class="row" *ngIf="!edit">
+
+        <div class="col-md-3 pl-1" *ngIf='form.value.agentCreateOrder.sampleNo'>
+          <div class="form-group">
+            <label>Seller</label>
+            <input type="text" id='itemSeller' value="{{seller && seller.name}}" class="form-control" disabled>
+          </div>
+        </div>
+
+          <div class="col-md-3 pl-1" *ngIf='form.value.agentCreateOrder.sampleNo'>
+              <div class="form-group">
+                <label>Origin</label>
+                <input type="text" value="{{selecteditem.origin}}" class="form-control" disabled>
+              </div>
+            </div>
+
+            <div class="col-md-3 pl-1" *ngIf='form.value.agentCreateOrder.sampleNo'>
+                <div class="form-group">
+                  <label>Manufacturer</label>
+                  <input type="text" value="{{selecteditem.manufacturer.name}}" class="form-control" disabled>
+                </div>
+              </div>
+
+        <!-- <div class="col-md-3 pl-1" *ngIf='form.value.agentCreateOrder.auctionType=="buyer"'>
+          <div class="form-group">
+            <label>Buyer</label>
+            <select class="form-control" id="buyer" formControlName="buyer">
+              <option value=''>Select Buyer</option>
+              <option *ngFor="let buyer of buyers" [ngValue]="buyer._id"> {{ buyer.name }} </option>
+            </select>
+          </div>
+        </div> -->
+      </div>
+<!-- Buyer Details Block -->
+      <div class="row" *ngIf="!edit">
+          <h4>Enter Buyer Details</h4>
+        </div>
+        <div class="row" *ngIf="!edit">
+            <div class="col-md-3 pl-1">
+                <div class="form-group">
+                  <label>Buyer Name</label>
+                  <input type="text" id="buyername" class="form-control" formControlName="buyername"
+                         placeholder="Add Party Name">
+                </div>
+              </div>
+
+              <div class="col-md-3 pl-1">
+                  <div class="form-group">
+                    <label>GSTIN</label>
+                    <input type="text" id="buyergstin" class="form-control" formControlName="buyergstin"
+                           placeholder="GSTIN">
+                  </div>
+                </div>
+
+                <div class="col-md-3 pl-1">
+                    <div class="form-group">
+                      <label>Phone No.</label>
+                      <input type="text" id="buyerphone" class="form-control" formControlName="buyerphone"
+                             placeholder="Phone No.">
+                    </div>
+                  </div>
+        </div>
+          <div class="row" *ngIf="!edit">
+            <div class="col-md-3 pl-1">
+              <div class="form-group">
+                <label>Address</label>
+                <input type="text" id="buyeraddress" class="form-control" formControlName="buyeraddress"
+                       placeholder="Address">
+              </div>
+            </div>
+            <div class="col-md-3 pl-1">
+              <div class="form-group">
+                <label>Pincode</label>
+                <input type="text" id="buyerpin" class="form-control" formControlName="buyerpin"
+                       placeholder="Pincode">
+              </div>
+            </div>
+            <div class="col-md-3 pl-1">
+              <div class="form-group">
+                <label>State</label>
+                <select class="form-control" id="buyerstate" formControlName="buyerstate">
+                  <option value=''>Select State</option>
+                  <option *ngFor="let state of states" [ngValue]="state._id"> {{ state.name }} </option>
+                </select>
+              </div>
+            </div>
+            <div class="col-md-3 pl-1">
+                <div class="form-group">
+                  <label>City</label>
+                  <select class="form-control" id="buyercity" formControlName="buyercity">
+                    <option value=''>Select City</option>
+                    <option *ngFor="let city of cities" [ngValue]="city._id"> {{ city.name }} </option>
+                  </select>
+                </div>
+              </div>
+          </div>
+<!-- Buyer Details Block End -->
+      <div class="row">
+      <div class="col-md-3 pl-1">
+        <div class="form-group">
+          <label>Payment Terms</label>
+          <select class="form-control" id="paymentterms" formControlName="paymentterms">
+            <option value='Pre Dispatch'>Pre Dispatch</option>
+            <option value='Pre Delivery'>Pre Delivery</option>
+            <option value='10 Days'>10 Days</option>
+            <option value='20 Days'>20 Days</option>
+            <option value='30 Days'>30 Days</option>
+            <option value='45 Days'>45 Days</option>
+          </select>
+        </div>
+      </div></div>
+
+      <div class="row" *ngIf="formControls.remarks">
+        <h4>Order Notes</h4>
+      </div>
+      <div class="row" *ngIf="formControls.remarks">
+        <div class="col-md-9 pl-1">
+          <div class="form-group">
+            <!-- <label>Remarks</label> -->
+            <input type="text" maxlength="60" id="remarks" class="form-control" formControlName="remarks"
+                   placeholder="Enter order specific notes">
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <button type="submit" class="btn btn-primary" [disabled]="!form.valid">
+          Place Order
+        </button>
+      </div>
+    </div>
+  </form>
+</div>

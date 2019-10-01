@@ -1,0 +1,24 @@
+<nav class="sidebar" *ngIf="role">
+  <ul class="list-unstyled components">
+    <li *ngIf="role=='admin' || role=='seller' || role=='agent'">
+      <a class="nav-link scrollto p" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }"
+        routerLink="/product/allproducts">Product</a>
+    </li>
+    <li *ngIf="role=='admin'">
+      <a class="nav-link scrollto p" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }"
+        routerLink="/product/additem">Item</a>
+    </li>
+    <li *ngIf="role=='admin'">
+      <a class="nav-link scrollto p" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }"
+        routerLink="/product/addcategory">Category</a>
+    </li>
+    <li *ngIf="role=='admin' || role=='agent'">
+      <a class="nav-link scrollto p" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }"
+        routerLink="/createorder">Place Order</a>
+    </li>
+    <!-- <li *ngIf="role=='admin' || role=='agent'">
+      <a class="nav-link scrollto p" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }"
+        routerLink="/product/addusers">Add Users</a>
+    </li> -->
+  </ul>
+</nav>

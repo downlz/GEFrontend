@@ -1,0 +1,83 @@
+<div class="farmbg"></div>
+<div class="container shdw" *ngIf="gblisting">
+    <div class="listingOffsetTextColor">
+  <div class="row container bordermk">
+
+    <div class="col-12 col-md-6">
+      <div class="ItemCardContainer">
+        <img class="card-img-top ItemCardImage" [src]="gblisting.item.image" alt="{{
+          gblisting.item.name.name }}">
+
+      </div>
+    </div>
+
+    <div class="col-12 col-md-6">
+      <div class="ItemCardContainer">
+        <div class="card ItemCardDesc">
+          <div class="card-body">
+            <table style="width:100%">
+              <tr>
+                <th>
+                  <h3 class="card-title">{{ gblisting.item.name.name }}</h3>
+                </th>
+              </tr>
+              <tr>
+                <th>Sample Number: </th>
+                <th>{{ gblisting.item.sampleNo}}</th>
+              </tr>
+              <tr>
+                <th>Type: </th>
+                <th>{{ gblisting.item.category.name }}</th>
+              </tr>
+              <tr>
+                <th>Price: </th>
+                <th> Rs. {{ gblisting.dealprice }} Per {{ gblisting.unit.mass }}</th>
+              </tr>
+              <tr>
+                <th>Quantity: </th>
+                <th> {{ gblisting.moq }} {{ gblisting.unit.mass }} </th>
+              </tr>
+              <tr>
+                <th>Grade: </th>
+                <th> {{ gblisting.item.grade }}</th>
+              </tr>
+              <tr>
+                <th>Grain Count: </th>
+                <th> {{ gblisting.item.grainCount }} </th>
+              </tr>
+              <tr>
+                <th>Moisture: </th>
+                <th> {{ gblisting.item.moisture }}%</th>
+              </tr>
+              <tr>
+                <th>Location: </th>
+                <th> {{ gblisting.item.city.name }} | {{ gblisting.item.city.state.name }}</th>
+              </tr>
+              <tr>
+                  <th>Ordering Status: </th>
+                  <th *ngIf="currentTimestamp > getTimeStamp(gblisting.gbendtime)">Closed</th>
+                  <th *ngIf="getTimeStamp(gblisting.gbstarttime) > currentTimestamp">Opens at: {{ gblisting.gbstarttime | date:'dd-MMM-yy hh:mm a'}}</th>
+                  <th *ngIf="((currentTimestamp > getTimeStamp(gblisting.gbstarttime)) && (getTimeStamp(gblisting.gbendtime)> currentTimestamp))">Open</th>
+                </tr>
+
+
+            </table>
+          </div>
+          <div class="card-footer" *ngIf="((currentTimestamp > getTimeStamp(gblisting.gbstarttime)) && (getTimeStamp(gblisting.gbendtime)> currentTimestamp))">
+            <a [routerLink]="['/groupbuy/gborderNow',gblisting._id]" routerLinkActive="router-link-active" class="btn btn-primary btn-block" >
+              <!-- {{ (currentTimestamp > getTimeStamp(gblisting.gbstarttime) && (getTimeStamp(gblisting.gbendtime)> currentTimestamp)) ? 'Order Now' : 'Order not yet open or expired' }} -->
+              Order Now
+            </a>
+          </div>
+          <!-- <div class="card-footer">
+              <a [routerLink]='' class="btn btn-primary btn-block" *ngIf="currentTimestamp > getTimeStamp(gblisting.gbstarttime)">Order windows</a>
+            </div> -->
+          <div class="card-footer">
+            <a [routerLink]="['/referral']" routerLinkActive="router-link-active" class="btn btn-primary btn-block">Refer a person</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  </div>
+</div>

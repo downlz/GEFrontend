@@ -68,7 +68,7 @@ export class CreateAuctionComponent implements OnInit {
       maxQty: new FormControl(0, [
         Validators.required,
         (control: AbstractControl) => {
-          console.log('Validating', this.form);
+          // console.log('Validating', this.form);
           return Validators.min(this.form ? this.form.get('newItem.minQty').value : 0)(control);
         },
         (control: AbstractControl) => Validators.max(this.form ? this.form.get('newItem.availableQty').value : 0)(control)

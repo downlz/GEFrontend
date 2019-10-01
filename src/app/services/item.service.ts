@@ -15,4 +15,7 @@ export class ItemService extends DataService {
     const url= environment.baseUrl + '/item';
     super(url, http);
   }
+  getallitem() {
+    return this.http.get(this.url + '/all/' );
+  }
 }

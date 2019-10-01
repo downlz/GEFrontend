@@ -49,7 +49,7 @@
             </div>
 
             <div>
-              Price : Rs. {{ price }} <span class= "ItemTextDtl"> *Transportation cost extra</span>
+              Amount : Rs. {{ price }} <span class= "ItemTextDtl"> *Transportation cost extra</span>
             </div>
             <div *ngIf="isEligibleForBargain">
               <span class ="ItemTextDtl">You are eligible to negotiate price with seller.To proceed click intiate bargain</span>
@@ -58,8 +58,8 @@
                 <label for="shipaddr" class="col-sm-4 control-label">Shipping Address</label>    
                 <select class="form-control col-sm-7" id="shipaddr" name="shipaddr"
                 [(ngModel)]="shipaddr">
-                  <option value=''>Select Address</option>
-                  <option *ngFor="let addr of addresses" [ngValue]="addr"> {{ (addr.addresstype === 'registered') ? '[Default]': addr.addressbasicdtl.partyname}},{{addr.text}},{{addr.pin}} </option>
+                  <!-- <option value=''>Select an address</option> -->
+                  <option *ngFor="let addr of addresses" [ngValue]="addr"> {{ (addr.addresstype === 'registered') ? '[Registered]': addr.addressbasicdtl.partyname}},{{addr.text}},{{addr.pin}} </option>
                 </select>
             </div> 
             <!-- Form for storing shipping details -->

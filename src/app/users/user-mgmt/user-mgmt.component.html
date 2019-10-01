@@ -1,0 +1,105 @@
+<div class="container">
+    <div class="container listingOffsetTextColor">
+      <div class="spinner-grow loader text-success" *ngIf="loading"></div>
+      <div class="row">
+        <h5 *ngIf="!loading">Manage Users</h5>
+      </div>
+        <table class="table table-hover table-sm" [ngClass]="{'loading' : loading}" *ngIf="!loading">
+            <thead>
+              <tr>
+                <th scope="col">User Name</th>
+                <th scope="col">Phone</th>
+                <th scope="col">Email</th>
+                <th scope="col">City</th>
+                <th scope="col">Vendor Code</th>
+                <th scope="col">GSTIN</th>
+                <th scope="col">User Type</th>
+                <th scope="col">Is Active</th>
+                <th scope="col">Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              <ng-container *ngIf="!data || data.length==0">
+                <tr>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td> No Data Found </td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                </tr>
+              </ng-container>
+                <ng-container *ngFor="let users of data;let i = index;">
+              <tr>
+                <!-- <th scope="row">{{order._id}}</th> -->
+                <td>{{ users.name}}</td>
+                <td> {{ formatphone(users.phone)}}</td>
+                <td> {{ formatphone(users.email)}}</td>
+                <td>{{ users.Addresses[0].city.name}}</td>
+                <td>{{ users.vendorCode ? users.vendorCode : 'NA' }}</td>
+                <td>{{ users.GST}}</td>
+                <td>{{getUserType(users)}}</td>
+                <!-- <td *ngIf='!users.vendorCode'><input type="text" id="origin" placeholder="Vendor Code"></td> -->
+                <td>{{users.isactive ? 'Yes' : 'No'}}</td>
+                <!-- <td *ngIf="role == 'admin'">
+                  <select id="usertype">
+                    <option *ngFor="let user of usertypes" [ngValue]="user" [selected]="user == getUserType(users)" > {{ user }}</option>
+                  </select></td> -->
+                  <!-- <select name="usertype" id="usertype">
+                    <option value='seller' > Seller </option>
+                    <option value='buyer' > Buyer </option>
+                    <option value='agent'> Partner </option>
+                    <option value='transporter'> Transporter </option>
+                    <option value='admin'> Admin </option>
+                  </select> -->
+                  <!-- <td *ngIf="role == 'admin'">
+                      <select id="userstatus">
+                        <option *ngFor="let stat of userstatus" [ngValue]="stat" [selected]="stat == users.isactive" > {{users.isactive ? 'Yes' : 'No'}}</option>
+                      </select></td>
+                  <td *ngIf='users.vendorCode'>{{ users.vendorCode }}</td>
+                <td *ngIf='!users.vendorCode'><input type="text" id="vencode" placeholder="Vendor Code"></td> -->
+                <td><button class="btn btn-secondary btn-sm" (click)="verifyUser(content,users)">Update </button></td>
+                <!-- <td>{{order.ordertype}}</td>
+               
+                <td *ngIf="role == 'seller'">
+                    <select id="status" [(ngModel)]="order.status">
+                      <option *ngFor="let state of states" [ngValue]="state" [selected]="state == order.status" disabled> {{ state }}</option>
+                        </select></td> 
+                <td *ngIf="order.manualbill"><a href = "{{apiurl}}/uploadbill/{{order._id}}">Get bill</a></td>
+                <td *ngIf="!order.manualbill">No</td>
+                <td *ngIf="role == 'admin' && order.status !='cancelled'"><button (click)="updateOrder(order)">Update</button></td>
+                <td *ngIf="role == 'admin' && order.status =='cancelled'"><button disabled>Closed</button></td>
+                <td *ngIf="role == 'seller' || 'admin'">
+                <input style="display: none" type="file" (change)="uploadManualBill($event,order)" #fileInput>  
+                  <button type="button" (click)="fileInput.click()">Upload Bill</button>
+                
+                </td> -->
+              </tr>
+            </ng-container>
+              </tbody>
+              </table>
+
+          <!-- <div class="ItemCardContainer">
+            <app-order-card [order]="order"> </app-order-card>
+          </div> -->
+          <nav aria-label="Page navigation example" *ngIf="totalPages.length>0">
+              <ul class="pagination">
+                <li class="page-item" [ngClass]="{ 'disabled' : currentPage <= 1}"><a class="page-link"
+                                                                                      (click)="onPageChange(currentPage-1)">Previous</a>
+                </li>
+                <li class="page-item" [ngClass]="{ 'active' : currentPage== page}" *ngFor="let page of totalPages"><a
+                  class="page-link"
+                  (click)="onPageChange(page)">{{page}}</a></li>
+                <li class="page-item" [ngClass]="{ 'disabled' : currentPage>=totalPages.length}"><a class="page-link"
+                                                                                                    (click)="onPageChange(currentPage+1)">Next</a>
+                </li>
+              </ul>
+            </nav>
+    </div>
+  </div>
+  <ng-template #content let-modal>
+      <app-verify-user [modal]="modal" [users]="selectedUser"></app-verify-user>
+    </ng-template>

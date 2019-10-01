@@ -1,0 +1,76 @@
+<div class="container">
+  <div class="container listingOffsetTextColor">
+    <div class="spinner-grow loader text-success" *ngIf="loading"></div>
+    <table class="table table-hover table-sm" [ngClass]="{'loading' : loading}" *ngIf="!loading">
+      <thead>
+        <tr>
+          <th scope="col">Sample No</th>
+          <th scope="col">Item</th>
+          <th scope="col">Category</th>
+          <th scope="col">List Price ({{"&#8377;"}})</th>
+          <th scope="col">Unit</th>
+          <th scope="col" *ngIf="role =='admin'">Added By</th>
+          <th scope="col">Manufacturer</th>
+          <th scope="col">Status</th>
+          <th scope="col">Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <ng-container *ngIf="!data || data.length==0">
+        <tr>
+          <td></td>
+          <td></td>
+          <td> No Data Found</td>
+          <td></td>
+          <td></td>
+        </tr>
+      </ng-container>
+        <ng-container *ngFor="let productdtl of data">
+          <tr>
+            <td>
+              {{ productdtl.sampleNo}}
+            </td>
+            <td>
+              {{ productdtl.category.itemname.name}}
+            </td>
+            <td> {{ productdtl.category.name}} </td>
+            <td> {{ productdtl.price }}</td>
+            <td> {{ productdtl.unit.mass }}</td>
+            <td *ngIf="role =='admin'"> {{ productdtl.addedby?.name }}</td>
+            <td> {{ productdtl.manufacturer.name }}</td>
+            <td> {{ productdtl.isLive == true ? 'Active' : 'Inactive'  }}</td>
+            <td><a class="btn btn-primary btn-sm" [routerLink]="'/product/edit/'+productdtl._id">Edit</a> &nbsp;
+            <!-- <button class="btn btn-primary btn-sm" *ngIf="role=='admin' && !productdtl.isLive"
+                    (click)="approveItem(productdtl._id)">
+              Activate
+            </button>  
+            <button class="btn btn-primary btn-sm" *ngIf="role=='admin' && productdtl.isLive == true"
+                    (click)="approveItem(productdtl._id)">
+              Deactivate
+            </button> -->
+          </td>
+
+            <!-- <td><a class="btn btn-primary btn-sm" [routerLink]="'/auction/'+auction._id">
+             Edit
+           </a> &nbsp;
+           <a class="btn btn-primary btn-sm" [routerLink]="'/auction/'+auction._id">
+          Approve
+        </a></td> -->
+          </tr>
+        </ng-container>
+      </tbody>
+    </table>
+    <nav aria-label="Page navigation example" *ngIf="totalPages.length>0">
+      <ul class="pagination">
+        <li class="page-item" [ngClass]="{ 'disabled' : currentPage <= 1}"><a class="page-link"
+            (click)="onPageChange(currentPage-1)">Previous</a>
+        </li>
+        <li class="page-item" [ngClass]="{ 'active' : currentPage== page}" *ngFor="let page of totalPages"><a
+            class="page-link" (click)="onPageChange(page)">{{page}}</a></li>
+          <li class="page-item" [ngClass]="{ 'disabled' : currentPage>=totalPages.length}"><a class="page-link"
+              (click)="onPageChange(currentPage+1)">Next</a>
+          </li>
+      </ul>
+    </nav>
+  </div>
+</div>
