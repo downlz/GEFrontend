@@ -4,6 +4,7 @@ import { FormValidators} from './login-form.validators';
 import {AuthService} from '../services/auth.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AppError } from '../common/app-error';
+import { stringify } from 'querystring';
 
 
 @Component({
@@ -13,12 +14,14 @@ import { AppError } from '../common/app-error';
 })
 export class LoginComponent implements OnInit {
   loginData: any;
+  usertypes = ['Default', 'Buyer', 'Seller','Partner', 'Transporter'];
   form = new FormGroup({
     account: new FormGroup({
       'phone' : new FormControl('', [Validators.required, Validators.minLength(10),
         Validators.maxLength(10), Validators.pattern('^[0-9]*$'),
         FormValidators.cannotContainSpace]),
-      'password' : new FormControl()
+      'password' : new FormControl(),
+      'usertype' : new FormControl('Default')
     })
   });
 
@@ -32,8 +35,12 @@ export class LoginComponent implements OnInit {
     return this.form.get('account.phone');
   }
 
+  get usertype() {
+    return this.form.get('account.usertype');
+  }
+
   login() {
-    this.auth.login(this.form.value.account.phone, this.form.value.account.password)
+    this.auth.login(this.form.value.account.phone, this.form.value.account.password, this.form.value.account.usertype)
     .subscribe(response => {
       this.loginData = response;
       if (this.loginData.isActive == false){

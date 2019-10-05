@@ -22,7 +22,7 @@ import {ProductDataComponent} from './add-products/products-data.component';
 import {RegistrationComponent} from './users/registration/registration.component';
 import {ReferUserComponent} from './users/refer-user/refer-user.component';
 import {ErrorPageComponent} from './error-page/error-page.component';
-import {TermsUseComponent} from './terms-use/terms-use.component';
+// import {TermsUseComponent} from './terms-use/terms-use.component';
 import {AuthGuard} from './_guards/auth.guard';
 
 // import {AuctionComponent} from './auction/auction.component';
@@ -68,7 +68,8 @@ const routes: Routes = [
   },
   {
     path:'termsofuse',
-    component: TermsUseComponent
+    // component: TermsUseComponent
+    loadChildren: '../app/terms-use/terms-use.module#TermsConditionModule'
   },
   {
     path: 'products',
@@ -299,7 +300,7 @@ const routes: Routes = [
   }
 ];
 @NgModule({
-  imports: [RouterModule.forRoot(routes,{ useHash: true })],
+  imports: [RouterModule.forRoot(routes)],    //{useHash: true})],
   exports: [RouterModule]
 })
 export class AppRoutingModule {
