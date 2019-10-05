@@ -199,7 +199,6 @@ import { AppFooterComponent } from './app-footer/app-footer.component';
     AuthService,
     PriceService,
     {provide: ErrorHandler, useClass: AppErrorHandler},
-    // {provide: LocationStrategy, useClass: HashLocationStrategy},
     {provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true},
     {provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true},
   ],

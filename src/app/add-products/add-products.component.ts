@@ -62,19 +62,19 @@ export class AddProductsComponent implements OnInit {
         // form = new FormGroup({
           // newitem: new FormGroup({
             itemname:  new FormControl(''),
-            itemcategory:   new FormControl(),
+            itemcategory:   new FormControl('',[Validators.required]),
             item:  new FormControl(''),
             sampleno:   new FormControl(''),
-            grade:    new FormControl(''),
+            grade:    new FormControl('',[Validators.required]),
             moisture:    new FormControl(''),
             graincount:    new FormControl(''),
-            price:   new FormControl(''),
-            seller:    new FormControl(''),
+            price:   new FormControl('',[Validators.required]),
+            seller:    new FormControl('',[Validators.required]),
             unit:    new FormControl('',[Validators.required]),
-            qty:    new FormControl(''),
-            city:    new FormControl(''),
-            origin:    new FormControl(''),
-            address:    new FormControl(''),
+            qty:    new FormControl('',[Validators.required]),
+            city:    new FormControl('',[Validators.required]),
+            origin:    new FormControl('',[Validators.required]),
+            address:    new FormControl('',[Validators.required]),
             itemstatus: new FormControl('false'),
             icumsa: new FormControl(''),
             manufacturer: new FormControl(''),
@@ -114,20 +114,6 @@ export class AddProductsComponent implements OnInit {
       this.units = response[6];
       this.userres = response[7];
       this.userid = this.userres._id;
-      // this.addresses = response[7];
-    // New Code  
-    // forkJoin([this.cityService.getAll(), this.stateService.getAll(),this.categoryService.getAll(),
-    //   this.itemnameService.getAll(),this.manufacturerService.getAll(),
-    //   this.sellerService.getAll(),this.unitService.getAll(),this.userService.get('me')])
-    // .subscribe(response => {
-    //   this.cities = response[0];
-    //   this.categories = response[2];
-    //   this.itemnames = response[3];
-    //   this.manufacturers = response[4];
-    //   this.sellers = response[5];
-    //   this.units = response[6];
-      // this.userres = response[7];
-      // this.userid = this.userres._id;
 
       if (this.role == 'seller') {
         var filteredSellers =  this.sellers.filter(function(sellerlist) {
@@ -147,22 +133,22 @@ export class AddProductsComponent implements OnInit {
 
     this.uploader.onAfterAddingFile = (file) => { file.withCredentials = false; };
     this.uploader.onCompleteItem = (item: any, response: any, status: any, headers: any) => {
-        //  console.log('ImageUpload:uploaded:', item, status, response);
+          this.loading = true
           const formData = {
             nameId:  this.form.value.newitem.itemname,     // this.form.get('newItem.sampleNo').value
             categoryId:   this.form.value.newitem.itemcategory,
             // item:  this.form.value.newitem.item,
-            sampleNo:   this.form.value.newitem.sampleno,
-            grade:    this.form.value.newitem.grade,
-            grainCount:    this.form.value.newitem.graincount,
+            // sampleNo:   this.form.value.newitem.sampleno,
+            grade:    this.form.value.newitem.grade ? this.form.value.newitem.grade : 'NA',
+            grainCount:    this.form.value.newitem.graincount ? this.form.value.newitem.graincount : 'NA',
             price:   this.form.value.newitem.price,
             sellerId:    this.form.value.newitem.seller._id,
             unitId:    this.form.value.newitem.unit,
             qty:    this.form.value.newitem.qty,
             specs: {
-              moisture:    this.form.value.newitem.moisture,
-              graincount:    this.form.value.newitem.graincount,
-              icumsa: this.form.value.newitem.icumsa
+              moisture:    this.form.value.newitem.moisture ? this.form.value.newitem.moisture : 'NA',
+              graincount:    this.form.value.newitem.graincount ? this.form.value.newitem.graincount : 'NA',
+              icumsa: this.form.value.newitem.icumsa ? this.form.value.newitem.icumsa : 'NA'
             },
             cityId:    this.form.value.newitem.city,
             origin:    this.form.value.newitem.origin,
@@ -175,7 +161,8 @@ export class AddProductsComponent implements OnInit {
           };
          this.itempost.create(formData)
          .subscribe(response => {
-           alert('Product added successfully.Listing will be available after product is reviewed');
+           this.loading = false
+           alert('Product Listing was successful - ' + response.sampleNo +'.It will be available after product is reviewed');
            this.router.navigate(['/products']);
          }, (error: AppError) => {
            console.log(error);

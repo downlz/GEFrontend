@@ -58,7 +58,6 @@ export class ListingsComponent implements OnInit {
       this.setTotalPages();
       this.onPageChange(this.currentPage);
       this.loading = false;
-      console.log(this.listings);
     }, (error: Response) => {
         this.loading = false;
       this.router.navigate(['/errorpage']);
