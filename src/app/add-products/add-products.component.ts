@@ -46,11 +46,13 @@ export class AddProductsComponent implements OnInit {
   form: FormGroup;
   mfgname: string;
   edit: boolean;
+  brgStatus: boolean;
   id: string;
   formControls: any;
   allFormControls: any;
   item: any;
   clicked: boolean = false;
+  textBoxDisabled = true;
 
   constructor(private stateService: StateService, private cityService: CityService,private categoryService: CategoryService,
     private itemnameService: ItemnameService,private manufacturerService: ManufacturerService,private sellerService: UsersellerService,
@@ -79,6 +81,8 @@ export class AddProductsComponent implements OnInit {
             icumsa: new FormControl(''),
             manufacturer: new FormControl(''),
             image: new FormControl(''),
+            bargainstatus: new FormControl('',[Validators.required]),
+            bargaintrgqty: new FormControl(''),
             istaxable: new FormControl('false', [
               Validators.required])
           }
@@ -196,7 +200,9 @@ export class AddProductsComponent implements OnInit {
       'icumsa',
       // 'manufacturer',
       // 'image',
-      'istaxable'
+      'istaxable',
+      'bargaintrgqty',
+      'bargainstatus'
     ];
   } else {
     controls = [
@@ -237,6 +243,7 @@ export class AddProductsComponent implements OnInit {
     this.loading = true;
     this.itempost.get(id).subscribe((item) => {
       this.item = item;
+      this.brgStatus = item['bargainenabled'] ? true :false;
       // this.form.controls.newitem['controls'].sampleno.setValue(item['sampleNo']);
       // this.form.controls.newitem['controls'].grade.setValue(item['grade']);
       this.form.controls.newitem['controls'].moisture.setValue(item['specs'].moisture);
@@ -247,8 +254,9 @@ export class AddProductsComponent implements OnInit {
       this.form.controls.newitem['controls'].origin.setValue(item['origin']);
       // this.form.controls.newitem['controls'].manufacturer.setValue(item['manufacturer']._id);
       this.form.controls.newitem['controls'].price.setValue(item['price']);
-      // this.form.controls.newitem['controls'].itemstatus.setValue(item['itemstatus']);
+      this.form.controls.newitem['controls'].bargainstatus.setValue(item['bargainenabled'] ? true :false);
       this.form.controls.newitem['controls'].istaxable.setValue(item['isTaxable'] ? true : false);
+      this.form.controls.newitem['controls'].bargaintrgqty.setValue(item['bargaintrgqty']);
       this.mfgname = item['manufacturer'].name;
       this.loading = false;
     }, error => {
@@ -301,6 +309,17 @@ export class AddProductsComponent implements OnInit {
     return this.form.get('newitem.istaxable');
   }
 
+  get bargainstatus() {
+    return this.form.get('newitem.bargainstatus');
+  }
+
+  toggle(){
+    if (!this.form.value.newitem.bargainstatus){
+      this.textBoxDisabled = false;
+    }
+      this.textBoxDisabled = !this.textBoxDisabled
+  }
+
   onItemChange(datain2) {
     let item = this.form.get('newitem.itemname').value;
     this.categories = [];
@@ -337,9 +356,11 @@ export class AddProductsComponent implements OnInit {
         origin:    this.form.value.newitem.origin,
         isLive: this.form.value.newitem.itemstatus,
         isTaxable: this.form.value.newitem.istaxable,
+        bargainenabled: this.form.value.newitem.bargainstatus,
+        bargaintrgqty: this.form.value.newitem.bargaintrgqty ? this.form.value.newitem.bargaintrgqty : '',
         addedby: this.userid
       };
-      // upditem._id = this.id;
+      // console.log(upditem);
       this.itempost.update(upditem).subscribe((response) => {
         this.loading = false;
         if (this.role != 'admin'){

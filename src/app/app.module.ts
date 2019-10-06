@@ -4,6 +4,7 @@ import {NgModule, ErrorHandler} from '@angular/core';
 // import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 // import { MDBBootstrapModule } from 'angular-bootstrap-md';
 // import {MatTooltipModule} from '@angular/material/tooltip';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { CommonModule } from '@angular/common';
 import { ToastrModule } from 'ngx-toastr';
@@ -59,6 +60,7 @@ import {BargainRequestComponent} from './bargain-request/bargain-request.compone
 
 import {AddProductsComponent} from './add-products/add-products.component';
 import {ProductSidebarComponent} from './add-products/sidebar/sidebar.component';
+import { ProductBargainSpecifierComponnent } from './add-products/product-bargain-list/product-bargain-list.component';
 
 import {OrderCardComponent} from './order-card/order-card.component';
 // import {GBOrderCardComponent} from './gborder-card/gborder-card.component';
@@ -133,6 +135,7 @@ import { AppFooterComponent } from './app-footer/app-footer.component';
     BargainRequestComponent,
     // GroupBuyingComponent,
     AddProductsComponent,
+    ProductBargainSpecifierComponnent,
     // AddItemnameComponent,
     // ListGBItemComponent,
     OrderCardComponent,
@@ -173,6 +176,7 @@ import { AppFooterComponent } from './app-footer/app-footer.component';
     NgbModule,
     DatePickerModule,
     FileUploadModule,
+    FontAwesomeModule,
     BrowserAnimationsModule,
     CommonModule,
     ToastrModule.forRoot(),

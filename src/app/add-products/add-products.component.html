@@ -175,7 +175,28 @@
             </div>
           </div>
           </div>
-
+          <h5 *ngIf='edit'>Bargain options</h5>
+          <div class="row">
+              <div class="col-md-4 pr-1" *ngIf="formControls.bargainstatus">
+                <div class="form-group">
+                  <label for="file">Set Bargain status</label> <br>
+                  <label class="radio">
+                  <input type="radio" id="bargainstatus" formControlName="bargainstatus" value='true' [checked]="brgStatus == true" (click)="toggle()"> Active </label> &nbsp;
+                  <label class="radio">
+                  <input type="radio" id="bargainstatus" formControlName="bargainstatus" value='false' [checked]="brgStatus == false" (click)="toggle()"> Inactive </label>
+                </div>
+              </div>
+            </div>
+              <div class="row">
+              <div class="col-md-3 pr-1" *ngIf="formControls.bargaintrgqty">
+                  <div class="form-group">
+                    <label>Minimum Quantity for Bargain</label>
+                    <input type="number" id="bargaintrgqty" class="form-control" formControlName="bargaintrgqty" [attr.disabled]="!textBoxDisabled ? '' : null"
+                    placeholder="Enter Quantity">
+                  </div>
+                </div>
+              </div>
+            
     </div>
 
     <!-- <button class="btn btn-primary" type="submit" [disabled]="!form.valid">Submit</button> -->
