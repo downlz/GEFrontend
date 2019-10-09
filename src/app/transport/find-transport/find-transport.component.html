@@ -1,6 +1,6 @@
 <div class="container listingOffsetTextColor" *ngIf="!searchresult">
   <div class="spinner-grow loader text-success" *ngIf="loading"></div>
-  <form [formGroup]="form" (ngSubmit)="search($event)">
+  <form [formGroup]="form" (ngSubmit)="search($event)" *ngIf="!loading">
     <div formGroupName="getTransportRate">
       <div class="row">
         <h4>Search for transport</h4>
@@ -37,17 +37,17 @@
 <div class="container">
   <div class="container listingOffsetTextColor" *ngIf="searchresult">
     <div class="spinner-grow loader text-success" *ngIf="loading"></div>
-    <h4>Search Results
+    <h4>Transporter Operating in similar routes
       <button type="button" class="btn btn-primary btn-sm ButtonAlignRight" (click)="initializeForm()">Back to
         search</button>
     </h4>
-    <table class="table table-hover table-sm" [ngClass]="{'loading' : loading}">
+    <table class="table table-hover table-sm" [ngClass]="{'loading' : loading}" *ngIf="!loading">
       <thead>
         <tr>
           <th scope="col">Source</th>
           <th scope="col">Destination</th>
           <th scope="col">Capacity</th>
-          <th scope="col">Price Quote (in Rs.)</th>
+          <th scope="col">Estimated Quote (in {{"&#8377;"}})</th>
           <th scope="col">Duration (Hrs)</th>
           <!-- <th scope="col">Status</th> -->
           <th scope="col">Details</th>

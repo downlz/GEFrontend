@@ -42,11 +42,12 @@ export class AuthService {
     });
   }
 
-  login(phone: string, password: string) {
+  login(phone: string, password: string, usertype: string) {
     return this.http
       .post<any>(this.url, {
         phone: '+91' + phone,
-        password: password
+        password: password,
+        usertype: usertype
       })
       .map(user => {
         // login successful if there's a jwt token in the response

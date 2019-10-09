@@ -7,8 +7,27 @@
       <div class="ItemCardContainer">
         <img class="card-img-top ItemCardImage" [src]="listing.image" alt="{{
           listing.name }}">
+      
+          <table style="width:100%" >
+            <!-- <tr>
+              <th>
+                <h3 class="card-title"> {{ bargain.item.name.name }} | {{ bargain.item.category.name }}</h3>
+              </th>
+            </tr> -->
+            <br>
+            <tr>
+              <th>Seller: {{ listing.seller.name}}</th>
+            </tr>
+            <!-- <tr>
+              <th>Origin: {{bargain.item.origin}}</th>
+            </tr>
+            <tr>
+              <th class="ItemTextDtl">You can place request for a maximum of 3 times post which the request will be closed if not accepted</th>
+            </tr> -->
+          </table>
+      
+        </div>
 
-      </div>
     </div>
 
     <div class="col-12 col-md-6">

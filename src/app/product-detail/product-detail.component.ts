@@ -44,7 +44,7 @@ export class ProductDetailComponent implements OnInit {
   this.listingService.get(id)
     .subscribe(response => {
       this.listing = response as Listing;
-      // console.log(this.listing);
+      console.log(this.listing);
     }, (error: Response) => {
       this.router.navigate(['/errorpage']);
       if (error.status === 400) {

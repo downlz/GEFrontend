@@ -2,6 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { Router, NavigationEnd } from '@angular/router';
 import {AuthService} from '../services/auth.service';
 import { trigger, style, animate, transition } from '@angular/animations';
+// import { faCoffee } from '@fortawesome/free-solid-svg-icons';
+// import { faBell as farBell } from '@fortawesome/free-regular-svg-icons';
+import { faBell} from '@fortawesome/free-solid-svg-icons';
 // import { BrowserModule } from '@angular/platform-browser';
 // import { NgModule } from '@angular/core';
 
@@ -27,6 +30,8 @@ import { trigger, style, animate, transition } from '@angular/animations';
   ]
 })
 export class NavBarComponent implements OnInit {
+  // faCoffee = faCoffee;
+  faBell = faBell;
   public isCollapsed = true;
   public isMainPage = true;
   private activeSiteSection: string;

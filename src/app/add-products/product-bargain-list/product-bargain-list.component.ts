@@ -5,11 +5,11 @@ import { AuthService } from '../../services/auth.service';
 import { ListingService } from '../../services/listing.service';
 import { Router } from '@angular/router';
 @Component({
-  selector: 'app-product-list',
-  templateUrl: './product-list.component.html',
-  styleUrls: ['./product-list.component.scss']
+  selector: 'app-product-bargain-list',
+  templateUrl: './product-bargain-list.component.html',
+  styleUrls: ['./product-bargain-list.component.scss']
 })
-export class ProductListComponent implements OnInit {
+export class ProductBargainSpecifierComponnent implements OnInit {
   unit: any;
   pageSize = 15;
   currentPage = 1;
@@ -20,6 +20,11 @@ export class ProductListComponent implements OnInit {
   loading : boolean = true;
   listings: any;
   queryParams = '';
+  // bargain: any;
+  // bargain = {
+  //   bargainenabled : '',
+  //   bargaintrgqty : ''
+  // }
 
   constructor(private auth: AuthService,
     private listingService: ListingService,
@@ -40,7 +45,6 @@ export class ProductListComponent implements OnInit {
     .subscribe(response => {
       this.listings = response;
       // this.data = this.listings;
-      // console.log(this.listings);
       this.setTotalPages();
       this.onPageChange(this.currentPage);
       this.loading = false;
@@ -57,6 +61,7 @@ export class ProductListComponent implements OnInit {
       this.listingService.getCurrentUserListings()
     .subscribe(response => {
       this.listings = response;
+      // this.data = this.listings;
       this.setTotalPages();
       this.onPageChange(this.currentPage);
       this.loading = false;
@@ -115,6 +120,10 @@ export class ProductListComponent implements OnInit {
     //   alert('Error while approving this auction');
     //   this.loading = false;
     // });
+  }
+
+  addBargain(bargaindtl){
+    console.log(bargaindtl.bargaintrgqty)
   }
 
 }

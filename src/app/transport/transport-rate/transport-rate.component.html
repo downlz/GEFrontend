@@ -12,6 +12,7 @@
         <th scope="col">Duration (Hrs)</th>
         <th scope="col">Status</th>
         <th scope="col">Details</th>
+        <th scope="col" *ngIf="role=='admin'">Transporter</th>
         <th scope="col">Action</th>
       </tr>
 
@@ -21,11 +22,12 @@
         <tr>
           <td></td>
           <td></td>
-          <td *ngIf="auctionType == 'seller' || role =='seller' || role =='buyer'"></td>
+          <td></td>
           <td> No Data Found</td>
           <td></td>
           <td></td>
           <td></td>
+          <td *ngIf="role=='admin'"></td>
           <td></td>
         </tr>
       </ng-container>
@@ -42,6 +44,7 @@
           <td> {{ transportrate.duration }}</td>
           <td> {{ transportrate.isactive === true ? 'Active' : 'Inactive'  }}</td>
           <td> {{ transportrate.vehicledtl }}</td>
+          <td *ngIf="role=='admin'"> {{ transportrate.addedby.name }}</td>
           <td>
               <!-- <button class="btn btn-primary" (click)='abc()'>
                 Edit

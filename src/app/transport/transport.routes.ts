@@ -19,42 +19,42 @@ const routes: Routes = [
             path: 'add',
             component: ListTransportRateComponent,
             data: {
-            roles: ['admin', 'seller', 'buyer' , 'transporter','agent']
+            roles: ['admin', 'transporter','agent']
             }
           },
           {
             path: 'edit/:id',
             component: ListTransportRateComponent,
             data: {
-              roles: ['admin', 'seller', 'buyer', 'transporter','agent']
+              roles: ['admin', 'transporter','agent']
             }
           },
           {
             path: 'user',
             component: TransportRateComponent,
             data: {
-              roles: ['admin', 'seller', 'buyer', 'transporter','agent']
+              roles: ['admin', 'transporter','agent']
             }
           },
           {
             path: 'dispatch',
             component: DispatchDetailComponent,
             data : {
-              roles: ['admin', 'seller', 'buyer', 'transporter','agent']
+              roles: ['admin', 'buyer', 'transporter','agent']
             }
           },
           {
             path: 'dispatchhistory',
             component: DispatchHistoryComponent,
             data :{
-              roles: ['admin', 'seller', 'buyer', 'transporter','agent']
+              roles: ['admin', 'buyer', 'transporter','agent']
             }
           },
           {
             path: 'dispatchorder',
             component: DispatchOrderComponent,
             data: {
-              roles: ['admin', 'seller', 'buyer', 'transporter','agent']
+              roles: ['admin', 'buyer', 'transporter','agent']
             }
           },
           {

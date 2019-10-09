@@ -36,10 +36,17 @@ export class ListingsComponent implements OnInit {
   data: Array<any>;
   totalPages: Array<Number> = [];
   loading: boolean;
+  allfetchedlisting: Array<any> = [];
+
+  _search = "";
 
   constructor(private listingService: ListingService, private cityService: CityService,
     private itemnameService: ItemnameService, private manufacturerService: ManufacturerService,
     private router: Router) { }
+
+    get search() {
+      return this._search;
+    }
 
   ngOnInit() {
     this.loading = true;
@@ -47,10 +54,10 @@ export class ListingsComponent implements OnInit {
     .subscribe(response => {
       this.listings = response;
       // this.data = this.listings;
+      this.allfetchedlisting = this.listings;
       this.setTotalPages();
       this.onPageChange(this.currentPage);
       this.loading = false;
-      // console.log(this.listings);
     }, (error: Response) => {
         this.loading = false;
       this.router.navigate(['/errorpage']);
@@ -118,7 +125,27 @@ export class ListingsComponent implements OnInit {
     
   }
 
-  
+  set search(value: string) {
+    this._search = value;
+    if (value) {
+      // console.log('Inside')
+      let lowercase = value.toLowerCase().trim();
+      this.listings = this.listings.filter(item => {
+        return item.name.name.toLowerCase().indexOf(lowercase) >= 0
+          || item.category.name.toLowerCase().indexOf(lowercase) >= 0
+          || item.origin.toLowerCase().indexOf(lowercase) >= 0
+          || item.seller.name.toLowerCase().indexOf(lowercase) >= 0
+          || item.seller.name.toLowerCase().indexOf(lowercase) >= 0
+      });
+     
+    } else {
+      // console.log('Outside')
+      this.listings = this.allfetchedlisting;
+      // console.log(this.allfetchedlisting);
+      // this.filterChange();
+    }
+    this.filterChange();
+  }  
 
   onPageChange(page) {
     this.data = [...(this.listings || [])];

@@ -89,6 +89,7 @@ export class FindTransportComponent implements OnInit {
   }
 
   search(event) {
+    this.loading = true;
     // this.submitted = true;
     event.preventDefault();
     if (this.form.valid) {

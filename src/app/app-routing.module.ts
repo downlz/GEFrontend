@@ -13,6 +13,7 @@ import {AllOrdersComponent} from './all-orders/all-orders.component';
 import {AddProductsComponent} from './add-products/add-products.component';
 import {ProductSidebarComponent} from './add-products/sidebar/sidebar.component';
 import {ProductDataComponent} from './add-products/products-data.component';
+import { ProductBargainSpecifierComponnent } from './add-products/product-bargain-list/product-bargain-list.component';
 // import {GBListingsComponent} from './gblistings/gblistings.component';
 // import {ListGBItemComponent} from './listgb-item/listgb-item.component';
 // import {GBProductDetailComponent} from './gbproduct-detail/gbproduct-detail.component';
@@ -22,7 +23,7 @@ import {ProductDataComponent} from './add-products/products-data.component';
 import {RegistrationComponent} from './users/registration/registration.component';
 import {ReferUserComponent} from './users/refer-user/refer-user.component';
 import {ErrorPageComponent} from './error-page/error-page.component';
-import {TermsUseComponent} from './terms-use/terms-use.component';
+// import {TermsUseComponent} from './terms-use/terms-use.component';
 import {AuthGuard} from './_guards/auth.guard';
 
 // import {AuctionComponent} from './auction/auction.component';
@@ -46,6 +47,7 @@ import { BargainQuoteComponent } from './bargain-quote/bargain-quote.component';
 
 import { CreateOrderComponent } from './agent-mgmt/create-order/create-order.component';
 import { ProductTabComponent } from './add-products/product-tabs/product-tabs.component';
+
 // import { AddUsersComponent } from './add-products/add-users/add-users.component';
 
 const routes: Routes = [
@@ -68,7 +70,8 @@ const routes: Routes = [
   },
   {
     path:'termsofuse',
-    component: TermsUseComponent
+    // component: TermsUseComponent
+    loadChildren: '../app/terms-use/terms-use.module#TermsConditionModule'
   },
   {
     path: 'products',
@@ -104,6 +107,13 @@ const routes: Routes = [
     {
       path: 'edit/:id',
       component: AddProductsComponent,
+      data: {
+        roles: ['admin', 'seller', 'agent']
+      }
+    },
+    {
+      path: 'bargainspecifier',
+      component: ProductBargainSpecifierComponnent,
       data: {
         roles: ['admin', 'seller', 'agent']
       }
@@ -299,7 +309,7 @@ const routes: Routes = [
   }
 ];
 @NgModule({
-  imports: [RouterModule.forRoot(routes,{ useHash: true })],
+  imports: [RouterModule.forRoot(routes)],    //{useHash: true})],
   exports: [RouterModule]
 })
 export class AppRoutingModule {

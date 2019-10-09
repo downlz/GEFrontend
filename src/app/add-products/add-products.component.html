@@ -1,6 +1,6 @@
 <div class="container listingOffsetTextColor">
     <div class="spinner-grow loader text-success" *ngIf="loading"></div>
-  <h3>{{edit ? 'Update Product Details' : 'Enter product information'}}</h3>
+  <h3 *ngIf="!loading">{{edit ? 'Update Product Details' : 'Enter product information'}}</h3>
   <!-- <h5 *ngIf="edit">Sample No - {{item['sampleNo']}} | Grade - {{item['grade']}}| MFG - {{mfgname}}</h5> -->
   <!-- <form [formGroup]="form" (ngSubmit)="addproduct()"> -->
     <form [formGroup]="form" *ngIf="!loading">
@@ -33,13 +33,13 @@
       </div>
 
       <div class="row">
-        <div class="col-md-5 pr-1" *ngIf="formControls.sampleno">
+        <!-- <div class="col-md-5 pr-1" *ngIf="formControls.sampleno">
           <div class="form-group">
             <label>Sample No</label>
             <input type="text" id="sampleno"class="form-control" formControlName="sampleno" placeholder="Enter Sample no.">
           </div>
-        </div>
-        <div class="col-md-3 pl-1" *ngIf="formControls.grade">
+        </div> -->
+        <div class="col-md-3 pr-1" *ngIf="formControls.grade">
           <div class="form-group">
             <label>Grade</label>
             <input type="text" id="grade" class="form-control" formControlName="grade" placeholder="Add Product Grade" >
@@ -51,19 +51,19 @@
         <div class="col-md-5 pr-1" *ngIf="formControls.moisture">
           <div class="form-group">
             <label>Moisture</label>
-            <input type="text" id="moisture" class="form-control" formControlName="moisture" placeholder="Enter moisture content in item">
+            <input type="text" id="moisture" class="form-control" formControlName="moisture" placeholder="Enter moisture content in item (Optional)">
           </div>
         </div>
         <div class="col-md-3 pl-1" *ngIf="formControls.graincount">
           <div class="form-group">
             <label>Grain Count</label>
-            <input type="text" id="graincount" class="form-control" formControlName="graincount" placeholder="Enter Grain Count">
+            <input type="text" id="graincount" class="form-control" formControlName="graincount" placeholder="Add Grain Count (Optional)">
           </div>
         </div>
         <div class="col-md-4 pl-1" *ngIf="formControls.icumsa">
           <div class="form-group">
             <label>ICUMSA</label>
-            <input type="text" id="icumsa" class="form-control" formControlName="icumsa" placeholder="Add icumsa">
+            <input type="text" id="icumsa" class="form-control" formControlName="icumsa" placeholder="Add icumsa (Optional)">
           </div>
         </div>
       </div>
@@ -175,13 +175,34 @@
             </div>
           </div>
           </div>
-
+          <h5 *ngIf='edit'>Bargain options</h5>
+          <div class="row">
+              <div class="col-md-4 pr-1" *ngIf="formControls.bargainstatus">
+                <div class="form-group">
+                  <label for="file">Set Bargain status</label> <br>
+                  <label class="radio">
+                  <input type="radio" id="bargainstatus" formControlName="bargainstatus" value='true' [checked]="brgStatus == true" (click)="toggle()"> Active </label> &nbsp;
+                  <label class="radio">
+                  <input type="radio" id="bargainstatus" formControlName="bargainstatus" value='false' [checked]="brgStatus == false" (click)="toggle()"> Inactive </label>
+                </div>
+              </div>
+            </div>
+              <div class="row">
+              <div class="col-md-3 pr-1" *ngIf="formControls.bargaintrgqty">
+                  <div class="form-group">
+                    <label>Minimum Quantity for Bargain</label>
+                    <input type="number" id="bargaintrgqty" class="form-control" formControlName="bargaintrgqty" [attr.disabled]="!textBoxDisabled ? '' : null"
+                    placeholder="Enter Quantity">
+                  </div>
+                </div>
+              </div>
+            
     </div>
 
     <!-- <button class="btn btn-primary" type="submit" [disabled]="!form.valid">Submit</button> -->
     <button class="btn btn-primary"
     (click)="uploader.uploadAll()"
-    [disabled]="!uploader.getNotUploadedItems().length && !edit" *ngIf='!edit'>
+    [disabled]="(!uploader.getNotUploadedItems().length && !edit) || !form.valid" *ngIf='!edit'>
       Add this Product
     </button>
     <button class="btn btn-primary"

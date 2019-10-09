@@ -56,11 +56,21 @@
           </ng-container>
         </div>
       </div>
-      <button class="btn btn-secondary btn-block text-left" (click)="sortByPrice()">Price</button>
+      <button class="btn btn-secondary btn-block text-left" (click)="sortByPrice()">Sort by Price</button>
       <button class="btn btn-secondary btn-block text-left" (click)="clearSelection()">Clear</button>
+      <!-- <label>Search by item:</label><br> -->
+      <br>
+      <input type="text" class="form-control" [(ngModel)]="search"  placeholder="Search by item details" matTooltip="Info about the action"/>
     </div>
+    
     <div class="col-10 col-md-9">
+        <!-- <div class="row">
+            <div class="col-md-6 px-4">
+            <input type="text" class="form-control" [(ngModel)]="search"  placeholder="Search by item details"/>
+          </div>
+        </div> -->
       <div class="row">
+        
         <ng-container *ngFor="let listing of data">
           <div class="col-12 col-md-6">
             <div class="ItemCardContainer">

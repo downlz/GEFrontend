@@ -109,13 +109,6 @@
               routerLink="/login"
               >Login</a>
           </li> 
-          <li ngbDropdown class="nav-item dropdown" *ngIf="loggedIn()">
-            <fa-icon class="active nav-link scrollto h4" [icon]="faBell"></fa-icon>
-            <!-- <fa-layers [fixedWidth]="true"> -->
-              <!-- <fa-icon class="nav-link scrollto h4" [icon]="envelope"></fa-icon> -->
-              <!-- <fa-layers-counter class="nav-link scrollto h4" content="99+"></fa-layers-counter> -->
-            <!-- </fa-layers> -->
-          </li>
           
           
           
