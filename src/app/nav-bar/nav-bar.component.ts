@@ -4,7 +4,8 @@ import {AuthService} from '../services/auth.service';
 import { trigger, style, animate, transition } from '@angular/animations';
 // import { faCoffee } from '@fortawesome/free-solid-svg-icons';
 // import { faBell as farBell } from '@fortawesome/free-regular-svg-icons';
-import { faBell} from '@fortawesome/free-solid-svg-icons';
+// import { library } from '@fortawesome/fontawesome-svg-core';
+import { faEnvelope } from '@fortawesome/free-solid-svg-icons';
 // import { BrowserModule } from '@angular/platform-browser';
 // import { NgModule } from '@angular/core';
 
@@ -30,8 +31,8 @@ import { faBell} from '@fortawesome/free-solid-svg-icons';
   ]
 })
 export class NavBarComponent implements OnInit {
-  // faCoffee = faCoffee;
-  faBell = faBell;
+  faEnvelope = faEnvelope;
+  // faBell = faBell;
   public isCollapsed = true;
   public isMainPage = true;
   private activeSiteSection: string;
