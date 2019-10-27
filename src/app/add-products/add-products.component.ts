@@ -67,7 +67,7 @@ export class AddProductsComponent implements OnInit {
             itemcategory:   new FormControl('',[Validators.required]),
             item:  new FormControl(''),
             sampleno:   new FormControl(''),
-            grade:    new FormControl('',[Validators.required]),
+            grade:    new FormControl(''),
             moisture:    new FormControl(''),
             graincount:    new FormControl(''),
             price:   new FormControl('',[Validators.required]),
@@ -186,7 +186,7 @@ export class AddProductsComponent implements OnInit {
       // 'itemcategory',
       // 'item',
       // 'sampleno',
-      // 'grade',
+      'grade',
       'moisture',
       'graincount',
       'price',
@@ -245,7 +245,7 @@ export class AddProductsComponent implements OnInit {
       this.item = item;
       this.brgStatus = item['bargainenabled'] ? true :false;
       // this.form.controls.newitem['controls'].sampleno.setValue(item['sampleNo']);
-      // this.form.controls.newitem['controls'].grade.setValue(item['grade']);
+      this.form.controls.newitem['controls'].grade.setValue(item['grade']);
       this.form.controls.newitem['controls'].moisture.setValue(item['specs'].moisture);
       this.form.controls.newitem['controls'].graincount.setValue(item['specs'].graincount);
       this.form.controls.newitem['controls'].unit.setValue(item['unit']._id);

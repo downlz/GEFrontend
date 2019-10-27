@@ -48,7 +48,7 @@
               >Home</a
             >
           </li>
-          <li class="nav-item">
+          <!-- <li class="nav-item">
             <a
               class="active nav-link scrollto h4"
               [class.active]="isSectionActive('hero')"
@@ -56,7 +56,7 @@
               fragment="auction"
             >Auction</a
             >
-          </li>
+          </li> -->
           <li class="nav-item">
             <a
               class="active nav-link scrollto h4"
@@ -109,23 +109,21 @@
               routerLink="/login"
               >Login</a>
           </li> 
-          <li ngbDropdown class="nav-item dropdown" *ngIf="loggedIn()">
-            <fa-icon class="active nav-link scrollto h4" [icon]="faBell"></fa-icon>
-            <!-- <fa-layers [fixedWidth]="true"> -->
-              <!-- <fa-icon class="nav-link scrollto h4" [icon]="envelope"></fa-icon> -->
-              <!-- <fa-layers-counter class="nav-link scrollto h4" content="99+"></fa-layers-counter> -->
-            <!-- </fa-layers> -->
-          </li>
           
+          <!-- <li ngbDropdown class="nav-item dropdown" *ngIf="loggedIn()">
+            <fa-layers size="3x">
+              <fa-icon class="nav-link dropdown-toggle" [icon]="faEnvelope"></fa-icon>
+              <fa-layers-counter content="90" size="5x"></fa-layers-counter>
+          </fa-layers>
+          </li> -->
           
-          
-
           <li ngbDropdown class="nav-item dropdown" *ngIf="loggedIn()">
             <a ngbDropdownToggle class="nav-link dropdown-toggle" id="dropdown01" data-toggle="dropdown"
               aria-haspopup="true" aria-expanded="false">User</a>
             <div ngbDropdownMenu class="dropdown-menu " aria-labelledby="dropdown01">
               <a class="dropdown-item nav-link" routerLink="/myOrders" *ngIf="!isSeller || !isTransporter">My Orders</a>
-              <a class="dropdown-item nav-link" routerLink="/auction" *ngIf="isAdmin || isSeller || isBuyer">Auction</a>
+              <!-- <a class="dropdown-item nav-link" routerLink="/auction" *ngIf="isAdmin || isSeller || isBuyer">Auction</a> -->
+              <a class="dropdown-item nav-link" routerLink="/auction" *ngIf="isAdmin">Auction</a>
               <a class="dropdown-item nav-link" routerLink="/bargainRequest" *ngIf="isAdmin || isSeller || isBuyer">Bargain Request</a>
               <a class="dropdown-item nav-link" routerLink="/transport/findtransport">Transport</a>
               <a class="dropdown-item nav-link" routerLink="/allOrders" *ngIf="isAdmin || isSeller">Manage Orders</a>
