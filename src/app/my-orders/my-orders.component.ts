@@ -24,6 +24,21 @@ export class MyOrdersComponent implements OnInit {
   ngOnInit() {
     const currentUser = this.authenticationService.currentUserValue;
     this.username = currentUser.name;
+    if (currentUser.isAgent){
+      this.myorderService.getagent(currentUser._id)
+      .subscribe(response => {
+        this.orders = response as any;
+        this.setTotalPages();
+        this.onPageChange(this.currentPage);
+        this.loading = false;
+      }, (error: Response) => {
+        this.router.navigate(['/errorpage']);
+        if (error.status === 400) {
+          alert(' expected error, post already deleted');
+        }
+        console.log(error);
+      }); 
+    } else {    
     this.myorderService.get(currentUser._id)
     .subscribe(response => {
       this.orders = response as any;
@@ -36,7 +51,9 @@ export class MyOrdersComponent implements OnInit {
         alert(' expected error, post already deleted');
       }
       console.log(error);
-    });  
+    }); 
+    }
+     
   }
 
   onPageChange(page) {

@@ -76,11 +76,14 @@
 
             </table>
           </div>
-          <div class="card-footer">
+          <div class="card-footer" *ngIf="role=='admin' ||  role=='buyer'">
             <a [routerLink]="['/orderNow', listing._id]" routerLinkActive="router-link-active" class="btn btn-primary btn-block">Order Now</a>
           </div>
+          <div class="card-footer" *ngIf="role=='agent'">
+            <a [routerLink]="['/createorder']" routerLinkActive="router-link-active" class="btn btn-primary btn-block">Place order for buyer</a>
+          </div>
           <div class="card-footer">
-            <a [routerLink]="['/products', listing._id]" routerLinkActive="router-link-active" (click)="order()" class="btn btn-primary btn-block">Order Sample</a>
+            <a [routerLink]="" routerLinkActive="router-link-active" (click)="order()" class="btn btn-primary btn-block">Order Sample</a>
           </div>
         </div>
       </div>

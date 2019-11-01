@@ -4,6 +4,7 @@ import {ListingService} from '../services/listing.service';
 import { Listing } from './../model/listing';
 import { UserService } from '../services/user.service';
 import { OrderService } from '../services/order.service';
+import {AuthService} from '../services/auth.service';
 import { AppError } from '../common/app-error';
 
 @Component({
@@ -15,11 +16,16 @@ export class ProductDetailComponent implements OnInit {
   listing: Listing;
   address: any;
   userid: any;
+  role: string;
+
   lastorderno: number;
   constructor(private listingService: ListingService, private userService: UserService,
+    private auth: AuthService,
     private route: ActivatedRoute, private router: Router, private orderService: OrderService) { }
 
   ngOnInit() {
+    const role = this.auth.getRole();
+    this.role = role;
     this.route.paramMap
     .subscribe(params => {
       const id = params.get('id');
@@ -28,7 +34,6 @@ export class ProductDetailComponent implements OnInit {
     this.userService.get('me')
     .subscribe(response => {
       const res = response as any;
-      // console.log(res);
       this.address = res.Addresses[0];
       this.userid = res._id;
     }, (error: Response) => {
@@ -74,11 +79,11 @@ export class ProductDetailComponent implements OnInit {
       status: 'new',
       isshippingbillingdiff: false
     };
-    console.log(OrderData);
+    // console.log(OrderData);
     this.orderService.create(OrderData)
     .subscribe(response => {
       // console.log(response);
-      alert('Order Placed Successfully');
+      alert('Sample Order Placed Successfully');
       this.router.navigate(['/products']);
     }, (error: AppError) => {
       console.log(error);

@@ -11,10 +11,14 @@ import { catchError } from 'rxjs/operators';
 })
 export class MyorderService {
 
-  url= environment.baseUrl + '/order/user';
+  url= environment.baseUrl + '/order';
   constructor(private http: HttpClient) { }
 
   get(resourceId) {
-    return this.http.get(this.url + '/' + resourceId);
+    return this.http.get(this.url + '/user/' + resourceId);
+  }
+
+  getagent(resourceId) {
+    return this.http.get(this.url + '/agent/' + resourceId);
   }
 }

@@ -257,7 +257,6 @@ export class CreateOrderComponent implements OnInit {
           this.states = response[2];
           this.cities = response[3];
         }, (error: Response) => {
-          console.log('Here');
           console.log(error);
         });
     // }  else {
