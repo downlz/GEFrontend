@@ -310,16 +310,13 @@ export class CreateOrderComponent implements OnInit {
 
   onSampleNoChange() {
     const sample = this.form.get('agentCreateOrder.sampleNo').value;
-    const listing = this.listings.find((obj) => obj.id = sample);
+    const listing = this.listings.find((obj) => obj._id == sample);
     this.seller = listing.seller;
     this.selecteditem = listing;
     this.selecteditemprice = 'Rs.' + listing.price + '/' + listing.unit.mass;
-    // console.log(listing);
   }
 
   onQuantityChange() {
-    // console.log(qty);
-    // console.log(this.selecteditem);
     const cost = this.selecteditem.price * this.form.getRawValue().agentCreateOrder.odrQty;;
     // console.log(cost);
     this.ordercost = cost;
@@ -479,6 +476,8 @@ export class CreateOrderComponent implements OnInit {
     });
 })
 }
+
+// Incorrect code below
 
   getAuction(id) {
     this.loading = true;
