@@ -113,7 +113,7 @@ export class RegistrationComponent implements OnInit {
       pin:    this.form.value.account.pin,
       // isBuyer: 'true'
     };
-
+    
     this.user.create(formData)
     .subscribe(response => {
       this.loginData = response;;

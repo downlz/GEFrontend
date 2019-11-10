@@ -159,8 +159,9 @@ export class OrderNowComponent implements OnInit {
   }
 
   order(f) {
-    if (!f.shipaddr) {
-      alert("Specify a address from shipping address dropdown");
+    // console.log(f.shipaddr);
+    if (!f.partyname && !f.shipaddr) {
+      alert("Specify a address from shipping address dropdown or add a new address");
     } else {
     this.orderService.get('orderno')        // Sending url as per API defination
       .subscribe(response => {              // improve coding standards
@@ -204,12 +205,12 @@ export class OrderNowComponent implements OnInit {
       phone: f.phone,
       addresstype: 'delivery',
       addedby: this.userid,
-      addressreference: f.shipaddr,
+      addressreference: f.shipaddr ? f.shipaddr : '',
       isExistingAddr: false
     };
     // console.log(OrderData);
     // console.log(f.shipaddr);
-    if (f.shipaddr.addresstype === 'delivery') {
+    if (f.shipaddr && f.shipaddr.addresstype === 'delivery') {
       OrderData.isshippingbillingdiff = true,
       OrderData.partyname = f.shipaddr.addressbasicdtl.partyname,
       OrderData.gstin = f.shipaddr.addressbasicdtl.gstin,
