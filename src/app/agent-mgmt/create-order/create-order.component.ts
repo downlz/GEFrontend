@@ -421,10 +421,10 @@ export class CreateOrderComponent implements OnInit {
   }
 
   order(f) {
-    this.orderService.get('orderno')        // Sending url as per API defination
-      .subscribe(response => {              // improve coding standards
-        const res = response as any;
-        this.lastorderno = parseInt(res[0].orderno) + 1;
+    // this.orderService.get('orderno')        // Sending url as per API defination
+    //   .subscribe(response => {              // improve coding standards
+    //     const res = response as any;
+    //     this.lastorderno = parseInt(res[0].orderno) + 1;
     const createOrder = this.form.getRawValue().agentCreateOrder;  
     const shippingAddress = {
       partyname: createOrder.partyname,
@@ -440,7 +440,7 @@ export class CreateOrderComponent implements OnInit {
 
     const OrderData = {
       // orderno: (this.userid.substring(-1,5)  + this.listing.seller._id.substring(-1,5)).toUpperCase(),    // Frame a order no generator here
-      orderno: String(this.lastorderno),
+      // orderno: String(this.lastorderno),
       quantity: createOrder.odrQty,
       unit: this.selecteditem.unit.mass,
       cost: createOrder.odrQty * this.selecteditem.price,
@@ -474,7 +474,7 @@ export class CreateOrderComponent implements OnInit {
       console.log(error);
       this.router.navigate(['/errorpage']);
     });
-})
+// })
 }
 
 // Incorrect code below

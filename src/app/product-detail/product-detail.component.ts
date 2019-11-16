@@ -60,13 +60,13 @@ export class ProductDetailComponent implements OnInit {
 
   order() {
 
-    this.orderService.get('orderno')        // Sending url as per API defination
-      .subscribe(response => {              // improve coding standards
-        const res = response as any;
-        this.lastorderno = parseInt(res[0].orderno) + 1;
+    // this.orderService.get('orderno')        // Sending url as per API defination
+    //   .subscribe(response => {              // improve coding standards
+    //     const res = response as any;
+    //     this.lastorderno = parseInt(res[0].orderno) + 1;
 
     const OrderData = {
-      orderno: String(this.lastorderno),
+      // orderno: String(this.lastorderno),
       quantity: 0,
       cost: 0,
       itemId: this.listing._id,
@@ -89,6 +89,6 @@ export class ProductDetailComponent implements OnInit {
       console.log(error);
       this.router.navigate(['/errorpage']);
     });
-  })
+  // })
 }
 }

@@ -61,6 +61,7 @@ export class OrderNowComponent implements OnInit {
       this.user = res;
       this.address = res.Addresses[0];
       this.userid = res._id;
+      // console.log(this.userid);
         this.addressService.getUserAddr(res._id,res.phone)
         .subscribe(response => {
           this.addresses = response;
@@ -163,12 +164,6 @@ export class OrderNowComponent implements OnInit {
     if (!f.partyname && !f.shipaddr) {
       alert("Specify a address from shipping address dropdown or add a new address");
     } else {
-    this.orderService.get('orderno')        // Sending url as per API defination
-      .subscribe(response => {              // improve coding standards
-        const res = response as any;
-        this.lastorderno = parseInt(res[0].orderno) + 1;
-        // console.log(this.lastorderno);
-      // })
     const shippingAddress = {
       partyname: f.partyname,
       gstin: f.partygstin,
@@ -182,8 +177,6 @@ export class OrderNowComponent implements OnInit {
     }    
 
     const OrderData = {
-      // orderno: (this.userid.substring(-1,5)  + this.listing.seller._id.substring(-1,5)).toUpperCase(),    // Frame a order no generator here
-      orderno: String(this.lastorderno),
       quantity: f.quantity,
       unit: this.listing.unit.mass,
       cost: f.quantity * this.listing.price,
@@ -202,6 +195,7 @@ export class OrderNowComponent implements OnInit {
       address: f.address,
       pincode: f.pincode,
       state: f.statedat,
+      // city: '5cb2dba959222190e4bc0328',
       phone: f.phone,
       addresstype: 'delivery',
       addedby: this.userid,
@@ -219,6 +213,7 @@ export class OrderNowComponent implements OnInit {
       OrderData.state = f.shipaddr.state,
       OrderData.phone = f.shipaddr.phone,
       OrderData.addresstype =  'delivery',
+      // city: '5cb2dba959222190e4bc0328',
       OrderData.addressreference = f.shipaddr
       OrderData.isExistingAddr = true;
     }
@@ -231,7 +226,7 @@ export class OrderNowComponent implements OnInit {
       console.log(error);
       this.router.navigate(['/errorpage']);
     });
-})
+// })
 }
   }
 }
