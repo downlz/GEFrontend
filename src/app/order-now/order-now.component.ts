@@ -199,11 +199,9 @@ export class OrderNowComponent implements OnInit {
       phone: f.phone,
       addresstype: 'delivery',
       addedby: this.userid,
-      addressreference: f.shipaddr ? f.shipaddr : '',
+      addressreference: f.shipaddr ? f.shipaddr._id : '',
       isExistingAddr: false
     };
-    // console.log(OrderData);
-    // console.log(f.shipaddr);
     if (f.shipaddr && f.shipaddr.addresstype === 'delivery') {
       OrderData.isshippingbillingdiff = true,
       OrderData.partyname = f.shipaddr.addressbasicdtl.partyname,
