@@ -197,7 +197,7 @@ export class BargainQuoteComponent implements OnInit {
       const quoteComplete  = Response as any;
       console.log(quoteComplete);
       alert('The bargain request was rejected sucessfully');
-      // this.router.navigate(['/bargainRequest']);
+      this.router.navigate(['/bargainRequest']);
     }, (error: AppError) => {
       console.log(error);
       this.router.navigate(['/errorpage']);

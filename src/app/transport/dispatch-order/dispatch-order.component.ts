@@ -48,7 +48,7 @@ export class DispatchOrderComponent implements OnInit {
         Validators.required,
       ]),
       vehicledtl: new FormControl('', [
-        Validators.maxLength(50)
+        Validators.required,Validators.maxLength(50)
       ]),
     };
     this.route.paramMap

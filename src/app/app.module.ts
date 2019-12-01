@@ -59,6 +59,8 @@ import {AllOrdersComponent} from './all-orders/all-orders.component';
 import {BargainRequestComponent} from './bargain-request/bargain-request.component';
 
 import {AddProductsComponent} from './add-products/add-products.component';
+import {AddItemnameComponent} from './add-products/add-itemname/add-itemname.component';
+import { AddCategoryComponent} from './add-products/add-category/add-category.component';
 import {ProductSidebarComponent} from './add-products/sidebar/sidebar.component';
 import { ProductBargainSpecifierComponnent } from './add-products/product-bargain-list/product-bargain-list.component';
 
@@ -166,7 +168,9 @@ import { AppFooterComponent } from './app-footer/app-footer.component';
     ProductTabComponent,
     ProductListComponent,
     // AddUsersComponent,
-    AppFooterComponent
+    AppFooterComponent,
+    AddItemnameComponent,
+    AddCategoryComponent
   ],
   // entryComponents: [PlaceBidComponent],
   imports: [

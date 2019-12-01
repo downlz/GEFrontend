@@ -1,3 +1,4 @@
+import { CategoryService } from './services/category.service';
 import {NgModule} from '@angular/core';
 import {Routes, RouterModule} from '@angular/router';
 import {LandingPageComponent} from './landing-page/landing-page.component';
@@ -47,6 +48,8 @@ import { BargainQuoteComponent } from './bargain-quote/bargain-quote.component';
 
 import { CreateOrderComponent } from './agent-mgmt/create-order/create-order.component';
 import { ProductTabComponent } from './add-products/product-tabs/product-tabs.component';
+import { AddItemnameComponent} from './add-products/add-itemname/add-itemname.component';
+import { AddCategoryComponent} from './add-products/add-category/add-category.component';
 
 // import { AddUsersComponent } from './add-products/add-users/add-users.component';
 
@@ -117,7 +120,35 @@ const routes: Routes = [
       data: {
         roles: ['admin', 'seller', 'agent']
       }
-    }
+    },
+    {
+      path: 'additem',
+      component: AddItemnameComponent ,
+      data: {
+       roles: ['admin', 'agent']
+      }
+    },
+    {
+      path: 'additem/edit/:id',
+      component: AddItemnameComponent ,
+      data: {
+       roles: ['admin', 'agent']
+      }
+    },
+    {
+      path: 'addcategory',
+      component: AddCategoryComponent ,
+      data: {
+       roles: ['admin', 'agent']
+      }
+    },
+    {
+      path: 'addcategory/edit/:id',
+      component: AddCategoryComponent ,
+      data: {
+       roles: ['admin', 'agent']
+      }
+    },
     // ,
     // {
     //   path: 'addusers',

@@ -106,7 +106,6 @@ export class AddProductsComponent implements OnInit {
   }
 
   ngOnInit() {
-
     forkJoin([this.cityService.getAll(), this.stateService.getAll(),this.categoryService.getAll(),this.itemnameService.getAll(),this.manufacturerService.getAll(),
       this.sellerService.getAll(),this.unitService.getAll(),this.userService.get('me')])
     .subscribe(response => {
