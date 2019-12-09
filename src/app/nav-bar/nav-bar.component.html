@@ -121,7 +121,7 @@
             <a ngbDropdownToggle class="nav-link dropdown-toggle" id="dropdown01" data-toggle="dropdown"
               aria-haspopup="true" aria-expanded="false">User</a>
             <div ngbDropdownMenu class="dropdown-menu " aria-labelledby="dropdown01">
-              <a class="dropdown-item nav-link" routerLink="/myOrders" *ngIf="!isSeller || !isTransporter">My Orders</a>
+              <a class="dropdown-item nav-link" routerLink="/myOrders" *ngIf="isAdmin || isBuyer || isAgent">My Orders</a>
               <!-- <a class="dropdown-item nav-link" routerLink="/auction" *ngIf="isAdmin || isSeller || isBuyer">Auction</a> -->
               <a class="dropdown-item nav-link" routerLink="/auction" *ngIf="isAdmin">Auction</a>
               <a class="dropdown-item nav-link" routerLink="/bargainRequest" *ngIf="isAdmin || isSeller || isBuyer">Bargain Request</a>

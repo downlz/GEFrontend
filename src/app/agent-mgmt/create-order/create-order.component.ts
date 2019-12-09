@@ -257,7 +257,6 @@ export class CreateOrderComponent implements OnInit {
           this.states = response[2];
           this.cities = response[3];
         }, (error: Response) => {
-          console.log('Here');
           console.log(error);
         });
     // }  else {
@@ -311,16 +310,13 @@ export class CreateOrderComponent implements OnInit {
 
   onSampleNoChange() {
     const sample = this.form.get('agentCreateOrder.sampleNo').value;
-    const listing = this.listings.find((obj) => obj.id = sample);
+    const listing = this.listings.find((obj) => obj._id == sample);
     this.seller = listing.seller;
     this.selecteditem = listing;
     this.selecteditemprice = 'Rs.' + listing.price + '/' + listing.unit.mass;
-    // console.log(listing);
   }
 
   onQuantityChange() {
-    // console.log(qty);
-    // console.log(this.selecteditem);
     const cost = this.selecteditem.price * this.form.getRawValue().agentCreateOrder.odrQty;;
     // console.log(cost);
     this.ordercost = cost;
@@ -425,10 +421,10 @@ export class CreateOrderComponent implements OnInit {
   }
 
   order(f) {
-    this.orderService.get('orderno')        // Sending url as per API defination
-      .subscribe(response => {              // improve coding standards
-        const res = response as any;
-        this.lastorderno = parseInt(res[0].orderno) + 1;
+    // this.orderService.get('orderno')        // Sending url as per API defination
+    //   .subscribe(response => {              // improve coding standards
+    //     const res = response as any;
+    //     this.lastorderno = parseInt(res[0].orderno) + 1;
     const createOrder = this.form.getRawValue().agentCreateOrder;  
     const shippingAddress = {
       partyname: createOrder.partyname,
@@ -444,7 +440,7 @@ export class CreateOrderComponent implements OnInit {
 
     const OrderData = {
       // orderno: (this.userid.substring(-1,5)  + this.listing.seller._id.substring(-1,5)).toUpperCase(),    // Frame a order no generator here
-      orderno: String(this.lastorderno),
+      // orderno: String(this.lastorderno),
       quantity: createOrder.odrQty,
       unit: this.selecteditem.unit.mass,
       cost: createOrder.odrQty * this.selecteditem.price,
@@ -478,8 +474,10 @@ export class CreateOrderComponent implements OnInit {
       console.log(error);
       this.router.navigate(['/errorpage']);
     });
-})
+// })
 }
+
+// Incorrect code below
 
   getAuction(id) {
     this.loading = true;

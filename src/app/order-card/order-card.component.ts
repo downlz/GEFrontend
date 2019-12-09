@@ -55,7 +55,7 @@ export class OrderCardComponent implements OnInit {
           pincode : this.shippingaddress.pin,
           phone : this.shippingaddress.phone
       }
-      console.log(shippingAddr);
+      // console.log(shippingAddr);
       // return shippingAddr;
     } else if (this.order.isshippingbillingdiff == false) {
       // console.log("I am here");
@@ -68,7 +68,7 @@ export class OrderCardComponent implements OnInit {
         pincode : this.order.buyer.Addresses[0].pin,
         phone : this.order.buyer.phone
     }
-      console.log(shippingAddr);
+      // console.log(shippingAddr);
       // console.log(this.order);
     } else {
       // console.log("I am here");

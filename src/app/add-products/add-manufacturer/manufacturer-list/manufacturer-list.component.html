@@ -1,0 +1,57 @@
+<div class="container">
+  <div class="container listingOffsetTextColor">
+    <div class="spinner-grow loader text-success" *ngIf="loading"></div>
+    <table class="table table-hover table-sm" [ngClass]="{'loading' : loading}" *ngIf="!loading">
+      <thead>
+        <tr>
+          <th scope="col">Manufacturer</th>
+          <th scope="col">Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <ng-container *ngIf="!data || data.length==0">
+        <tr>
+          <td></td>
+          <td> No Data Found</td>
+        </tr>
+      </ng-container>
+        <ng-container *ngFor="let mnfdtl of data">
+          <tr>
+            <td>
+              {{ mnfdtl.name}}
+            </td>
+            <td><a class="btn btn-primary btn-sm" [routerLink]="'/product/addmnf/edit/'+mnfdtl._id">Edit</a> &nbsp;
+            <!-- <button class="btn btn-primary btn-sm" *ngIf="role=='admin' && !mnfdtl.isLive"
+                    (click)="approveItem(mnfdtl._id)">
+              Activate
+            </button>  
+            <button class="btn btn-primary btn-sm" *ngIf="role=='admin' && mnfdtl.isLive == true"
+                    (click)="approveItem(mnfdtl._id)">
+              Deactivate
+            </button> -->
+          </td>
+
+            <!-- <td><a class="btn btn-primary btn-sm" [routerLink]="'/auction/'+auction._id">
+             Edit
+           </a> &nbsp;
+           <a class="btn btn-primary btn-sm" [routerLink]="'/auction/'+auction._id">
+          Approve
+        </a></td> -->
+          </tr>
+        </ng-container>
+      </tbody>
+    </table>
+    <nav aria-label="Page navigation example" *ngIf="totalPages.length>0">
+      <ul class="pagination">
+        <li class="page-item" [ngClass]="{ 'disabled' : currentPage <= 1}"><a class="page-link"
+            (click)="onPageChange(currentPage-1)">Previous</a>
+        </li>
+        <li class="page-item" [ngClass]="{ 'active' : currentPage== page}" *ngFor="let page of totalPages"><a
+            class="page-link" (click)="onPageChange(page)">{{page}}</a></li>
+          <li class="page-item" [ngClass]="{ 'disabled' : currentPage>=totalPages.length}"><a class="page-link"
+              (click)="onPageChange(currentPage+1)">Next</a>
+          </li>
+      </ul>
+    </nav>
+  </div>
+</div>

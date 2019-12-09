@@ -1,3 +1,4 @@
+import { CategoryService } from './services/category.service';
 import {NgModule} from '@angular/core';
 import {Routes, RouterModule} from '@angular/router';
 import {LandingPageComponent} from './landing-page/landing-page.component';
@@ -10,10 +11,10 @@ import {BargainOrderComponent} from './bargain-order/bargain-order.component';
 import {MyOrdersComponent} from './my-orders/my-orders.component';
 import {AllOrdersComponent} from './all-orders/all-orders.component';
 
-import {AddProductsComponent} from './add-products/add-products.component';
-import {ProductSidebarComponent} from './add-products/sidebar/sidebar.component';
-import {ProductDataComponent} from './add-products/products-data.component';
-import { ProductBargainSpecifierComponnent } from './add-products/product-bargain-list/product-bargain-list.component';
+// import {AddProductsComponent} from './add-products/add-products.component';
+// import {ProductSidebarComponent} from './add-products/sidebar/sidebar.component';
+// import {ProductDataComponent} from './add-products/products-data.component';
+// import { ProductBargainSpecifierComponnent } from './add-products/product-bargain-list/product-bargain-list.component';
 // import {GBListingsComponent} from './gblistings/gblistings.component';
 // import {ListGBItemComponent} from './listgb-item/listgb-item.component';
 // import {GBProductDetailComponent} from './gbproduct-detail/gbproduct-detail.component';
@@ -46,7 +47,9 @@ import { BargainRequestComponent } from './bargain-request/bargain-request.compo
 import { BargainQuoteComponent } from './bargain-quote/bargain-quote.component';
 
 import { CreateOrderComponent } from './agent-mgmt/create-order/create-order.component';
-import { ProductTabComponent } from './add-products/product-tabs/product-tabs.component';
+// import { ProductTabComponent } from './add-products/product-tabs/product-tabs.component';
+// import { AddItemnameComponent} from './add-products/add-itemname/add-itemname.component';
+// import { AddCategoryComponent} from './add-products/add-category/add-category.component';
 
 // import { AddUsersComponent } from './add-products/add-users/add-users.component';
 
@@ -87,37 +90,66 @@ const routes: Routes = [
   },
   {
   path: 'product',
-  component: ProductDataComponent,
-  canActivate: [AuthGuard],
-  children: [
-    {
-      path: 'allproducts',
-      component: ProductTabComponent,
-      data: {
-        roles: ['admin','agent','seller']
-      }
-    },
-    {
-      path: 'addProducts',
-      component: AddProductsComponent ,
-      data: {
-       roles: ['admin', 'agent']
-      }
-    },
-    {
-      path: 'edit/:id',
-      component: AddProductsComponent,
-      data: {
-        roles: ['admin', 'seller', 'agent']
-      }
-    },
-    {
-      path: 'bargainspecifier',
-      component: ProductBargainSpecifierComponnent,
-      data: {
-        roles: ['admin', 'seller', 'agent']
-      }
-    }
+  loadChildren: '../app/add-products/add-products.module#AppProductsModule'
+  // component: ProductDataComponent,
+  // canActivate: [AuthGuard],
+  // children: [
+  //   {
+  //     path: 'allproducts',
+  //     component: ProductTabComponent,
+  //     data: {
+  //       roles: ['admin','agent','seller']
+  //     }
+  //   },
+  //   {
+  //     path: 'addProducts',
+  //     component: AddProductsComponent ,
+  //     data: {
+  //      roles: ['admin', 'agent']
+  //     }
+  //   },
+  //   {
+  //     path: 'edit/:id',
+  //     component: AddProductsComponent,
+  //     data: {
+  //       roles: ['admin', 'seller', 'agent']
+  //     }
+  //   },
+  //   {
+  //     path: 'bargainspecifier',
+  //     component: ProductBargainSpecifierComponnent,
+  //     data: {
+  //       roles: ['admin', 'seller', 'agent']
+  //     }
+  //   },
+  //   {
+  //     path: 'additem',
+  //     component: AddItemnameComponent ,
+  //     data: {
+  //      roles: ['admin', 'agent']
+  //     }
+  //   },
+  //   {
+  //     path: 'additem/edit/:id',
+  //     component: AddItemnameComponent ,
+  //     data: {
+  //      roles: ['admin', 'agent']
+  //     }
+  //   },
+  //   {
+  //     path: 'addcategory',
+  //     component: AddCategoryComponent ,
+  //     data: {
+  //      roles: ['admin', 'agent']
+  //     }
+  //   },
+  //   {
+  //     path: 'addcategory/edit/:id',
+  //     component: AddCategoryComponent ,
+  //     data: {
+  //      roles: ['admin', 'agent']
+  //     }
+  //   },
     // ,
     // {
     //   path: 'addusers',
@@ -126,10 +158,10 @@ const routes: Routes = [
     //     roles: ['admin', 'agent']
     //   }
     // }
-  ],
-  data: {
-    roles: ['admin', 'agent','seller']
-  }
+  // ],
+  // data: {
+  //   roles: ['admin', 'agent','seller']
+  // }
   },
   // {
   //   path: 'listgbItem',

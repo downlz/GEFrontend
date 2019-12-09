@@ -1,0 +1,58 @@
+<div class="container listingOffsetTextColor">
+  <!-- <div class="error-block alert alert-danger" *ngIf=="submitted"> -->
+  <!-- <div class="spinner-grow loader text-success"></div> -->
+  <form [formGroup]="form" (ngSubmit)="save($event)">
+    <div formGroupName="newItemName">
+      <div class="row">
+        <h4>Add new Item Name</h4>
+      </div>
+      <div class="row" *ngIf=edit>
+        <h5><span class="badge badge-secondary">Edit details for {{itemnameEdit.name}}
+            </span></h5>
+        <!-- <label>Edit details for {{transportEdit.capacity}} {{transportEdit.tonnagein}} load<br>
+        From - {{transportEdit.from.name}} <br>
+        To - {{transportEdit.to.name}} </label> -->
+      </div>
+      <div class="row">
+        <div class="col-md-3 pl-1" *ngIf="formControls.name">
+          <div class="form-group">
+            <label>Itemname</label>
+            <input type="text" id="name" class="form-control" formControlName="name"
+                   placeholder="Enter item name">
+          </div>
+        </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-3 pl-1" *ngIf="formControls.hsn">
+              <div class="form-group">
+                <label>HSN Code</label>
+                <input type="text" id="hsn" class="form-control" formControlName="hsn"
+                       placeholder="Enter hsn">
+              </div>
+            </div>
+            </div>
+      <div class="row">
+        <div class="col-md-3 pl-1" *ngIf="formControls.tax">
+          <div class="form-group">
+            <label>Tax</label>
+            <select class="form-control" id="tax" formControlName="tax">
+              <option value=0>0 %</option>
+              <option value=5>5 %</option>
+              <option value=10>10 %</option>
+              <option value=15>15 %</option>
+            </select>
+          </div>
+        </div>   
+      </div>
+      
+
+      <div class="row">
+        <button type="submit" class="btn btn-primary" [disabled]="!form.valid">
+          Save
+        </button>
+      </div>
+    </div>
+  </form>
+</div>
+<!-- </div> -->

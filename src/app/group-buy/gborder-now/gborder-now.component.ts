@@ -120,10 +120,10 @@ export class GBOrderNowComponent implements OnInit {
 
 
   order(f) {
-    this.orderService.get('orderno')        // Sending url as per API defination
-      .subscribe(response => {              // improve coding standards
-        const res = response as any;
-        this.lastorderno = parseInt(res[0].orderno) + 1;
+    // this.orderService.get('orderno')        // Sending url as per API defination
+    //   .subscribe(response => {              // improve coding standards
+    //     const res = response as any;
+    //     this.lastorderno = parseInt(res[0].orderno) + 1;
 
     const OrderData = {
       // orderno: (this.userid.substring(-1,5)  + this.gblisting.item.seller._id.substring(-1,5)).toUpperCase(),    // Frame a order no generator here
@@ -151,6 +151,6 @@ export class GBOrderNowComponent implements OnInit {
       console.log(error);
       this.router.navigate(['/errorpage']);
     });
-  })
+  // })
   }
 }

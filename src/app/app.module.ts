@@ -48,9 +48,9 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {ErrorPageComponent} from './error-page/error-page.component';
 // import {TermsUseComponent} from './terms-use/terms-use.component';
 import {ProductDetailComponent} from './product-detail/product-detail.component';
-import {ProductListComponent} from './add-products/product-list/product-list.component';
-import {ProductDataComponent} from './add-products/products-data.component';
-import {ProductTabComponent} from './add-products/product-tabs/product-tabs.component';
+// import {ProductListComponent} from './add-products/product-list/product-list.component';
+// import {ProductDataComponent} from './add-products/products-data.component';
+// import {ProductTabComponent} from './add-products/product-tabs/product-tabs.component';
 import {OrderNowComponent} from './order-now/order-now.component';
 import {BargainOrderComponent} from './bargain-order/bargain-order.component';
 import {BargainQuoteComponent} from './bargain-quote/bargain-quote.component';
@@ -58,9 +58,11 @@ import {MyOrdersComponent} from './my-orders/my-orders.component';
 import {AllOrdersComponent} from './all-orders/all-orders.component';
 import {BargainRequestComponent} from './bargain-request/bargain-request.component';
 
-import {AddProductsComponent} from './add-products/add-products.component';
-import {ProductSidebarComponent} from './add-products/sidebar/sidebar.component';
-import { ProductBargainSpecifierComponnent } from './add-products/product-bargain-list/product-bargain-list.component';
+// import {AddProductsComponent} from './add-products/add-products.component';
+// import {AddItemnameComponent} from './add-products/add-itemname/add-itemname.component';
+// import { AddCategoryComponent} from './add-products/add-category/add-category.component';
+// import {ProductSidebarComponent} from './add-products/sidebar/sidebar.component';
+// import { ProductBargainSpecifierComponnent } from './add-products/product-bargain-list/product-bargain-list.component';
 
 import {OrderCardComponent} from './order-card/order-card.component';
 // import {GBOrderCardComponent} from './gborder-card/gborder-card.component';
@@ -122,8 +124,8 @@ import { AppFooterComponent } from './app-footer/app-footer.component';
     // ForgotPasswordComponent,
     ErrorPageComponent,
     // TermsUseComponent,
-    ProductSidebarComponent,
-    ProductDataComponent,
+    // ProductSidebarComponent,
+    // ProductDataComponent,
     ProductDetailComponent,
     // GBProductDetailComponent,
     OrderNowComponent,
@@ -134,8 +136,8 @@ import { AppFooterComponent } from './app-footer/app-footer.component';
     AllOrdersComponent,
     BargainRequestComponent,
     // GroupBuyingComponent,
-    AddProductsComponent,
-    ProductBargainSpecifierComponnent,
+    // AddProductsComponent,
+    // ProductBargainSpecifierComponnent,
     // AddItemnameComponent,
     // ListGBItemComponent,
     OrderCardComponent,
@@ -163,10 +165,12 @@ import { AppFooterComponent } from './app-footer/app-footer.component';
     // DispatchOrderComponent,
     // FindTransportComponent,
     CreateOrderComponent,
-    ProductTabComponent,
-    ProductListComponent,
+    // ProductTabComponent,
+    // ProductListComponent,
     // AddUsersComponent,
-    AppFooterComponent
+    AppFooterComponent,
+    // AddItemnameComponent,
+    // AddCategoryComponent
   ],
   // entryComponents: [PlaceBidComponent],
   imports: [

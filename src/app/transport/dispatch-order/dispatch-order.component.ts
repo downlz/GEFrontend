@@ -48,7 +48,7 @@ export class DispatchOrderComponent implements OnInit {
         Validators.required,
       ]),
       vehicledtl: new FormControl('', [
-        Validators.maxLength(50)
+        Validators.required,Validators.maxLength(50)
       ]),
     };
     this.route.paramMap
@@ -146,7 +146,7 @@ export class DispatchOrderComponent implements OnInit {
         }, err => {
           console.log(err);
           // this.loading = false;
-          alert('There was a server error while listing this transport rate');
+          alert('There was an error while saving this request, invalid order no.Please review order no. with buyer');
         });
       }
     }
