@@ -31,7 +31,7 @@
   <div class="tab-pane container" [ngClass]="{'active' : activeTab==='mnfList'}" id="mnfList"
     *ngIf="role=='admin' || role=='agent' || role=='seller'">
     <div class="spinner-grow loader text-success" *ngIf="loading"></div>
-    <app-product-list></app-product-list>
+    <app-manufacturer-list></app-manufacturer-list>
   </div>
 
   <!-- <div class="tab-pane container" [ngClass]="{'active' : activeTab==='bargainList'}" id="bargainList"

@@ -14,18 +14,18 @@ import { CategoryTabComponent } from './category-tabs/category-tabs.component';
 import { CityTabComponent } from './city-tabs/city-tabs.component';
 import { ItemnameTabComponent } from './itemname-tabs/itemname-tabs.component';
 
-
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {FileUploadModule} from 'ng2-file-upload';
+import { ManufacturerListComponent } from './add-manufacturer/manufacturer-list/manufacturer-list.component';
 
 @NgModule({
   declarations: [AddProductsComponent,ProductTabComponent,ProductListComponent,ProductBargainSpecifierComponnent,ManufacturerTabComponent,
     ProductSidebarComponent,AddCategoryComponent,AddCityComponent,AddItemnameComponent,AddManufacturerComponent,
-    CategoryTabComponent,CityTabComponent,ItemnameTabComponent,ProductDataComponent],
+    CategoryTabComponent,CityTabComponent,ItemnameTabComponent,ProductDataComponent,ManufacturerListComponent],
   imports: [
     CommonModule,RouterModule,
     FormsModule, ReactiveFormsModule, NgbModule,FileUploadModule, AddProductsRouteModule

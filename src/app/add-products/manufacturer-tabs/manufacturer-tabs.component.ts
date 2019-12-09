@@ -38,22 +38,6 @@ export class ManufacturerTabComponent implements OnInit {
       }
       this.loading = false;
     });
-    // this.route.paramMap
-    //   .subscribe(params => {
-    //     const id = params.get('id');
-    //     this.auctionService.get(id).subscribe((data) => {
-    //       this.auction = data;
-    //       this.listing = this.auction.sampleNo;
-    //       this.loading = false;
-    //     }, error => {
-    //       this.router.navigate(['/errorpage']);
-    //       if (error.status === 400) {
-    //         alert(' expected error, post already deleted');
-    //       }
-    //       this.loading = false;
-    //       console.log(error);
-    //     });
-    //   });
   }
 
   changeTab(tab) {
