@@ -40,16 +40,15 @@ this.allFormControls = {
       name: new FormControl('', [
       Validators.required,
       ]),
-      tax: new FormControl('', [
+      tax: new FormControl(0, [
       Validators.required,
       ]),
       hsn: new FormControl('', [
       Validators.required,
       ]),
-      insurance: new FormControl(0, [
-      Validators.required,
+      insurance: new FormControl(0,[
+        Validators.required,
       ])
-
       };
       this.route.paramMap
       .subscribe(async params => {
@@ -64,18 +63,18 @@ this.allFormControls = {
       this.initializeForm();
       });
 
-      this.userService.get('me')
-        .subscribe(response => {
-        const res = response as any;
-        // this.user = res;
-        this.userid = res._id;
-        }, (error: Response) => {
-        this.router.navigate(['/errorpage']);
-        if (error.status === 400) {
-        alert(' expected error, post already deleted');
-        }
-        console.log(error);
-        });
+      // this.userService.get('me')
+      //   .subscribe(response => {
+      //   const res = response as any;
+      //   // this.user = res;
+      //   this.userid = res._id;
+      //   }, (error: Response) => {
+      //   this.router.navigate(['/errorpage']);
+      //   if (error.status === 400) {
+      //   alert(' expected error, post already deleted');
+      //   }
+      //   console.log(error);
+      //   });
 
 }
 
@@ -83,14 +82,11 @@ this.allFormControls = {
 
  }
 
-  get name () {
-    return this.form.get('newitemname.name');
-  }
-
   initializeForm() {
     let controls: any;
     if (!this.edit) {
       controls = [
+        'name',
         'tax',
         'hsn',
         'insurance'
@@ -132,7 +128,37 @@ this.allFormControls = {
     });
   }
   save(event) {
-  
+    this.submitted = true;
+    event.preventDefault();
+    if (this.form.valid) {
+      const itemname = this.form.getRawValue().newItemName;
+      // console.log(transportrate);
+      if (this.edit) {
+        itemname._id = this.id;
+        this.itemnameService.update(itemname).subscribe((response) => {
+          // this.loading = false;
+          alert('Itemname details updated successfully');
+          this.router.navigate(['/product/additem']);
+
+        }, err => {
+          // this.loading = false;
+          alert('There was a server error while updating this transport rate');
+        });
+      } else {
+        itemname.tax = parseInt(itemname.tax);
+        this.itemnameService.create(itemname).subscribe((response) => {
+          // this.loading = false;
+          alert('Itemname added successfully');
+          this.router.navigate(['/product/additem']);
+
+        }, err => {
+          console.log(err);
+          // this.loading = false;
+          alert('There was a server error while listing this transport rate');
+        });
+
+      }
+    }
   }
   additemname() {
     const formData = {

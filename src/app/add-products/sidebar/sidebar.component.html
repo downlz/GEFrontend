@@ -12,6 +12,14 @@
       <a class="nav-link scrollto p" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }"
         routerLink="/product/addcategory">Category</a>
     </li>
+    <li *ngIf="role=='admin'">
+      <a class="nav-link scrollto p" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }"
+        routerLink="/product/addcity">City</a>
+    </li>
+    <li *ngIf="role=='admin'">
+      <a class="nav-link scrollto p" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }"
+        routerLink="/product/addmnf">Manufacturer</a>
+    </li>
     <li *ngIf="role=='admin' || role=='agent'">
       <a class="nav-link scrollto p" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }"
         routerLink="/createorder">Place Order</a>

@@ -38,7 +38,7 @@ export class MyOrdersComponent implements OnInit {
         }
         console.log(error);
       }); 
-    } else {    
+    } else {
     this.myorderService.get(currentUser._id)
     .subscribe(response => {
       this.orders = response as any;

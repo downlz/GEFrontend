@@ -84,7 +84,8 @@ export class AddProductsComponent implements OnInit {
             bargainstatus: new FormControl('',[Validators.required]),
             bargaintrgqty: new FormControl(''),
             istaxable: new FormControl('false', [
-              Validators.required])
+              Validators.required]),
+              remarks : new FormControl('')
           }
 
     const role = this.auth.getRole();
@@ -117,10 +118,10 @@ export class AddProductsComponent implements OnInit {
       this.units = response[6];
       this.userres = response[7];
       this.userid = this.userres._id;
-
       if (this.role == 'seller') {
+        var currentid = this.userid;
         var filteredSellers =  this.sellers.filter(function(sellerlist) {
-          return sellerlist.defaultseller === true;
+          return sellerlist._id == currentid;
         });
         this.sellers = filteredSellers
       }
@@ -160,7 +161,8 @@ export class AddProductsComponent implements OnInit {
             manufacturerId:    this.form.value.newitem.manufacturer,
             image: JSON.parse(response).message,
             isTaxable: this.form.value.newitem.istaxable,
-            addedby: this.userid
+            addedby: this.userid,
+            remarks: this.form.value.newitem.remarks
           };
          this.itempost.create(formData)
          .subscribe(response => {
@@ -223,7 +225,8 @@ export class AddProductsComponent implements OnInit {
       'icumsa',
       'manufacturer',
       'image',
-      'istaxable'
+      'istaxable',
+      'remarks'
     ];
   }
   const formControls = {};
@@ -306,6 +309,10 @@ export class AddProductsComponent implements OnInit {
 
   get istaxable() {
     return this.form.get('newitem.istaxable');
+  }
+
+  get remarks() {
+    return this.form.get('newitem.remarks');
   }
 
   get bargainstatus() {

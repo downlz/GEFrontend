@@ -4,18 +4,18 @@ import { HttpClient } from '@angular/common/http';
 // import { FormValidators} from '../login/login-form.validators';
 import { forkJoin } from 'rxjs';
 import { ActivatedRoute, Router } from '@angular/router';
-import { CategoryService } from '../../services/category.service';
-import { ItemnameService } from '../../services/itemname.service';
+import {CityService} from '../../services/city.service';
+import {StateService} from '../../services/state.service';
 import { AppError } from '../../common/app-error';
 import { AuthService } from 'src/app/services/auth.service';
 import { UserService } from 'src/app/services/user.service';
 
 @Component({
-  selector: 'app-add-category',
-  templateUrl: './add-category.component.html',
-  styleUrls: ['./add-category.component.scss']
+  selector: 'app-add-city',
+  templateUrl: './add-city.component.html',
+  styleUrls: ['./add-city.component.scss']
 })
-export class AddCategoryComponent implements OnInit {
+export class AddCityComponent implements OnInit {
 
   form: FormGroup;
   seller: any;
@@ -28,24 +28,24 @@ export class AddCategoryComponent implements OnInit {
   submitted: boolean;
   id: string;
   allFormControls: any;
-  categoryEdit: any;
+  cityEdit: any;
   formControls: any;
   userid: string;
   // transportEdit: any;
 
   constructor(private auth: AuthService,
-    private categoryService: CategoryService,private userService: UserService,
-    private itemnameService: ItemnameService,
+    private cityService: CityService,private stateService: StateService,private userService: UserService,
     private router: Router,private route: ActivatedRoute) { 
 this.allFormControls = {
 
       name: new FormControl('', [
       Validators.required,
       ]),
-      itemnameId: new FormControl('', [
+      stateId: new FormControl('', [
       Validators.required,
-      ])
-
+      ]),
+      lat: new FormControl(0, []),
+      lng: new FormControl(0, [])
       };
       this.route.paramMap
       .subscribe(async params => {
@@ -53,7 +53,7 @@ this.allFormControls = {
       if (id) {
       this.id = id;
       this.edit = true;
-      await this.getCategoryName(id);
+      await this.getCity(id);
       } else {
       this.edit = false;
       }
@@ -76,10 +76,11 @@ this.allFormControls = {
 }
 
   ngOnInit() {
-    forkJoin([this.itemnameService.getAll()])
+    forkJoin([this.stateService.getAll()])
     .subscribe(response => {
-      this.itemnames = response[0];
-      // this.states = response[1];
+      // this.cities = response[0];
+      this.states = response[0];
+      // console.log(this.states);
     }, (error: Response) => {
       this.router.navigate(['/errorpage']);
       if (error.status === 400) {
@@ -89,19 +90,28 @@ this.allFormControls = {
     });
  }
 
-  
+  // get name () {
+  //   return this.form.get('newcity.name');
+  // }
+
+  // get state () {
+  //   return this.form.get('newcity.state');
+  // }
 
   initializeForm() {
     let controls: any;
     if (!this.edit) {
       controls = [
         'name',
-        'itemnameId'
+        'lat',
+        'lng',
+        'stateId'
       ];
   } else {
       controls = [
         'name',
-        'itemnameId'
+        'lat',
+        'lng',
       ];
   }
     const formControls = {};
@@ -112,17 +122,17 @@ this.allFormControls = {
     });
     this.formControls = formControls;
     this.form = new FormGroup({
-      newcategory: new FormGroup(formControls)
+      newcity: new FormGroup(formControls)
     });
   }
 
-  getCategoryName(id) {
-    this.categoryService.get(id).subscribe((category) => {
-      this.categoryEdit = category;
-      this.form.controls.newcategory['controls'].duration.setValue(category['name']);
-      this.form.controls.newcategory['controls'].pricequote.setValue(category['itemnameId']);
-      // this.form.controls.newcategory['controls'].vehicledtl.setValue(category['hsn']);
-      // this.form.controls.newcategory['controls'].vehicledtl.setValue(category['tax']);
+  getCity(id) {
+    this.cityService.get(id).subscribe((city) => {
+      this.cityEdit = city;
+      this.form.controls.newcity['controls'].duration.setValue(city['name']);
+      this.form.controls.newcity['controls'].pricequote.setValue(city['lat']);
+      this.form.controls.newcity['controls'].vehicledtl.setValue(city['lng']);
+      // this.form.controls.newcity['controls'].vehicledtl.setValue(city['tax']);
     }, error => {
       this.router.navigate(['/errorpage']);
       if (error.status === 400) {
@@ -132,47 +142,46 @@ this.allFormControls = {
       console.log(error);
     });
   }
-
-  additemname() {
-    const formData = {
-      name:   this.form.value.newcategory.name,
-      itemnameId:  this.form.value.newcategory.itemid
-      // insurance:   this.form.value.newcategory.insurance,
-      // hsn:   this.form.value.newcategory.hsn
-    };
-
-    
-  }
   save(event) {
     this.submitted = true;
     event.preventDefault();
     if (this.form.valid) {
-      const category = this.form.getRawValue().newcategory;
+      const city = this.form.getRawValue().newcity;
       // console.log(transportrate);
       if (this.edit) {
-        category._id = this.id;
-        this.categoryService.update(category).subscribe((response) => {
+        city._id = this.id;
+        this.cityService.update(city).subscribe((response) => {
           // this.loading = false;
-          alert('Category details updated successfully');
-          this.router.navigate(['/product/addcategory']);
+          alert('City details updated successfully');
+          this.router.navigate(['/product/addcity']);
 
         }, err => {
           // this.loading = false;
-          alert('There was a server error while updating this Category');
+          alert('There was a server error while updating this city');
         });
       } else {
-        this.categoryService.create(category).subscribe((response) => {
+        
+        city.type = "Point";
+        this.cityService.create(city).subscribe((response) => {
           // this.loading = false;
-          alert('Category added successfully');
-          this.router.navigate(['/product/addcategory']);
+          alert('City added successfully');
+          this.router.navigate(['/product/addcity']);
 
         }, err => {
           console.log(err);
           // this.loading = false;
-          alert('There was a server error while listing this Category');
+          alert('There was a server error while listing this city');
         });
 
       }
     }
+  }
+  addcity() {
+    const formData = {
+      name:   this.form.value.newcity.name,
+      tax:  this.form.value.newcity.tax,
+      insurance:   this.form.value.newcity.insurance,
+      hsn:   this.form.value.newcity.hsn
+    };
   }
  }

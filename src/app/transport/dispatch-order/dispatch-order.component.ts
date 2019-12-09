@@ -146,7 +146,7 @@ export class DispatchOrderComponent implements OnInit {
         }, err => {
           console.log(err);
           // this.loading = false;
-          alert('There was a server error while listing this transport rate');
+          alert('There was an error while saving this request, invalid order no.Please review order no. with buyer');
         });
       }
     }
