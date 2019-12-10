@@ -6,12 +6,12 @@
   
   <li class="nav-item">
     <a class="nav-link" [ngClass]="{'active' : activeTab==='addcategory'}" (click)="changeTab('addcategory')">
-      <span>Add new itemname</span>
+      <span>Add new category</span>
     </a>
   </li>
   <li class="nav-item" *ngIf="role=='admin' || role=='agent' || role=='seller'">
     <a class="nav-link" [ngClass]="{'active' : activeTab==='categoryList'}" (click)="changeTab('categoryList')">
-      <span>View all itemname</span>
+      <span>View all category</span>
     </a>
   </li>
   <!-- <li class="nav-item" *ngIf="role=='admin' || role=='agent' || role=='seller'">
@@ -25,13 +25,13 @@
   
   <div class="tab-pane container" [ngClass]="{'active' : activeTab==='addcategory'}" id="addcategory">
     <div class="spinner-grow loader text-success" *ngIf="loading"></div>
-    <app-add-products></app-add-products>
+    <app-add-category></app-add-category>
   </div>
 
   <div class="tab-pane container" [ngClass]="{'active' : activeTab==='categoryList'}" id="categoryList"
     *ngIf="role=='admin' || role=='agent' || role=='seller'">
     <div class="spinner-grow loader text-success" *ngIf="loading"></div>
-    <app-product-list></app-product-list>
+    <app-category-list></app-category-list>
   </div>
 
   <!-- <div class="tab-pane container" [ngClass]="{'active' : activeTab==='bargainList'}" id="bargainList"

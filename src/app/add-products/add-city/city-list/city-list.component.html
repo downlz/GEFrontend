@@ -1,0 +1,48 @@
+<div class="container">
+  <div class="container listingOffsetTextColor">
+    <div class="spinner-grow loader text-success" *ngIf="loading"></div>
+    <table class="table table-hover table-sm" [ngClass]="{'loading' : loading}" *ngIf="!loading">
+      <thead>
+        <tr>
+          <th scope="col">Name</th>
+          <th scope="col">State</th>
+          <th scope="col">Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <ng-container *ngIf="!data || data.length==0">
+        <tr>
+          <td></td>
+          <td> No Data Found</td>
+          <td></td>
+        </tr>
+      </ng-container>
+        <ng-container *ngFor="let citydtl of data">
+          <tr>
+            <td>
+              {{ citydtl.name}}
+            </td>
+            <td>
+              {{ citydtl.state.name}}
+            </td>
+            <td><a class="btn btn-primary btn-sm" [routerLink]="'/product/addcity/edit/'+citydtl._id">Edit</a> &nbsp;
+            
+          </td>
+          </tr>
+        </ng-container>
+      </tbody>
+    </table>
+    <nav aria-label="Page navigation example" *ngIf="totalPages.length>0">
+      <ul class="pagination">
+        <li class="page-item" [ngClass]="{ 'disabled' : currentPage <= 1}"><a class="page-link"
+            (click)="onPageChange(currentPage-1)">Previous</a>
+        </li>
+        <li class="page-item" [ngClass]="{ 'active' : currentPage== page}" *ngFor="let page of totalPages"><a
+            class="page-link" (click)="onPageChange(page)">{{page}}</a></li>
+          <li class="page-item" [ngClass]="{ 'disabled' : currentPage>=totalPages.length}"><a class="page-link"
+              (click)="onPageChange(currentPage+1)">Next</a>
+          </li>
+      </ul>
+    </nav>
+  </div>
+</div>

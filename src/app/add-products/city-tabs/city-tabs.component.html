@@ -25,13 +25,13 @@
   
   <div class="tab-pane container" [ngClass]="{'active' : activeTab==='addcity'}" id="addcity">
     <div class="spinner-grow loader text-success" *ngIf="loading"></div>
-    <app-add-products></app-add-products>
+    <app-add-city></app-add-city>
   </div>
 
   <div class="tab-pane container" [ngClass]="{'active' : activeTab==='cityList'}" id="cityList"
     *ngIf="role=='admin' || role=='agent' || role=='seller'">
     <div class="spinner-grow loader text-success" *ngIf="loading"></div>
-    <app-product-list></app-product-list>
+    <app-city-list></app-city-list>
   </div>
 
   <!-- <div class="tab-pane container" [ngClass]="{'active' : activeTab==='bargainList'}" id="bargainList"

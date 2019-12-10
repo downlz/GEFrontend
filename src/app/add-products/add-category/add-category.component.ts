@@ -28,7 +28,7 @@ export class AddCategoryComponent implements OnInit {
   submitted: boolean;
   id: string;
   allFormControls: any;
-  categoryEdit: any;
+  categoryEdit: any = '';
   formControls: any;
   userid: string;
   // transportEdit: any;
@@ -119,8 +119,8 @@ this.allFormControls = {
   getCategoryName(id) {
     this.categoryService.get(id).subscribe((category) => {
       this.categoryEdit = category;
-      this.form.controls.newcategory['controls'].duration.setValue(category['name']);
-      this.form.controls.newcategory['controls'].pricequote.setValue(category['itemnameId']);
+      this.form.controls.newcategory['controls'].name.setValue(category['name']);
+      this.form.controls.newcategory['controls'].itemnameId.setValue(category['itemnameId']);
       // this.form.controls.newcategory['controls'].vehicledtl.setValue(category['hsn']);
       // this.form.controls.newcategory['controls'].vehicledtl.setValue(category['tax']);
     }, error => {
@@ -154,7 +154,7 @@ this.allFormControls = {
         this.categoryService.update(category).subscribe((response) => {
           // this.loading = false;
           alert('Category details updated successfully');
-          this.router.navigate(['/product/addcategory']);
+          this.router.navigate(['/product/allcategory']);
 
         }, err => {
           // this.loading = false;
@@ -164,7 +164,7 @@ this.allFormControls = {
         this.categoryService.create(category).subscribe((response) => {
           // this.loading = false;
           alert('Category added successfully');
-          this.router.navigate(['/product/addcategory']);
+          this.router.navigate(['/product/allcategory']);
 
         }, err => {
           console.log(err);

@@ -27,7 +27,7 @@ export class AddItemnameComponent implements OnInit {
   submitted: boolean;
   id: string;
   allFormControls: any;
-  itemnameEdit: any;
+  itemnameEdit: any = '';
   formControls: any;
   userid: string;
   // transportEdit: any;
@@ -89,14 +89,14 @@ this.allFormControls = {
         'name',
         'tax',
         'hsn',
-        'insurance'
+        // 'insurance'
       ];
   } else {
       controls = [
         'name',
         'tax',
         'hsn',
-        'insurance',
+        // 'insurance',
       ];
   }
     const formControls = {};
@@ -114,10 +114,10 @@ this.allFormControls = {
   getItemName(id) {
     this.itemnameService.get(id).subscribe((itemname) => {
       this.itemnameEdit = itemname;
-      this.form.controls.newItemName['controls'].duration.setValue(itemname['name']);
-      this.form.controls.newItemName['controls'].pricequote.setValue(itemname['insurance']);
-      this.form.controls.newItemName['controls'].vehicledtl.setValue(itemname['hsn']);
-      this.form.controls.newItemName['controls'].vehicledtl.setValue(itemname['tax']);
+      this.form.controls.newItemName['controls'].name.setValue(itemname['name']);
+      // this.form.controls.newItemName['controls'].insurance.setValue(itemname['insurance']);
+      this.form.controls.newItemName['controls'].hsn.setValue(itemname['hsn']);
+      this.form.controls.newItemName['controls'].tax.setValue(itemname['tax']);
     }, error => {
       this.router.navigate(['/errorpage']);
       if (error.status === 400) {
@@ -132,29 +132,28 @@ this.allFormControls = {
     event.preventDefault();
     if (this.form.valid) {
       const itemname = this.form.getRawValue().newItemName;
-      // console.log(transportrate);
       if (this.edit) {
         itemname._id = this.id;
+        itemname.tax = parseInt(itemname.tax);
         this.itemnameService.update(itemname).subscribe((response) => {
           // this.loading = false;
           alert('Itemname details updated successfully');
-          this.router.navigate(['/product/additem']);
-
+          this.router.navigate(['/product/allitemnames']);
         }, err => {
           // this.loading = false;
-          alert('There was a server error while updating this transport rate');
+          alert('There was a server error while updating this itemname');
         });
       } else {
         itemname.tax = parseInt(itemname.tax);
         this.itemnameService.create(itemname).subscribe((response) => {
           // this.loading = false;
           alert('Itemname added successfully');
-          this.router.navigate(['/product/additem']);
+          this.router.navigate(['/product/allitemnames']);
 
         }, err => {
           console.log(err);
           // this.loading = false;
-          alert('There was a server error while listing this transport rate');
+          alert('There was a server error while listing this itemname');
         });
 
       }
@@ -164,7 +163,7 @@ this.allFormControls = {
     const formData = {
       name:   this.form.value.newitemname.name,
       tax:  this.form.value.newitemname.tax,
-      insurance:   this.form.value.newitemname.insurance,
+      // insurance:   this.form.value.newitemname.insurance,
       hsn:   this.form.value.newitemname.hsn
     };
 
