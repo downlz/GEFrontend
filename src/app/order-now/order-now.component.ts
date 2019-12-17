@@ -1,3 +1,4 @@
+import { state } from '@angular/animations';
 import { Component, OnInit } from '@angular/core';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -5,6 +6,7 @@ import { ListingService } from '../services/listing.service';
 import { Listing } from './../model/listing';
 import { UserService } from '../services/user.service';
 import { StateService } from '../services/state.service';
+import { CityService } from '../services/city.service';
 import { OrderService } from '../services/order.service';
 import { BargainService } from '../services/bargain.service';
 import { AddressService } from '../services/address.service';
@@ -29,6 +31,7 @@ export class OrderNowComponent implements OnInit {
   statedata: any;
   addresses: any;
   state: any = []; //Array<any> = [];
+  cities: any = []; //Array<any> = [];
   hideblock: false;
   price = 0;
   priceValid = false;
@@ -40,7 +43,7 @@ export class OrderNowComponent implements OnInit {
   activeBargain: Boolean = false;
   constructor(private listingService: ListingService, private userService: UserService,
     private route: ActivatedRoute, private router: Router, private stateService: StateService,
-    private orderService: OrderService, private modalService: NgbModal,
+    private orderService: OrderService, private cityService: CityService,private modalService: NgbModal,
     private addressService: AddressService, private priceService: PriceService,
     private bargainService: BargainService) { }
 
@@ -54,6 +57,10 @@ export class OrderNowComponent implements OnInit {
     this.stateService.getAll()
     .subscribe(response => {
       this.state = response;
+    });
+    this.cityService.getAll()
+    .subscribe(response => {
+      this.cities = response;
     });
     this.userService.get('me')
     .subscribe(response => {
@@ -171,11 +178,11 @@ export class OrderNowComponent implements OnInit {
         text: f.address,
         pincode: f.pincode,
         state: f.statedat,
+        city: f.citydat,
         phone: f.phone,
         addresstype: 'delivery'
       }
     }    
-
     const OrderData = {
       quantity: f.quantity,
       unit: this.listing.unit.mass,
@@ -194,7 +201,8 @@ export class OrderNowComponent implements OnInit {
       gstin: f.partygstin,
       address: f.address,
       pincode: f.pincode,
-      state: f.statedat,
+      // state: f.statedat,
+      city: f.citydat,
       // city: '5cb2dba959222190e4bc0328',
       phone: f.phone,
       addresstype: 'delivery',
@@ -208,7 +216,8 @@ export class OrderNowComponent implements OnInit {
       OrderData.gstin = f.shipaddr.addressbasicdtl.gstin,
       OrderData.address =  f.shipaddr.text,
       OrderData.pincode = f.shipaddr.pin,
-      OrderData.state = f.shipaddr.state,
+      // OrderData.state = f.shipaddr.state,
+      OrderData.city = f.shipaddr.city,
       OrderData.phone = f.shipaddr.phone,
       OrderData.addresstype =  'delivery',
       // city: '5cb2dba959222190e4bc0328',
@@ -224,7 +233,6 @@ export class OrderNowComponent implements OnInit {
       console.log(error);
       this.router.navigate(['/errorpage']);
     });
-// })
 }
   }
 }

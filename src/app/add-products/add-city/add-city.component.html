@@ -36,7 +36,7 @@
       <div class="form-group">
           <label for="stateId">State:</label>
           <select class="form-control" id="stateId" formControlName="stateId">
-            <option value=''></option>
+            <option value='Select State'></option>
             <option *ngFor="let state of states" [ngValue]="state._id"> {{ state.name }}</option>
           </select>
         </div>
