@@ -32,6 +32,10 @@ export class BargainService extends DataService {
     return this.http.get(this.url + '/buyer/' + buyerid);
   }
 
+  getBargainLapseTime(bargainId) {
+    return this.http.get(this.url + '/lapsetime/' + bargainId);
+  }
+
   updateQuote(bargainId, userquote) {
     console.log(userquote);
     return this.http
