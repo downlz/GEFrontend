@@ -4,6 +4,8 @@
     <p *ngIf="getErrors('itemCategory').required">Please select Item Category</p>
     <p *ngIf="getErrors('sampleNo').required">Please select Sample No.</p>
     <p *ngIf="getErrors('odrQty').min">Minimum Quantity must be greater than 1</p>
+    <p *ngIf="getErrors('buyername').required">Please enter your address</p>
+    <p *ngIf="getErrors('buyercity').required">Please enter your address</p>
     <p *ngIf="getErrors('buyeraddress').required">Please enter your address</p>
     <p *ngIf="getErrors('buyerpin').required">Please enter your pincode</p>
     <p *ngIf="getErrors('buyerstate').required">Please select your state</p>
@@ -145,6 +147,30 @@
       <div class="row" *ngIf="!edit">
           <h4>Enter Buyer Details</h4>
         </div>
+<!-- Created to save buyer address -->
+        <div class="col-md-9 pl-1" *ngIf="!addNewBuyer">
+          <div class="form-group row">
+            <label for="buyeraddr" class="col-md-3 control-label">Select a buyer</label>    
+            <select class="form-control col-md-12" id="buyeraddr" formControlName="buyeraddr">
+            <!-- [(ngModel)]="buyeraddr"> -->
+              <option value=''>Select a buyer</option>
+              <option *ngFor="let buyers of agentbuyer" [ngValue]="buyers"> {{buyers.addressbasicdtl.partyname}} </option>
+            </select>
+        </div> 
+        </div>
+        
+          <div class="col-md-9 pl-1">
+          <div class="form-group row">
+  
+            <label class="col-md-5 control-label">Add new buyer if not listed 
+              <input type="checkbox" name="addNewBuyer" id="addNewBuyer" [ngModelOptions]="{standalone: true}"
+              [(ngModel)]="addNewBuyer" 
+              (ngModelChange)="addNewBuyerCheck($event)"></label>     
+        </div>
+        </div>
+      
+
+      <div *ngIf=addNewBuyer>
         <div class="row" *ngIf="!edit">
             <div class="col-md-3 pl-1">
                 <div class="form-group">
@@ -187,6 +213,15 @@
             </div>
             <div class="col-md-3 pl-1">
               <div class="form-group">
+                <label>City</label>
+                <select class="form-control" id="buyercity" formControlName="buyercity">
+                  <option value=''>Select City</option>
+                  <option *ngFor="let city of cities" [ngValue]="city._id"> {{ city.name }} </option>
+                </select>
+              </div>
+            </div>
+            <div class="col-md-3 pl-1">
+              <div class="form-group">
                 <label>State</label>
                 <select class="form-control" id="buyerstate" formControlName="buyerstate">
                   <option value=''>Select State</option>
@@ -194,15 +229,7 @@
                 </select>
               </div>
             </div>
-            <div class="col-md-3 pl-1">
-                <div class="form-group">
-                  <label>City</label>
-                  <select class="form-control" id="buyercity" formControlName="buyercity">
-                    <option value=''>Select City</option>
-                    <option *ngFor="let city of cities" [ngValue]="city._id"> {{ city.name }} </option>
-                  </select>
-                </div>
-              </div>
+            
           </div>
 <!-- Buyer Details Block End -->
       <div class="row">
@@ -219,7 +246,7 @@
           </select>
         </div>
       </div></div>
-
+    </div>
       <div class="row" *ngIf="formControls.remarks">
         <h4>Order Notes</h4>
       </div>
@@ -233,10 +260,12 @@
         </div>
       </div>
       <div class="row">
-        <button type="submit" class="btn btn-primary" [disabled]="!form.valid">
+        <button type="submit" class="btn btn-primary" [disabled]="clicked">   
           Place Order
         </button>
       </div>
+      
+
     </div>
   </form>
 </div>

@@ -8,6 +8,7 @@ import {forkJoin} from 'rxjs';
 import {UnitService} from '../../services/unit.service';
 import {UserService} from '../../services/user.service';
 import {UsersellerService} from '../../services/seller.service';
+import {AgentBuyerService} from '../../services/agentbuyer.service';
 // import {BuyerService} from '../../services/buyer.service';
 import {ListingService} from '../../services/listing.service';
 import {AuthService} from '../../services/auth.service';
@@ -37,7 +38,8 @@ export class CreateOrderComponent implements OnInit {
   submitted: boolean;
   loading: boolean;
   states: any;
-  cities: any
+  cities: any;
+  agentbuyer: any;
   edit: boolean;
   id: string;
   price = 0;
@@ -46,6 +48,7 @@ export class CreateOrderComponent implements OnInit {
   maxEndDateTime: Date;
   allFormControls: any;
   formControls: any;
+  addNewBuyer: Boolean = false;
   lastorderno: number;
   selecteditemprice: any;
   selecteditem: any;
@@ -54,6 +57,7 @@ export class CreateOrderComponent implements OnInit {
   // itemid: any;
   userid: any;
   ordercost: number;
+  clicked: Boolean = false;
 
   constructor(private categoryService: CategoryService,
               private itemnameService: ItemnameService,
@@ -62,31 +66,17 @@ export class CreateOrderComponent implements OnInit {
               // private buyerService: BuyerService,
               private listingService: ListingService,
               private auth: AuthService,
-              private auctionService: AuctionService,
+              // private auctionService: AuctionService,
               private stateService: StateService,
               private cityService: CityService,
               // private priceService: PriceService,
               private orderService: OrderService,
               private userService: UserService,
+              private agentBuyerService: AgentBuyerService,
               private router: Router,
               private route: ActivatedRoute
   ) {
     this.allFormControls = {
-      // 'itemName',
-      //       'itemCategory',
-      //       'sampleNo',
-      //       'odrQty',
-      //       'itemSeller',
-      //       // auctionType === 'seller' ? 'minQty' : null,
-      //       'buyername',
-      //       'buyergstin',
-      //       'buyerphone',
-      //       'buyeraddress',
-      //       'buyerpin',
-      //       'buyerstate',
-      //       'buyercity',
-      //       'remarks'
-
       sampleNo: new FormControl('', [
         Validators.required,
       ]),
@@ -123,6 +113,8 @@ export class CreateOrderComponent implements OnInit {
         //Validators.required,
       ]),
       itemName: new FormControl(''),
+      buyeraddr: new FormControl(''),
+      addNewBuyer: new FormControl(''),
       itemCategory: new FormControl('', [
         Validators.required,
       ])
@@ -133,7 +125,7 @@ export class CreateOrderComponent implements OnInit {
           if (id) {
             this.id = id;
             this.edit = true;
-            await this.getAuction(id);
+            // await this.getAuction(id);
           } else {
             this.edit = false;
           }
@@ -169,7 +161,8 @@ export class CreateOrderComponent implements OnInit {
             'buyerstate',
             'buyercity',
             'paymentterms',
-            'remarks'
+            'remarks',
+            'buyeraddr'
           ];
         } else {
           controls = [
@@ -248,7 +241,7 @@ export class CreateOrderComponent implements OnInit {
     if (this.role === 'admin' || this.role === 'agent') {
       forkJoin([this.itemnameService.getAll(), this.unitService.getAll()
         // , this.sellerService.getAll()
-        ,this.stateService.getAll(),this.cityService.getAll()
+        ,this.stateService.getAll(),this.cityService.getAll(),this.agentBuyerService.getAll()
       ])
         .subscribe(response => {
           this.itemnames = response[0];
@@ -256,28 +249,21 @@ export class CreateOrderComponent implements OnInit {
           // this.sellers = response[2];
           this.states = response[2];
           this.cities = response[3];
+          this.agentbuyer = response[4];
+
+          if (this.role == 'agent') {
+            var currentid = this.userid;
+            var filteredBuyers =  this.agentbuyer.filter(function(buyerlist) {
+              return buyerlist._id == currentid;
+            });
+            this.agentbuyer = filteredBuyers
+          }
+
         }, (error: Response) => {
           console.log(error);
         });
-    // }  else {
-    //   forkJoin([this.unitService.getAll(), this.listingService.getCurrentUserListings(), this.stateService.getAll(), this.itemnameService.getAll()
-
-    //   ])
-    //     .subscribe(response => {
-    //       this.units = response[0];
-    //       this.listings = response[1];
-    //       this.states = response[2];
-    //       this.itemnames = response[3];
-    //     }, (error: Response) => {
-    //       console.log(error);
-    //     });
     }
   }
-
-  // onAuctionTypeChange() {
-  //   const item = this.form.get('agentCreateOrder.auctionType').value;
-  //   this.initializeForm(item);
-  // }
 
   onItemChange(datain2) {
     const item = this.form.get('agentCreateOrder.itemName').value;
@@ -308,6 +294,10 @@ export class CreateOrderComponent implements OnInit {
     });
   }
 
+  addNewBuyerCheck(){
+    this.addNewBuyer = !this.form.get('agentCreateOrder.addNewBuyer').value;
+  }
+
   onSampleNoChange() {
     const sample = this.form.get('agentCreateOrder.sampleNo').value;
     const listing = this.listings.find((obj) => obj._id == sample);
@@ -317,91 +307,8 @@ export class CreateOrderComponent implements OnInit {
   }
 
   onQuantityChange() {
-    const cost = this.selecteditem.price * this.form.getRawValue().agentCreateOrder.odrQty;;
-    // console.log(cost);
+    const cost = this.selecteditem.price * this.form.getRawValue().agentCreateOrder.odrQty;
     this.ordercost = cost;
-    // const PriceData = {
-    //   qty: qty,
-    //   itemId: listing._id,
-    // };
-    // this.priceValid = false;
-    // this.priceService.getPrice(PriceData)
-    // .subscribe(Response => {
-    //   const priceValue = Response as any;
-    //   // this.price = priceValue.price;
-    //   this.price = priceValue.price.toFixed(2);
-    //   if (this.price < 0) {
-    //       this.price = 0;
-    //   } else {
-    //     this.priceValid = true;
-    //   }
-    // }, (error: AppError) => {
-    //   console.log(error);
-    //   this.router.navigate(['/errorpage']);
-    // });
-  }
-
-  save(event) {
-    this.submitted = true;
-    event.preventDefault();
-    if (this.form.valid) {
-      const auction = this.form.getRawValue().agentCreateOrder;
-      if (auction.nameVisible === '0') {
-        auction.nameVisible = false;
-      } else {
-        auction.nameVisible = true;
-      }
-      if (auction.transportCost === '0' || auction.transportCost === 0) {
-        auction.transportCost = false;
-      } else {
-        auction.transportCost = true;
-      }
-
-      if (this.edit) {
-        auction._id = this.id;
-        this.auctionService.update(auction).subscribe((response) => {
-          this.loading = false;
-          alert('Auction listed successfully');
-          this.router.navigate(['/auction']);
-
-        }, err => {
-          this.loading = false;
-          alert('There was a server error while listing this item for auction');
-        });
-      } else {
-        if (this.role === 'buyer') {
-          auction.auctionType = 'buyer';
-          auction.user = this.auth.getId();
-        } else if (this.role === 'seller') {
-          auction.auctionType = 'seller';
-          auction.user = this.auth.getId();
-        } else {
-          auction.auctionType = auction.auctionType || 'seller';
-          if (auction.auctionType === 'seller') {
-            auction.user = this.seller._id;
-          } else {
-            auction.user = auction.buyer;
-          }
-        }
-        if (auction.remarks && auction.remarks === '') {
-          auction.remarks = ' ';
-        }
-
-        delete auction.buyer;
-        delete auction.seller;
-        this.loading = true;
-        this.auctionService.create(auction).subscribe((response) => {
-          this.loading = false;
-          alert('Auction listed successfully');
-          this.router.navigate(['/auction']);
-
-        }, err => {
-          console.log(err);
-          this.loading = false;
-          alert('There was a server error while listing this item for auction');
-        });
-      }
-    }
   }
 
   getErrors(name) {
@@ -412,35 +319,20 @@ export class CreateOrderComponent implements OnInit {
     }
   }
 
-  order2(f){
-    // console.log(f);
-    const createOrder = this.form.getRawValue().agentCreateOrder;
-    console.log(this.seller._id);
-    console.log(createOrder);
-
-  }
-
   order(f) {
-    // this.orderService.get('orderno')        // Sending url as per API defination
-    //   .subscribe(response => {              // improve coding standards
-    //     const res = response as any;
-    //     this.lastorderno = parseInt(res[0].orderno) + 1;
+    this.clicked = true;
     const createOrder = this.form.getRawValue().agentCreateOrder;  
-    const shippingAddress = {
-      partyname: createOrder.partyname,
-      gstin: createOrder.partygstin,
-      address : {
-        text: createOrder.address,
-        pincode: createOrder.pincode,
-        state: createOrder.statedat,
-        phone: createOrder.phone,
-        addresstype: 'delivery'
-      }
-    }    
-
+    if (!createOrder.buyeraddr && (createOrder.buyername == null ||
+      createOrder.buyername == null ||
+      createOrder.buyergstin == null ||
+      createOrder.city == null ||
+      createOrder.pincode == null ||
+      createOrder.buyeraddress == null ||
+      createOrder.pincode == null)
+      ) {
+        alert('Fill in all fields for buyer details to place the order')
+    } else {
     const OrderData = {
-      // orderno: (this.userid.substring(-1,5)  + this.listing.seller._id.substring(-1,5)).toUpperCase(),    // Frame a order no generator here
-      // orderno: String(this.lastorderno),
       quantity: createOrder.odrQty,
       unit: this.selecteditem.unit.mass,
       cost: createOrder.odrQty * this.selecteditem.price,
@@ -459,13 +351,28 @@ export class CreateOrderComponent implements OnInit {
       address: createOrder.buyeraddress,
       pincode: createOrder.buyerpin,
       state: createOrder.buyerstate,
+      city: createOrder.buyercity,
       phone: createOrder.buyerphone,
       paymentterms: createOrder.paymentterms,
       addresstype: 'delivery',
       addedby: this.userid,
       // addressreference: shippingAddress.shipaddr,
       isExistingAddr: false,
+      remarks: createOrder.remarks
     };
+    if (createOrder.buyeraddr) {
+      OrderData.isshippingbillingdiff = true,
+      OrderData.partyname = createOrder.buyeraddr.addressbasicdtl.partyname,
+      OrderData.gstin = createOrder.buyeraddr.addressbasicdtl.gstin,
+      OrderData.address =  createOrder.buyeraddr.text,
+      OrderData.pincode = createOrder.buyeraddr.pin,
+      // OrderData.state = f.buyeraddr.state,
+      OrderData.city = createOrder.buyeraddr.city,
+      OrderData.phone = createOrder.buyeraddr.phone,
+      OrderData.addresstype =  'delivery',
+      OrderData.isExistingAddr = true;
+    }
+    // console.log(OrderData)
     this.orderService.create(OrderData)
     .subscribe(response => {
       alert('Order Placed Successfully');
@@ -474,37 +381,7 @@ export class CreateOrderComponent implements OnInit {
       console.log(error);
       this.router.navigate(['/errorpage']);
     });
-// })
-}
-
-// Incorrect code below
-
-  getAuction(id) {
-    this.loading = true;
-    this.auctionService.get(id).subscribe((auction) => {
-      const currentTimestamp = new Date().getTime();
-      const startTime = new Date(auction['startTime']).getTime();
-      if (currentTimestamp >= startTime) {
-        alert('This auction is not editable now');
-        this.router.navigate(['/auction']);
-      }
-      this.form.controls.agentCreateOrder['controls'].availableQty.setValue(auction['availableQty']);
-      if (auction['auctionType'] === 'seller') {
-        this.form.controls.agentCreateOrder['controls'].minQty.setValue(auction['minQty']);
-        this.form.controls.agentCreateOrder['controls'].maxQty.setValue(auction['maxQty']);
-        this.form.controls.agentCreateOrder['controls'].ceilingPrice.setValue(auction['ceilingPrice']);
-      }
-      this.form.controls.agentCreateOrder['controls'].floorPrice.setValue(auction['floorPrice']);
-      this.form.controls.agentCreateOrder['controls'].transportCost.setValue(auction['transportCost'] ? 1 : 0);
-      this.loading = false;
-    }, error => {
-      this.router.navigate(['/errorpage']);
-      // if (error.status === 400) {
-      //   alert(' expected error, post already deleted');
-      // }
-      // this.loading = false;
-      console.log(error);
-    });
   }
+}
 
 }
