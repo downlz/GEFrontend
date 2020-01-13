@@ -336,6 +336,10 @@ const routes: Routes = [
     loadChildren: '../app/users/user-mgmt/user-mgmt.module#UserMgmtModule'
   },
   {
+    path: 'credit',
+    loadChildren: '../app/credit/credit.module#CreditModule'
+  },
+  {
     path: '**',
     component: LandingPageComponent
   }

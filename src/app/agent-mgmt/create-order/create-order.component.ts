@@ -322,16 +322,26 @@ export class CreateOrderComponent implements OnInit {
   order(f) {
     this.clicked = true;
     const createOrder = this.form.getRawValue().agentCreateOrder;  
-    if (!createOrder.buyeraddr && (createOrder.buyername == null ||
-      createOrder.buyername == null ||
-      createOrder.buyergstin == null ||
-      createOrder.city == null ||
-      createOrder.pincode == null ||
-      createOrder.buyeraddress == null ||
-      createOrder.pincode == null)
-      ) {
-        alert('Fill in all fields for buyer details to place the order')
-    } else {
+    // console.log(!createOrder.buyeraddr);
+    // console.log(createOrder.addNewBuyer);
+    // console.log(createOrder.buyeraddr);
+    // if 
+    // (createOrder.buyeraddr == null) {
+    //     alert('Choose a buyer from the list to place an order')
+    // } else 
+    if (!createOrder.buyeraddr && (createOrder.buyername == '' ||
+    createOrder.buyername == '' ||
+    createOrder.buyergstin == '' ||
+    createOrder.city == '' ||
+    createOrder.pincode == '' ||
+    createOrder.buyeraddress == '' ||
+    createOrder.pincode == '')
+    ) {
+      alert('Please specify all fields for buyer details to proceed placing the order');
+    } else if 
+      (createOrder.odrQty < 1) {
+        alert('Order Quantity is invalid.Please add a desired quantity');
+    }else {
     const OrderData = {
       quantity: createOrder.odrQty,
       unit: this.selecteditem.unit.mass,
@@ -356,7 +366,7 @@ export class CreateOrderComponent implements OnInit {
       paymentterms: createOrder.paymentterms,
       addresstype: 'delivery',
       addedby: this.userid,
-      // addressreference: shippingAddress.shipaddr,
+      addressreference: createOrder.buyeraddr ? createOrder.buyeraddr : '',
       isExistingAddr: false,
       remarks: createOrder.remarks
     };
@@ -369,6 +379,7 @@ export class CreateOrderComponent implements OnInit {
       // OrderData.state = f.buyeraddr.state,
       OrderData.city = createOrder.buyeraddr.city,
       OrderData.phone = createOrder.buyeraddr.phone,
+      OrderData.addressreference = createOrder.buyeraddr._id,
       OrderData.addresstype =  'delivery',
       OrderData.isExistingAddr = true;
     }

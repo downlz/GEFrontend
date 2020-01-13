@@ -1,0 +1,140 @@
+<div class="farmbg"></div>
+<div class="container shdw">
+    <div class="listingOffsetTextColor">
+  <div class="row container bordermk">
+
+    <!-- <div class="col-12 col-md-6">
+      <div class="ItemCardContainer">
+        <img class="card-img-top ItemCardImage" src="assets/images/refer.png" alt="Refer a person">
+      </div>
+    </div> -->
+    <div class="col-12 col-md-12">
+      <div class="ItemCardContainer">
+        <div class="card ItemCardDesc">
+          <div class="card-body">
+            <table style="width:100%">
+              <tr>
+                <th>
+                  <h3 class="card-title"> 
+                    Request for credit initiation</h3>
+                </th>
+              </tr>
+            </table>
+
+            <div class="spinner-grow loader text-success" *ngIf="loading"></div>
+            <div class="container" [ngClass]="{'loading' : loading}" *ngIf="!loading">
+            <div class="col-12 col-md-12" *ngIf='isoldrequest'>
+
+              <table class="table">
+                <tbody>
+                  <tr>
+                    <td>Thank you for showing interest in credit services offered by graineasy. We have successfully received your request and it is being processed.</td>
+                  </tr>
+                  <tr>
+                    <td>Request Date : {{activecreditrequest.requestedon | date:'medium'}}</td>
+                  </tr>
+                  <tr>
+                    <td>Status : {{statusmsg}}</td>
+                  </tr>
+                  </tbody>
+                  </table>
+            </div>
+            
+          <form [formGroup]="form" class="form-horizontal" (ngSubmit)="referNow()" *ngIf='!isoldrequest'>
+              <div formGroupName="creditrequest">
+            <!-- <div class="form-group"> -->
+              <!-- <div class="row">
+                <div class="col-md-12 px-1">
+                  <div class="form-group">
+                    <label>Business Name</label>
+                    <input type="text" id="name"class="form-control" formControlName="name" placeholder="Add your business name">
+                  </div>
+                </div>
+            </div> -->
+            <div class="row">
+                <div class="col-md-12 px-1">
+                <div class="form-group">
+                  <label>Current Year Turnover</label>
+                  <input type="number" id="annualturnover" class="form-control" formControlName="annualturnover" placeholder="Annual Turnover in &#8377;">
+                  <div class="alert alert-danger" *ngIf="annualturnover.touched && annualturnover.invalid">
+                    Invalid Turnover amount
+                  </div>
+                </div>
+              </div>
+          </div>
+          <div class="row">
+            <div class="col-md-12 px-1">
+            <div class="form-group">
+              <label>Last 3 year average turnover (Optional)</label>
+              <input type="number" id="lastthreeturnovr" class="form-control" formControlName="lastthreeturnovr" placeholder="Enter average turnover for past 3 yrs in &#8377;">
+              
+            </div>
+          </div>
+      </div>
+          <div class="row">
+
+
+            <div class="col-md-12 px-1">
+              <div class="form-group">
+                <label>Trade Items</label>
+                <input type="text" id="tradeitems"class="form-control" formControlName="tradeitems" placeholder="Trade Commodities, Ex - Sugar,Rice,Wheat">
+                <div class="alert alert-danger" *ngIf="tradeitems.touched && tradeitems.invalid">
+                  Trade items required
+                </div>
+            </div>
+        </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12 px-1">
+            <div class="form-group">
+              <label>Phone</label>
+              <input type="text" id="phone"class="form-control" formControlName="phone" placeholder="Contact no.">
+              <div *ngIf="phone.pending">checking for errors</div>
+              <div class="alert alert-danger" *ngIf="phone.touched && phone.invalid">
+                <div *ngIf="phone.errors.required"> Phone number is required </div>
+              </div>
+            </div>
+          </div>
+            <div>
+            <button class="btn btn-primary" >Submit</button>
+          </div>
+          
+          </div>
+        </div>
+          </form>
+        </div>
+          <div class="container">
+            <ol class="progtrckr" data-progtrckr-steps="5" *ngIf="isoldrequest">
+              <li  [class.progtrckr-todo]="getCreditRequestStatus() < 1" [class.progtrckr-done]="getCreditRequestStatus() >= 1" ToolTipText= "Step1-Foo">Submitted</li>
+              <li
+                   [class.progtrckr-todo]="getCreditRequestStatus() < 2" [class.progtrckr-done]="getCreditRequestStatus() >= 2">Proposal In-Progress</li>
+                   
+                   <li
+                   [class.progtrckr-todo]="getCreditRequestStatus() < 3" [class.progtrckr-done]="getCreditRequestStatus() >= 3">Pending for Docs</li>
+                   <li
+                   [class.progtrckr-todo]="getCreditRequestStatus() < 4" [class.progtrckr-done]="getCreditRequestStatus() >= 4">Awaiting Confirmation</li>
+                   <li *ngIf="activecreditrequest.status!='cancelled' && activecreditrequest.status!='rejected' && activecreditrequest.status!='withdrawn'"
+                   [class.progtrckr-todo]="getCreditRequestStatus() < 5" [class.progtrckr-done]="getCreditRequestStatus() == 5">Accepted</li>
+                  <li *ngIf="activecreditrequest.status=='cancelled'"
+                  [class.progtrckr-cancel]="getCreditRequestStatus() < 5" [class.progtrckr-cancel]="getCreditRequestStatus() == 5">Cancelled</li>
+                  <li *ngIf="activecreditrequest.status=='rejected'"
+                  [class.progtrckr-cancel]="getCreditRequestStatus() < 5" [class.progtrckr-cancel]="getCreditRequestStatus() == 5">Rejected</li>
+                  <li *ngIf="activecreditrequest.status=='withdrawn'"
+                  [class.progtrckr-todo-cancel]="getCreditRequestStatus() < 5" [class.progtrckr-todo-cancel]="getCreditRequestStatus() == 5">Withdrawn</li>
+            </ol>   
+          </div>
+          &nbsp; &nbsp;
+          <div *ngIf="isoldrequest && activecreditrequest.status!='cancelled' && activecreditrequest.status!='rejected' && activecreditrequest.status!='withdrawn'">
+            <button class="btn btn-primary" (click)="withdrawRequest()">Withdraw Request</button>
+          </div>  
+        </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+  </div>
+</div>
+
+
+

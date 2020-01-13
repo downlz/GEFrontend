@@ -221,7 +221,7 @@ export class OrderNowComponent implements OnInit {
       OrderData.phone = f.shipaddr.phone,
       OrderData.addresstype =  'delivery',
       // city: '5cb2dba959222190e4bc0328',
-      OrderData.addressreference = f.shipaddr
+      OrderData.addressreference = f.shipaddr,
       OrderData.isExistingAddr = true;
     }
     // console.log(OrderData);

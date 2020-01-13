@@ -1,0 +1,165 @@
+import { Component, OnInit } from '@angular/core';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { FormValidators} from '../../login/login-form.validators';
+import {CityService} from '../../services/city.service';
+import {StateService} from '../../services/state.service';
+import { forkJoin } from 'rxjs';
+import {UserService} from '../../services/user.service';
+import {CreditRequestService} from '../../services/creditrequest.service';
+import { ActivatedRoute, Router } from '@angular/router';
+import { AppError } from '../../common/app-error';
+
+@Component({
+  selector: 'app-credit-request',
+  templateUrl: './credit-request.component.html',
+  styleUrls: ['./credit-request.component.scss']
+})
+export class CreditRequestComponent implements OnInit {
+
+  form = new FormGroup({
+    creditrequest: new FormGroup({
+      // 'name' : new FormControl('', [Validators.required,
+      //   Validators.minLength(3),
+      //   Validators.maxLength(50)]),
+      'email' : new FormControl('', [Validators.email]),
+      'annualturnover' : new FormControl('', [Validators.required]),
+      'lastthreeturnovr' : new FormControl(''),
+      'tradeitems' : new FormControl('', [Validators.required]),
+      'phone' : new FormControl('', [Validators.required, Validators.minLength(6),
+        Validators.maxLength(20), 
+        // Validators.pattern('^[0-9]*$'),
+        FormValidators.cannotContainSpace],
+        FormValidators.shouldBeUnique)
+    })
+  });
+  
+  // cities: any;
+  // states: any;
+  userid: any;
+  activecreditrequest : any = {};
+  isoldrequest: Boolean = false;
+  loading: Boolean = true;
+  statusmsg: String;
+
+  creditrequestData: any;
+  constructor(private userService: UserService,private route: ActivatedRoute, private creditrequestservice: CreditRequestService,  
+    private router: Router) { }
+
+  ngOnInit() {
+    
+    this.userService.get('me')
+    .subscribe(response => {
+      const res = response as any;
+      this.userid = res._id;
+      this.creditrequestservice.getUserCreditRequest(this.userid)
+      .subscribe(response => {
+        const res = response as any;
+        this.activecreditrequest = res[0];
+        if (this.activecreditrequest!= undefined) {
+          this.isoldrequest = true;
+          this.getCreditRequestStatus();
+        }
+        this.loading = false;
+      })
+      // this.loading = false;  
+    }, (error: Response) => {
+      this.router.navigate(['/errorpage']);
+      if (error.status === 400) {
+        alert(' expected error, post already deleted');
+      }
+      console.log(error);
+    });
+    
+  }
+
+  get phone () {
+    return this.form.get('creditrequest.phone');
+  }
+
+  get name () {
+    return this.form.get('creditrequest.name');
+  }
+
+  get tradeitems () {
+    return this.form.get('creditrequest.tradeitems');
+  }
+
+  get annualturnover () {
+    return this.form.get('creditrequest.annualturnover');
+  }
+
+  get lastthreeturnovr () {
+    return this.form.get('creditrequest.lastthreeturnovr');
+  }
+
+  getCreditRequestStatus() {
+    if (this.activecreditrequest.status === 'submitted') {
+      this.statusmsg = 'Request is being verified by graineasy.Our team will get in touch with you shortly';
+      return 1;
+    }
+    if (this.activecreditrequest.status === 'proposed') {
+      this.statusmsg = 'Your request has been forwarded to partnered bank and eligibility checks are being made';
+      return 2;
+    }
+    if (this.activecreditrequest.status === 'pending') {
+      this.statusmsg = 'Awaiting document submission for verification by bank';
+      return 3;
+    }
+    if (this.activecreditrequest.status === 'awaiting') {
+      this.statusmsg = 'Proposed credit requirement request was successfully submitted and is being assessed';
+      return 4;
+    }
+    if (this.activecreditrequest.status === 'accepted') {
+      this.statusmsg = 'Credit request was successfully accepted and meets necessary eligibility criteria.Our team will connect with you with next steps';
+      return 5;
+    }
+    if (this.activecreditrequest.status === 'cancelled') {
+      this.statusmsg = 'Request was cancelled and cannot be fulfilled at this moment';
+      return 5;
+    }
+    if (this.activecreditrequest.status === 'rejected') {
+      this.statusmsg = 'Credit request cannot be fulfilled at this moment';
+      return 5;
+    }
+    if (this.activecreditrequest.status === 'withdrawn') {
+      this.statusmsg = 'You have successfully withdrawn your request.To raise fresh request please contact trade@graineasy.com';
+      return 5;
+    }
+  }
+
+  referNow() {
+    const formData = {
+      phone:  this.form.value.creditrequest.phone,
+      name:   this.form.value.creditrequest.name,
+      tradeitems : this.form.value.creditrequest.tradeitems,
+      lastthreeturnovr : this.form.value.creditrequest.lastthreeturnovr,
+      annualturnover : this.form.value.creditrequest.annualturnover,
+      user: this.userid,
+      status: 'submitted'
+    };
+    this.creditrequestservice.create(formData)
+    .subscribe(response => {
+      this.creditrequestData = response;;
+      alert('Request was successfully submitted.');
+      this.router.navigate(['/products']);
+    }, err => {
+      this.router.navigate(['/errorpage']);
+    });
+  }
+
+  withdrawRequest() {
+    const withdrawRqst = {
+      status: 'withdrawn',
+      _id : this.activecreditrequest._id,
+      remarks : 'Request was withdrawn by customer'
+    };
+    this.creditrequestservice.update(withdrawRqst).subscribe((response) => {
+      alert('The request was withdrawn successfully');
+      this.router.navigate(['/products']);
+    }, err => {
+      this.router.navigate(['/errorpage']);
+    });
+  }
+}
+
+
