@@ -93,24 +93,26 @@ export class CreditRequestComponent implements OnInit {
   }
 
   getCreditRequestStatus() {
+
+    // Improve Standard by saving details in db
     if (this.activecreditrequest.status === 'submitted') {
-      this.statusmsg = 'Request is being verified by graineasy.Our team will get in touch with you shortly';
+      this.statusmsg = 'Request is being verified by graineasy. Your  profile will be shared with our Banking partner';
       return 1;
     }
     if (this.activecreditrequest.status === 'proposed') {
-      this.statusmsg = 'Your request has been forwarded to partnered bank and eligibility checks are being made';
+      this.statusmsg = 'Our banking partner has agreed to review your request. Please submit your docs to trade@graineasy.com';
       return 2;
     }
     if (this.activecreditrequest.status === 'pending') {
-      this.statusmsg = 'Awaiting document submission for verification by bank';
+      this.statusmsg = 'Our banking partner are looking into your docs. They will take a call to sanction/reject a credit limit for you';
       return 3;
     }
     if (this.activecreditrequest.status === 'awaiting') {
-      this.statusmsg = 'Proposed credit requirement request was successfully submitted and is being assessed';
+      this.statusmsg = 'Credit limit sanctioned from our banking partner';
       return 4;
     }
     if (this.activecreditrequest.status === 'accepted') {
-      this.statusmsg = 'Credit request was successfully accepted and meets necessary eligibility criteria.Our team will connect with you with next steps';
+      this.statusmsg = 'Credit letter generated successfully. It will be shared with you over email. Use this to fund your stocks';
       return 5;
     }
     if (this.activecreditrequest.status === 'cancelled') {
@@ -123,6 +125,31 @@ export class CreditRequestComponent implements OnInit {
     }
     if (this.activecreditrequest.status === 'withdrawn') {
       this.statusmsg = 'You have successfully withdrawn your request.To raise fresh request please contact trade@graineasy.com';
+      return 5;
+    }
+  }
+
+  getDrawDownStatus() {
+
+    // Improve Standard by saving details in db
+    if (this.activecreditrequest.status === 'drawdownrequested') {
+      this.statusmsg = 'Request partnering bank for a drawdown from you sanctioned Credit Limit';
+      return 1;
+    }
+    if (this.activecreditrequest.status === 'cmvist') {
+      this.statusmsg = 'Request the Collateral Manager for warehouse receipt';
+      return 2;
+    }
+    if (this.activecreditrequest.status === 'warehousereceipt') {
+      this.statusmsg = 'Warehouse receipt generated';
+      return 3;
+    }
+    if (this.activecreditrequest.status === 'drawdownapproved') {
+      this.statusmsg = 'Bank has approved the drawdown';
+      return 4;
+    }
+    if (this.activecreditrequest.status === 'fundstransfer') {
+      this.statusmsg = 'Funds have been transferred';
       return 5;
     }
   }

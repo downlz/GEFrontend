@@ -16,7 +16,7 @@
               <tr>
                 <th>
                   <h3 class="card-title"> 
-                    Request for credit initiation</h3>
+                    Request for credit</h3>
                 </th>
               </tr>
             </table>
@@ -32,6 +32,9 @@
                   </tr>
                   <tr>
                     <td>Request Date : {{activecreditrequest.requestedon | date:'medium'}}</td>
+                  </tr>
+                  <tr>
+                    <td>Trade Items : {{activecreditrequest.tradeitems}}</td>
                   </tr>
                   <tr>
                     <td>Status : {{statusmsg}}</td>
@@ -54,7 +57,8 @@
             <div class="row">
                 <div class="col-md-12 px-1">
                 <div class="form-group">
-                  <label>Current Year Turnover</label>
+                  <label>Submit the form below for credit assessment</label><br>
+                  <label>Current year turnover</label>
                   <input type="number" id="annualturnover" class="form-control" formControlName="annualturnover" placeholder="Annual Turnover in &#8377;">
                   <div class="alert alert-danger" *ngIf="annualturnover.touched && annualturnover.invalid">
                     Invalid Turnover amount
@@ -67,7 +71,9 @@
             <div class="form-group">
               <label>Last 3 year average turnover (Optional)</label>
               <input type="number" id="lastthreeturnovr" class="form-control" formControlName="lastthreeturnovr" placeholder="Enter average turnover for past 3 yrs in &#8377;">
-              
+              <div class="alert alert-danger" *ngIf="lastthreeturnovr.touched && lastthreeturnovr.invalid">
+                Invalid Turnover amount
+              </div>
             </div>
           </div>
       </div>
