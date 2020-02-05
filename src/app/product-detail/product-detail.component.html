@@ -15,8 +15,8 @@
               </th>
             </tr> -->
             <br>
-            <tr>
-              <th>Seller: {{ listing.seller.name}}</th>
+            <tr *ngIf=listing.showseller>
+              <th >Seller: {{ listing.seller.name}}</th>
             </tr>
             <!-- <tr>
               <th>Origin: {{bargain.item.origin}}</th>
@@ -71,6 +71,14 @@
               <tr>
                 <th>Location: </th>
                 <th> {{ listing.city.name }} | {{ listing.city.state.name }}</th>
+              </tr>
+              <tr>
+                <th>Manufacturer: </th>
+                <th> {{ listing.manufacturer?listing.manufacturer.name :"NA" }}</th>
+              </tr>
+              <tr>
+                <th>Brokerage Applicable: </th>
+                <th> {{ listing.brokerage == 'true' ? 'Yes' : 'No' }}</th>
               </tr>
 
 

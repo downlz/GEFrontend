@@ -9,6 +9,38 @@
       </div>
     </div> -->
     <div class="col-12 col-md-12">
+      <br>
+      <h4>Products at Graineasy</h4>
+      <h5>Warehouse Receipts Finance:</h5>
+      <p class="textalign">
+        We know that you purchase in bulk. We also know you avail credit from the supplier. This credit is costly; generally around 2% per month (cash discount of 2%). So why use the supplier’s credit when you have better options available.
+        We have partnered with Banks and NBFCs. If you keep the goods in our designated warehouse, we will help you avail credit at 1%-1.25% per month. Isn’t this a more cost effective way to fund your purchase? You can avail the cash discount from the supplier and fund your purchase through us. You end with a saving of 1%-0.75% per month on each purchase. This will help you compete in the market more effectively. This is available only on packing of 25 kg and above. 
+        We understand that you and your customers will face problems if the warehouse is located faraway. So we will make sure that the warehouses are located in and around your markets.
+        You can easily get upto 2 crore sanctioned in one go. <br> 
+        You don’t need to run to the Banks and NBFCs continuously for this. Just create a credit request with us. We will worry after that. You will get continuous updates on the status The best part is that we don’t charge anything for this. 
+        We are here for you to make your life simple and easy. So go ahead and explore simpler and cost effective ways to fund your purchase. 
+        <br>Details:<br>
+        <li>1 day disbursal</li>
+        <li>Rates starting 1% per month</li>
+        <li>Upto 180 days credit allowed</li>        
+      </p>
+      <h5>Bill discounting:</h5>
+      <p class="textalign">
+        If you supply to one of the big Modern Retail Players such as More, Metro, Reliance, D Mart, Big Bazaar etc and your money is stuck for upto 90 days, we have the perfect solution for you.
+We have convinced our banking partners( Bank/NBFC) to advance upto 80% of the invoice amount immediately at a nominal rate. You won’t need to do any paperwork repeatedly. Just create a credit request with us and we will take all the headache on your behalf. If the banks/nbfc agree to sanction your request, you job is done. We will process everything from there
+Here are the details:<br>
+<li>  80% immediate payment</li>
+<li>  1 day disbursal </li>
+<li>  Rates starting 1% per month</li>
+<li>  Upto 90 days receivable allowed</li>
+<br>
+<b>*Disclaimer</b> - All information put here is for information purpose only. The rates, tenure and quantum of loan is decided by the banks and Graineasy does not play any role in loan sanction or disbursal of sanctioned amount. The borrower is requested to go through loan documents for more details once credit process is intiated through Graineasy.
+
+</p>
+<h6 *ngIf='!isoldrequest'>Use the below form to initiate a credit request for credit assessment by our banking partners</h6>
+<h6 *ngIf='isoldrequest'>Credit Request Status</h6>
+     
+
       <div class="ItemCardContainer">
         <div class="card ItemCardDesc">
           <div class="card-body">
@@ -57,7 +89,7 @@
             <div class="row">
                 <div class="col-md-12 px-1">
                 <div class="form-group">
-                  <label>Submit the form below for credit assessment</label><br>
+                  <!-- <label>Submit the form below for credit assessment</label><br> -->
                   <label>Current year turnover</label>
                   <input type="number" id="annualturnover" class="form-control" formControlName="annualturnover" placeholder="Annual Turnover in &#8377;">
                   <div class="alert alert-danger" *ngIf="annualturnover.touched && annualturnover.invalid">
@@ -137,6 +169,7 @@
 
         </div>
       </div>
+      
     </div>
   </div>
   </div>
