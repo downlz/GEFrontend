@@ -18,7 +18,7 @@
           <div class="form-group">
             <label>Category Name</label>
             <input type="text" id="name" class="form-control" formControlName="name"
-                   placeholder="Enter item name">
+                   placeholder="Enter category">
           </div>
         </div>
         </div>
@@ -27,7 +27,7 @@
         <div class="form-group">
             <label for="itemnameId">Itemname:</label>
             <select class="form-control" id="itemnameId" formControlName="itemnameId">
-              <option value=''></option>
+              <option value='Select Itemname'></option>
               <option *ngFor="let item of itemnames" [ngValue]="item._id"> {{ item.name }}</option>
             </select>
           </div>

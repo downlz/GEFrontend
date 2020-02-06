@@ -127,7 +127,7 @@ export class GBOrderNowComponent implements OnInit {
 
     const OrderData = {
       // orderno: (this.userid.substring(-1,5)  + this.gblisting.item.seller._id.substring(-1,5)).toUpperCase(),    // Frame a order no generator here
-      orderno: String(this.lastorderno),
+      // orderno: String(this.lastorderno),
       quantity: f.quantity,
       unit: this.gblisting.unit.mass,
       // unitId: this.gblisting.unit._id,
@@ -151,6 +151,5 @@ export class GBOrderNowComponent implements OnInit {
       console.log(error);
       this.router.navigate(['/errorpage']);
     });
-  // })
+  };
   }
-}

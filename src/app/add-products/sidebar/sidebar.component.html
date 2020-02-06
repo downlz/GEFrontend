@@ -6,19 +6,19 @@
     </li>
     <li *ngIf="role=='admin'">
       <a class="nav-link scrollto p" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }"
-        routerLink="/product/additem">Item</a>
+        routerLink="/product/allitemnames">Item</a>
     </li>
     <li *ngIf="role=='admin'">
       <a class="nav-link scrollto p" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }"
-        routerLink="/product/addcategory">Category</a>
+        routerLink="/product/allcategory">Category</a>
     </li>
     <li *ngIf="role=='admin'">
       <a class="nav-link scrollto p" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }"
-        routerLink="/product/addcity">City</a>
+        routerLink="/product/allcity">City</a>
     </li>
     <li *ngIf="role=='admin'">
       <a class="nav-link scrollto p" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }"
-        routerLink="/product/addmnf">Manufacturer</a>
+        routerLink="/product/allmnf">Manufacturer</a>
     </li>
     <li *ngIf="role=='admin' || role=='agent'">
       <a class="nav-link scrollto p" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }"

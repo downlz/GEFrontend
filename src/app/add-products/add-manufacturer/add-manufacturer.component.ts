@@ -28,7 +28,7 @@ export class AddManufacturerComponent implements OnInit {
   submitted: boolean;
   id: string;
   allFormControls: any;
-  mnfnameEdit: any;
+  mnfnameEdit: any = '';
   formControls: any;
   userid: string;
   // transportEdit: any;
@@ -105,7 +105,7 @@ this.allFormControls = {
   getMnfName(id) {
     this.manufacturerService.get(id).subscribe((mnfname) => {
       this.mnfnameEdit = mnfname;
-      this.form.controls.newmnf['controls'].duration.setValue(mnfname['name']);
+      this.form.controls.newmnf['controls'].name.setValue(mnfname['name']);
     }, error => {
       this.router.navigate(['/errorpage']);
       if (error.status === 400) {
@@ -126,7 +126,7 @@ this.allFormControls = {
         this.manufacturerService.update(manufacturer).subscribe((response) => {
           // this.loading = false;
           alert('Manufacturer details updated successfully');
-          this.router.navigate(['/product/addmnf']);
+          this.router.navigate(['/product/allmnf']);
 
         }, err => {
           // this.loading = false;
@@ -136,7 +136,7 @@ this.allFormControls = {
         this.manufacturerService.create(manufacturer).subscribe((response) => {
           // this.loading = false;
           alert('Manufacturer added successfully');
-          this.router.navigate(['/product/addmnf']);
+          this.router.navigate(['/product/allmnf']);
 
         }, err => {
           console.log(err);

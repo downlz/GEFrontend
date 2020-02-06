@@ -28,7 +28,7 @@ export class AddCityComponent implements OnInit {
   submitted: boolean;
   id: string;
   allFormControls: any;
-  cityEdit: any;
+  cityEdit: any = '';
   formControls: any;
   userid: string;
   // transportEdit: any;
@@ -112,6 +112,7 @@ this.allFormControls = {
         'name',
         'lat',
         'lng',
+        'stateId'
       ];
   }
     const formControls = {};
@@ -129,9 +130,9 @@ this.allFormControls = {
   getCity(id) {
     this.cityService.get(id).subscribe((city) => {
       this.cityEdit = city;
-      this.form.controls.newcity['controls'].duration.setValue(city['name']);
-      this.form.controls.newcity['controls'].pricequote.setValue(city['lat']);
-      this.form.controls.newcity['controls'].vehicledtl.setValue(city['lng']);
+      this.form.controls.newcity['controls'].name.setValue(city['name']);
+      this.form.controls.newcity['controls'].lat.setValue(this.cityEdit.location.coordinates[0]);
+      this.form.controls.newcity['controls'].lng.setValue(this.cityEdit.location.coordinates[1]);
       // this.form.controls.newcity['controls'].vehicledtl.setValue(city['tax']);
     }, error => {
       this.router.navigate(['/errorpage']);
@@ -147,13 +148,13 @@ this.allFormControls = {
     event.preventDefault();
     if (this.form.valid) {
       const city = this.form.getRawValue().newcity;
-      // console.log(transportrate);
       if (this.edit) {
         city._id = this.id;
+        city.type = "Point";
         this.cityService.update(city).subscribe((response) => {
           // this.loading = false;
           alert('City details updated successfully');
-          this.router.navigate(['/product/addcity']);
+          this.router.navigate(['/product/allcity']);
 
         }, err => {
           // this.loading = false;
@@ -165,7 +166,7 @@ this.allFormControls = {
         this.cityService.create(city).subscribe((response) => {
           // this.loading = false;
           alert('City added successfully');
-          this.router.navigate(['/product/addcity']);
+          this.router.navigate(['/product/allcity']);
 
         }, err => {
           console.log(err);

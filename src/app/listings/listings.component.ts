@@ -219,7 +219,7 @@ export class ListingsComponent implements OnInit {
   }
 
   callListings(){
-    console.log(this.queryParams);
+    // console.log(this.queryParams);
     this.listingService.getAll(this.queryParams)
     .subscribe(response => {
       this.listings = response;

@@ -13,7 +13,7 @@ import {AuthService} from '../../services/auth.service';
 export class ItemnameTabComponent implements OnInit {
   auction: any;
   listing: any;
-  activeTab: string = 'addProduct';
+  activeTab: string = 'additemname';
   loading: boolean = true;
   role: string;
   userId: string;

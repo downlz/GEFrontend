@@ -90,7 +90,7 @@ const routes: Routes = [
       },
       {
         path: 'allcategory',
-        component: CityTabComponent,
+        component: CategoryTabComponent,
         data: {
           roles: ['admin']
         }

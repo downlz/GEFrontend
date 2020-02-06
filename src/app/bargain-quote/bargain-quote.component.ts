@@ -26,6 +26,7 @@ export class BargainQuoteComponent implements OnInit {
   address: any;
   userid: any;
   user: any;
+  lapsetime: any;
   itemid: any;
   statedata: any;
   addresses: any;
@@ -103,10 +104,16 @@ export class BargainQuoteComponent implements OnInit {
   }
 
   getBargainDtl(id) {
+    this.bargainService.getBargainLapseTime(id)
+    .subscribe(response => {
+      this.lapsetime = response as any;
+      this.expirydate = this.lapsetime.bargainlapse;
+    });
+
     this.bargainService.get(id)
     .subscribe(response => {
       this.bargain = response as any;
-      this.expirydate = new Date(new Date(this.bargain.firstquote.requestedon).getTime() + (1000 * 60 * 60 * 24));
+      // this.expirydate = new Date(new Date(this.bargain.firstquote.requestedon).getTime() + (1000 * 60 * 60 * 24));
       this.getNextUserTurn(this.bargain);
       // this.checkActiveBargain();
       // return('done');
