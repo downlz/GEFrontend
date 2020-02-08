@@ -5,7 +5,7 @@
     <p class="card-text"> Rs. {{ listing.price }}/{{ listing.unit.mass }} | MFG - {{ listing.manufacturer?listing.manufacturer.name :"" }}</p>
     <p class="card-text"> Origin - {{ listing.origin }} <span class="ItemSmallFont"> (*Ex Factory cost)</span></p>
     <!-- <p class="card-text"> <span class="ItemSmallFont"> *Excluding Transportation cost</span></p> -->
-    <div class = "ItemMediumFont">Listed By - {{ listing.showaddedbyname && listing.addedby ? listing.addedby.name: listing.addedby ? listing.addedby.isAgent ? 'Partner' : 'Seller' : 'Seller' }}</div>
+    <div class = "ItemMediumFont">Listed By - {{ listing.showaddedbyname && listing.addedby ? listing.addedby.name: listing.addedby ? (listing.addedby.isAgent || listing.addedby.isAdmin) ? 'Broker' : 'Seller' : 'Seller' }}</div>
     <p class="card-text ItemMediumFont"> **Excl. Transportation cost, <a routerLink="/transport/findtransport">See Options</a></p>
   </div>
   <div class="card-footer">

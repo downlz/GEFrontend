@@ -78,7 +78,7 @@
               </tr>
               <tr>
                 <th>Brokerage Applicable: </th>
-                <th> {{ listing.brokerage == 'true' ? 'Yes' : 'No' }}</th>
+                <th> {{ listing.brokerage == true ? 'Yes' + (listing.brokeragerate ? '(' + listing.brokeragerate + ')' : '') : 'No' }}</th>
               </tr>
 
 
