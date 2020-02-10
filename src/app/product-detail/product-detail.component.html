@@ -80,7 +80,10 @@
                 <th>Brokerage Applicable: </th>
                 <th> {{ listing.brokerage == true ? 'Yes' + (listing.brokeragerate ? '(' + listing.brokeragerate + ')' : '') : 'No' }}</th>
               </tr>
-
+              <tr *ngIf = "listing.remarks != 'NA' " >
+                <th>Seasonal Info: </th>
+                <th> {{ listing.remarks }}</th>
+              </tr>  
 
             </table>
           </div>

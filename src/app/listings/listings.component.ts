@@ -128,21 +128,17 @@ export class ListingsComponent implements OnInit {
   set search(value: string) {
     this._search = value;
     if (value) {
-      // console.log('Inside')
       let lowercase = value.toLowerCase().trim();
       this.listings = this.listings.filter(item => {
         return item.name.name.toLowerCase().indexOf(lowercase) >= 0
           || item.category.name.toLowerCase().indexOf(lowercase) >= 0
           || item.origin.toLowerCase().indexOf(lowercase) >= 0
           || item.seller.name.toLowerCase().indexOf(lowercase) >= 0
-          || item.seller.name.toLowerCase().indexOf(lowercase) >= 0
+          || item.manufacturer.name.toLowerCase().indexOf(lowercase) >= 0
+          || item.sampleNo.toLowerCase().indexOf(lowercase) >= 0
       });
-     
     } else {
-      // console.log('Outside')
       this.listings = this.allfetchedlisting;
-      // console.log(this.allfetchedlisting);
-      // this.filterChange();
     }
     this.filterChange();
   }  

@@ -29,4 +29,5 @@ export interface Listing {
   brokerage: boolean;
   addedby: User;
   brokeragerate: string;
+  remarks: string;
 }

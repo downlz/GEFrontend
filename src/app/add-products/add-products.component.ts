@@ -162,7 +162,7 @@ export class AddProductsComponent implements OnInit {
             image: JSON.parse(response).message,
             isTaxable: this.form.value.newitem.istaxable,
             addedby: this.userid,
-            remarks: this.form.value.newitem.remarks
+            remarks: this.form.value.newitem.remarks ? this.form.value.newitem.remarks : 'NA'
           };
          this.itempost.create(formData)
          .subscribe(response => {
@@ -203,7 +203,8 @@ export class AddProductsComponent implements OnInit {
       // 'image',
       'istaxable',
       'bargaintrgqty',
-      'bargainstatus'
+      'bargainstatus',
+      'remarks'
     ];
   } else {
     controls = [
@@ -259,6 +260,7 @@ export class AddProductsComponent implements OnInit {
       this.form.controls.newitem['controls'].bargainstatus.setValue(item['bargainenabled'] ? true :false);
       this.form.controls.newitem['controls'].istaxable.setValue(item['isTaxable'] ? true : false);
       this.form.controls.newitem['controls'].bargaintrgqty.setValue(item['bargaintrgqty']);
+      this.form.controls.newitem['controls'].remarks.setValue(item['remarks']);
       this.mfgname = item['manufacturer'].name;
       this.loading = false;
     }, error => {
@@ -362,6 +364,7 @@ export class AddProductsComponent implements OnInit {
         origin:    this.form.value.newitem.origin,
         isLive: this.form.value.newitem.itemstatus,
         isTaxable: this.form.value.newitem.istaxable,
+        remarks: this.form.value.newitem.remarks,
         bargainenabled: this.form.value.newitem.bargainstatus,
         bargaintrgqty: this.form.value.newitem.bargaintrgqty ? this.form.value.newitem.bargaintrgqty : '',
         addedby: this.userid
