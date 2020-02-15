@@ -80,12 +80,10 @@
                 <th>Brokerage Applicable: </th>
                 <th> {{ listing.brokerage == true ? 'Yes' + (listing.brokeragerate ? '(' + listing.brokeragerate + ')' : '') : 'No' }}</th>
               </tr>
-              <tr *ngIf = "listing.remarks != 'NA' " >
+              <tr *ngIf = "listing.remarks != 'NA' && listing.remarks ">
                 <th>Seasonal Info: </th>
-                <th> {{ listing.remarks }}</th>
-              </tr>  
-
-            </table>
+                <th> {{ listing.remarks }}</th> 
+                </table>
           </div>
           <div class="card-footer" *ngIf="role=='admin' ||  role=='buyer'">
             <a [routerLink]="['/orderNow', listing._id]" routerLinkActive="router-link-active" class="btn btn-primary btn-block">Order Now</a>

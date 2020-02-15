@@ -4,8 +4,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 import {CityService} from '../services/city.service';
 import {ItemnameService} from '../services/itemname.service';
 import {ManufacturerService} from '../services/manufacturer.service';
-import {NgModule} from '@angular/core';
-import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+// import {NgModule} from '@angular/core';
+// import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 // import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 
 @Component({

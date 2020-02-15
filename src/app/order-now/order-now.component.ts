@@ -38,7 +38,9 @@ export class OrderNowComponent implements OnInit {
   showShippingDetails: Boolean = false;
   lastorderno: number;
   bargainqty: number;
+  payeeacc: any;
   bargain: any;
+  
   isEligibleForBargain: Boolean = false;
   activeBargain: Boolean = false;
   constructor(private listingService: ListingService, private userService: UserService,
@@ -100,7 +102,7 @@ export class OrderNowComponent implements OnInit {
       }
       console.log(error);
     });
-    
+    this.payeeacc = 'nodal';
   }
 
   getProduct(id) {

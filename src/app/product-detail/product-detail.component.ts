@@ -1,7 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import {ListingService} from '../services/listing.service';
-import { Listing } from './../model/listing';
+import { Listing } from '../model/listing';
 import { UserService } from '../services/user.service';
 import { OrderService } from '../services/order.service';
 import {AuthService} from '../services/auth.service';

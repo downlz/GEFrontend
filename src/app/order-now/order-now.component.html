@@ -7,6 +7,26 @@
       <div class="ItemCardContainer">
         <img class="card-img-top ItemCardImage" [src]="listing.image" alt="{{
           listing.name }}">
+
+          <!-- <table style="width:100%" >
+            <br>
+            <tr>
+              <th> Payment Details:</th>
+            </tr>
+            <tr>
+              <th> Seller-Directly pay to seller on order confirmation</th>
+            </tr>
+            <tr>
+              <th> Graineasy Nodal Account-Hassle free payment on order confirmation</th>
+            </tr>
+          </table> -->
+          <p>
+            <br>
+            <strong>Payment Mode:</strong><br>
+            Seller-Directly pay to seller on order confirmation<br>
+            Graineasy Nodal Account-Hassle free payment on order confirmation  
+          </p>
+
       </div>
     </div>
     <div class="col-12 col-md-6">
@@ -50,6 +70,14 @@
 
             <div>
               Amount : Rs. {{ price }} <span class= "ItemTextDtl"> *Transportation cost extra</span>
+            </div>
+            <div class="form-group ItemTextDtl">
+              <label for="payment">Payment To:</label><br>
+              <label class="radio">
+              <input type="radio" id="payeeacc" formControlName="payeeacc" value='nodal' checked> Graineasy Nodal </label> &nbsp;
+              <label class="radio">
+              <input type="radio" id="payeeacc" formControlName="payeeacc" value='direct'> Seller </label> 
+              
             </div>
             <div *ngIf="isEligibleForBargain">
               <span class ="ItemTextDtl">You are eligible to negotiate price with seller.To proceed click intiate bargain</span>
