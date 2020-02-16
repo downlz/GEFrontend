@@ -35,22 +35,22 @@ import {AuthService} from './services/auth.service';
 import {PriceService} from './services/price.service';
 import {JwtInterceptor} from './_helpers/jwt.interceptor';
 import {ErrorInterceptor} from './_helpers/error.interceptor';
-import {ListingsComponent} from './listings/listings.component';
-import {ListingCardComponent} from './listing-card/listing-card.component';
+// import {ListingsComponent} from './products/listings/listings.component';
+// import {ListingCardComponent} from './products/listing-card/listing-card.component';
+// import {ProductDetailComponent} from './product-detail/product-detail.component';
 import {RegistrationComponent} from './users/registration/registration.component';
 import {ReferUserComponent} from './users/refer-user/refer-user.component';
 import {LoginComponent} from './login/login.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {ErrorPageComponent} from './error-page/error-page.component';
-import {ProductDetailComponent} from './product-detail/product-detail.component';
+
 import {OrderNowComponent} from './order-now/order-now.component';
 import {BargainOrderComponent} from './bargain-order/bargain-order.component';
 import {BargainQuoteComponent} from './bargain-quote/bargain-quote.component';
-import {MyOrdersComponent} from './my-orders/my-orders.component';
-import {AllOrdersComponent} from './all-orders/all-orders.component';
+// import {MyOrdersComponent} from './my-orders/my-orders.component';
+// import {AllOrdersComponent} from './all-orders/all-orders.component';
+// import {OrderCardComponent} from './order-card/order-card.component';
 import {BargainRequestComponent} from './bargain-request/bargain-request.component';
-
-import {OrderCardComponent} from './order-card/order-card.component';
 import { CreateOrderComponent } from './agent-mgmt/create-order/create-order.component';
 
 import { AppFooterComponent } from './app-footer/app-footer.component';
@@ -61,20 +61,20 @@ import { AppFooterComponent } from './app-footer/app-footer.component';
     NavBarComponent,
     BasicComponent,
     LandingPageComponent,
-    ListingsComponent,
-    ListingCardComponent,
+    // ListingsComponent,
+    // ListingCardComponent,
+    // ProductDetailComponent,
     RegistrationComponent,
     ReferUserComponent,
     LoginComponent,
     ErrorPageComponent,
-    ProductDetailComponent,
     OrderNowComponent,
     BargainOrderComponent,
     BargainQuoteComponent,
-    MyOrdersComponent,
-    AllOrdersComponent,
+    // MyOrdersComponent,
+    // AllOrdersComponent,
+    // OrderCardComponent,
     BargainRequestComponent,
-    OrderCardComponent,
     CreateOrderComponent,
     AppFooterComponent
   ],

@@ -2,13 +2,13 @@ import { CategoryService } from './services/category.service';
 import {NgModule} from '@angular/core';
 import {Routes, RouterModule} from '@angular/router';
 import {LandingPageComponent} from './landing-page/landing-page.component';
-import {ListingsComponent} from './listings/listings.component';
-import {ProductDetailComponent} from './product-detail/product-detail.component';
+// import {ListingsComponent} from './products/listings/listings.component';
+// import {ProductDetailComponent} from './product-detail/product-detail.component';
 import {LoginComponent} from './login/login.component';
 import {OrderNowComponent} from './order-now/order-now.component';
 import {BargainOrderComponent} from './bargain-order/bargain-order.component';
-import {MyOrdersComponent} from './my-orders/my-orders.component';
-import {AllOrdersComponent} from './all-orders/all-orders.component';
+// import {MyOrdersComponent} from './my-orders/my-orders.component';
+// import {AllOrdersComponent} from './all-orders/all-orders.component';
 import {RegistrationComponent} from './users/registration/registration.component';
 import {ReferUserComponent} from './users/refer-user/refer-user.component';
 import {ErrorPageComponent} from './error-page/error-page.component';
@@ -41,9 +41,16 @@ const routes: Routes = [
   },
   {
     path: 'products',
-    // loadChildren: '../app/products/products-list.module#AppProductsListModule'
-    component: ListingsComponent
+    loadChildren: '../app/products/products-list.module#AppProductsListModule'
+    // component: ListingsComponent
   },
+  // Added 16022020
+  // {
+  //   path: 'product/:id',
+  //   component: ProductDetailComponent,
+  //   canActivate: [AuthGuard],
+  //   data: {roles: ['admin', 'buyer', 'seller','agent']}
+  // },
   {
     path: 'registration',
     component: RegistrationComponent
@@ -72,13 +79,6 @@ const routes: Routes = [
     path: 'groupbuy',
     loadChildren: '../app/group-buy/group-buy.module#GroupBuyModule'
   },
-  // Added 16022020
-  {
-    path: 'product/:id',
-    component: ProductDetailComponent,
-    canActivate: [AuthGuard],
-    data: {roles: ['admin', 'buyer', 'seller','agent']}
-  },
   {
     path: 'orderNow/:id',
     component: OrderNowComponent,
@@ -87,22 +87,26 @@ const routes: Routes = [
       roles: ['admin', 'buyer']
     }
   },
-  {
+  { 
     path: 'myOrders',
-    component: MyOrdersComponent,
-    canActivate: [AuthGuard],
-    data: {
-      roles: ['admin', 'buyer','agent']
-    }
+    loadChildren: '../app/orders/orders.module#OrdersModule'
   },
-  {
-    path: 'allOrders',
-    component: AllOrdersComponent,
-    canActivate: [AuthGuard],
-    data: {
-      roles: ['admin','seller']
-    }
-  },
+  // {
+  //   path: 'myOrders',
+  //   component: MyOrdersComponent,
+  //   canActivate: [AuthGuard],
+  //   data: {
+  //     roles: ['admin', 'buyer','agent']
+  //   }
+  // },
+  // {
+  //   path: 'allOrders',
+  //   component: AllOrdersComponent,
+  //   canActivate: [AuthGuard],
+  //   data: {
+  //     roles: ['admin','seller']
+  //   }
+  // },
   {
     path: 'bargainOrder/:id',
     component: BargainOrderComponent,

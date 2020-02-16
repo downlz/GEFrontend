@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { Listing } from '../model/listing';
+import { Listing } from '../../model/listing';
 
 @Component({
   selector: 'app-listing-card',
