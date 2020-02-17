@@ -18,6 +18,9 @@
             <tr *ngIf=listing.showseller>
               <th >Seller: {{ listing.seller.name}}</th>
             </tr>
+            <tr>
+              <th >* Taxes additional, wherever applicable</th>
+            </tr>
             <!-- <tr>
               <th>Origin: {{bargain.item.origin}}</th>
             </tr>
@@ -50,7 +53,7 @@
               </tr>
               <tr>
                 <th>Price: </th>
-                <th> Rs. {{ listing.price }}/{{ listing.unit.mass }}</th>
+                <th> Rs. {{ listing.price }}/{{ listing.unit.mass }}*</th>
               </tr>
               <tr>
                 <th>Quantity: </th>

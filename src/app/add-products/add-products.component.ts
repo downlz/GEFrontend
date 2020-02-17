@@ -1,9 +1,7 @@
 import { UserService } from './../services/user.service';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-// import { HttpClient } from '@angular/common/http';
 import {  FileUploader,FileSelectDirective } from 'ng2-file-upload/ng2-file-upload';
-// import { FormValidators} from '../login/login-form.validators';
 import {CityService} from '../services/city.service';
 import {ManufacturerService} from '../services/manufacturer.service';
 import {StateService} from '../services/state.service';
@@ -19,7 +17,6 @@ import { forkJoin } from 'rxjs';
 import {UsersellerService} from '../services/seller.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AppError } from '../common/app-error';
-// import { environment } from 'src/environments/environment.prod';
 import { environment } from '../../environments/environment'
 
 @Component({
