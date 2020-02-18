@@ -18,6 +18,9 @@
             <tr *ngIf=listing.showseller>
               <th >Seller: {{ listing.seller.name}}</th>
             </tr>
+            <tr>
+              <th >* Taxes additional, wherever applicable</th>
+            </tr>
             <!-- <tr>
               <th>Origin: {{bargain.item.origin}}</th>
             </tr>
@@ -50,7 +53,7 @@
               </tr>
               <tr>
                 <th>Price: </th>
-                <th> Rs. {{ listing.price }}/{{ listing.unit.mass }}</th>
+                <th> Rs. {{ listing.price }}/{{ listing.unit.mass }}*</th>
               </tr>
               <tr>
                 <th>Quantity: </th>
@@ -78,11 +81,12 @@
               </tr>
               <tr>
                 <th>Brokerage Applicable: </th>
-                <th> {{ listing.brokerage == 'true' ? 'Yes' : 'No' }}</th>
+                <th> {{ listing.brokerage == true ? 'Yes' + (listing.brokeragerate ? '(' + listing.brokeragerate + ')' : '') : 'No' }}</th>
               </tr>
-
-
-            </table>
+              <tr *ngIf = "listing.remarks != 'NA' && listing.remarks ">
+                <th>Seasonal Info: </th>
+                <th> {{ listing.remarks }}</th> 
+                </table>
           </div>
           <div class="card-footer" *ngIf="role=='admin' ||  role=='buyer'">
             <a [routerLink]="['/orderNow', listing._id]" routerLinkActive="router-link-active" class="btn btn-primary btn-block">Order Now</a>

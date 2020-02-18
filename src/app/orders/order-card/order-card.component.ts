@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import {ListingService} from '../services/listing.service';
+import {ListingService} from '../../services/listing.service';
 import { environment } from 'src/environments/environment';
 
 @Component({

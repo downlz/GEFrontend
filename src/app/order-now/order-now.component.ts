@@ -38,7 +38,9 @@ export class OrderNowComponent implements OnInit {
   showShippingDetails: Boolean = false;
   lastorderno: number;
   bargainqty: number;
+  payeeacc: any;
   bargain: any;
+  itemsList: any = ['Nodal','Seller'];
   isEligibleForBargain: Boolean = false;
   activeBargain: Boolean = false;
   constructor(private listingService: ListingService, private userService: UserService,
@@ -100,7 +102,7 @@ export class OrderNowComponent implements OnInit {
       }
       console.log(error);
     });
-    
+    this.payeeacc = 'nodal';
   }
 
   getProduct(id) {
@@ -208,7 +210,8 @@ export class OrderNowComponent implements OnInit {
       addresstype: 'delivery',
       addedby: this.userid,
       addressreference: f.shipaddr ? f.shipaddr._id : '',
-      isExistingAddr: false
+      isExistingAddr: false,
+      payeeacc : f.payeeacc
     };
     if (f.shipaddr && f.shipaddr.addresstype === 'delivery') {
       OrderData.isshippingbillingdiff = true,
@@ -227,7 +230,7 @@ export class OrderNowComponent implements OnInit {
     // console.log(OrderData);
     this.orderService.create(OrderData)
     .subscribe(response => {
-      alert('Order Placed Successfully');
+      alert('Order Placed Successfully.Payment to be made to '+OrderData.payeeacc+' account on order confirmation');
       this.router.navigate(['/myOrders']);
     }, (error: AppError) => {
       console.log(error);

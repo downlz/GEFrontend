@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthService } from '../services/auth.service';
-import { UploadBillService } from '../services/uploadbill.service';
-import { OrderService } from '../services/order.service';
+import { AuthService } from '../../services/auth.service';
+import { UploadBillService } from '../../services/uploadbill.service';
+import { OrderService } from '../../services/order.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { AppError } from '../common/app-error';
-import { MyorderService } from '../services/myorder.service';
+import { AppError } from '../../common/app-error';
+import { MyorderService } from '../../services/myorder.service';
 import { environment } from 'src/environments/environment';
 import { ToastrService } from 'ngx-toastr';
 

@@ -16,6 +16,7 @@ export class GBListingsComponent implements OnInit {
   data: Array<any>;
   totalPages: Array<Number> = [];
   loading : boolean;
+  role: string;
 
   constructor(private service: GBListingService, private router: Router) { }
 

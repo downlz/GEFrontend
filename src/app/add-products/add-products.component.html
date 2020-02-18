@@ -1,6 +1,6 @@
 <div class="container listingOffsetTextColor">
     <div class="spinner-grow loader text-success" *ngIf="loading"></div>
-  <h3 *ngIf="!loading">{{edit ? 'Update Product Details' : 'Enter product information'}}</h3>
+  <h3 *ngIf="!loading">{{edit ? 'Update Product Details - ' + item.sampleNo : 'Enter product information'}}</h3>
   <!-- <h5 *ngIf="edit">Sample No - {{item['sampleNo']}} | Grade - {{item['grade']}}| MFG - {{mfgname}}</h5> -->
   <!-- <form [formGroup]="form" (ngSubmit)="addproduct()"> -->
     <form [formGroup]="form" *ngIf="!loading">

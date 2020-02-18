@@ -11,7 +11,6 @@
 }
 
 .shdw {
-
   position:relative;
   z-index: 1;
 }
@@ -27,14 +26,13 @@
 }
 
 .ItemCardDesc {
-
   // opacity: 50%;
   box-shadow: 0 8px 12px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
   font-size: 17px;
 }
 
 .farmbg {
-  background-image: url("../../assets/images/GE_Product.jpg");
+  background-image: url("../../../assets/images/GE_Product.jpg");
   object-fit: scale-down;
   position: fixed;
   top: 0;
@@ -42,6 +40,4 @@
   width: 100%;
   height: -webkit-fill-available;
   z-index: 0;
-
-
 }
