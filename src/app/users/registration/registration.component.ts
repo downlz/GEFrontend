@@ -116,17 +116,22 @@ export class RegistrationComponent implements OnInit {
     
     this.user.create(formData)
     .subscribe(response => {
-      this.loginData = response;;
+      // if (response.status === 202){
+      //   alert('The account with requested phone no. cannot be created as account already exist.Try registering with different phone no.');
+      // } else {
+      this.loginData = response;
       alert('Registration successful, Your Account will be activate shortly');
       this.router.navigate(['/login']);
+      // }
     }, (error: AppError) => {
       console.log(error);
-      if (error.originalError.status === 400) {
-        alert('Invalid id or password');
+      if (error === 'User already registered.') {
+        alert('User exists with given phone no. To reset password go to forgot password option or contact trade@graineasy.com');
+        this.router.navigate(['/login']);
       } else {
         this.router.navigate(['/errorpage']);
       }
-      console.log(error.originalError.status);
+      // console.log(error.originalError.status);
     });
     // if (!valid) {
     //   this.form.setErrors({
