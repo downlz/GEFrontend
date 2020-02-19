@@ -46,6 +46,22 @@
                    placeholder="Price">
           </div>
         </div>
+        <div class="col-md-6" *ngIf="role == 'agent' && auction.auctionType == 'seller'">
+          <div class="form-group">
+            <label>Buyer Name</label>
+
+            <input type="text" id="onbehalfofbuyer" class="form-control" formControlName="onbehalfofbuyer"
+                   placeholder="Buyer Name">
+          </div>
+        </div>
+        <div class="col-md-6" *ngIf="role == 'agent' && auction.auctionType == 'seller'">
+          <div class="form-group">
+            <label>Contact</label>
+
+            <input type="text" id="phoneno" class="form-control" formControlName="phoneno"
+                   placeholder="Phone No.">
+          </div>
+        </div>
         <div class="col-md-12" *ngIf="role == 'seller'">
           <div class="form-group">
             <label>Manufacturer <input type="checkbox" [ngModelOptions]="{standalone: true}"
@@ -61,7 +77,7 @@
               <input *ngIf="manufacturerNotPresent" type="text" id="manufacturer"
                      formControlName="manufacturer" class="form-control"
 
-                     placeholder="Manufacturer">
+                     placeholder="Enter Manufacturer">
             </div>
           </div>
         </div>
