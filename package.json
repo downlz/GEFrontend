@@ -7,9 +7,7 @@
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
-    "e2e": "ng e2e",
-    "build-prod-patch": "npm version patch && node ./replace.build.js && ng build --prod --base-href=./ && node ./versioning.build.js",
-    "build-prod-no-patch": "node ./replace.build.js && ng build --prod --base-href=./ && node ./versioning.build.js"
+    "e2e": "ng e2e"
   },
   "private": true,
   "dependencies": {

@@ -124,7 +124,7 @@
             <label>{{role == 'buyer' || form.value.newItem.auctionType=="buyer"  ? 'Ceiling Price' : 'Floor Price'}}</label>
             <input *ngIf="form.value.newItem.auctionType=='buyer' || role == 'buyer'" type="number" id="floorPrice" class="form-control" formControlName="floorPrice"
                    placeholder="Ceiling Price">
-                   <input *ngIf="role=='seller' || (role=='admin' && form.value.newItem.auctionType=='seller')" type="number" id="floorPrice" class="form-control" formControlName="floorPrice"
+                   <input *ngIf="role=='seller' || ((role == 'agent' || role == 'admin') && form.value.newItem.auctionType=='seller')" type="number" id="floorPrice" class="form-control" formControlName="floorPrice"
                    placeholder="Floor Price">       
           </div>
         </div>

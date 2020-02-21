@@ -181,6 +181,41 @@ export class CreateAuctionComponent implements OnInit {
           ];
         }
         break;
+      case  'agent':
+          auctionType = auctionType || 'seller';
+          if (!this.edit) {
+            controls = [
+              'auctionType',
+              'itemName',
+              'itemCategory',
+              'sampleNo',
+              'availableQty',
+              auctionType === 'seller' ? 'maxQty' : null,
+              auctionType === 'seller' ? 'minQty' : null,
+              'unit',
+              'floorPrice',
+              auctionType === 'seller' ? 'ceilingPrice' : null,
+              'nameVisible',
+              'startTime',
+              'endTime',
+              'transportCost',
+              'address',
+              'state',
+              'pincode',
+              'buyer',
+              'remarks'
+            ];
+          } else {
+            controls = [
+              'availableQty',
+              'maxQty',
+              'minQty',
+              'floorPrice',
+              'ceilingPrice',
+              'transportCost',
+            ];
+          }
+          break;  
       case  'seller':
         if (!this.edit) {
           controls = [

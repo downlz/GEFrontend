@@ -18,7 +18,7 @@ const routes: Routes = [
           path: '',
           component: AuctionListComponent,
           data: {
-            roles: ['admin', 'seller', 'buyer']
+            roles: ['admin', 'seller', 'buyer','agent']
           }
         },
         {
@@ -32,35 +32,35 @@ const routes: Routes = [
           path: 'edit/:id',
           component: CreateAuctionComponent,
           data: {
-            roles: ['admin', 'seller', 'buyer']
+            roles: ['admin', 'seller', 'buyer','agent']
           }
         },
         {
           path: 'status',
           component: AuctionStatusComponent,
           data: {
-            roles: ['admin', 'seller']
+            roles: ['admin', 'seller','agent']
           }
         },
         {
           path: 'bids',
           component: MyBidsComponent,
           data: {
-            roles: ['buyer', 'seller']
+            roles: ['buyer', 'seller','agent']
           }
         },
         {
           path: 'active',
           component: AuctionListComponent,
           data: {
-            roles: ['buyer', 'seller']
+            roles: ['buyer', 'seller','agent']
           }
         },
         {
           path: 'inactive',
           component: AuctionListComponent,
           data: {
-            roles: ['buyer', 'seller']
+            roles: ['buyer', 'seller','agent']
           }
         },
         {
@@ -69,7 +69,7 @@ const routes: Routes = [
         }
       ],
       data: {
-        roles: ['admin', 'buyer', 'seller']
+        roles: ['admin', 'buyer', 'seller','agent']
       }
     }
 ];

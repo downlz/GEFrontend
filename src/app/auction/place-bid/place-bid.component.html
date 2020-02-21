@@ -31,7 +31,7 @@
       </div>
       </div>      
       <div class="row">
-        <div class="col-md-6" *ngIf="role == 'buyer'">
+        <div class="col-md-6" *ngIf="role == 'buyer' || role == 'agent'">
           <div class="form-group">
             <label>Quantity (in {{auction.unit.mass}})</label>
             <input #quantity type="number" id="quantity" class="form-control" formControlName="quantity"
@@ -62,7 +62,7 @@
                    placeholder="Phone No.">
           </div>
         </div>
-        <div class="col-md-12" *ngIf="role == 'seller'">
+        <div class="col-md-12" *ngIf="role == 'seller' || role == 'agent'">
           <div class="form-group">
             <label>Manufacturer <input type="checkbox" [ngModelOptions]="{standalone: true}"
                                        [(ngModel)]="manufacturerNotPresent"/> (Check Not Present in below

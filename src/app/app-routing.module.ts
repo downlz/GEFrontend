@@ -68,6 +68,14 @@ const routes: Routes = [
     }
   },
   {
+    path: 'createorder/:id',
+    component: CreateOrderComponent,
+    canActivate: [AuthGuard],
+    data: {
+      roles: ['admin','agent']
+    }
+  },
+  {
     path: 'auction',
     loadChildren: '../app/auction/auction.module#AuctionModule',
   },
@@ -84,7 +92,7 @@ const routes: Routes = [
     component: OrderNowComponent,
     canActivate: [AuthGuard],
     data: {
-      roles: ['admin', 'buyer']
+      roles: ['admin', 'buyer']       // Add agent here if you want to grant agent acccess to order
     }
   },
   { 

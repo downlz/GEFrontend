@@ -9,7 +9,7 @@
         routerLink="/auction/add"
       >List for Auction</a>
     </li>
-    <li *ngIf="role=='admin' || role=='seller'">
+    <li *ngIf="role=='admin' || role=='seller' || role=='agent'">
       <a
         class="nav-link scrollto p"
         routerLinkActive="active"
@@ -17,7 +17,7 @@
         routerLink="/auction"
       >Auction List</a>
     </li>
-    <li *ngIf="role=='admin'">
+    <li *ngIf="role=='admin' || role=='agent'">
       <a
         class="nav-link scrollto p"
         routerLinkActive="active"

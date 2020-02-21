@@ -123,7 +123,7 @@
             <div ngbDropdownMenu class="dropdown-menu " aria-labelledby="dropdown01">
               <a class="dropdown-item nav-link" routerLink="/myOrders" *ngIf="isAdmin || isBuyer || isAgent">My Orders</a>
               <!-- <a class="dropdown-item nav-link" routerLink="/auction" *ngIf="isAdmin || isSeller || isBuyer">Auction</a> -->
-              <a class="dropdown-item nav-link" routerLink="/auction" *ngIf="isAdmin">Auction</a>
+              <a class="dropdown-item nav-link" routerLink="/auction" *ngIf="isAdmin || isAgent"> Auction</a>
               <a class="dropdown-item nav-link" routerLink="/bargainRequest" *ngIf="isAdmin || isSeller || isBuyer">Bargain Request</a>
               <a class="dropdown-item nav-link" routerLink="/transport/findtransport">Transport</a>
               <a class="dropdown-item nav-link" routerLink="/myOrders/allOrders" *ngIf="isAdmin || isSeller">Manage Orders</a>

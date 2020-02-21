@@ -15,6 +15,7 @@ import {AuthService} from '../../services/auth.service';
 import {AuctionService} from '../../services/auction.service';
 import {StateService} from '../../services/state.service';
 import {CityService} from '../../services/city.service';
+import {ItemService} from '../../services/item.service';
 // import { PriceService } from '../../services/price.service';
 import { OrderService } from '../../services/order.service';
 import { AppError } from '../../common/app-error';
@@ -54,6 +55,7 @@ export class CreateOrderComponent implements OnInit {
   selecteditem: any;
   address: any;
   user: any;
+  item: any;
   // itemid: any;
   userid: any;
   ordercost: number;
@@ -72,6 +74,7 @@ export class CreateOrderComponent implements OnInit {
               // private priceService: PriceService,
               private orderService: OrderService,
               private userService: UserService,
+              private itempost: ItemService,
               private agentBuyerService: AgentBuyerService,
               private router: Router,
               private route: ActivatedRoute
@@ -114,7 +117,7 @@ export class CreateOrderComponent implements OnInit {
       ]),
       itemName: new FormControl(''),
       buyeraddr: new FormControl(''),
-      addNewBuyer: new FormControl(''),
+      addNewBuyer: new FormControl(false),
       itemCategory: new FormControl('', [
         Validators.required,
       ])
@@ -125,7 +128,7 @@ export class CreateOrderComponent implements OnInit {
           if (id) {
             this.id = id;
             this.edit = true;
-            // await this.getAuction(id);
+            await this.getSampleNo(id);
           } else {
             this.edit = false;
           }
@@ -166,6 +169,14 @@ export class CreateOrderComponent implements OnInit {
           ];
         } else {
           controls = [
+            // Maybe find a usage in future currently set to same field
+            'itemName',
+            'itemCategory',
+            'sampleNo',
+            'odrQty',
+            'itemSeller',
+            'itemUnit',
+            // auctionType === 'seller' ? 'minQty' : null,
             'buyername',
             'buyergstin',
             'buyerphone',
@@ -174,42 +185,10 @@ export class CreateOrderComponent implements OnInit {
             'buyerstate',
             'buyercity',
             'paymentterms',
-            'remarks'
+            'remarks',
+            'buyeraddr'
           ];
         }
-      //   break;
-      // case  'buyer':
-      //   if (!this.edit) {
-      //     controls = [
-      //       'itemName',
-      //       'itemCategory',
-      //       'sampleNo',
-      //       'odrQty',
-      //       'itemSeller',
-      //       // 'itemPrice',
-      //       // 'availableQty',
-      //       // auctionType === 'seller' ? 'maxQty' : null,
-      //       // auctionType === 'seller' ? 'minQty' : null,
-      //       // 'unit',
-      //       // 'floorPrice',
-      //       // auctionType === 'seller' ? 'ceilingPrice' : null,
-      //       'buyername',
-      //       'buyergstin',
-      //       'buyerphone',
-      //       'buyeraddress',
-      //       'buyerpin',
-      //     ];
-      //   } else {
-      //     controls = [
-      //       'buyername',
-      //       'buyergstin',
-      //       'buyerphone',
-      //       'buyeraddress',
-      //       'buyerpin',
-      //     ];
-      //   }
-      //   break;
-    // }
     const formControls = {};
     controls.map(control => {
       if (control) {
@@ -296,6 +275,7 @@ export class CreateOrderComponent implements OnInit {
 
   addNewBuyerCheck(){
     this.addNewBuyer = !this.form.get('agentCreateOrder.addNewBuyer').value;
+    // console.log(this.addNewBuyer)
   }
 
   onSampleNoChange() {
@@ -317,6 +297,23 @@ export class CreateOrderComponent implements OnInit {
     } else {
       return this.form.controls.agentCreateOrder['controls'][name].errors || {};
     }
+  }
+
+  getSampleNo(id) {
+      this.loading = true;
+      this.itempost.get(id).subscribe((item) => {
+        this.item = item;
+        this.form.controls.agentCreateOrder['controls'].itemName.setValue(item['name']._id);
+        this.form.controls.agentCreateOrder['controls'].itemCategory.setValue(item['category']._id);
+        this.form.controls.agentCreateOrder['controls'].sampleNo.setValue(item['_id']);
+        this.seller = item['seller'];
+        this.edit = false;
+        this.selecteditem = item;
+        this.loading = false;
+      }, error => {
+        this.loading = false;
+        console.log(error);
+      });
   }
 
   order(f) {
