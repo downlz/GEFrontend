@@ -98,7 +98,7 @@ export class PlaceBidComponent implements OnInit, AfterViewInit {
     if (this.form.valid) {
       this.loading = true;
       const bid = this.form.getRawValue().newItem;
-      console.log(bid);
+      // console.log(bid);
       // Check what details are sent in case seller auction so that agent can place it safely
       if (this.role === 'agent' && this.auction.auctionType == 'seller' && (bid.onbehalfofbuyer == '' || bid.phoneno == '')) {
       this.toastr.error('Buyer Name and Phone no. is mandatory to place the bid','Input Missing' ,{

@@ -367,7 +367,7 @@ export class CreateAuctionComponent implements OnInit {
     const sample = this.form.get('newItem.sampleNo').value;
     const listing = this.listings.find((obj) => obj.id = sample);
     this.seller = listing.seller;
-    console.log(this.seller);
+    // console.log(this.seller);
   }
 
   save(event) {

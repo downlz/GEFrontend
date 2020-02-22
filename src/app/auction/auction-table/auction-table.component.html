@@ -40,7 +40,7 @@
           </a></th>
           <td>{{auction.auctionType}}</td>
           <!--<td *ngIf="showBestPrice">{{auction.bestPrice}}</td>-->
-          <td *ngIf="role == 'admin'">{{auction.user.name}}</td>
+          <td *ngIf="role == 'admin'">{{auction.createdBy.name}}</td>
           <td>{{auction.sampleNo.category.name}}</td>
           <td>{{getDateString(auction.startTime)}}</td>
           <td>{{getDateString(auction.endTime)}}</td>

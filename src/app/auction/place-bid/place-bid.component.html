@@ -62,7 +62,8 @@
                    placeholder="Phone No.">
           </div>
         </div>
-        <div class="col-md-12" *ngIf="role == 'seller' || role == 'agent'">
+        <div class="col-md-12" *ngIf="auction.auctionType == 'buyer'" >
+        <!-- "role == 'seller' || role == 'agent'"> -->
           <div class="form-group">
             <label>Manufacturer <input type="checkbox" [ngModelOptions]="{standalone: true}"
                                        [(ngModel)]="manufacturerNotPresent"/> (Check Not Present in below

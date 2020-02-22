@@ -20,4 +20,8 @@ export class BidService extends DataService  {
   bestbid(id,type) {
     return this.http.get(this.url + '/bestbid/' + id + '/type/' + type );
   }
+
+  agentbiddtl(id) {
+    return this.http.get(this.url + '/agentbid/' + id );
+  }
 }
