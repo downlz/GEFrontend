@@ -9,7 +9,7 @@
         <th scope="col">Quote</th>
         <th scope="col" *ngIf="role =='seller'">Manufacturer</th>
         <th scope="col" *ngIf="role =='seller'">Marketing Expenses</th>
-        <th scope="col" *ngIf="role =='seller'">Effective Price</th>
+        <th scope="col" *ngIf="role =='seller'">Eff. Price/Unit</th>
         <th scope="col">Bid At</th>
         <th scope="col">Best Bid</th>
         <th scope="col">Status</th>
@@ -23,7 +23,7 @@
           <th scope="col">Quote</th>
           <th scope="col" *ngIf="auctionType == 'buyer'">Manufacturer</th>
           <th scope="col" *ngIf="auctionType == 'buyer'">Marketing Expenses</th>
-          <th scope="col" *ngIf="auctionType == 'buyer'">Effective Price</th>
+          <th scope="col" *ngIf="auctionType == 'buyer'">Eff. Price/Unit</th>
           <th scope="col">Bid At</th>
           <!-- <th scope="col" *ngIf="!auctionType">Best Bid</th> -->
           <th scope="col" *ngIf="auctionType">Actions</th>
@@ -82,6 +82,9 @@
               </td> -->
 
           <td *ngIf="auctionType">
+            <button class="btn btn-primary btn-sm" *ngIf="role=='agent'" [disabled]="true">
+              With Admin
+            </button>&nbsp;
             <button class="btn btn-primary btn-sm" *ngIf="confirmOrder && !bid.orderConfirmed" (click)="confirmBidOrder(bid)">
               Confirm Order
             </button>&nbsp;

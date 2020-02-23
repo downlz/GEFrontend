@@ -32,7 +32,7 @@
         <tr>
           <th scope="row"><a [routerLink]="['/products', auction.sampleNo._id]">
             <div>
-              <p>{{auction.sampleNo.name.name}}</p>
+              <p>{{auction.sampleNo.sampleNo}}</p>
               <div>
                 <img [src]="auction.sampleNo.image" class="img-thumbnail" width="100" height="100"/>
               </div>
@@ -41,7 +41,7 @@
           <td>{{auction.auctionType}}</td>
           <!--<td *ngIf="showBestPrice">{{auction.bestPrice}}</td>-->
           <td *ngIf="role == 'admin'">{{auction.createdBy.name}}</td>
-          <td>{{auction.sampleNo.category.name}}</td>
+          <td>{{auction.sampleNo.name.name}} - {{auction.sampleNo.category.name}}</td>
           <td>{{getDateString(auction.startTime)}}</td>
           <td>{{getDateString(auction.endTime)}}</td>
           <!--<td *ngIf="role === 'admin' || role === 'seller'">{{auction.approved ? "Yes" : "No"}}</td>-->

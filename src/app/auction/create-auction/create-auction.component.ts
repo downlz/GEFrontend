@@ -289,7 +289,7 @@ export class CreateAuctionComponent implements OnInit {
   }
 
   ngOnInit() {
-    if (this.role === 'admin') {
+    if (this.role === 'admin' || this.role === 'agent') {
       forkJoin([this.itemnameService.getAll(), this.unitService.getAll(), this.sellerService.getAll(), this.buyerService.getAll(),
         this.stateService.getAll()
       ])
@@ -421,7 +421,7 @@ export class CreateAuctionComponent implements OnInit {
         this.loading = true;
         this.auctionService.create(auction).subscribe((response) => {
           this.loading = false;
-          alert('Auction listed successfully');
+          alert('Auction listed successfully.Auction will be live post approval and in auction time window only.');
           this.router.navigate(['/auction']);
 
         }, err => {

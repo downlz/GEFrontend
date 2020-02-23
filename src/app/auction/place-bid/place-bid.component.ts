@@ -47,7 +47,7 @@ export class PlaceBidComponent implements OnInit, AfterViewInit {
       this.manufacturers = data;
     });
     if (this.auction) {
-      if (this.role === 'seller') {
+      if (this.auction.auctionType === 'buyer') {
         this.form = new FormGroup({
           newItem: new FormGroup({
             price: new FormControl('', [

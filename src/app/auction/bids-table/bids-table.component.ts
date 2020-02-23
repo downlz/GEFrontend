@@ -107,42 +107,20 @@ export class BidsTableComponent implements OnInit, OnChanges {
     }
   }
 
-  // getBestBid(biddata) {
-  //   if (!biddata) {
-  //     return '';
-  //   }
-  //   // console.log(this.auction);
-  //   if (biddata) {
-  //     return biddata.auctionType === 'buyer' ? Math.min.apply(this, (biddata.bids || []).map((bid) => {
-  //       return isNaN(bid.price) ? 0 : (bid.price*(1-((bid.marketingExpense)/100))).toFixed(2);
-  //     })) : Math.max.apply(this, (biddata.bids || []).map((bid) => {
-  //       return isNaN(bid.price) ? 0 : bid.price;
-  //     }));
-  //   }
-  // }
-
   confirmBidOrder(bid) {
-    // console.log(data);
-    // this.orderService.get('orderno')        // Sending url as per API defination
-    //   .subscribe(response => {              // improve coding standards
-    //     const res = response as any;
-    //     bid.orderno = parseInt(res[0].orderno) + 1;
-    //     console.log(bid);
-    //   // })
     this.bidService.confirmOrder(bid._id)
     .subscribe((data) => {
-      console.log(this.data);
+      // console.log(this.data);
       alert('Order Confirmed successfully');
     }, (err) => {
       console.log(err);
       alert('Error while Confirming order');
     });
-  // });
 }
     fetchbestbid(id,type){
       this.bidService.bestbid(id,type)
       .subscribe((data) => {
-        console.log(data);
+        // console.log(data);
         // return data[0].price
         // alert ('Best bid-' + data[0].price)
         this.toastr.success('Rs.'+data[0].price,'Best bid' ,{

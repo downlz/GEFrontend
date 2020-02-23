@@ -31,7 +31,7 @@
       </div>
       </div>      
       <div class="row">
-        <div class="col-md-6" *ngIf="role == 'buyer' || role == 'agent'">
+        <div class="col-md-6" *ngIf="role == 'buyer' || (auction.auctionType == 'seller' && role == 'agent')">
           <div class="form-group">
             <label>Quantity (in {{auction.unit.mass}})</label>
             <input #quantity type="number" id="quantity" class="form-control" formControlName="quantity"
@@ -82,7 +82,7 @@
             </div>
           </div>
         </div>
-        <div class="col-md-12" *ngIf="role == 'seller'">
+        <div class="col-md-12" *ngIf="role == 'seller' || role == 'agent'">
           <div class="form-group">
             <label>Marketing Expense (%age) <input type="checkbox" [ngModelOptions]="{standalone: true}"
                                                    [(ngModel)]="showMarketingExpense"/></label>
