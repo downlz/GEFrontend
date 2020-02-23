@@ -25,7 +25,8 @@ export class AuctionStatusComponent implements OnInit {
       subscription = this.service.getAll({
        // bestPrice: true
       });
-    } else if (this.role === 'seller') {
+    } else {
+    // if (this.role === ('seller' || 'agent')) {
       subscription = this.service.getCurrentUserData();
     }
     this.loading = true;

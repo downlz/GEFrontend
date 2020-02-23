@@ -4,12 +4,12 @@
     <a class="nav-link" [ngClass]="{'active' : activeTab==='active'}" (click)="changeTab('active')">
       {{role == 'seller' ? 'Buyer Auctions' : ''}}
       {{role == 'buyer' ? 'Seller Auctions' : ''}}
-      {{role == 'admin' ? 'Active Auctions' : ''}}
+      {{(role == 'admin' || role == 'agent') ? 'Active Auctions' : ''}}
       <span *ngIf="activeAuctions">({{activeAuctions.length}})</span>
     </a>
   </li>
   <li class="nav-item">
-    <a class="nav-link" [ngClass]="{'active' : activeTab==='myauctions'}" *ngIf="role !='admin'" (click)="changeTab('myauctions')">Active
+    <a class="nav-link" [ngClass]="{'active' : activeTab==='myauctions'}" *ngIf="role =='seller' || role == 'buyer'" (click)="changeTab('myauctions')">Active
       <span *ngIf="myAuctions">({{myAuctions.length}})</span></a>
   </li>
   <li class="nav-item">
@@ -39,8 +39,7 @@
     <app-auction-table [auctions]="inActiveAuctions" [actions]="['bids','details']" [loading]="loading"
                        (onDataChange)="onDataChange($event)"></app-auction-table>
   </div>
-  <div class="tab-pane container" [ngClass]="{'active' : activeTab==='myauctions'}"
-  >
+  <div class="tab-pane container" [ngClass]="{'active' : activeTab==='myauctions'}">
     <app-auction-table [auctions]="myAuctions" [actions]="['bids','details']" [loading]="loading" *ngIf="role !='admin'"
                        (onDataChange)="onDataChange($event)"></app-auction-table>
   </div>

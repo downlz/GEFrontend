@@ -4,6 +4,7 @@ import {AbstractControl, FormControl, FormGroup, Validators} from '@angular/form
 import {BidService} from '../../services/bid.service';
 import {AuthService} from '../../services/auth.service';
 import {ManufacturerService} from '../../services/manufacturer.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-place-bid',
@@ -27,7 +28,8 @@ export class PlaceBidComponent implements OnInit, AfterViewInit {
   // bids: Array<any>;
 
   constructor(private authService: AuthService, private modalService: NgbModal, 
-    private bidService: BidService, private manufacturerService: ManufacturerService) {
+    private bidService: BidService, private manufacturerService: ManufacturerService,
+    private toastr: ToastrService) {
     this.role = this.authService.getRole();
     // bidService.getCurrentUserData().subscribe((data: Array<any>) => {
     //   this.bids = data;
@@ -45,7 +47,7 @@ export class PlaceBidComponent implements OnInit, AfterViewInit {
       this.manufacturers = data;
     });
     if (this.auction) {
-      if (this.role === 'seller') {
+      if (this.auction.auctionType === 'buyer') {
         this.form = new FormGroup({
           newItem: new FormGroup({
             price: new FormControl('', [
@@ -74,7 +76,10 @@ export class PlaceBidComponent implements OnInit, AfterViewInit {
               Validators.required,
               (control: AbstractControl) => Validators.min(this.auction.minQty)(control),
               (control: AbstractControl) => Validators.max(this.auction.maxQty)(control)
-            ])
+            ],
+            ),
+            onbehalfofbuyer: new FormControl(''),
+            phoneno: new FormControl('')
           })
         });
       }
@@ -93,6 +98,14 @@ export class PlaceBidComponent implements OnInit, AfterViewInit {
     if (this.form.valid) {
       this.loading = true;
       const bid = this.form.getRawValue().newItem;
+      // console.log(bid);
+      // Check what details are sent in case seller auction so that agent can place it safely
+      if (this.role === 'agent' && this.auction.auctionType == 'seller' && (bid.onbehalfofbuyer == '' || bid.phoneno == '')) {
+      this.toastr.error('Buyer Name and Phone no. is mandatory to place the bid','Input Missing' ,{
+        positionClass: 'toast-bottom-center'
+      });
+      this.loading = false;  
+      } else {
       bid.auction = this.auction._id;
       this.bidService.create(bid).subscribe((response) => {
           this.loading = false;
@@ -102,7 +115,7 @@ export class PlaceBidComponent implements OnInit, AfterViewInit {
         this.loading = false;
         alert('There was a server error while bidding on this auction');
       });
-
+      }
     }
   }
 

@@ -181,6 +181,41 @@ export class CreateAuctionComponent implements OnInit {
           ];
         }
         break;
+      case  'agent':
+          auctionType = auctionType || 'seller';
+          if (!this.edit) {
+            controls = [
+              'auctionType',
+              'itemName',
+              'itemCategory',
+              'sampleNo',
+              'availableQty',
+              auctionType === 'seller' ? 'maxQty' : null,
+              auctionType === 'seller' ? 'minQty' : null,
+              'unit',
+              'floorPrice',
+              auctionType === 'seller' ? 'ceilingPrice' : null,
+              'nameVisible',
+              'startTime',
+              'endTime',
+              'transportCost',
+              'address',
+              'state',
+              'pincode',
+              'buyer',
+              'remarks'
+            ];
+          } else {
+            controls = [
+              'availableQty',
+              'maxQty',
+              'minQty',
+              'floorPrice',
+              'ceilingPrice',
+              'transportCost',
+            ];
+          }
+          break;  
       case  'seller':
         if (!this.edit) {
           controls = [
@@ -254,7 +289,7 @@ export class CreateAuctionComponent implements OnInit {
   }
 
   ngOnInit() {
-    if (this.role === 'admin') {
+    if (this.role === 'admin' || this.role === 'agent') {
       forkJoin([this.itemnameService.getAll(), this.unitService.getAll(), this.sellerService.getAll(), this.buyerService.getAll(),
         this.stateService.getAll()
       ])
@@ -332,7 +367,7 @@ export class CreateAuctionComponent implements OnInit {
     const sample = this.form.get('newItem.sampleNo').value;
     const listing = this.listings.find((obj) => obj.id = sample);
     this.seller = listing.seller;
-    console.log(this.seller);
+    // console.log(this.seller);
   }
 
   save(event) {
@@ -386,7 +421,7 @@ export class CreateAuctionComponent implements OnInit {
         this.loading = true;
         this.auctionService.create(auction).subscribe((response) => {
           this.loading = false;
-          alert('Auction listed successfully');
+          alert('Auction listed successfully.Auction will be live post approval and in auction time window only.');
           this.router.navigate(['/auction']);
 
         }, err => {

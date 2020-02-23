@@ -31,7 +31,7 @@
       </div>
       </div>      
       <div class="row">
-        <div class="col-md-6" *ngIf="role == 'buyer'">
+        <div class="col-md-6" *ngIf="role == 'buyer' || (auction.auctionType == 'seller' && role == 'agent')">
           <div class="form-group">
             <label>Quantity (in {{auction.unit.mass}})</label>
             <input #quantity type="number" id="quantity" class="form-control" formControlName="quantity"
@@ -46,7 +46,24 @@
                    placeholder="Price">
           </div>
         </div>
-        <div class="col-md-12" *ngIf="role == 'seller'">
+        <div class="col-md-6" *ngIf="role == 'agent' && auction.auctionType == 'seller'">
+          <div class="form-group">
+            <label>Buyer Name</label>
+
+            <input type="text" id="onbehalfofbuyer" class="form-control" formControlName="onbehalfofbuyer"
+                   placeholder="Buyer Name">
+          </div>
+        </div>
+        <div class="col-md-6" *ngIf="role == 'agent' && auction.auctionType == 'seller'">
+          <div class="form-group">
+            <label>Contact</label>
+
+            <input type="text" id="phoneno" class="form-control" formControlName="phoneno"
+                   placeholder="Phone No.">
+          </div>
+        </div>
+        <div class="col-md-12" *ngIf="auction.auctionType == 'buyer'" >
+        <!-- "role == 'seller' || role == 'agent'"> -->
           <div class="form-group">
             <label>Manufacturer <input type="checkbox" [ngModelOptions]="{standalone: true}"
                                        [(ngModel)]="manufacturerNotPresent"/> (Check Not Present in below
@@ -61,11 +78,11 @@
               <input *ngIf="manufacturerNotPresent" type="text" id="manufacturer"
                      formControlName="manufacturer" class="form-control"
 
-                     placeholder="Manufacturer">
+                     placeholder="Enter Manufacturer">
             </div>
           </div>
         </div>
-        <div class="col-md-12" *ngIf="role == 'seller'">
+        <div class="col-md-12" *ngIf="role == 'seller' || role == 'agent'">
           <div class="form-group">
             <label>Marketing Expense (%age) <input type="checkbox" [ngModelOptions]="{standalone: true}"
                                                    [(ngModel)]="showMarketingExpense"/></label>

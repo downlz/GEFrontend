@@ -8,7 +8,7 @@
       <span>Product Details</span>
     </a>
   </li>
-  <li class="nav-item" *ngIf="role=='admin' || ( auction && auction.user._id == userId)">
+  <li class="nav-item" *ngIf="role=='admin' || ( auction && auction.user._id == userId) || (auction && auction.createdBy._id == userId)">
     <a class="nav-link" [ngClass]="{'active' : activeTab==='bids'}" (click)="changeTab('bids')">
       <span>Bids</span>
     </a>
@@ -22,7 +22,7 @@
     <app-listing-detail [listing]="listing" [auction]="auction"></app-listing-detail>
   </div>
   <div class="tab-pane container" [ngClass]="{'active' : activeTab==='bids'}" id="bids"
-       *ngIf="role=='admin' || (auction && auction.user._id == userId)">
+       *ngIf="role=='admin' || (auction && auction.user._id == userId) || (auction && auction.createdBy._id == userId)">
     <div class="spinner-grow loader text-success" *ngIf="loading"></div>
     <app-bids-table [bids]="auction?auction.bids:[]" [bidHistory]=true
                     [confirmOrder]="role=='admin' || (auction.user._id == userId)"

@@ -92,7 +92,7 @@
             <a [routerLink]="['/orderNow', listing._id]" routerLinkActive="router-link-active" class="btn btn-primary btn-block">Order Now</a>
           </div>
           <div class="card-footer" *ngIf="role=='agent'">
-            <a [routerLink]="['/createorder']" routerLinkActive="router-link-active" class="btn btn-primary btn-block">Place order for buyer</a>
+            <a [routerLink]="['/createorder', listing._id]" routerLinkActive="router-link-active" class="btn btn-primary btn-block">Place order for buyer</a>
           </div>
           <div class="card-footer">
             <a [routerLink]="" routerLinkActive="router-link-active" (click)="order()" class="btn btn-primary btn-block">Order Sample</a>

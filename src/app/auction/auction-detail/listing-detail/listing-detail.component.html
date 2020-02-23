@@ -77,13 +77,17 @@
                 </tr>
                 <tr *ngIf=" auction.nameVisible ">
                   <th>Listed by :</th>
-                  <th> {{ auction.user.name }}</th>
+                  <th> {{ auction.createdBy.name }}</th>
                 </tr>
                 <tr *ngIf=" auction.transportCost ">
                     <th>Tranport Cost Included :</th>
                     <th *ngIf="auction.transportCost "> Yes</th>
                     <th *ngIf="!auction.transportCost "> No</th>
                   </tr>
+                  <!-- <tr *ngIf="auction.remarks "> Intent is to show item season
+                    <th>Remarks :</th>
+                    <th> {{ auction.remarks}}</th>
+                  </tr> -->
                 <tr *ngIf=" auction.remarks ">
                   <th>Remarks :</th>
                   <th> {{ auction.remarks}}</th>
