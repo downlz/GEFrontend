@@ -232,11 +232,10 @@ export class CreateOrderComponent implements OnInit {
           this.states = response[2];
           this.cities = response[3];
           this.agentbuyer = response[4];
-
           if (this.role == 'agent') {
             var currentid = this.userid;
             var filteredBuyers =  this.agentbuyer.filter(function(buyerlist) {
-              return buyerlist._id == currentid;
+              return buyerlist.addedby == currentid;
             });
             this.agentbuyer = filteredBuyers
           }
@@ -391,15 +390,15 @@ export class CreateOrderComponent implements OnInit {
       OrderData.addresstype =  'delivery',
       OrderData.isExistingAddr = true;
     }
-    console.log(OrderData)
-    // this.orderService.create(OrderData)
-    // .subscribe(response => {
-    //   alert('Order Placed Successfully');
-    //   this.router.navigate(['/myOrders']);
-    // }, (error: AppError) => {
-    //   console.log(error);
-    //   this.router.navigate(['/errorpage']);
-    // });
+    // console.log(OrderData)
+    this.orderService.create(OrderData)
+    .subscribe(response => {
+      alert('Order Placed Successfully');
+      this.router.navigate(['/myOrders']);
+    }, (error: AppError) => {
+      console.log(error);
+      this.router.navigate(['/errorpage']);
+    });
   }
 }
 
