@@ -78,7 +78,7 @@
 
         <div class="col-md-3 pl-1" *ngIf='form.value.agentCreateOrder.sampleNo' >
           <div class="form-group">
-            <label>Order Quantity</label>
+            <label>Order Qty ({{selecteditem.unit.mass}})</label>
             <input type="number" id="odrQty" class="form-control"  formControlName="odrQty" 
                    placeholder="Add Quantity"
                    (ngModelChange)="onQuantityChange($event)">
@@ -90,8 +90,9 @@
 
         <div class="col-md-3 pl-1" *ngIf='form.value.agentCreateOrder.sampleNo'>
             <div class="form-group">
-              <label>Order Unit</label>
-              <input type="text" id='itemUnit' value="{{selecteditem.unit.mass}}" class="form-control" disabled>
+              <label>Offer Price in Rs.</label>
+              <input type="number" id='offerPrice' class="form-control" formControlName="offerPrice" 
+              (ngModelChange)="onOfferPriceChange($event)">
             </div>
           </div>
         
