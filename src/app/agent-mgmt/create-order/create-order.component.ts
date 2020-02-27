@@ -87,6 +87,7 @@ export class CreateOrderComponent implements OnInit {
         Validators.required,
         Validators.min(1)
       ]),
+      offerPrice: new FormControl(0, []),
       itemSeller: new FormControl(0, []),
       itemUnit: new FormControl(0,[]),
       buyername: new FormControl('', [
@@ -165,7 +166,8 @@ export class CreateOrderComponent implements OnInit {
             'buyercity',
             'paymentterms',
             'remarks',
-            'buyeraddr'
+            'buyeraddr',
+            'offerPrice'
           ];
         } else {
           controls = [
@@ -186,7 +188,8 @@ export class CreateOrderComponent implements OnInit {
             'buyercity',
             'paymentterms',
             'remarks',
-            'buyeraddr'
+            'buyeraddr',
+            'offerPrice'
           ];
         }
     const formControls = {};
@@ -229,11 +232,10 @@ export class CreateOrderComponent implements OnInit {
           this.states = response[2];
           this.cities = response[3];
           this.agentbuyer = response[4];
-
           if (this.role == 'agent') {
             var currentid = this.userid;
             var filteredBuyers =  this.agentbuyer.filter(function(buyerlist) {
-              return buyerlist._id == currentid;
+              return buyerlist.addedby == currentid;
             });
             this.agentbuyer = filteredBuyers
           }
@@ -291,6 +293,11 @@ export class CreateOrderComponent implements OnInit {
     this.ordercost = cost;
   }
 
+  onOfferPriceChange() {
+    const cost = this.form.getRawValue().agentCreateOrder.offerPrice * this.form.getRawValue().agentCreateOrder.odrQty;
+    this.ordercost = cost;
+  }
+
   getErrors(name) {
     if (!this.form.controls.agentCreateOrder['controls'][name]) {
       return {};
@@ -318,7 +325,10 @@ export class CreateOrderComponent implements OnInit {
 
   order(f) {
     this.clicked = true;
-    const createOrder = this.form.getRawValue().agentCreateOrder;  
+    const createOrder = this.form.getRawValue().agentCreateOrder; 
+    if (createOrder.offerPrice > 1) {
+
+    }
     // console.log(!createOrder.buyeraddr);
     // console.log(createOrder.addNewBuyer);
     // console.log(createOrder.buyeraddr);
@@ -342,8 +352,8 @@ export class CreateOrderComponent implements OnInit {
     const OrderData = {
       quantity: createOrder.odrQty,
       unit: this.selecteditem.unit.mass,
-      cost: createOrder.odrQty * this.selecteditem.price,
-      price : this.selecteditem.price,
+      cost: createOrder.offerPrice == 0 || createOrder.offerPrice == null ? createOrder.odrQty * this.selecteditem.price : createOrder.odrQty * createOrder.offerPrice,
+      price : createOrder.offerPrice == 0 || createOrder.offerPrice == null ? this.selecteditem.price: createOrder.offerPrice ,
       itemId: this.selecteditem._id,
       // addressId: this.address._id,
       buyerId: this.userid,
