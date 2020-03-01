@@ -98,6 +98,9 @@ export class PlaceBidComponent implements OnInit, AfterViewInit {
     if (this.form.valid) {
       this.loading = true;
       const bid = this.form.getRawValue().newItem;
+      if (this.role === 'agent'){
+        bid.placedby = 'agent';
+      }
       // console.log(bid);
       // Check what details are sent in case seller auction so that agent can place it safely
       if (this.role === 'agent' && this.auction.auctionType == 'seller' && (bid.onbehalfofbuyer == '' || bid.phoneno == '')) {
@@ -107,6 +110,7 @@ export class PlaceBidComponent implements OnInit, AfterViewInit {
       this.loading = false;  
       } else {
       bid.auction = this.auction._id;
+
       this.bidService.create(bid).subscribe((response) => {
           this.loading = false;
         alert('Bid Placed successfully');
