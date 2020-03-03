@@ -88,7 +88,7 @@
             <button class="btn btn-primary btn-sm" *ngIf="role=='agent'" [disabled]="true">
               With Admin
             </button>&nbsp;
-            <button class="btn btn-primary btn-sm" *ngIf="role=='agent'" (click)="placeBid(bidcontent,bid.auction)">
+            <button class="btn btn-primary btn-sm" *ngIf="role=='agent' && isBiddingAllowed(bid.auction) && currentTimestamp > getTimeStamp(bid.auction.startTime)" (click)="placeBid(bidcontent,bid)">
               Edit
             </button>&nbsp;
             <button class="btn btn-primary btn-sm" *ngIf="confirmOrder && !bid.orderConfirmed" (click)="confirmBidOrder(bid)">
@@ -127,5 +127,5 @@
   <app-bid-history [modal]="modal" [bids]="bidHistoryData" [bid]="bid" [auctionType]="auctionType"></app-bid-history>
 </ng-template>
 <ng-template #bidcontent let-modal>
-  <app-place-bid [modal]="modal" [auction]="selectedAuction"></app-place-bid>
+  <app-place-bid [modal]="modal" [auction]="selectedAuction" [bid]="bid"></app-place-bid>
 </ng-template>
