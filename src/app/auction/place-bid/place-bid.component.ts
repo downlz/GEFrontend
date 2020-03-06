@@ -60,12 +60,12 @@ export class PlaceBidComponent implements OnInit, AfterViewInit {
               Validators.required,
               (control: AbstractControl) => Validators.max(this.auction.floorPrice)(control),
             ]),
-            marketingExpense: new FormControl(this.bidedit? this.bid.marketingExpense : 0, [
+            marketingExpense: new FormControl({value:this.bidedit? this.bid.marketingExpense : 0, disabled: this.bidedit}, [
               // (control: AbstractControl) => this.showMarketingExpense ? Validators.required(control) : null,
               // (control: AbstractControl) => Validators.min(1)(control),
               (control: AbstractControl) => Validators.max(100)(control)
             ]),
-            manufacturer: new FormControl(this.bidedit? this.bid.manufacturer : '', [
+            manufacturer: new FormControl({value: this.bidedit? this.bid.manufacturer : '', disabled: this.bidedit}, [
               //Validators.required
             ])
           })
@@ -84,8 +84,8 @@ export class PlaceBidComponent implements OnInit, AfterViewInit {
               (control: AbstractControl) => Validators.max(this.auction.maxQty)(control)
             ],
             ),
-            onbehalfofbuyer: new FormControl(this.bidedit? this.bid.agentbid.partyname : ''),
-            phoneno: new FormControl(this.bidedit? this.bid.agentbid.partyphone : '')
+            onbehalfofbuyer: new FormControl({value : this.bidedit? this.bid.agentbid.partyname : '', disabled: this.bidedit}),
+            phoneno: new FormControl({value : this.bidedit? this.bid.agentbid.partyphone : '',disabled: this.bidedit})
           })
         });
       }

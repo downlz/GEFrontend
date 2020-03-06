@@ -66,7 +66,7 @@
         <!-- "role == 'seller' || role == 'agent'"> -->
           <div class="form-group">
             <label>Manufacturer <input type="checkbox" [ngModelOptions]="{standalone: true}"
-                                       [(ngModel)]="manufacturerNotPresent"/> (Check Not Present in below
+                                       [(ngModel)]="manufacturerNotPresent" [disabled]=bidedit /> (Check Not Present in below
               system)</label>
             <div class="col-md-6">
               <select name="Manufacturer" *ngIf="!manufacturerNotPresent" id="manufacturer"
@@ -85,7 +85,7 @@
         <div class="col-md-12" *ngIf="role == 'seller' || (auction.auctionType == 'buyer' && role == 'agent')">
           <div class="form-group">
             <label>Marketing Expense (%age) <input type="checkbox" [ngModelOptions]="{standalone: true}"
-                                                   [(ngModel)]="showMarketingExpense"/></label>
+                                                   [(ngModel)]="showMarketingExpense" [disabled]=bidedit /></label>
             <div class="col-md-6">
               <input class="col-md-6" *ngIf="showMarketingExpense" type="number" maxlength="3" id="marketingExpense"
                      formControlName="marketingExpense" class="form-control"
