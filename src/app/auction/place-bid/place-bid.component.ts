@@ -25,6 +25,9 @@ export class PlaceBidComponent implements OnInit, AfterViewInit {
   showMarketingExpense: Boolean = false;
   manufacturerNotPresent: Boolean = false;
   manufacturers: Array<any> = [];
+  @Input()
+  bid: any;
+  bidedit: boolean = false;
   // bids: Array<any>;
 
   constructor(private authService: AuthService, private modalService: NgbModal, 
@@ -46,20 +49,23 @@ export class PlaceBidComponent implements OnInit, AfterViewInit {
     this.manufacturerService.getAll().subscribe((data: any) => {
       this.manufacturers = data;
     });
+    if (this.bid != undefined) {
+    this.bidedit = this.auction.edit
+    }
     if (this.auction) {
       if (this.auction.auctionType === 'buyer') {
         this.form = new FormGroup({
           newItem: new FormGroup({
-            price: new FormControl('', [
+            price: new FormControl(this.bidedit? this.bid.price : '', [
               Validators.required,
               (control: AbstractControl) => Validators.max(this.auction.floorPrice)(control),
             ]),
-            marketingExpense: new FormControl(0, [
+            marketingExpense: new FormControl({value:this.bidedit? this.bid.marketingExpense : 0, disabled: this.bidedit}, [
               // (control: AbstractControl) => this.showMarketingExpense ? Validators.required(control) : null,
               // (control: AbstractControl) => Validators.min(1)(control),
               (control: AbstractControl) => Validators.max(100)(control)
             ]),
-            manufacturer: new FormControl('', [
+            manufacturer: new FormControl({value: this.bidedit? this.bid.manufacturer : '', disabled: this.bidedit}, [
               //Validators.required
             ])
           })
@@ -67,19 +73,19 @@ export class PlaceBidComponent implements OnInit, AfterViewInit {
       } else {
         this.form = new FormGroup({
           newItem: new FormGroup({
-            price: new FormControl('', [
+            price: new FormControl(this.bidedit? this.bid.price : '', [
               Validators.required,
               (control: AbstractControl) => Validators.min(this.auction.floorPrice)(control),
               (control: AbstractControl) => Validators.max(this.auction.ceilingPrice)(control)
             ]),
-            quantity: new FormControl('', [
+            quantity: new FormControl(this.bidedit? this.bid.quantity : '', [
               Validators.required,
               (control: AbstractControl) => Validators.min(this.auction.minQty)(control),
               (control: AbstractControl) => Validators.max(this.auction.maxQty)(control)
             ],
             ),
-            onbehalfofbuyer: new FormControl(''),
-            phoneno: new FormControl('')
+            onbehalfofbuyer: new FormControl({value : this.bidedit? this.bid.agentbid.partyname : '', disabled: this.bidedit}),
+            phoneno: new FormControl({value : this.bidedit? this.bid.agentbid.partyphone : '',disabled: this.bidedit})
           })
         });
       }
@@ -110,7 +116,18 @@ export class PlaceBidComponent implements OnInit, AfterViewInit {
       this.loading = false;  
       } else {
       bid.auction = this.auction._id;
-
+      if (this.bidedit) {
+        bid._id = this.bid._id;
+        // console.log(bid);
+        this.bidService.update(bid).subscribe((response) => {
+          this.loading = false;
+        alert('Bid updated successfully.Note only price & quantity edits qualify for change');
+        this.modal.close();
+      }, err => {
+        this.loading = false;
+        alert('There was a server error while editing this bid request.');
+      });
+      } else {
       this.bidService.create(bid).subscribe((response) => {
           this.loading = false;
         alert('Bid Placed successfully');
@@ -121,6 +138,7 @@ export class PlaceBidComponent implements OnInit, AfterViewInit {
       });
       }
     }
+  }
   }
 
   getErrors(name) {

@@ -120,9 +120,9 @@ export class CreateAuctionComponent implements OnInit {
       ])
     };
     this.maxStartDateTime = new Date();
-    this.maxStartDateTime.setTime(this.maxStartDateTime.getTime() + 1000 * 60 * 60 * 24 * 30);
+    this.maxStartDateTime.setTime(this.maxStartDateTime.getTime() + 1000 * 60 * 60 * 24 * 14);
     this.maxEndDateTime = new Date();
-    this.maxEndDateTime.setTime(this.maxEndDateTime.getTime() + 1000 * 60 * 60 * 24 * 37);
+    this.maxEndDateTime.setTime(this.maxEndDateTime.getTime() + 1000 * 60 * 60 * 24 * 21);
     this.route.paramMap
       .subscribe(async params => {
           const id = params.get('id');

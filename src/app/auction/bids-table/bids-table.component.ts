@@ -32,9 +32,12 @@ export class BidsTableComponent implements OnInit, OnChanges {
   // auction: any;
   userId: any;
   bid: any;
+  bidedit: boolean = true;;
   @Input()
   auctionType: string;
   manufacturers: any = [];
+  selectedAuction: any;
+  currentTimestamp = new Date().getTime();
 
   constructor(private auth: AuthService, private manufacturerService: ManufacturerService, 
     private auctionService: AuctionService, private bidService: BidService, 
@@ -59,8 +62,12 @@ export class BidsTableComponent implements OnInit, OnChanges {
     return new Date(str).toLocaleString();
   }
 
+  getTimeStamp(string) {
+    const date = new Date(string);
+    return date.getTime();
+  }
+
   onPageChange(page) {
-    // console.log(this.bids);
     this.data = [...(this.bids || [])];
     this.data = this.data.splice((page - 1) * this.pageSize, this.pageSize);
     this.currentPage = page;
@@ -105,6 +112,24 @@ export class BidsTableComponent implements OnInit, OnChanges {
     } else {
       return bid.manufacturer;
     }
+  }
+
+  placeBid(content, bid) {
+    bid.auction.edit = this.bidedit;
+    this.selectedAuction = bid.auction;
+    this.bid = bid;
+    // delete this.bid.auction;     // reducing size of data
+    this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title'}).result.then((result) => {
+      this.selectedAuction = null;
+    }, (reason) => {
+      this.selectedAuction = null;
+    });
+  }
+
+  isBiddingAllowed(auction) {
+    const endTime = new Date(auction.endTime).getTime();
+    const currentTime = new Date().getTime();
+    return endTime > currentTime;
   }
 
   confirmBidOrder(bid) {

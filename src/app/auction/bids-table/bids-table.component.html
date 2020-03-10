@@ -7,9 +7,10 @@
         <th scope="col" *ngIf="auctionType">Bid By</th>
         <th scope="col">Quantity</th>
         <th scope="col">Quote</th>
-        <th scope="col" *ngIf="role =='seller'">Manufacturer</th>
-        <th scope="col" *ngIf="role =='seller'">Marketing Expenses</th>
-        <th scope="col" *ngIf="role =='seller'">Eff. Price/Unit</th>
+        <!-- <th scope="col" *ngIf="auctionType == 'seller' && bid.agentbid != null">Party</th> -->
+        <th scope="col" *ngIf="auctionType == 'buyer'">Manufacturer</th>
+        <th scope="col" *ngIf="auctionType == 'buyer'">Marketing Expenses</th>
+        <th scope="col" *ngIf="auctionType == 'buyer'">Eff. Price/Unit</th>
         <th scope="col">Bid At</th>
         <th scope="col">Best Bid</th>
         <th scope="col">Status</th>
@@ -21,6 +22,7 @@
           <!-- <th scope="col" *ngIf="role == 'admin' || role == 'agent'" >Party Name</th> -->
           <th scope="col">Quantity</th>
           <th scope="col">Quote</th>
+          <th scope="col" *ngIf="auctionType == 'seller' && (role == 'admin' || role == 'agent')">Party</th>
           <th scope="col" *ngIf="auctionType == 'buyer'">Manufacturer</th>
           <th scope="col" *ngIf="auctionType == 'buyer'">Marketing Expenses</th>
           <th scope="col" *ngIf="auctionType == 'buyer'">Eff. Price/Unit</th>
@@ -59,6 +61,7 @@
           <td *ngIf="(auctionType == 'buyer' || (role =='seller' && !auctionType) || (role =='agent' && !auctionType))">{{bid.auction.availableQty + " " + bid.auction.unit.mass}}</td>
           <td *ngIf="(auctionType == 'seller' || (role =='buyer' && !auctionType))">{{bid.quantity + " " + bid.auction.unit.mass}}</td>
           <td>{{"&#8377; " + bid.price}}</td>
+          <th *ngIf="auctionType == 'seller' && (role == 'admin' || role == 'agent')"> {{bid.agentbid.partyname ? bid.agentbid.partyname : 'NA' }}</th>
           <td *ngIf="auctionType == 'buyer' || (role =='seller' && !auctionType)"> {{getManufacturer(bid)}}</td>
           <td *ngIf="((auctionType == 'buyer' || (role =='seller' && !auctionType)) && bid.marketingExpense > 0)"> Yes, {{bid.marketingExpense}}%</td>
           <td *ngIf="((auctionType == 'buyer' || (role =='seller' && !auctionType)) && (!bid.marketingExpense || bid.marketingExpense === 0 ||bid.marketingExpense == null))"> No</td>
@@ -84,6 +87,9 @@
           <td *ngIf="auctionType">
             <button class="btn btn-primary btn-sm" *ngIf="role=='agent'" [disabled]="true">
               With Admin
+            </button>&nbsp;
+            <button class="btn btn-primary btn-sm" *ngIf="role=='agent' && isBiddingAllowed(bid.auction) && currentTimestamp > getTimeStamp(bid.auction.startTime)" (click)="placeBid(bidcontent,bid)">
+              Edit
             </button>&nbsp;
             <button class="btn btn-primary btn-sm" *ngIf="confirmOrder && !bid.orderConfirmed" (click)="confirmBidOrder(bid)">
               Confirm Order
@@ -119,4 +125,7 @@
 </div>
 <ng-template #content let-modal>
   <app-bid-history [modal]="modal" [bids]="bidHistoryData" [bid]="bid" [auctionType]="auctionType"></app-bid-history>
+</ng-template>
+<ng-template #bidcontent let-modal>
+  <app-place-bid [modal]="modal" [auction]="selectedAuction" [bid]="bid"></app-place-bid>
 </ng-template>

@@ -21,7 +21,7 @@ export class AuctionStatusComponent implements OnInit {
   ngOnInit() {
     this.role = this.auth.getRole();
     let subscription = null;
-    if (this.role === 'admin') {
+    if (this.role === 'admin' || this.role === 'agent') {
       subscription = this.service.getAll({
        // bestPrice: true
       });

@@ -48,10 +48,10 @@ export class AuctionListComponent implements OnInit {
     });
     this.inActiveAuctions = this.auctions.filter((auction) => {
       const difference = (new Date()).getTime() - (new Date(auction.endTime)).getTime();
-      return (auction.user._id === this.auth.getId() || this.role === 'admin') && difference > 0 && difference < (1000 * 60 * 60 * 24 * 7);
+      return (auction.user._id === this.auth.getId() || this.role === 'admin' || this.role === 'agent') && difference > 0 && difference < (1000 * 60 * 60 * 24 * 7);
     });
     this.pendingAuctions = this.auctions.filter((auction) => {
-      return (auction.user._id === this.auth.getId() || this.role === 'admin') && !auction.approved;
+      return (auction.user._id === this.auth.getId() || this.role === 'admin' || this.role === 'agent') && !auction.approved;
     });
     this.myAuctions = this.auctions.filter((auction) => {
       return auction.approved && (auction.user._id === this.auth.getId()) && (new Date().getTime() <= (new Date(auction.endTime)).getTime());
