@@ -6,6 +6,7 @@ import { UserService } from '../../services/user.service';
 import { OrderService } from '../../services/order.service';
 import {AuthService} from '../../services/auth.service';
 import { AppError } from '../../common/app-error';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-product-detail',
@@ -17,10 +18,14 @@ export class ProductDetailComponent implements OnInit {
   address: any;
   userid: any;
   role: string;
+  paymentdt : string;
+  liftdt: string;
+  payliftStr: string;
+  currDate: string;
 
   lastorderno: number;
   constructor(private listingService: ListingService, private userService: UserService,
-    private auth: AuthService,
+    private auth: AuthService,public datepipe: DatePipe,
     private route: ActivatedRoute, private router: Router, private orderService: OrderService) { }
 
   ngOnInit() {
@@ -49,6 +54,22 @@ export class ProductDetailComponent implements OnInit {
   this.listingService.get(id)
     .subscribe(response => {
       this.listing = response as Listing;
+      this.paymentdt = this.datepipe.transform(this.listing.paymentdate ? this.listing.paymentdate : new Date(), 'dd-MMM-yy');
+      this.liftdt = this.datepipe.transform(this.listing.liftdate ? this.listing.liftdate : new Date(), 'dd-MMM-yy');
+      this.currDate = this.datepipe.transform(new Date(), 'dd-MMM-yy');
+
+      if (this.paymentdt < this.currDate ){
+        this.paymentdt = this.currDate
+      } else if (this.liftdt < this.currDate ){
+        this.liftdt = this.currDate
+      } else {
+        // Do nothing as of now
+      }
+      if (this.paymentdt == this.liftdt){
+        this.payliftStr = 'Pay and Lift by ' + this.paymentdt;
+      } else {
+        this.payliftStr = 'Pay by ' + this.paymentdt + ' & ' + 'Lift by ' + this.liftdt; 
+      }
     }, (error: Response) => {
       this.router.navigate(['/errorpage']);
       if (error.status === 400) {

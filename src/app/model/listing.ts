@@ -30,4 +30,6 @@ export interface Listing {
   addedby: User;
   brokeragerate: string;
   remarks: string;
+  paymentdate: string;
+  liftdate: string;
 }
