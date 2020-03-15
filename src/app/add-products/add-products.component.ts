@@ -80,6 +80,8 @@ export class AddProductsComponent implements OnInit {
             image: new FormControl(''),
             bargainstatus: new FormControl('',[Validators.required]),
             bargaintrgqty: new FormControl(''),
+            paymentdt : new FormControl(''),
+            liftdt : new FormControl(''),
             istaxable: new FormControl('false', [
               Validators.required]),
               remarks : new FormControl('')
@@ -135,7 +137,7 @@ export class AddProductsComponent implements OnInit {
     this.uploader.onAfterAddingFile = (file) => { file.withCredentials = false; };
     this.uploader.onCompleteItem = (item: any, response: any, status: any, headers: any) => {
           this.loading = true
-          const formData = {
+          var formData = {
             nameId:  this.form.value.newitem.itemname,     // this.form.get('newItem.sampleNo').value
             categoryId:   this.form.value.newitem.itemcategory,
             // item:  this.form.value.newitem.item,
@@ -158,9 +160,17 @@ export class AddProductsComponent implements OnInit {
             manufacturerId:    this.form.value.newitem.manufacturer,
             image: JSON.parse(response).message,
             isTaxable: this.form.value.newitem.istaxable,
+            // paymentdate: this.form.value.newitem.paymentdt,
+            // liftdate: this.form.value.newitem.liftdt,
             addedby: this.userid,
             remarks: this.form.value.newitem.remarks ? this.form.value.newitem.remarks : 'NA'
           };
+          // this.form.value.newitem.paymentdt ? formData.paymentdate = this.form.value.newitem.paymentdate : '';
+          // this.form.value.newitem.liftdt ? formData.liftdate = this.form.value.newitem.liftdate : '';
+
+          if (this.form.value.newitem.paymentdt) {
+            // formData =''
+          }
          this.itempost.create(formData)
          .subscribe(response => {
            this.loading = false
@@ -201,7 +211,9 @@ export class AddProductsComponent implements OnInit {
       'istaxable',
       'bargaintrgqty',
       'bargainstatus',
-      'remarks'
+      'remarks',
+      'paymentdt',
+      'liftdt'
     ];
   } else {
     controls = [
@@ -224,7 +236,9 @@ export class AddProductsComponent implements OnInit {
       'manufacturer',
       'image',
       'istaxable',
-      'remarks'
+      'remarks',
+      'paymentdt',
+      'liftdt'
     ];
   }
   const formControls = {};
@@ -258,6 +272,8 @@ export class AddProductsComponent implements OnInit {
       this.form.controls.newitem['controls'].istaxable.setValue(item['isTaxable'] ? true : false);
       this.form.controls.newitem['controls'].bargaintrgqty.setValue(item['bargaintrgqty']);
       this.form.controls.newitem['controls'].remarks.setValue(item['remarks']);
+      this.form.controls.newitem['controls'].paymentdt.setValue(item['paymentdate'] ? item['paymentdate'] : '');
+      this.form.controls.newitem['controls'].liftdt.setValue(item['liftdate'] ? item['liftdate'] : '');
       this.mfgname = item['manufacturer'].name;
       this.loading = false;
     }, error => {
@@ -318,6 +334,14 @@ export class AddProductsComponent implements OnInit {
     return this.form.get('newitem.bargainstatus');
   }
 
+  get paymentdt() {
+    return this.form.get('newitem.paymentdt');
+  }
+
+  get liftdt() {
+    return this.form.get('newitem.liftdt');
+  }
+
   toggle(){
     if (!this.form.value.newitem.bargainstatus){
       this.textBoxDisabled = false;
@@ -362,6 +386,8 @@ export class AddProductsComponent implements OnInit {
         isLive: this.form.value.newitem.itemstatus,
         isTaxable: this.form.value.newitem.istaxable,
         remarks: this.form.value.newitem.remarks,
+        paymentdate: this.form.value.newitem.paymentdt,
+        liftdate: this.form.value.newitem.liftdt,
         bargainenabled: this.form.value.newitem.bargainstatus,
         bargaintrgqty: this.form.value.newitem.bargaintrgqty ? this.form.value.newitem.bargaintrgqty : '',
         addedby: this.userid
@@ -370,9 +396,9 @@ export class AddProductsComponent implements OnInit {
       this.itempost.update(upditem).subscribe((response) => {
         this.loading = false;
         if (this.role != 'admin'){
-          alert('Product updated successfully.Listing will be available once change is approved');
+          alert('Item details updated successfully.Listing will be available once change is approved');
         } else {
-          alert('Product updated successfully');
+          alert('Item details updated successfully');
         }
         this.router.navigate(['/products']);
       }, err => {

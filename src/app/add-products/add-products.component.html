@@ -146,26 +146,27 @@
 
         <div class="col-md-3 pr-1" *ngIf="formControls.image">
           <div class="form-group">
-            <label for="file">Upload item image</label>
+            <label for="file">Upload Item Image</label>
           <!-- <input type="file" id="file" (change)="onFileChange($event)" formControlName="file"> -->
           <input type="file" name="image" id="image" ng2FileSelect [uploader]="uploader" formControlName="image" accept=".jpg,.png,.jpeg">
           <!-- <img [src]="url" style="display: none;"> -->
           </div>
         </div>
-        </div>
-        <div class="row">
+        <!-- </div> -->
+        <!-- <div class="row"> -->
         <div class="col-md-4 pr-1" *ngIf="formControls.itemstatus  && role == 'admin'">
           <div class="form-group">
-            <label for="file">Set item status</label> <br>
+            <label for="file">Set Item Status</label> <br>
             <label class="radio">
             <input type="radio" id="itemstatus" formControlName="itemstatus" value='true'> Active </label> &nbsp;
             <label class="radio">
             <input type="radio" id="itemstatus" formControlName="itemstatus" value='false'> Inactive </label>
           </div>
+          
         </div>
       </div>
         <div class="row">
-          <div class="col-md-3 pr-1" *ngIf="formControls.istaxable">
+          <div class="col-md-2 pr-1" *ngIf="formControls.istaxable">
             <div class="form-group">
               <label>Is Product taxable</label> <br>
                 <select name="istaxable" id="istaxable" formControlName="istaxable" class="form-control">
@@ -180,6 +181,30 @@
               <input type="text" id="remarks" class="form-control" formControlName="remarks" placeholder="Seasonal Info">
             </div>
           </div>
+
+          <div class="col-md-3 pl-1">
+            <div class="form-group">
+              <label>Payment Date</label><br>
+              <input class="form-control" [owlDateTime]="dt1" [owlDateTimeTrigger]="dt1" id="paymentdt"
+                     formControlName="paymentdt"
+                     placeholder="Set Date"
+              >
+              <owl-date-time #dt1></owl-date-time>
+            </div>
+          </div>
+
+
+          <div class="col-md-3 pl-1">
+            <div class="form-group">
+              <label>Lift Date</label><br>
+              <input class="form-control" [owlDateTime]="dt2" [owlDateTimeTrigger]="dt2" id="liftdt"
+                     formControlName="liftdt"
+                     placeholder="Set Date"
+              >
+              <owl-date-time #dt2></owl-date-time>
+            </div>
+          </div>
+
           </div>
           <h5 *ngIf='edit'>Bargain options</h5>
           <div class="row">
