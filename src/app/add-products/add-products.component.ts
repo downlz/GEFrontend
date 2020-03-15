@@ -50,6 +50,7 @@ export class AddProductsComponent implements OnInit {
   item: any;
   clicked: boolean = false;
   textBoxDisabled = true;
+  maxEndDateTime: Date;
 
   constructor(private stateService: StateService, private cityService: CityService,private categoryService: CategoryService,
     private itemnameService: ItemnameService,private manufacturerService: ManufacturerService,private sellerService: UsersellerService,
@@ -86,7 +87,9 @@ export class AddProductsComponent implements OnInit {
               Validators.required]),
               remarks : new FormControl('')
           }
-
+    
+    this.maxEndDateTime = new Date();
+    this.maxEndDateTime.setTime(this.maxEndDateTime.getTime() + 1000 * 60 * 60 * 24 * 10);
     const role = this.auth.getRole();
     this.role = role;
 
