@@ -58,13 +58,13 @@ export class ProductDetailComponent implements OnInit {
       this.liftdt = this.datepipe.transform(this.listing.liftdate ? this.listing.liftdate : new Date(), 'dd-MMM-yy');
       this.currDate = this.datepipe.transform(new Date(), 'dd-MMM-yy');
 
-      if (this.paymentdt < this.currDate ){
+      if (this.paymentdt < this.currDate ) {
         this.paymentdt = this.currDate
-      } else if (this.liftdt < this.currDate ){
+      } 
+      if (this.liftdt < this.currDate ) {
         this.liftdt = this.currDate
-      } else {
-        // Do nothing as of now
-      }
+      } 
+      
       if (this.paymentdt == this.liftdt){
         this.payliftStr = 'Pay and Lift by ' + this.paymentdt;
       } else {
