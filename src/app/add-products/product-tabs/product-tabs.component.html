@@ -6,12 +6,12 @@
   
   <li class="nav-item">
     <a class="nav-link" [ngClass]="{'active' : activeTab==='addProduct'}" (click)="changeTab('addProduct')">
-      <span>Add new product</span>
+      <span>Add New Product</span>
     </a>
   </li>
   <li class="nav-item" *ngIf="role=='admin' || role=='agent' || role=='seller'">
     <a class="nav-link" [ngClass]="{'active' : activeTab==='productList'}" (click)="changeTab('productList')">
-      <span>View all products</span>
+      <span>View All Products</span>
     </a>
   </li>
   <!-- <li class="nav-item" *ngIf="role=='admin' || role=='agent' || role=='seller'">

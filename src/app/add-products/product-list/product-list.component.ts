@@ -20,6 +20,9 @@ export class ProductListComponent implements OnInit {
   loading : boolean = true;
   listings: any;
   queryParams = '';
+  allfetchedlisting: Array<any> = [];
+
+  _search = "";
 
   constructor(private auth: AuthService,
     private listingService: ListingService,
@@ -33,16 +36,22 @@ export class ProductListComponent implements OnInit {
     // });
   }
 
+  get search() {
+    return this._search;
+  }
+
   ngOnInit() {
     const currentUser = this.auth.currentUserValue;
     if (this.role == 'admin') {
       this.itemService.getallitem()
     .subscribe(response => {
       this.listings = response;
+      this.allfetchedlisting = this.listings;
       // this.data = this.listings;
       // console.log(this.listings);
-      this.setTotalPages();
-      this.onPageChange(this.currentPage);
+      this.filterChange();
+      // this.setTotalPages();
+      // this.onPageChange(this.currentPage);
       this.loading = false;
       // console.log(this.listings);
     }, (error: Response) => {
@@ -57,8 +66,10 @@ export class ProductListComponent implements OnInit {
       this.listingService.getCurrentUserListings()
     .subscribe(response => {
       this.listings = response;
-      this.setTotalPages();
-      this.onPageChange(this.currentPage);
+      this.allfetchedlisting = this.listings;
+      this.filterChange();
+      // this.setTotalPages();
+      // this.onPageChange(this.currentPage);
       this.loading = false;
       // console.log(this.listings);
     }, (error: Response) => {
@@ -77,6 +88,24 @@ export class ProductListComponent implements OnInit {
     this.onPageChange(this.currentPage);
     this.setTotalPages();
   }
+
+  set search(value: string) {
+    this._search = value;
+    if (value) {
+      let lowercase = value.toLowerCase().trim();
+      this.listings = this.listings.filter(item => {
+        return item.name.name.toLowerCase().indexOf(lowercase) >= 0
+          || item.category.name.toLowerCase().indexOf(lowercase) >= 0
+          || item.origin.toLowerCase().indexOf(lowercase) >= 0
+          || item.seller.name.toLowerCase().indexOf(lowercase) >= 0
+          || item.manufacturer.name.toLowerCase().indexOf(lowercase) >= 0
+          || item.sampleNo.toLowerCase().indexOf(lowercase) >= 0
+      });
+    } else {
+      this.listings = this.allfetchedlisting;
+    }
+    this.filterChange();
+  } 
 
   getDateString(str) {
     return new Date(str).toLocaleString();
@@ -101,6 +130,10 @@ export class ProductListComponent implements OnInit {
     if (typeof changes.auction === 'undefined') {
       this.initializeTable();
     }
+  }
+  filterChange(){
+    this.setTotalPages();
+    this.onPageChange(this.currentPage);
   }
 
   approveItem(id){
