@@ -6,3 +6,16 @@
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   padding: 15px 20px 15px 50px;
 }
+
+.about-section .items-wrapper .figure-holder {
+  min-height: 20px;
+  margin: 5px;
+  vertical-align: bottom;
+}
+
+.about-section img {
+  object-fit: contain;
+  vertical-align: bottom;
+  height: 100px;
+  position: relative;
+}
