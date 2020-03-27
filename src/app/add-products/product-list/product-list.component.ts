@@ -3,7 +3,7 @@ import { ItemService } from './../../services/item.service';
 import { Component, Input, OnChanges, OnInit } from '@angular/core';
 import { AuthService } from '../../services/auth.service';
 import { ListingService } from '../../services/listing.service';
-import { Router } from '@angular/router';
+import { ActivatedRoute,Router } from '@angular/router';
 @Component({
   selector: 'app-product-list',
   templateUrl: './product-list.component.html',
@@ -27,6 +27,7 @@ export class ProductListComponent implements OnInit {
   constructor(private auth: AuthService,
     private listingService: ListingService,
     private itemService: ItemService,
+    private route: ActivatedRoute,
     // private modalService: NgbModal, private toastr: ToastrService,
     private router: Router) {
     this.role = auth.getRole();
@@ -41,6 +42,14 @@ export class ProductListComponent implements OnInit {
   }
 
   ngOnInit() {
+    // this.route.queryParams
+    // .subscribe(params => {
+    //   const pageid = params.get('page');
+    //   console.log(pageid);
+    //   // this.itemid = id;
+    //   // this.getProduct(id);
+    // });
+
     const currentUser = this.auth.currentUserValue;
     if (this.role == 'admin') {
       this.itemService.getallitem()
@@ -124,6 +133,19 @@ export class ProductListComponent implements OnInit {
       const pages = (length % this.pageSize) === 0 ? (length / this.pageSize) : Math.floor(length / this.pageSize) + 1;
       this.totalPages = Array(pages).fill(0).map((x, i) => i + 1);
     }
+  }
+
+  getProduct(id){
+    // this.listingService.get(id)
+    // .subscribe(response => {
+    //   this.listing = response as Listing;
+    // }, (error: Response) => {
+    //   this.router.navigate(['/errorpage']);
+    //   if (error.status === 400) {
+    //     alert(' expected error, post already deleted');
+    //   }
+    //   console.log(error);
+    // });
   }
 
   ngOnChanges(changes) {

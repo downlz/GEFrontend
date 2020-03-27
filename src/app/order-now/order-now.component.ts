@@ -120,7 +120,7 @@ export class OrderNowComponent implements OnInit {
 
   checkActiveBargain() {
     // Check user role and apply service call
-    console.log(this.user);
+    // console.log(this.user);
     // if (userinfo.isBuyer === true) {
     //   console.log(userinfo);
     // }
