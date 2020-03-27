@@ -42,54 +42,55 @@ export class ProductListComponent implements OnInit {
   }
 
   ngOnInit() {
-    // this.route.queryParams
-    // .subscribe(params => {
-    //   const pageid = params.get('page');
-    //   console.log(pageid);
-    //   // this.itemid = id;
-    //   // this.getProduct(id);
-    // });
+    this.route.queryParams
+    .subscribe(params => {
+      const pageid = params['page'];
+      // this.itemid = id;
+      // this.getProduct(id);
+      const currentUser = this.auth.currentUserValue;
+      if (this.role == 'admin') {
+        // this.itemService.getallitem()
+        this.itemService.getallitembypage(1)
+      .subscribe(response => {
+        this.listings = response;
+        this.allfetchedlisting = this.listings;
+        // this.data = this.listings;
+        // console.log(this.listings);
+        this.filterChange();
+        // this.setTotalPages();
+        // this.onPageChange(this.currentPage);
+        this.loading = false;
+        // console.log(this.listings);
+      }, (error: Response) => {
+          this.loading = false;
+        this.router.navigate(['/errorpage']);
+        if (error.status === 400) {
+          alert(' expected error, post already deleted');
+        }
+        console.log(error);
+      });
+      } else {
+        this.listingService.getCurrentUserListings()
+      .subscribe(response => {
+        this.listings = response;
+        this.allfetchedlisting = this.listings;
+        this.filterChange();
+        // this.setTotalPages();
+        // this.onPageChange(this.currentPage);
+        this.loading = false;
+        // console.log(this.listings);
+      }, (error: Response) => {
+          this.loading = false;
+        this.router.navigate(['/errorpage']);
+        if (error.status === 400) {
+          alert(' expected error, post already deleted');
+        }
+        console.log(error);
+      });
+      }
+    });
 
-    const currentUser = this.auth.currentUserValue;
-    if (this.role == 'admin') {
-      this.itemService.getallitem()
-    .subscribe(response => {
-      this.listings = response;
-      this.allfetchedlisting = this.listings;
-      // this.data = this.listings;
-      // console.log(this.listings);
-      this.filterChange();
-      // this.setTotalPages();
-      // this.onPageChange(this.currentPage);
-      this.loading = false;
-      // console.log(this.listings);
-    }, (error: Response) => {
-        this.loading = false;
-      this.router.navigate(['/errorpage']);
-      if (error.status === 400) {
-        alert(' expected error, post already deleted');
-      }
-      console.log(error);
-    });
-    } else {
-      this.listingService.getCurrentUserListings()
-    .subscribe(response => {
-      this.listings = response;
-      this.allfetchedlisting = this.listings;
-      this.filterChange();
-      // this.setTotalPages();
-      // this.onPageChange(this.currentPage);
-      this.loading = false;
-      // console.log(this.listings);
-    }, (error: Response) => {
-        this.loading = false;
-      this.router.navigate(['/errorpage']);
-      if (error.status === 400) {
-        alert(' expected error, post already deleted');
-      }
-      console.log(error);
-    });
-    }
+    
     
   }
 
