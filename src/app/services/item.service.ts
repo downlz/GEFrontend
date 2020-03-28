@@ -18,9 +18,16 @@ export class ItemService extends DataService {
   getallitem() {
     return this.http.get(this.url + '/all' );
   }
-  getallitembypage(pageid) {
+  getallitembypage(pageid,pageSize) {
     return this.http.get(
-      `${this.url}/all?pageid=${pageid}`
+      `${this.url}/all?pageid=${pageid}&pageSize=${pageSize}`
       );
   }
+
+  itemSearch(text) {
+    return this.http.get(
+      `${this.url}/search/${text}`
+      );
+  }
+
 }

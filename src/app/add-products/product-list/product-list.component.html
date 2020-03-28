@@ -2,7 +2,9 @@
   
   <div class="container listingOffsetTextColor">
     <div class="spinner-grow loader text-success" *ngIf="loading"></div>
-    <input *ngIf="!loading" type="text" class="form-control col-md-4 pl-1 TextAlignRight" [(ngModel)]="search"  placeholder="Search by Item details" matTooltip="Info about the action"/>
+    <!-- <input *ngIf="!loading" type="text" #search="ngModel" class="form-control col-md-4 pl-1 TextAlignRight" [(ngModel)]="search"  placeholder="Search by Item details" matTooltip="Info about the action"/> -->
+    <input *ngIf="!loading" type="text" class="form-control col-md-4 pl-1 TextAlignRight" ngModel name="search" #search="ngModel" (keyup.enter)="searchItem(search.value)" 
+    placeholder="Search item,Press enter for results"/>
     <table class="table table-hover table-sm" [ngClass]="{'loading' : loading}" *ngIf="!loading">
       
       <thead>
@@ -29,7 +31,8 @@
           <td></td>
         </tr>
       </ng-container>
-        <ng-container *ngFor="let productdtl of data">
+        <ng-container *ngFor="let productdtl of data | paginate: { id: 'server', itemsPerPage: pageSize, currentPage: p, totalItems: totalRecords }">        
+        
           <tr>
             <td>
               {{ productdtl.sampleNo}}
@@ -44,40 +47,28 @@
             <td> {{ productdtl.manufacturer.name }}</td>
             <td> {{ productdtl.isLive == true ? 'Active' : 'Inactive'  }}</td>
             <td><a class="btn btn-primary btn-sm" [routerLink]="'/product/edit/'+productdtl._id">Edit</a> &nbsp;
-            <!-- <button class="btn btn-primary btn-sm" *ngIf="role=='admin' && !productdtl.isLive"
-                    (click)="approveItem(productdtl._id)">
-              Activate
-            </button>  
-            <button class="btn btn-primary btn-sm" *ngIf="role=='admin' && productdtl.isLive == true"
-                    (click)="approveItem(productdtl._id)">
-              Deactivate
-            </button> -->
           </td>
-
-            <!-- <td><a class="btn btn-primary btn-sm" [routerLink]="'/auction/'+auction._id">
-             Edit
-           </a> &nbsp;
-           <a class="btn btn-primary btn-sm" [routerLink]="'/auction/'+auction._id">
-          Approve
-        </a></td> -->
           </tr>
         </ng-container>
       </tbody>
     </table>
-    <nav aria-label="Page navigation example" *ngIf="totalPages.length>0">
+    <!-- <pagination-controls (pageChange)="p = $event"  *ngIf="!loading"></pagination-controls> -->
+    <div class="has-text-centered">
+      <!-- <div class="spinner" [ngClass]="{ 'hidden': !loading }"></div> -->
+    <pagination-controls (pageChange)="getPage($event)" id="server" *ngIf="!loading"></pagination-controls>
+  </div>
+    <!-- <nav aria-label="Page navigation example" *ngIf="totalPages.length>0">
       <ul class="pagination">
         <li class="page-item" [ngClass]="{ 'disabled' : currentPage <= 1}"><a class="page-link"
             (click)="onPageChange(currentPage-1)">Previous</a>
         </li>
         <li class="page-item" [ngClass]="{ 'active' : currentPage== page}" *ngFor="let page of totalPages">
           <a  class="page-link" (click)="onPageChange(page)">{{page}}</a>
-          <!-- <a [routerLink]="['?',{{page}}]"
-              routerLinkActive="router-link-active" click="checkActiveBargain()"> {{page}}</a> -->
         </li>
           <li class="page-item" [ngClass]="{ 'disabled' : currentPage>=totalPages.length}"><a class="page-link"
               (click)="onPageChange(currentPage+1)">Next</a>
           </li>
       </ul>
-    </nav>
+    </nav> -->
   </div>
 </div>

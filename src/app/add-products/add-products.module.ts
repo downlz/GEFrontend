@@ -18,6 +18,7 @@ import { CityTabComponent } from './city-tabs/city-tabs.component';
 import { ItemnameTabComponent } from './itemname-tabs/itemname-tabs.component';
 import { ManufacturerListComponent } from './add-manufacturer/manufacturer-list/manufacturer-list.component';
 import {OwlDateTimeModule, OwlNativeDateTimeModule} from 'ng-pick-datetime';
+import {NgxPaginationModule} from 'ngx-pagination';
 
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
@@ -34,7 +35,7 @@ import {FileUploadModule} from 'ng2-file-upload';
     CityListComponent,CategoryListComponent,ItemnameListComponent],
   imports: [
     CommonModule,RouterModule,OwlDateTimeModule, OwlNativeDateTimeModule,
-    FormsModule, ReactiveFormsModule, NgbModule,FileUploadModule, AddProductsRouteModule
+    FormsModule, ReactiveFormsModule, NgbModule,FileUploadModule, AddProductsRouteModule,NgxPaginationModule
   ]
 })
 export class AppProductsModule { }
