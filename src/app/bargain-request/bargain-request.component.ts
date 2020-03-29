@@ -24,6 +24,9 @@ export class BargainRequestComponent implements OnInit {
   totalPages: Array<Number> = [];
   currentDateTime: any;
   loading : boolean = true;
+  totalRecords : Number;
+  pageid: any;
+  p: number = 1;
 
   constructor(private authenticationService: AuthService,
     private route: ActivatedRoute, private toastr: ToastrService,
@@ -39,55 +42,114 @@ export class BargainRequestComponent implements OnInit {
 
     // For Admin
     if (this.role === 'admin'){
-    this.bargainService.getAll()
-    .subscribe(response => {
-      this.bargain = response as any;
-      this.loading = false;
-      this.setTotalPages();
-      this.onPageChange(this.currentPage);
-      // console.log(this.orders);
-    }, (error: Response) => {
-      this.router.navigate(['/errorpage']);
-      if (error.status === 400) {
-        alert(' expected error, post already deleted');
-      }
-      console.log(error);
-    });
+      this.getPage(1);
+    // this.bargainService.getAll()
+    // .subscribe(response => {
+    //   this.bargain = response as any;
+    //   this.loading = false;
+    //   this.setTotalPages();
+    //   this.onPageChange(this.currentPage);
+    //   // console.log(this.orders);
+    // }, (error: Response) => {
+    //   this.router.navigate(['/errorpage']);
+    //   if (error.status === 400) {
+    //     alert(' expected error, post already deleted');
+    //   }
+    //   console.log(error);
+    // });
     } else if (this.role === 'seller') {
-      this.bargainService.getSellerAllBargain(currentUser._id)
-      .subscribe(response => {
-        this.loading = false;
-        this.bargain = response as any;
-        this.setTotalPages();
-        this.onPageChange(this.currentPage);
-        // console.log(this.orders);
-      }, (error: Response) => {
-        this.router.navigate(['/errorpage']);
-        if (error.status === 400) {
-          alert(' expected error, post already deleted');
-        }
-        console.log(error);
-      });
+      this.getSellerPage(currentUser,1);
+      // this.bargainService.getSellerAllBargain(currentUser._id)
+      // .subscribe(response => {
+      //   this.loading = false;
+      //   this.bargain = response as any;
+      //   this.setTotalPages();
+      //   this.onPageChange(this.currentPage);
+      //   // console.log(this.orders);
+      // }, (error: Response) => {
+      //   this.router.navigate(['/errorpage']);
+      //   if (error.status === 400) {
+      //     alert(' expected error, post already deleted');
+      //   }
+      //   console.log(error);
+      // });
     } else if (this.role === 'buyer') {
-      this.bargainService.getBuyerAllBargain(currentUser._id)
-      .subscribe(response => {
-        this.loading = false;
-        this.bargain = response as any;
-        this.setTotalPages();
-        this.onPageChange(this.currentPage);
-        // console.log(this.orders);
-      }, (error: Response) => {
-        this.router.navigate(['/errorpage']);
-        if (error.status === 400) {
-          alert(' expected error, post already deleted');
-        }
-        console.log(error);
-      });
+      this.getBuyerPage(currentUser,1);
+      // this.bargainService.getBuyerAllBargain(currentUser._id)
+      // .subscribe(response => {
+      //   this.loading = false;
+      //   this.bargain = response as any;
+      //   this.setTotalPages();
+      //   this.onPageChange(this.currentPage);
+      //   // console.log(this.orders);
+      // }, (error: Response) => {
+      //   this.router.navigate(['/errorpage']);
+      //   if (error.status === 400) {
+      //     alert(' expected error, post already deleted');
+      //   }
+      //   console.log(error);
+      // });
   } else {
 
   }
 }
 
+getPage(page: number){
+  this.loading = true;
+    this.bargainService.getAllBargain(page,this.pageSize)
+        .subscribe(response => {
+          this.bargain = response;
+          this.data = [...(this.bargain._embedded.bargains || [])];
+          this.totalRecords = this.bargain.totalRecords;
+          this.p = page;    
+          this.loading = false;
+        }, (error: Response) => {
+              this.loading = false;
+            this.router.navigate(['/errorpage']);
+            if (error.status === 400) {
+              alert('Unexpected error, error while calling search query');
+            }
+            console.log(error);
+    });
+}
+
+getBuyerPage(currentUser,page:number){
+  this.loading = true;
+    this.bargainService.getBuyerAllBargain(currentUser._id,page,this.pageSize)
+        .subscribe(response => {
+          this.bargain = response;
+          this.data = [...(this.bargain._embedded.bargains || [])];
+          this.totalRecords = this.bargain.totalRecords;
+          this.p = page;    
+          this.loading = false;
+        }, (error: Response) => {
+              this.loading = false;
+            this.router.navigate(['/errorpage']);
+            if (error.status === 400) {
+              alert('Unexpected error, error while calling search query');
+            }
+            console.log(error);
+    });
+}
+
+getSellerPage(currentUser,page:number){
+  this.loading = true;
+    this.bargainService.getSellerAllBargain(currentUser._id,page,this.pageSize)
+        .subscribe(response => {
+          this.bargain = response;
+          this.data = [...(this.bargain._embedded.bargains || [])];
+          this.totalRecords = this.bargain.totalRecords;
+          this.p = page;    
+          this.loading = false;
+        }, (error: Response) => {
+              this.loading = false;
+            this.router.navigate(['/errorpage']);
+            if (error.status === 400) {
+              alert('Unexpected error, error while calling search query');
+            }
+            console.log(error);
+    });
+}
   onPageChange(page) {
     this.data = [...(this.bargain || [])];
     this.data = this.data.splice((page - 1) * this.pageSize, this.pageSize);

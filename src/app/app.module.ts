@@ -21,6 +21,7 @@ import {LandingPageComponent} from './landing-page/landing-page.component';
 import {FragmentPolyfillModule} from './fragment-polyfill.module';
 import {AppErrorHandler} from './common/app-error-handler';
 import {HttpClientModule, HTTP_INTERCEPTORS} from '@angular/common/http';
+import {NgxPaginationModule} from 'ngx-pagination';
 
 
 import {ListingService} from './services/listing.service';
@@ -94,6 +95,7 @@ import { AppFooterComponent } from './app-footer/app-footer.component';
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
+    NgxPaginationModule,
     FragmentPolyfillModule.forRoot({
       smooth: true
     })

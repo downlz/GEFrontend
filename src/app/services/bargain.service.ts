@@ -16,6 +16,12 @@ export class BargainService extends DataService {
     super(url, http);
   }
 
+  getAllBargain(pageid,pageSize) {
+    return this.http.get(
+      `${this.url}?pageid=${pageid}&pageSize=${pageSize}`
+      );
+  }
+  
   getBuyerBargain(buyerid, itemid) {
     return this.http.get(this.url + '/buyer/' + buyerid + '/item/' + itemid);
   }
@@ -24,12 +30,18 @@ export class BargainService extends DataService {
     return this.http.get(this.url + '/seller/' + sellerid + '/item/' + itemid);
   }
 
-  getSellerAllBargain(sellerid) {
-    return this.http.get(this.url + '/seller/' + sellerid);
+  getSellerAllBargain(sellerid,pageid,pageSize) {
+    return this.http.get(
+      // this.url + '/seller/' + sellerid
+      `${this.url}/seller/${sellerid}?pageid=${pageid}&pageSize=${pageSize}`
+      );
   }
 
-  getBuyerAllBargain(buyerid) {
-    return this.http.get(this.url + '/buyer/' + buyerid);
+  getBuyerAllBargain(buyerid,pageid,pageSize) {
+    return this.http.get(
+      // this.url + '/buyer/' + buyerid
+      `${this.url}/buyer/${buyerid}?pageid=${pageid}&pageSize=${pageSize}`
+      );
   }
 
   getBargainLapseTime(bargainId) {

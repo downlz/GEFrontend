@@ -19,7 +19,7 @@
               </tr>
             </thead>
             <tbody>
-                <ng-container *ngFor="let bargain of data">
+                <ng-container *ngFor="let bargain of data | paginate: { id: 'server', itemsPerPage: pageSize, currentPage: p, totalItems: totalRecords }">
               <tr>
                 <td>{{bargain.item.name.name}}</td>
                 <td>{{bargain.item.category.name}}</td>
@@ -48,8 +48,10 @@
               </tbody>
               </table>
 
-         
-          <nav aria-label="Page navigation example" *ngIf="totalPages.length>0">
+              <div class="has-text-centered">
+                <pagination-controls (pageChange)="getPage($event)" id="server" *ngIf="!loading"></pagination-controls>
+              </div>
+          <!-- <nav aria-label="Page navigation example" *ngIf="totalPages.length>0">
               <ul class="pagination">
                 <li class="page-item" [ngClass]="{ 'disabled' : currentPage <= 1}"><a class="page-link"
                                                                                       (click)="onPageChange(currentPage-1)">Previous</a>
@@ -61,6 +63,6 @@
                                                                                                     (click)="onPageChange(currentPage+1)">Next</a>
                 </li>
               </ul>
-            </nav>
+            </nav> -->
     </div>
   </div>
