@@ -22,10 +22,13 @@ export class AllOrdersComponent implements OnInit {
 
   pageSize = 15;
   currentPage = 1;
+  totalRecords : Number;
   data: Array<any>;
   totalPages: Array<Number> = [];
   currentDateTime: any;
   loading: Boolean = true;
+  pageid: any;
+  p: number = 1;
 
   constructor(private authenticationService: AuthService, private orderService: OrderService,
     private route: ActivatedRoute, private uploadbill : UploadBillService ,
@@ -42,35 +45,38 @@ export class AllOrdersComponent implements OnInit {
 
     // For Admin
     if (this.role === 'admin') {
-    this.orderService.getAll()
-    .subscribe(response => {
-      this.orders = response as any;
-      this.setTotalPages();
-      this.onPageChange(this.currentPage);
-      this.loading = false;
-      // console.log(this.orders);
-    }, (error: Response) => {
-      this.router.navigate(['/errorpage']);
-      if (error.status === 400) {
-        alert(' expected error, post already deleted');
-      }
-      console.log(error);
-    });
+      this.getPage(1);
+    // this.orderService.getAll()
+    // .subscribe(response => {
+    //   this.orders = response as any;
+    //   this.setTotalPages();
+    //   this.onPageChange(this.currentPage);
+    //   this.loading = false;
+    //   // console.log(this.orders);
+    // }, (error: Response) => {
+    //   this.router.navigate(['/errorpage']);
+    //   if (error.status === 400) {
+    //     alert(' expected error, post already deleted');
+    //   }
+    //   console.log(error);
+    // });
     } else if (this.role === 'seller') {
-      this.myorderService.get(currentUser._id)
-      .subscribe(response => {
-        this.orders = response as any;
-        this.setTotalPages();
-        this.onPageChange(this.currentPage);
-        this.loading = false;
-        // console.log(this.orders);
-      }, (error: Response) => {
-        this.router.navigate(['/errorpage']);
-        if (error.status === 400) {
-          alert(' expected error, post already deleted');
-        }
-        console.log(error);
-      });
+    this.getUserPage(1,currentUser);
+
+      // this.myorderService.get(currentUser._id)
+      // .subscribe(response => {
+      //   this.orders = response as any;
+      //   this.setTotalPages();
+      //   this.onPageChange(this.currentPage);
+      //   this.loading = false;
+      //   // console.log(this.orders);
+      // }, (error: Response) => {
+      //   this.router.navigate(['/errorpage']);
+      //   if (error.status === 400) {
+      //     alert(' expected error, post already deleted');
+      //   }
+      //   console.log(error);
+      // });
     }
     
   }
@@ -119,6 +125,45 @@ export class AllOrdersComponent implements OnInit {
       this.totalPages = Array(pages).fill(0).map((x, i) => i + 1);
     }
   }
+
+  getUserPage(page: number,currentUser) {
+    this.loading = true;
+    this.myorderService.get(currentUser._id,page,this.pageSize)
+        .subscribe(response => {
+          this.orders = response;
+          this.data = [...(this.orders._embedded.orders || [])];
+          this.totalRecords = this.orders.totalRecords;
+          this.p = page;    
+          this.loading = false;
+        }, (error: Response) => {
+              this.loading = false;
+            this.router.navigate(['/errorpage']);
+            if (error.status === 400) {
+              alert('Unexpected error, error while calling search query');
+            }
+            console.log(error);
+    });
+  }
+
+  getPage(page: number) {
+    this.loading = true;
+    this.orderService.getAllPage(page,this.pageSize)
+        .subscribe(response => {
+          this.orders = response;
+          this.data = [...(this.orders._embedded.orders || [])];
+          this.totalRecords = this.orders.totalRecords;
+          this.p = page;    
+          this.loading = false;
+        }, (error: Response) => {
+              this.loading = false;
+            this.router.navigate(['/errorpage']);
+            if (error.status === 400) {
+              alert('Unexpected error, error while calling search query');
+            }
+            console.log(error);
+    });
+  }
+  
 
   updateOrder(order) {
     if (order.status === "cancelled"){

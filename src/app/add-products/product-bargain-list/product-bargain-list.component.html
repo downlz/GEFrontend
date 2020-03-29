@@ -24,7 +24,7 @@
           <td></td>
         </tr>
       </ng-container>
-        <ng-container *ngFor="let productdtl of data">
+        <ng-container *ngFor="let productdtl of data | paginate: { id: 'server', itemsPerPage: pageSize, currentPage: p, totalItems: totalRecords }">
           <tr>
             <td>
               {{ productdtl.sampleNo}}
@@ -64,7 +64,10 @@
         </ng-container>
       </tbody>
     </table>
-    <nav aria-label="Page navigation example" *ngIf="totalPages.length>0">
+    <div class="has-text-centered">
+      <pagination-controls (pageChange)="getPage($event)" id="server" *ngIf="!loading && !isSearchData"></pagination-controls>
+    </div>
+    <!-- <nav aria-label="Page navigation example" *ngIf="totalPages.length>0">
       <ul class="pagination">
         <li class="page-item" [ngClass]="{ 'disabled' : currentPage <= 1}"><a class="page-link"
             (click)="onPageChange(currentPage-1)">Previous</a>
@@ -75,6 +78,6 @@
               (click)="onPageChange(currentPage+1)">Next</a>
           </li>
       </ul>
-    </nav>
+    </nav> -->
   </div>
 </div>

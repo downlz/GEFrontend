@@ -55,7 +55,7 @@ export class ListingService {
   /**
    * Get current Listings by User
    */
-  getCurrentUserListings() {
-    return this.http.get(`${this.url}/current`);
+  getCurrentUserListings(pageid,pageSize) {
+    return this.http.get(`${this.url}/current?pageid=${pageid}&pageSize=${pageSize}`);
   }
 }

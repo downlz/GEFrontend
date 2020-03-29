@@ -11,4 +11,11 @@ export class OrderService extends DataService {
     const url = environment.baseUrl + '/order';
     super(url, http);
   }
+
+  getAllPage(pageid,pageSize) {
+    return this.http.get(
+      // this.url + '/user/' + resourceId
+      `${this.url}?pageid=${pageid}&pageSize=${pageSize}`
+      );
+  }
 }

@@ -14,11 +14,17 @@ export class MyorderService {
   url= environment.baseUrl + '/order';
   constructor(private http: HttpClient) { }
 
-  get(resourceId) {
-    return this.http.get(this.url + '/user/' + resourceId);
+  get(resourceId,pageid,pageSize) {
+    return this.http.get(
+      // this.url + '/user/' + resourceId
+      `${this.url}/user/${resourceId}?pageid=${pageid}&pageSize=${pageSize}`
+      );
   }
 
-  getagent(resourceId) {
-    return this.http.get(this.url + '/agent/' + resourceId);
+  getagent(resourceId,pageid,pageSize) {
+    return this.http.get(
+      // this.url + '/agent/' + resourceId
+      `${this.url}/agent/${resourceId}?pageid=${pageid}&pageSize=${pageSize}`
+      );
   }
 }

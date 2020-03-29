@@ -20,6 +20,9 @@ export class ProductBargainSpecifierComponnent implements OnInit {
   loading : boolean = true;
   listings: any;
   queryParams = '';
+  totalRecords : Number;
+  pageid: any;
+  p: number = 1;
   // bargain: any;
   // bargain = {
   //   bargainenabled : '',
@@ -41,39 +44,41 @@ export class ProductBargainSpecifierComponnent implements OnInit {
   ngOnInit() {
     const currentUser = this.auth.currentUserValue;
     if (this.role == 'admin') {
-      this.itemService.getallitem()
-    .subscribe(response => {
-      this.listings = response;
-      // this.data = this.listings;
-      this.setTotalPages();
-      this.onPageChange(this.currentPage);
-      this.loading = false;
-      // console.log(this.listings);
-    }, (error: Response) => {
-        this.loading = false;
-      this.router.navigate(['/errorpage']);
-      if (error.status === 400) {
-        alert(' expected error, post already deleted');
-      }
-      console.log(error);
-    });
+      this.getPage(1);
+    //   this.itemService.getallitem()
+    // .subscribe(response => {
+    //   this.listings = response;
+    //   // this.data = this.listings;
+    //   this.setTotalPages();
+    //   this.onPageChange(this.currentPage);
+    //   this.loading = false;
+    //   // console.log(this.listings);
+    // }, (error: Response) => {
+    //     this.loading = false;
+    //   this.router.navigate(['/errorpage']);
+    //   if (error.status === 400) {
+    //     alert(' expected error, post already deleted');
+    //   }
+    //   console.log(error);
+    // });
     } else {
-      this.listingService.getCurrentUserListings()
-    .subscribe(response => {
-      this.listings = response;
-      // this.data = this.listings;
-      this.setTotalPages();
-      this.onPageChange(this.currentPage);
-      this.loading = false;
-      // console.log(this.listings);
-    }, (error: Response) => {
-        this.loading = false;
-      this.router.navigate(['/errorpage']);
-      if (error.status === 400) {
-        alert(' expected error, post already deleted');
-      }
-      console.log(error);
-    });
+      this.getUserPage(1);
+    //   this.listingService.getCurrentUserListings()
+    // .subscribe(response => {
+    //   this.listings = response;
+    //   // this.data = this.listings;
+    //   this.setTotalPages();
+    //   this.onPageChange(this.currentPage);
+    //   this.loading = false;
+    //   // console.log(this.listings);
+    // }, (error: Response) => {
+    //     this.loading = false;
+    //   this.router.navigate(['/errorpage']);
+    //   if (error.status === 400) {
+    //     alert(' expected error, post already deleted');
+    //   }
+    //   console.log(error);
+    // });
     }
     
   }
@@ -85,6 +90,44 @@ export class ProductBargainSpecifierComponnent implements OnInit {
 
   getDateString(str) {
     return new Date(str).toLocaleString();
+  }
+
+  getPage(page: number) {
+    this.loading = true;
+    this.itemService.getallitembypage(page,this.pageSize)
+        .subscribe(response => {
+        this.listings = response;
+        this.data = [...(this.listings._embedded.items || [])];
+        this.totalRecords = this.listings.totalRecords;
+        this.p = page;
+        this.loading = false;
+      }, (error: Response) => {
+            this.loading = false;
+          this.router.navigate(['/errorpage']);
+          if (error.status === 400) {
+            alert('Unexpected error, error while calling search query');
+          }
+          console.log(error);
+        });
+  }
+
+  getUserPage(page: number) {
+    this.loading = true;
+    this.listingService.getCurrentUserListings(page,this.pageSize)
+        .subscribe(response => {
+        this.listings = response;
+        this.data = [...(this.listings._embedded.items || [])];
+        this.totalRecords = this.listings.totalRecords;
+        this.p = page;
+        this.loading = false;
+      }, (error: Response) => {
+            this.loading = false;
+          this.router.navigate(['/errorpage']);
+          if (error.status === 400) {
+            alert('Unexpected error, error while calling search query');
+          }
+          console.log(error);
+        });
   }
 
   onPageChange(page) {

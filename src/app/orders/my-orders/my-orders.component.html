@@ -4,12 +4,15 @@
     <div class="row">
       <h5 *ngIf="!loading">Hello {{username}}, your order details are: </h5>
     </div>
-    <ng-container *ngFor="let order of data">
+    <ng-container *ngFor="let order of data | paginate: { id: 'server', itemsPerPage: pageSize, currentPage: p, totalItems: totalRecords }">
         <div class="ItemCardContainer">
           <app-order-card [order]="order"> </app-order-card>
         </div>
     </ng-container>
-    <nav aria-label="Page navigation example" *ngIf="totalPages.length>0">
+    <div class="has-text-centered">
+      <pagination-controls (pageChange)="getPage($event)" id="server" *ngIf="!loading"></pagination-controls>
+    </div>
+    <!-- <nav aria-label="Page navigation example" *ngIf="totalPages.length>0">
         <ul class="pagination">
           <li class="page-item" [ngClass]="{ 'disabled' : currentPage <= 1}"><a class="page-link"
                                                                                 (click)="onPageChange(currentPage-1)">Previous</a>
@@ -21,7 +24,7 @@
                                                                                               (click)="onPageChange(currentPage+1)">Next</a>
           </li>
         </ul>
-      </nav>
+      </nav> -->
       <!-- </div> -->
   </div>
 </div>

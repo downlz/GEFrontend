@@ -31,7 +31,28 @@
           <td></td>
         </tr>
       </ng-container>
-        <ng-container *ngFor="let productdtl of data | paginate: { id: 'server', itemsPerPage: pageSize, currentPage: p, totalItems: totalRecords }">        
+      <ng-container *ngIf="!isSearchData">
+          <ng-container *ngFor="let productdtl of data | paginate: { id: 'server', itemsPerPage: pageSize, currentPage: p, totalItems: totalRecords }">
+          <tr>
+            <td>
+              {{ productdtl.sampleNo}}
+            </td>
+            <td>
+              {{ productdtl.category.itemname.name}}
+            </td>
+            <td> {{ productdtl.category.name}} </td>
+            <td> {{ productdtl.price }}/{{ productdtl.unit.mass }}</td>
+            <td *ngIf="role =='admin'"> {{ productdtl.addedby?.name }}</td>
+            <td> {{ productdtl.bargainenabled ? productdtl.bargaintrgqty : 'Disabled' }}</td>
+            <td> {{ productdtl.manufacturer.name }}</td>
+            <td> {{ productdtl.isLive == true ? 'Active' : 'Inactive'  }}</td>
+            <td><a class="btn btn-primary btn-sm" [routerLink]="'/product/edit/'+productdtl._id">Edit</a> &nbsp;
+          </td>
+          </tr>
+        </ng-container>
+      </ng-container>
+      <ng-container *ngIf="isSearchData">
+        <ng-container *ngFor="let productdtl of data | paginate: { itemsPerPage: pageSize, currentPage: p, totalItems: totalRecords }">
         
           <tr>
             <td>
@@ -50,12 +71,12 @@
           </td>
           </tr>
         </ng-container>
+      </ng-container>
       </tbody>
     </table>
-    <!-- <pagination-controls (pageChange)="p = $event"  *ngIf="!loading"></pagination-controls> -->
     <div class="has-text-centered">
-      <!-- <div class="spinner" [ngClass]="{ 'hidden': !loading }"></div> -->
-    <pagination-controls (pageChange)="getPage($event)" id="server" *ngIf="!loading"></pagination-controls>
+    <pagination-controls (pageChange)="p = $event" *ngIf='!loading && isSearchData'></pagination-controls>
+    <pagination-controls (pageChange)="getPage($event)" id="server" *ngIf="!loading && !isSearchData"></pagination-controls>
   </div>
     <!-- <nav aria-label="Page navigation example" *ngIf="totalPages.length>0">
       <ul class="pagination">

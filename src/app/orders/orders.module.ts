@@ -9,12 +9,13 @@ import { CommonModule } from '@angular/common';
 import {OwlDateTimeModule, OwlNativeDateTimeModule} from 'ng-pick-datetime';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import {NgxPaginationModule} from 'ngx-pagination';
 
 @NgModule({
   declarations: [MyOrdersComponent,AllOrdersComponent,OrderCardComponent],
   imports: [
     CommonModule,RouterModule,OwlDateTimeModule, OwlNativeDateTimeModule,FormsModule, 
-    ReactiveFormsModule,NgbModule,OrdersRoutes
+    ReactiveFormsModule,NgbModule,OrdersRoutes,NgxPaginationModule
   ]
 })
 export class OrdersModule { }

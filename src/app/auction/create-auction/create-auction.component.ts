@@ -314,7 +314,7 @@ export class CreateAuctionComponent implements OnInit {
           console.log(error);
         });
     } else {
-      forkJoin([this.unitService.getAll(), this.listingService.getCurrentUserListings(), this.stateService.getAll(), this.itemnameService.getAll()
+      forkJoin([this.unitService.getAll(), this.listingService.getCurrentUserListings('',''), this.stateService.getAll(), this.itemnameService.getAll()
 
       ])
         .subscribe(response => {

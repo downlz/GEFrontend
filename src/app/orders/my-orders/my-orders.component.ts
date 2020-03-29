@@ -17,6 +17,9 @@ export class MyOrdersComponent implements OnInit {
   totalPages: Array<Number> = [];
   loading: Boolean = true;
   username: String;
+  totalRecords: Number;
+  pageid: any;
+  p: number = 1;
 
   constructor(private authenticationService: AuthService, private myorderService: MyorderService,
     private route: ActivatedRoute, private router: Router) { }
@@ -25,36 +28,80 @@ export class MyOrdersComponent implements OnInit {
     const currentUser = this.authenticationService.currentUserValue;
     this.username = currentUser.name;
     if (currentUser.isAgent){
-      this.myorderService.getagent(currentUser._id)
-      .subscribe(response => {
-        this.orders = response as any;
-        this.setTotalPages();
-        this.onPageChange(this.currentPage);
-        this.loading = false;
-      }, (error: Response) => {
-        this.router.navigate(['/errorpage']);
-        if (error.status === 400) {
-          alert(' expected error, post already deleted');
-        }
-        console.log(error);
-      }); 
+      this.getAgentPage(1,currentUser);
+      // this.myorderService.getagent(currentUser._id)
+      // .subscribe(response => {
+      //   this.orders = response as any;
+      //   this.setTotalPages();
+      //   this.onPageChange(this.currentPage);
+      //   this.loading = false;
+      // }, (error: Response) => {
+      //   this.router.navigate(['/errorpage']);
+      //   if (error.status === 400) {
+      //     alert(' expected error, post already deleted');
+      //   }
+      //   console.log(error);
+      // }); 
     } else {
-    this.myorderService.get(currentUser._id)
-    .subscribe(response => {
-      this.orders = response as any;
-      this.setTotalPages();
-      this.onPageChange(this.currentPage);
-      this.loading = false;
-    }, (error: Response) => {
-      this.router.navigate(['/errorpage']);
-      if (error.status === 400) {
-        alert(' expected error, post already deleted');
-      }
-      console.log(error);
-    }); 
-    }
+      this.getPage(1,currentUser);
+    // this.myorderService.get(currentUser._id)
+    // .subscribe(response => {
+    //   this.orders = response as any;
+    //   this.setTotalPages();
+    //   this.onPageChange(this.currentPage);
+    //   this.loading = false;
+    // }, (error: Response) => {
+    //   this.router.navigate(['/errorpage']);
+    //   if (error.status === 400) {
+    //     alert(' expected error, post already deleted');
+    //   }
+    //   console.log(error);
+    // }); 
+    // }
      
   }
+}
+
+getAgentPage(page: number,currentUser) {
+  this.loading = true;
+  this.myorderService.getagent(currentUser._id,page,this.pageSize)
+      .subscribe(response => {
+        this.orders = response;
+        this.data = [...(this.orders._embedded.orders || [])];
+        this.totalRecords = this.orders.totalRecords;
+        this.p = page;    
+        this.loading = false;
+      }, (error: Response) => {
+            this.loading = false;
+          this.router.navigate(['/errorpage']);
+          if (error.status === 400) {
+            alert('Unexpected error, error while calling search query');
+          }
+          console.log(error);
+  });
+}
+
+getPage(page: number,currentUser) {
+  this.loading = true;
+  this.myorderService.get(currentUser._id,page,this.pageSize)
+      .subscribe(response => {
+        this.orders = response;
+        this.data = [...(this.orders._embedded.orders || [])];
+        this.totalRecords = this.orders.totalRecords;
+        this.p = page;    
+        this.loading = false;
+      }, (error: Response) => {
+            this.loading = false;
+          this.router.navigate(['/errorpage']);
+          if (error.status === 400) {
+            alert('Unexpected error, error while calling search query');
+          }
+          console.log(error);
+  });
+}
+
+  
+
 
   onPageChange(page) {
     this.data = [...(this.orders || [])];
