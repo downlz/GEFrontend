@@ -10,7 +10,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 })
 export class MyOrdersComponent implements OnInit {
   orders: any;
-
+  role: string;
   pageSize = 6;
   currentPage = 1;
   data: Array<any>;
@@ -20,15 +20,19 @@ export class MyOrdersComponent implements OnInit {
   totalRecords: Number;
   pageid: any;
   p: number = 1;
+  userid: string;
 
   constructor(private authenticationService: AuthService, private myorderService: MyorderService,
     private route: ActivatedRoute, private router: Router) { }
 
   ngOnInit() {
     const currentUser = this.authenticationService.currentUserValue;
+    this.userid = currentUser._id;
     this.username = currentUser.name;
+    const role = this.authenticationService.getRole();
+    this.role = role;
     if (currentUser.isAgent){
-      this.getAgentPage(1,currentUser);
+      this.getAgentPage(1);
       // this.myorderService.getagent(currentUser._id)
       // .subscribe(response => {
       //   this.orders = response as any;
@@ -43,7 +47,7 @@ export class MyOrdersComponent implements OnInit {
       //   console.log(error);
       // }); 
     } else {
-      this.getPage(1,currentUser);
+      this.getPage(1);
     // this.myorderService.get(currentUser._id)
     // .subscribe(response => {
     //   this.orders = response as any;
@@ -62,9 +66,9 @@ export class MyOrdersComponent implements OnInit {
   }
 }
 
-getAgentPage(page: number,currentUser) {
+getAgentPage(page: number) {
   this.loading = true;
-  this.myorderService.getagent(currentUser._id,page,this.pageSize)
+  this.myorderService.getagent(this.userid,page,this.pageSize)
       .subscribe(response => {
         this.orders = response;
         this.data = [...(this.orders._embedded.orders || [])];
@@ -81,9 +85,9 @@ getAgentPage(page: number,currentUser) {
   });
 }
 
-getPage(page: number,currentUser) {
+getPage(page: number) {
   this.loading = true;
-  this.myorderService.get(currentUser._id,page,this.pageSize)
+  this.myorderService.get(this.userid,page,this.pageSize)
       .subscribe(response => {
         this.orders = response;
         this.data = [...(this.orders._embedded.orders || [])];

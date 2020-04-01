@@ -10,7 +10,8 @@
         </div>
     </ng-container>
     <div class="has-text-centered">
-      <pagination-controls (pageChange)="getPage($event)" id="server" *ngIf="!loading"></pagination-controls>
+      <pagination-controls (pageChange)="getPage($event)" id="server" *ngIf="!loading && role != 'agent'"></pagination-controls>
+      <pagination-controls (pageChange)="getAgentPage($event)" id="server" *ngIf="!loading && role == 'agent'"></pagination-controls>
     </div>
     <!-- <nav aria-label="Page navigation example" *ngIf="totalPages.length>0">
         <ul class="pagination">

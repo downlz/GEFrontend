@@ -77,7 +77,8 @@
             <app-order-card [order]="order"> </app-order-card>
           </div> -->
           <div class="has-text-centered">
-            <pagination-controls (pageChange)="getPage($event)" id="server" *ngIf="!loading"></pagination-controls>
+            <pagination-controls (pageChange)="getPage($event)" id="server" *ngIf="!loading && role == 'admin'"></pagination-controls>
+            <pagination-controls (pageChange)="getUserPage($event)" id="server" *ngIf="!loading && role != 'admin'"></pagination-controls>
           </div>
           <!-- <nav aria-label="Page navigation example" *ngIf="totalPages.length>0">
               <ul class="pagination">

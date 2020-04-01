@@ -29,6 +29,7 @@ export class AllOrdersComponent implements OnInit {
   loading: Boolean = true;
   pageid: any;
   p: number = 1;
+  userid: string;
 
   constructor(private authenticationService: AuthService, private orderService: OrderService,
     private route: ActivatedRoute, private uploadbill : UploadBillService ,
@@ -40,6 +41,7 @@ export class AllOrdersComponent implements OnInit {
     this.role = role;
     this.apiurl = environment.baseUrl;
     const currentUser = this.authenticationService.currentUserValue;
+    this.userid = currentUser._id;
     // // For seller
     // this.myorderService.get(currentUser._id)
 
@@ -61,7 +63,7 @@ export class AllOrdersComponent implements OnInit {
     //   console.log(error);
     // });
     } else if (this.role === 'seller') {
-    this.getUserPage(1,currentUser);
+    this.getUserPage(1);
 
       // this.myorderService.get(currentUser._id)
       // .subscribe(response => {
@@ -126,9 +128,9 @@ export class AllOrdersComponent implements OnInit {
     }
   }
 
-  getUserPage(page: number,currentUser) {
+  getUserPage(page: number) {
     this.loading = true;
-    this.myorderService.get(currentUser._id,page,this.pageSize)
+    this.myorderService.get(this.userid,page,this.pageSize)
         .subscribe(response => {
           this.orders = response;
           this.data = [...(this.orders._embedded.orders || [])];

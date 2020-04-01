@@ -27,6 +27,7 @@ export class BargainRequestComponent implements OnInit {
   totalRecords : Number;
   pageid: any;
   p: number = 1;
+  userid: string;
 
   constructor(private authenticationService: AuthService,
     private route: ActivatedRoute, private toastr: ToastrService,
@@ -37,6 +38,7 @@ export class BargainRequestComponent implements OnInit {
     this.role = role;
     this.apiurl = environment.baseUrl;
     const currentUser = this.authenticationService.currentUserValue;
+    this.userid = currentUser._id;
     // // For seller
     // this.myorderService.get(currentUser._id)
 
@@ -58,7 +60,7 @@ export class BargainRequestComponent implements OnInit {
     //   console.log(error);
     // });
     } else if (this.role === 'seller') {
-      this.getSellerPage(currentUser,1);
+      this.getSellerPage(1);
       // this.bargainService.getSellerAllBargain(currentUser._id)
       // .subscribe(response => {
       //   this.loading = false;
@@ -74,7 +76,7 @@ export class BargainRequestComponent implements OnInit {
       //   console.log(error);
       // });
     } else if (this.role === 'buyer') {
-      this.getBuyerPage(currentUser,1);
+      this.getBuyerPage(1);
       // this.bargainService.getBuyerAllBargain(currentUser._id)
       // .subscribe(response => {
       //   this.loading = false;
@@ -113,9 +115,9 @@ getPage(page: number){
     });
 }
 
-getBuyerPage(currentUser,page:number){
+getBuyerPage(page:number){
   this.loading = true;
-    this.bargainService.getBuyerAllBargain(currentUser._id,page,this.pageSize)
+    this.bargainService.getBuyerAllBargain(this.userid,page,this.pageSize)
         .subscribe(response => {
           this.bargain = response;
           this.data = [...(this.bargain._embedded.bargains || [])];
@@ -132,9 +134,9 @@ getBuyerPage(currentUser,page:number){
     });
 }
 
-getSellerPage(currentUser,page:number){
+getSellerPage(page:number){
   this.loading = true;
-    this.bargainService.getSellerAllBargain(currentUser._id,page,this.pageSize)
+    this.bargainService.getSellerAllBargain(this.userid,page,this.pageSize)
         .subscribe(response => {
           this.bargain = response;
           this.data = [...(this.bargain._embedded.bargains || [])];

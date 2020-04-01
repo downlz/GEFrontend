@@ -163,8 +163,8 @@ export class AddProductsComponent implements OnInit {
             manufacturerId:    this.form.value.newitem.manufacturer,
             image: JSON.parse(response).message,
             isTaxable: this.form.value.newitem.istaxable,
-            // paymentdate: this.form.value.newitem.paymentdt,
-            // liftdate: this.form.value.newitem.liftdt,
+            paymentdate: this.form.value.newitem.paymentdt,
+            liftdate: this.form.value.newitem.liftdt,
             addedby: this.userid,
             remarks: this.form.value.newitem.remarks ? this.form.value.newitem.remarks : 'NA'
           };
